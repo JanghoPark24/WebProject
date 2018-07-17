@@ -33,43 +33,43 @@ public class HomeController {
 		
 		model.addAttribute("serverTime", formattedDate );
 		
-		return "home";
+		return "content/home";
 	}
 	
 	@RequestMapping("privacy.do")
 	public String privacy() {		
 		System.out.println("privacy");
-		return "privacy";
+		return "content/privacy";
 	}
 	@RequestMapping("tos.do")
 	public String tos() {		
 		System.out.println("tos");
-		return "tos";
+		return "/content/tos";
 	}
 	@RequestMapping("joinForm.do")
 	public String joinForm() {		
 		System.out.println("joinForm");
-		return "joinForm";
+		return "member/join_form";
 	}
 	@RequestMapping("join.do")
 	public String join() {		
 		System.out.println("join");
-		return "join";
+		return "member/join";
 	}
 	@RequestMapping("loginForm.do")
 	public String loginForm() {		
 		System.out.println("loginForm");
-		return "loginForm";
+		return "member/login_form";
 	}
 	@RequestMapping("login.do")
 	public String login() {		
 		System.out.println("login");
-		return "login";
+		return "member/login";
 	}
 	@RequestMapping("resetPasswd.do")
 	public String resetPasswd() {		
 		System.out.println("resetPasswd");
-		return "resetPasswd";
+		return "member/reset_passwd";
 	}
 	
 }
