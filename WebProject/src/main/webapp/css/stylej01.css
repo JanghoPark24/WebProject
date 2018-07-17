@@ -1,0 +1,82 @@
+/*footer*/
+footer {
+	border-top: 1px solid #999999;
+}
+
+/* 네비게이션 바 */
+.navbar {
+	border-radius: 0px;
+	background-color: #0c2e63;
+}
+/* 에러메세지 */
+.err {
+	color: red;
+	display: none;
+}
+/* 모바일일 경우 폰트가 작아짐 */
+@media screen and (max-width:600px) {
+	#tablelecture {
+		font-size: 0.8em;
+	}
+}
+/* 테이블 열 크기 조절 20%  */
+#tablelecture .width20per {
+	width: 20%;
+}
+/* 테이블 열 크기 조절 15%  */
+#tablelecture .width15per {
+	width: 15%;
+}
+/* 하이퍼링크 */
+a, a:link, a:visited, a:active, a:hover {
+	color: #333;
+}
+/* "홈 박스" */
+#homebox {
+	border-radius: 0 ! important;
+	background-color: #000;
+	/*background-image: url(https://bit.ly/2NSlUDC);*/
+	background-size: 100%;
+	color: white;
+}
+/* "로그인 박스" */
+@media screen and (min-width:600px) {
+	#loginbox {
+		width: 470px;
+		padding: 30px;
+	}
+}
+/* "회원가입 박스" */
+#joinbox {
+	width: 450px;
+	padding: 30px;
+}
+/* 체크박스  */
+input[type=checkbox] {
+	/* Double-sized Checkboxes */
+	-ms-transform: scale(1.5);
+	/* IE */
+	-moz-transform: scale(1.5);
+	/* FF */
+	-webkit-transform: scale(1.5);
+	/* Safari and Chrome */
+	-o-transform: scale(1.5);
+	/* Opera */
+	padding: 10px;
+}
+/* 검색창-선택  */
+.searchform select {
+	border-top-right-radius: 0px;
+	border-bottom-right-radius: 0px;
+	text-align: center;
+	width: 100px;
+}
+/* 검색창-입력  */
+.searchform input {
+	border-radius: 0px;
+}
+/* 검색창-버튼  */
+.searchform button {
+	border-top-left-radius: 0px;
+	border-bottom-left-radius: 0px;
+}
