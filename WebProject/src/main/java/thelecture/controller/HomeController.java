@@ -1,4 +1,4 @@
-package com.myhome.WebProject;
+package thelecture.controller;
 
 import java.text.DateFormat;
 import java.util.Date;
@@ -22,7 +22,7 @@ public class HomeController {
 	/**
 	 * Simply selects the home view to render by returning its name.
 	 */
-	@RequestMapping(value = "/", method = RequestMethod.GET)
+	@RequestMapping(value = "home.do", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
 		logger.info("Welcome home! The client locale is {}.", locale);
 		
@@ -35,5 +35,22 @@ public class HomeController {
 		
 		return "home";
 	}
+	
+	@RequestMapping("privacy.do")
+	public String privacy() {		
+		System.out.println("privacy");
+		return "privacy";
+	}
+	@RequestMapping("tos.do")
+	public String tos() {		
+		System.out.println("tos");
+		return "tos";
+	}
+	@RequestMapping("joinForm.do")
+	public String newPw() {		
+		System.out.println("joinForm");
+		return "joinForm";
+	}
+	
 	
 }
