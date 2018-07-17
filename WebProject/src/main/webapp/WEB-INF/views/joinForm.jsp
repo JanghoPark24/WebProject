@@ -16,7 +16,7 @@
 			<h3 style="text-align: center;">회원가입</h3>
 			<br>
 			<form name="joinform" method="post" onsubmit="return validateForm()"
-				action="signup.html">
+				action="join.do">
 				<div class="form-group">
 					<label>이메일</label> <input type="email" class="form-control"
 						placeholder="이메일" name="userEmail" maxlength="20"

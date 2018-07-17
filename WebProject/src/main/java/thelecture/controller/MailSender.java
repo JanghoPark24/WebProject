@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 public class MailSender {
-	@RequestMapping("/sendMail.do")
+	@RequestMapping("/resetReq.do")
 	public String gmailSending(String userEmail) {
          
         Properties p = System.getProperties();
@@ -35,10 +35,8 @@ public class MailSender {
         try{
             //편지보낸시간
             msg.setSentDate(new Date());
-             
             InternetAddress from = new InternetAddress() ;
-             
-             
+            
             from = new InternetAddress("TheLecture<TheLecture.corp@gmail.com>");
              
             // 이메일 발신자

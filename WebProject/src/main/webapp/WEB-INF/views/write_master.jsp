@@ -7,21 +7,11 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
 		<style>
-			
-   			
-
-
 			div {
 				padding:10px;
 				position: relative;
-				
-
-				
 				border:1px solid gray;
-
-
 			}
 			#container {
 				width:1200px;
@@ -36,14 +26,10 @@
 				float: left;
 				margin-bottom: 20px;
 			}
-
 			#subject {
 				width:  650px
-				
-				
 			}
 			#select {
-			
 				width: 120px;	
 				height: 27px;
 				
@@ -51,7 +37,6 @@
 			#text {
 				width: 780px;
 				height: 400px;
-				
 			}
 
 			#left-sidebar {
@@ -63,7 +48,6 @@
 			#right-sidebar {
 				width: 150px;
 				float: right;
-				
 				margin-bottom: 20px;
 			}
 			#comment{
@@ -82,8 +66,6 @@
                 cursor: pointer;
                 text-align: center;
 				margin-bottom: 0px;
-
-				
             }
             
             .icon:hover {
@@ -208,13 +190,6 @@
 					<img src="images/right.jpg" style="width: 120px; height: 100px;">
 					<img src="images/rmonkey.jpg" style="width: 120px; height: 100px;">
 				<table id="table1">
-			
-
-
-
-
-					
-
 				</table>
 			</div>
 			<div id="comment">

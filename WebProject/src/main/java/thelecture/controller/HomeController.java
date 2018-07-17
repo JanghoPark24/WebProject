@@ -47,10 +47,19 @@ public class HomeController {
 		return "tos";
 	}
 	@RequestMapping("joinForm.do")
-	public String newPw() {		
+	public String joinForm() {		
 		System.out.println("joinForm");
 		return "joinForm";
 	}
-	
+	@RequestMapping("join.do")
+	public String join() {		
+		System.out.println("join");
+		return "join";
+	}
+	@RequestMapping("login.do")
+	public String login() {		
+		System.out.println("login");
+		return "login";
+	}
 	
 }
