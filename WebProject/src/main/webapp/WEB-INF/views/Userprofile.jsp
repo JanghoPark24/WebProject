@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,47 +18,12 @@ table, th, td {
     border-collapse: collapse;
 }
 
-footer {
-    background-color: #2d2d30;
-    color: #f5f5f5;
-    padding: 32px;
-}
 
-footer a {
-    color: #f5f5f5;
-}
-
-footer a:hover {
-    color: #777;
-    text-decoration: none;
-}
 </style>
 </head>
 <body>
-<nav class="navbar navbar-inverse">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <a class="navbar-brand" href="#"></a>
-    </div>
-    <ul class="nav navbar-nav">
-      <li class="active"><a href="#">Logo</a></li>
-      <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">학교별 게시판 <span class="caret"></span></a>
-        <ul class="dropdown-menu">
-          <li><a href="#">Page 1-1</a></li>
-          <li><a href="#">Page 1-2</a></li>
-          <li><a href="#">Page 1-3</a></li>
-        </ul>
-      </li>
-     
-    </ul>
-    <ul class="nav navbar-nav navbar-right">
-      <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-      <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
-    </ul>
-  </div>
-</nav>
-  
 
+<header align="center">헤더</header>
 
 <table border=1 align=center height=400 class="table">
 <form method="post">
@@ -86,7 +53,7 @@ footer a:hover {
 
      <center><a href="profile.html" class="btn btn-info" role="button"> 회원정보수정</a></center>
                 
-    <footer align="center" border=1  >이용규약,개인정보처리방침,문의<br>저작권 카피라이트<br>문의 이메일 주소</footer>
+    <footer align="center" border=1  > footer</footer>
 
 </body>
 </html>
