@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="UTF-8"%>
+<%@ include file="header.jsp"%>
+<%@ include file="navbar.jsp"%>
 <!DOCTYPE html>
 <html>
     
@@ -101,8 +103,10 @@
 
     </div>
         
-    <footer>
-    푸터
-    </footer>
+	</body>
+	
+
+<%@ include file="navbar.jsp"%>
+</html>
         
     
