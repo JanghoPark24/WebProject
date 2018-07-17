@@ -56,10 +56,20 @@ public class HomeController {
 		System.out.println("join");
 		return "join";
 	}
+	@RequestMapping("loginForm.do")
+	public String loginForm() {		
+		System.out.println("loginForm");
+		return "loginForm";
+	}
 	@RequestMapping("login.do")
 	public String login() {		
 		System.out.println("login");
 		return "login";
+	}
+	@RequestMapping("resetPasswd.do")
+	public String resetPasswd() {		
+		System.out.println("resetPasswd");
+		return "resetPasswd";
 	}
 	
 }

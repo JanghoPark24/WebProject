@@ -1,13 +1,14 @@
-<!Document>
-<html>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ include file="header.jsp"%>
+<%@ include file="navbar.jsp"%>
+<!DOCTYPE html>
 <head>
-  <title>로그인</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-  <link rel="stylesheet" href="stylej01.css">
+<title>회원가입</title><!-- //// -->
+<link rel="stylesheet" type="text/css"
+	href="<%=request.getContextPath()%>/css/stylej01.css" />
+<script src="<%=request.getContextPath()%>/js/validation.js" ></script>
+
 </head>
 
 <body>
@@ -23,18 +24,18 @@
       </div>
       <input type="button" class="btn btn-primary align-center" value="로그인"> <br> <br>
       <p style="font-size: 1em; font: bold;">
-        <a href="signup.html" id="signup"><span
+        <a href="joinForm.do" id="signup"><span
 						class="glyphicon glyphicon-user"></span> 혹시 아직 회원이 아니신가요? </a>
       </p>
 
       <p style="font-size: 1em; font: bold;">
-        <a href="signup.html" id="signup"><span
+        <a href="resetPasswd.do" id="signup"><span
 						class="glyphicon glyphicon-question-sign"></span> 비밀번호 재설정 </a>
       </p>
     </div>
   </div>
 
 
+	<%@ include file="footer.jsp"%>
 
 </body>
-</html>

@@ -51,6 +51,12 @@ a, a:link, a:visited, a:active, a:hover {
 	width: 450px;
 	padding: 30px;
 }
+/* "이메일 재설정 박스" */
+#resetpwbox {
+	width: 450px;
+	padding: 30px;
+}
+
 /* 체크박스  */
 input[type=checkbox] {
 	/* Double-sized Checkboxes */

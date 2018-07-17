@@ -3,7 +3,7 @@
 <nav class="navbar navbar-inverse">
         <div class="container">
             <ul class="nav navbar-nav">
-                <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#"> LOGO <span class="caret"></span></a>
+                <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">The Lecture<span class="caret"></span></a>
                     <ul class="dropdown-menu">
                         <li><a href="#">서비스 소개</a></li>
                         <li><a href="#">개발정보</a></li>

@@ -7,10 +7,9 @@
 <title>비밀번호 재설정</title>
 <link rel="stylesheet" type="text/css"
 	href="<%=request.getContextPath()%>/css/stylej01.css" />
-<script src="<%=request.getContextPath()%>/js/validation.js"></script>
 </head>
 <body>
-	<div class="container">
+	<div class="container" id='resetpwbox'>
 		<div class="jumbotron">
 			<h3 style="text-align: center;">비밀번호 재설정</h3>
 			<div class="container text-center">
@@ -28,4 +27,6 @@
 			</form>
 		</div>
 	</div>
+	<%@ include file="footer.jsp"%>
+	
 </body>
