@@ -8,7 +8,7 @@
 </head>
 <body>
 <script>
-	
+	console.log("s");
 	location.href="home.do";
 	
 </script>
