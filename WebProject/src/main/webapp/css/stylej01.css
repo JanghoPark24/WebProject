@@ -2,12 +2,20 @@
 footer {
 	border-top: 1px solid #999999;
 }
-
 /* 네비게이션 바 */
 .navbar {
 	border-radius: 0px;
-	background-color: #345185;
+	border-color: #182842;
+	background-color: #182842;
 }
+.navbar-inverse .navbar-nav>.open>a,
+.navbar-inverse .navbar-nav>.open>a:focus,
+.navbar-inverse .navbar-nav>.open>a:hover
+{color:#fff;background-color:#101b2d;}
+.navbar-inverse .navbar-toggle{border-color:#101b2d}
+.navbar-inverse .navbar-toggle:focus,
+.navbar-inverse .navbar-toggle:hover
+{background-color:#101b2d}
 /* 에러메세지 */
 .err {
 	color: red;

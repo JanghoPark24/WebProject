@@ -1,7 +1,8 @@
-<!doctype html>
-<html lang="ko">
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<!DOCTYPE html>
 	<head>
-		<title> 주의)정신이 나간 학생 입니다.</title>
+		<title> ì£¼ì)ì ì ì´ ëê° íì ìëë¤.</title>
 		<meta charset="UTF-8" >
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -159,7 +160,7 @@
 	
 		<div  id="container">
 			<div id="header">
-				<center><h1>header 자리</h1></center>
+				<center><h1>header ìë¦¬</h1></center>
 			</div>
 			
 			<div id="left-sidebar">
@@ -168,36 +169,36 @@
 			
 			<div name="contents" id="contents" method="post">
 
-					<div id="top" ><center><h2 >Army대학(유저모드)</h2></center></div>
+					<div id="top" ><center><h2 >Armyëí(ì ì ëª¨ë)</h2></center></div>
 						<form>
 						<div><tr>
 								<td> <select id="select" name="select" >
-										<option value="volvo">잡담</option>
-										<option value="saab">xx학교</option>
-										<option value="opel">xx학과</option>
+										<option value="volvo">ì¡ë´</option>
+										<option value="saab">xxíêµ</option>
+										<option value="opel">xxíê³¼</option>
 										</select>
-									<input id="subject" type="text" placeholder="제목을 입력하세요"></td>
+									<input id="subject" type="text" placeholder="ì ëª©ì ìë ¥íì¸ì"></td>
 							</tr></div>
 					<div id="contents2">
 							<tr>
-								<td><textarea id="text" name="text" placeholder="내용을 입력하세요" ></textarea></td>
+								<td><textarea id="text" name="text" placeholder="ë´ì©ì ìë ¥íì¸ì" ></textarea></td>
 							</tr>
 
 
 					</div>
 					<div id="button1"><tr><td>
-                    	<!-- <a href="#" class="btn btn-info btn-lg" id="icon1" ><span class="glyphicon glyphicon-paperclip icon "></span> 파일 첨부 </a>
-						<a href="#" class="btn btn-info btn-lg" id="icon2" ><span class="glyphicon glyphicon-picture icon"></span> 이미지 첨부 </a>
-						<a href="#" class="btn btn-info btn-lg"  id="icon3" ><span class="glyphicon glyphicon-facetime-video icon"></span> 동영상 첨부 </a> -->
-						<button  class="btn btn-info btn-lg icon" id="icon1" type="Reset"><i class="glyphicon glyphicon-paperclip"></i>파일 첨부</button>
-						<button  class="btn btn-info btn-lg icon" id="icon2" type="Reset"><i class="glyphicon glyphicon-picture"></i>이미지 첨부</button>
-						<button  class="btn btn-info btn-lg icon" id="icon3" type="Reset"><i class="glyphicon glyphicon-facetime-video"></i>동영상 첨부</button>
-						<button class="btn btn-info btn-lg icon" id="icon4" type="Reset"><i class="glyphicon glyphicon-trash"></i>취소</button></td>
+                    	<!-- <a href="#" class="btn btn-info btn-lg" id="icon1" ><span class="glyphicon glyphicon-paperclip icon "></span> íì¼ ì²¨ë¶ </a>
+						<a href="#" class="btn btn-info btn-lg" id="icon2" ><span class="glyphicon glyphicon-picture icon"></span> ì´ë¯¸ì§ ì²¨ë¶ </a>
+						<a href="#" class="btn btn-info btn-lg"  id="icon3" ><span class="glyphicon glyphicon-facetime-video icon"></span> ëìì ì²¨ë¶ </a> -->
+						<button  class="btn btn-info btn-lg icon" id="icon1" type="Reset"><i class="glyphicon glyphicon-paperclip"></i>íì¼ ì²¨ë¶</button>
+						<button  class="btn btn-info btn-lg icon" id="icon2" type="Reset"><i class="glyphicon glyphicon-picture"></i>ì´ë¯¸ì§ ì²¨ë¶</button>
+						<button  class="btn btn-info btn-lg icon" id="icon3" type="Reset"><i class="glyphicon glyphicon-facetime-video"></i>ëìì ì²¨ë¶</button>
+						<button class="btn btn-info btn-lg icon" id="icon4" type="Reset"><i class="glyphicon glyphicon-trash"></i>ì·¨ì</button></td>
 						</tr>
 					</div>
 					
 					<div id="button2">
-						<a href="#" class="btn btn-info btn-lg button_write" > <span class="glyphicon glyphicon-pencil"></span>글작성</a>
+						<a href="#" class="btn btn-info btn-lg button_write" > <span class="glyphicon glyphicon-pencil"></span>ê¸ìì±</a>
 					</div>
 				</form>
 				</div>
@@ -218,7 +219,7 @@
 				</table>
 			</div>
 			<div id="comment">
-				댓글 위치
+				ëê¸ ìì¹
 
 			</div>
 			<div id="footer">

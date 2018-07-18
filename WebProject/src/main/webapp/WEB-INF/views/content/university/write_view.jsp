@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="ko">
+<html lang="utf-8">
 	<head>
 		<title> 주의)정신이 나간 학생 입니다.</title>
 		<meta charset="UTF-8" >
