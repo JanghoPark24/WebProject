@@ -49,8 +49,9 @@
 <body>
 	<div class="container text-center">
 		<div class="jumbotron" id="homebox">
-			<h1>The Lecture</h1>
-			<br>
+			<img src="<%=request.getContextPath()%>/images/theLecture_reverse.svg"
+			style="height: 200px;">
+			<br><br><br><br>
 			<p>동해물과 백두산이 마르고 닳도록</p>
 			<form class="form-group" action="/action_page.php"
 				style="text-align: center;">

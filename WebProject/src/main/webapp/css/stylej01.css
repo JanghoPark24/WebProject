@@ -47,9 +47,11 @@ a, a:link, a:visited, a:active, a:hover {
 	}
 }
 /* "회원가입 박스" */
-#joinbox {
-	width: 450px;
-	padding: 30px;
+@media screen and (min-width:600px) {
+	#joinbox {
+		width: 470px;
+		padding: 30px;
+	}
 }
 /* "이메일 재설정 박스" */
 #resetpwbox {

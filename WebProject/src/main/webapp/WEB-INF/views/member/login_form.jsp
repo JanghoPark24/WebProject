@@ -4,7 +4,7 @@
 <%@ include file="../common/navbar.jsp"%>
 <!DOCTYPE html>
 <head>
-<title>회원가입</title><!-- //// -->
+<title>회원가입</title>
 <link rel="stylesheet" type="text/css"
 	href="<%=request.getContextPath()%>/css/stylej01.css" />
 <script src="<%=request.getContextPath()%>/js/validation.js" ></script>
