@@ -72,4 +72,11 @@ public class HomeController {
 		return "member/reset_passwd";
 	}
 	
+	@RequestMapping("school_board_master.do")
+	public String school_board_master() {		
+		System.out.println("school_board_master");
+		return "content/university/school_board_master";
+	
+	
+}
 }

@@ -24,7 +24,7 @@
 				<li class="dropdown"><a class="dropdown-toggle"
 					data-toggle="dropdown" href="#">커뮤니티 <span class="caret"></span></a>
 					<ul class="dropdown-menu">
-						<li><a href="#">학교별 게시판</a></li>
+						<li><a href="school_board_master.do">학교별 게시판</a></li>
 						<li><a href="#">자유게시판</a></li>
 					</ul></li>
 				<li><a href="#"><span class="glyphicon glyphicon-phone-alt"></span>
