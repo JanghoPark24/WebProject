@@ -40,19 +40,28 @@
     });
   } );
   </script>
-
+<style >
+/* 타이틀이미지 */
+@media screen and (min-width:600px) {
+	#titleImg {
+		width: 470px;
+	}
+}
+</style>
 <!-- 개인(김준) css-->
 <link rel="stylesheet" type="text/css"
 	href="<%=request.getContextPath()%>/css/stylej01.css" />
+	<title>The Lecture  :: 대학 강의 길라잡이</title>
 </head>
 
 <body>
 	<div class="container text-center">
 		<div class="jumbotron" id="homebox">
-			<img src="<%=request.getContextPath()%>/images/theLecture_reverse.svg"
-			style="height: 200px;">
-			<br><br><br><br>
-			<p>동해물과 백두산이 마르고 닳도록</p>
+			<div class="container" id="titleImg">
+				<img src="<%=request.getContextPath()%>/images/theLecture_reverse.svg"style="width:100%">
+			</div>
+			<br>
+			<p>대학 강의 길라잡이</p><br>
 			<form class="form-group" action="/action_page.php"
 				style="text-align: center;">
 				<table class="searchform" style="margin: auto;">

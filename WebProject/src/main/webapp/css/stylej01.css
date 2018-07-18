@@ -6,13 +6,14 @@ footer {
 /* 네비게이션 바 */
 .navbar {
 	border-radius: 0px;
-	background-color: #0c2e63;
+	background-color: #345185;
 }
 /* 에러메세지 */
 .err {
 	color: red;
 	display: none;
 }
+
 /* 모바일일 경우 폰트가 작아짐 */
 @media screen and (max-width:600px) {
 	#tablelecture {
