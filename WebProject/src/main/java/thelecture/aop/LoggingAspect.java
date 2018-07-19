@@ -9,7 +9,7 @@ public class LoggingAspect {
 	
 	public Object mainAdvice(ProceedingJoinPoint joinpoint ) throws Throwable {
 		String signatureStr = joinpoint.getSignature().toShortString();
-		System.out.println( signatureStr + " is start.");
+		
 		long st = System.currentTimeMillis();
 		
 		try {
@@ -17,7 +17,6 @@ public class LoggingAspect {
 			return obj;
 		} finally {
 			long et = System.currentTimeMillis();
-			System.out.println( signatureStr + " is finished.");
 			System.out.println( signatureStr + " 경과시간 : " + (et - st));
 		}
 	}
