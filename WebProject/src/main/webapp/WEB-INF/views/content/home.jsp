@@ -9,6 +9,10 @@
   <link rel="stylesheet" href="/resources/demos/style.css">
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  <link rel="stylesheet" type="text/css"
+	href="<%=request.getContextPath()%>/css/stylej01.css" />
+	<link rel="stylesheet" type="text/css"
+	href="<%=request.getContextPath()%>/css/fonts.css" />
 <script>
   $( function() {
     var availableTags = [
@@ -49,20 +53,22 @@
 }
 </style>
 <!-- 개인(김준) css-->
-<link rel="stylesheet" type="text/css"
-	href="<%=request.getContextPath()%>/css/stylej01.css" />
+
 	<title>The Lecture  :: 대학 강의 길라잡이</title>
 </head>
 
 <body>
 	<div class="container text-center">
-		<div class="jumbotron" id="homebox">
+		<div class="jumbotron" id="homebox" style="	
+		background-image: url('<%=request.getContextPath()%>/images/bg-chairs003.png');">
 			<div class="container" id="titleImg">
-				<img src="<%=request.getContextPath()%>/images/theLecture_reverse.svg"style="width:100%">
+				<img src="<%=request.getContextPath()%>/images/theLecture_black.svg"style="width:100%">
 			</div>
 			<br>
-			<p>대학 강의 길라잡이</p><br>
-			<form class="form-group" action="/action_page.php"
+			<p style="font-family: fantasy;">대학 강의 길라잡이 The Lecture</p><br>
+			<p style="font-family: 'Nanum Square'">대학 강의 길라잡이 The Lecture</p><br>
+			<p style="font-family: 'Nanum Square'">대학 강의 길라잡이 The Lecture</p><br>
+			<form class="form-group" action="/Univ_list.do"
 				style="text-align: center;">
 				<table class="searchform" style="margin: auto;">
 					<tr>
