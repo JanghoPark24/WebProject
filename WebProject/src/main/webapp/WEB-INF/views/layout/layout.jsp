@@ -12,11 +12,11 @@
 	<title>타이틀 넣기</title>
 </head>
 <body>
-	<div>
-		<tiles:insertAttribute name="header"/>
-		<tiles:insertAttribute name="navbar"/>
-		<tiles:insertAttribute name="body"/>
-		<tiles:insertAttribute name="footer"/>
-	</div>
+	
+	<tiles:insertAttribute name="header"/>
+	<tiles:insertAttribute name="navbar"/>
+	<tiles:insertAttribute name="body"/>
+	<tiles:insertAttribute name="footer"/>
+	
 </body>
 

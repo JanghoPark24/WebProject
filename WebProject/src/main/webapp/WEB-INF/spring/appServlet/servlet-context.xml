@@ -8,8 +8,8 @@
 
 	<!-- DispatcherServlet Context: defines this servlet's request-processing 
 		infrastructure -->
-
 	<context:component-scan base-package="thelecture" />
+
 	<!-- Enables the Spring MVC @Controller programming model -->
 	<annotation-driven />
 
@@ -34,14 +34,9 @@
 	</beans:bean>
 	
 	
-		<resources mapping="/resources/**" location="/resources/" />
-	<resources mapping="/img/**" location="/WEB-INF/img/" />
-	<resources mapping="/js/**" location="/WEB-INF/js/" />
-	<resources mapping="/css/**" location="/WEB-INF/css/" />
-	<resources mapping="/fonts/**" location="/WEB-INF/fonts/" />
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources 
 		in the /WEB-INF/views directory -->
-<!-- 
+
 	<beans:bean
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<beans:property name="prefix" value="/WEB-INF/views/" />
@@ -49,7 +44,7 @@
 		<beans:property name="order" value="1"></beans:property>
 	</beans:bean>
  
- -->
+
 
 
 </beans:beans>
