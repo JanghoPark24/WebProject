@@ -7,15 +7,23 @@ footer {
 	border-radius: 0px;
 	border-color: #182842;
 	background-color: #182842;
+	box-shadow: 0px 3px 10px 1px black;
 }
-.navbar-inverse .navbar-nav>.open>a,
-.navbar-inverse .navbar-nav>.open>a:focus,
-.navbar-inverse .navbar-nav>.open>a:hover
-{color:#fff;background-color:#101b2d;}
-.navbar-inverse .navbar-toggle{border-color:#101b2d}
-.navbar-inverse .navbar-toggle:focus,
-.navbar-inverse .navbar-toggle:hover
-{background-color:#101b2d}
+
+.navbar-inverse .navbar-nav>.open>a, .navbar-inverse .navbar-nav>.open>a:focus,
+	.navbar-inverse .navbar-nav>.open>a:hover {
+	color: #fff;
+	background-color: #101b2d;
+}
+
+.navbar-inverse .navbar-toggle {
+	border-color: #101b2d
+}
+
+.navbar-inverse .navbar-toggle:focus, .navbar-inverse .navbar-toggle:hover
+	{
+	background-color: #101b2d
+}
 /* 에러메세지 */
 .err {
 	color: red;
@@ -37,16 +45,22 @@ footer {
 	width: 15%;
 }
 /* 하이퍼링크 */
-a, a:link, a:visited, a:active, a:hover {
+a, a:link, a:visited {
 	color: #333;
+}
+a:active, a:hover {
+	color: #4373c1;
+	text-decoration: none;
 }
 /* "홈 박스" */
 #homebox {
 	border-radius: 0 ! important;
-	background-color: #000;
-	/*background-image: url(https://bit.ly/2NSlUDC);*/
 	background-size: 100%;
-	color: white;
+	color: black;
+	/* 	style=text-shadow: 3px 2px 3px black; */
+}
+#homebox p{ 
+	color: black;
 }
 /* "로그인 박스" */
 @media screen and (min-width:600px) {
@@ -87,6 +101,8 @@ input[type=checkbox] {
 	border-bottom-right-radius: 0px;
 	text-align: center;
 	width: 100px;
+	background-color: #182842;
+	color: white;
 }
 /* 검색창-입력  */
 .searchform input {
@@ -96,4 +112,11 @@ input[type=checkbox] {
 .searchform button {
 	border-top-left-radius: 0px;
 	border-bottom-left-radius: 0px;
+	background-color: #182842;
+	color: white;
 }
+.searchform button:hover{
+	background-color: #182842;
+	color: #4373c1;
+}
+
