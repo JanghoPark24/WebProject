@@ -4,24 +4,43 @@
 
 <!-- 타일즈 layout 설정 -->
 <tiles-definitions>
-	<definition name="tilesbase" template="/WEB-INF/views/layout.jsp">
+	<definition name="main_tile" template="/WEB-INF/views/layout/layout.jsp">
 		<put-attribute name="title" value="" />
-		<put-attribute name="header" value="/WEB-INF/views/head.jsp" />
-		<put-attribute name="menu" value="/WEB-INF/views/menu.jsp" />
+		<put-attribute name="header" value="/WEB-INF/views/common/header.jsp" />
+		<put-attribute name="navbar" value="/WEB-INF/views/common/navbar.jsp" />
 		<put-attribute name="body" value="" />
-		<put-attribute name="footer" value="/WEB-INF/views/footer.jsp" />
+		<put-attribute name="footer" value="/WEB-INF/views/common/footer.jsp" />
 	</definition>
 	
-	<definition name="home" extends="tilesbase">
-		<put-attribute name="title" value="안녕하세요 타일즈 샘플입니다." />
-		<put-attribute name="body" value="/WEB-INF/views/home.jsp" />
+	<definition name="home" extends="main_tile">
+		<put-attribute name="title" value="herere" />
+		<put-attribute name="body" value="/WEB-INF/views/content/home.jsp" />
 	</definition>
-	<definition name="first" extends="tilesbase">
-		<put-attribute name="title" value="첫번째 타일즈입니다." />
-		<put-attribute name="body" value="/WEB-INF/views/first.jsp" />
+	
+	<!-- 
+	<definition name="privacy" template="main">
+		<put-attribute name="body" value="/WEB-INF/views/content/privacy.jsp" />
+	</definition>	
+	
+	<definition name="tos" template="main">
+		<put-attribute name="body" value="/WEB-INF/views/content/tos.jsp" />
 	</definition>
-	<definition name="second" extends="tilesbase">
-		<put-attribute name="title" value="두번재 페이지입니다." />
-		<put-attribute name="body" value="/WEB-INF/views/second.jsp" />
+	
+	<definition name="join_form" template="main">
+		<put-attribute name="body" value="/WEB-INF/views/member/join_form.jsp" />
 	</definition>
+	
+	<definition name="join" template="main">
+		<put-attribute name="body" value="/WEB-INF/views/member/join.jsp" />
+	</definition>
+	<definition name="reset_passwd" template="main">
+		<put-attribute name="body" value="/WEB-INF/views/member/reset_passwd.jsp" />
+	</definition>
+	<definition name="login_form" template="main">
+		<put-attribute name="body" value="/WEB-INF/views/member/login_form.jsp" />
+	</definition>
+	 -->
+	
+	
+	
 </tiles-definitions>
