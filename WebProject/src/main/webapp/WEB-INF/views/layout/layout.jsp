@@ -4,6 +4,7 @@
 
 <!DOCTYPE html>
 <head>
+	<link rel="shortcut icon" href="<%=request.getContextPath()%>/images/theLecture_icon.ico" >
 	
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
