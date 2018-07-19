@@ -1,4 +1,31 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
+<style>
+/* 네비게이션 바 */
+.navbar {
+	border-radius: 0px;
+	border-color: #182842;
+	background-color: #182842;
+	box-shadow: 0px 3px 10px 1px black;
+}
+
+.navbar-inverse .navbar-nav>.open>a, .navbar-inverse .navbar-nav>.open>a:focus,
+	.navbar-inverse .navbar-nav>.open>a:hover {
+	color: #fff;
+	background-color: #101b2d;
+}
+
+.navbar-inverse .navbar-toggle {
+	border-color: #101b2d
+}
+
+.navbar-inverse .navbar-toggle:focus, .navbar-inverse .navbar-toggle:hover
+	{
+	background-color: #101b2d
+}
+
+</style>
+
+
 
 <nav class="navbar navbar-inverse">
 	<div class="container-fluid">
