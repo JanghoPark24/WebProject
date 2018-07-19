@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ include file="../common/header.jsp"%>
-<%@ include file="../common/navbar.jsp"%>
+
 <!DOCTYPE html>
 <head>
 <title>비밀번호 재설정</title>
@@ -27,6 +26,6 @@
 			</form>
 		</div>
 	</div>
-	<%@ include file="../common/footer.jsp"%>
+
 	
 </body>

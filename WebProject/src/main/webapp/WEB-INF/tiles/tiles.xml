@@ -17,29 +17,27 @@
 		<put-attribute name="body" value="/WEB-INF/views/content/home.jsp" />
 	</definition>
 	
-	<!-- 
-	<definition name="privacy" template="main">
-		<put-attribute name="body" value="/WEB-INF/views/content/privacy.jsp" />
-	</definition>	
-	
-	<definition name="tos" template="main">
+	<definition name="tos" extends="main_tile">
 		<put-attribute name="body" value="/WEB-INF/views/content/tos.jsp" />
 	</definition>
 	
-	<definition name="join_form" template="main">
+	<definition name="join_form" extends="main_tile">
 		<put-attribute name="body" value="/WEB-INF/views/member/join_form.jsp" />
 	</definition>
 	
-	<definition name="join" template="main">
+	<definition name="join" extends="main_tile">
 		<put-attribute name="body" value="/WEB-INF/views/member/join.jsp" />
 	</definition>
-	<definition name="reset_passwd" template="main">
+	<definition name="reset_passwd" extends="main_tile">
 		<put-attribute name="body" value="/WEB-INF/views/member/reset_passwd.jsp" />
 	</definition>
-	<definition name="login_form" template="main">
+	<definition name="login_form" extends="main_tile">
 		<put-attribute name="body" value="/WEB-INF/views/member/login_form.jsp" />
 	</definition>
-	 -->
+	
+	<definition name="privacy" extends="main_tile">
+		<put-attribute name="body" value="/WEB-INF/views/content/privacy.jsp" />
+	</definition>
 	
 	
 	

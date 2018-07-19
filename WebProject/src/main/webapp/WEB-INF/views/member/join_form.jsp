@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ include file="../common/header.jsp"%>
-<%@ include file="../common/navbar.jsp"%>
+
 <!DOCTYPE html>
 <head>
 <title>회원가입</title><!-- //// -->
@@ -41,8 +40,8 @@
 				</div>
 				<div class="checkbox">
 					<label><input type="checkbox" checked='checked'
-						required="required" id="agree"><a href="tos.html">이용약관</a>
-						및 <a href="privacy.html">개인정보처리방침</a>에 동의합니다.</label>
+						required="required" id="agree"><a href="tos.do">이용약관</a>
+						및 <a href="privacy.do">개인정보처리방침</a>에 동의합니다.</label>
 				</div>
 				<br> <input type=submit class="btn btn-primary" value="회원 가입"
 					id="join">
@@ -50,5 +49,4 @@
 		</div>
 	</div>
 
-<%@ include file="../common/footer.jsp"%>
 </body>
