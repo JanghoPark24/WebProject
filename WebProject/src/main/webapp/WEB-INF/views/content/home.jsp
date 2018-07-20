@@ -4,16 +4,14 @@
 <!DOCTYPE html>
 <head>
 <!--자동완성기능-->
-<link href='https://cdn.rawgit.com/openhiun/hangul/14c0f6faa2941116bb53001d6a7dcd5e82300c3f/nanumbarungothic.css' rel='stylesheet' type='text/css'>
-
+ <link href='https://cdn.rawgit.com/openhiun/hangul/14c0f6faa2941116bb53001d6a7dcd5e82300c3f/nanumbarungothic.css' rel='stylesheet' type='text/css'>
+ 
  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
   <link rel="stylesheet" href="/resources/demos/style.css">
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
   <link rel="stylesheet" type="text/css"
 	href="<%=request.getContextPath()%>/css/stylej01.css" />
-	<link rel="stylesheet" type="text/css"
-	href="<%=request.getContextPath()%>/css/fonts.css" />
 <script>
   $( function() {
     var availableTags = [
@@ -63,10 +61,10 @@
 		<div class="jumbotron" id="homebox" style="	
 		background-image: url('<%=request.getContextPath()%>/images/bg-chairs003.png');">
 			<div class="container" id="titleImg">
-				<img src="<%=request.getContextPath()%>/images/theLecture_black.svg"style="width:100%">
+				<img src="<%=request.getContextPath()%>/images/theLecture2.svg"style="width:50%">
 			</div>
-			<br>
-			<p style="font-family: 'Nanum Barun Gothic';font-weight: 900;'">대학 강의 길라잡이 The Lecture</p><br>
+			<h1 style="font-family: 'Nanum Barun Gothic';font-weight: 900;color:">The Lecture</h1>
+			<h3 style="font-family: 'Nanum Barun Gothic';font-weight: 900;'">대학 강의 길라잡이 The Lecture</h3><br>
 			<form class="form-group" action="/Univ_list.do"
 				style="text-align: center;">
 				<table class="searchform" style="margin: auto;">

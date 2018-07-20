@@ -90,6 +90,7 @@ input[type=checkbox] {
 /* 검색창-입력  */
 .searchform input {
 	border-radius: 0px;
+	
 }
 /* 검색창-버튼  */
 .searchform button {

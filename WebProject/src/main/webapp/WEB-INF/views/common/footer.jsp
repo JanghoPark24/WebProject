@@ -12,11 +12,11 @@ footer {
 	color: white;
 }
 
-a, a:link, a:visited {
+footer a, footer a:link, footer a:visited {
 	color: white;
 }
 
-a:active, a:hover {
+footer a:active, footer  a:hover {
 	color: #999;
 	text-decoration: none;
 }

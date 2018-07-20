@@ -34,8 +34,11 @@
 				data-target="#myNavbar">
 				<span class="icon-bar"></span> <span class="icon-bar"></span> <span
 					class="icon-bar"></span>
-			</button><a href="home.do" class="navbar-left"><img src="<%=request.getContextPath()%>/images/theLecture_navbar_reverse.svg"
-			style="height: 50px;"></a>
+			</button>
+			<a href="home.do" class="navbar-left" id="logo"> <img
+				src="<%=request.getContextPath()%>/images/theLecture2_white.svg"
+				style="height: 50px; padding: 10px;">
+			</a>
 		</div>
 		<div class="collapse navbar-collapse" id="myNavbar">
 			<ul class="nav navbar-nav">
