@@ -14,6 +14,9 @@
 		<!-- <org.aspectj-version>1.6.10</org.aspectj-version> -->
 		<org.slf4j-version>1.6.6</org.slf4j-version>
 		<tiles.version>3.0.1</tiles.version>
+		<mockito.version>1.10.19</mockito.version>
+		<cglib.version>2.2.2</cglib.version>
+		<aspectjtools.version>1.8.9</aspectjtools.version>
 	</properties>
 	<dependencies>
 		<!-- Spring -->
@@ -35,18 +38,13 @@
 			<version>${org.springframework-version}</version>
 		</dependency>
 
-		<!-- AspectJ -->
-	<!-- 	<dependency>
-			<groupId>org.aspectj</groupId>
-			<artifactId>aspectjrt</artifactId>
-			<version>${org.aspectj-version}</version>
-		</dependency> -->
+		
 		
 		<!-- aspectjtools -->
 		<dependency>
 		    <groupId>org.aspectj</groupId>
 		    <artifactId>aspectjtools</artifactId>
-		    <version>1.8.9</version>
+		    <version>${aspectjtools.version}</version>
 		</dependency>
 		
 		
@@ -54,7 +52,7 @@
 		<dependency>
 		    <groupId>cglib</groupId>
 		    <artifactId>cglib</artifactId>
-		    <version>2.2.2</version>
+		    <version>${cglib.version}</version>
 		</dependency>
 
 		<!-- Logging -->
@@ -147,14 +145,28 @@
 			<version>1.4.7</version>
 		</dependency>
 
-		<!-- Test -->
+		<!-- Test :Junit ,mockito, springFramework -->
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 			<version>4.7</version>
 			<scope>test</scope>
 		</dependency>
-
+		
+		<dependency>
+		    <groupId>org.mockito</groupId>
+		    <artifactId>mockito-all</artifactId>
+		    <version>${mockito.version}</version>
+		    <scope>test</scope>
+		</dependency>
+		
+		<dependency>
+		    <groupId>org.springframework</groupId>
+		    <artifactId>spring-test</artifactId>
+		    <version>${org.springframework-version}</version>
+		    <scope>test</scope>
+		</dependency>
+		
 		<!-- tiles -->
 		<dependency>
 			<groupId>org.apache.tiles</groupId>
@@ -168,7 +180,7 @@
 		</dependency>
 		
 		<!-- mybatis -->
-			<!-- mybatis -->
+			
 		<dependency>
 			<groupId>org.mybatis</groupId>
 			<artifactId>mybatis</artifactId>
