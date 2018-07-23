@@ -39,5 +39,8 @@
 		<put-attribute name="body" value="/WEB-INF/views/lecture/lectureList.jsp" />
 	</definition>
 	
+	<definition name="service_profile" extends="main_tile">
+		<put-attribute name="body" value="/WEB-INF/views/content/service_profile.jsp" />
+	</definition>
 	
 </tiles-definitions>
