@@ -38,6 +38,7 @@
 	<definition name="privacy" extends="main_tile">
 		<put-attribute name="body" value="/WEB-INF/views/content/privacy.jsp" />
 	</definition>
+	
 	<definition name="lectureList" extends="main_tile">
 		<put-attribute name="body" value="/WEB-INF/views/lecture/lectureList.jsp" />
 	</definition>

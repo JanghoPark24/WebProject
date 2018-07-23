@@ -33,35 +33,35 @@
                 <button type="button" class="btn btn-primary">강의관리</button><br><br>
                 <button type="button" class="btn btn-primary">글작성</button>
 
-            <td>${강의 list}</td>        
+            <td>강의 list</td>        
         </tr>
 
         <tr>
-            <td>${강의 list}</td>       
+            <td>강의 list</td>       
         </tr>
         <tr>
-            <td>${강의 list}</td>       
+            <td>강의 list</td>       
         </tr>
         <tr>
-            <td>${강의 list}</td>       
+            <td>강의 list</td>       
         </tr>
         <tr>
-            <td>${강의 list}</td>       
+            <td>강의 list</td>       
         </tr>
         <tr>
-            <td>${강의 list}</td>       
+            <td>강의 list</td>       
         </tr>
         <tr>
-            <td>${강의 list}</td>       
+            <td>강의 list</td>       
         </tr>
         <tr>
-            <td>${강의 list}</td>       
+            <td>강의 list</td>       
         </tr>
         <tr>
-            <td>${강의 list}</td>       
+            <td>강의 list</td>       
         </tr>
         <tr>
-            <td>${강의 list}</td>       
+            <td>강의 list</td>       
         </tr>
             
         <tr>
