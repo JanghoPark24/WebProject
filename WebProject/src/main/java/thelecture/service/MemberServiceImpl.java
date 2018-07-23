@@ -15,8 +15,8 @@ public class MemberServiceImpl {
 		return memberDao.member_dup_check(email);
 	}
 
-	public void join_member(MemberBean id) throws Exception {
-		memberDao.join_member(id);
+	public void member_join(MemberBean mb) throws Exception {
+		memberDao.member_join(mb);
 	}
 
 }

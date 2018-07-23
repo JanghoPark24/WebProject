@@ -14,8 +14,8 @@ public class MemberDaoImpl {
 	 * 중복 체크
 	 */
 	public int member_dup_check(String email) throws Exception {
-		MemberBean mb = (MemberBean) sqlSession.selectOne("dup_check", email);
 		int authcode = -1;	// 사용 가능한 ID
+		MemberBean mb = (MemberBean) sqlSession.selectOne("dup_check", email);
 		if (mb != null)
 			authcode = 1; 	// 중복id
 		return authcode;
@@ -24,7 +24,7 @@ public class MemberDaoImpl {
 	/**
 	 * 회원가입
 	 */
-	public void join_member(MemberBean m) throws Exception {
+	public void member_join(MemberBean m) throws Exception {
 		sqlSession.insert("member_join", m);
 	}
 

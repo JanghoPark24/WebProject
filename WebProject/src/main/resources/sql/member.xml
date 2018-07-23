@@ -3,7 +3,7 @@
 
 <mapper namespace="memberns">
 	<!-- 중복검사 -->
-	<select id="login_check" parameterType="String"
+	<select id="dup_check" parameterType="String"
 		resultType="member">
 		select * from member where email=#{email}
 	</select>
@@ -14,11 +14,11 @@
 		insert INTO
 		member
 		values(
-		#{email},#{nickname},'unknown','C54F4493021DE0A059CF719A2DCE3D20941EFE9A625122715BADD0B76244F6DD','n',
+		#{email},#{nickname},'서울대학교','C54F4493021DE0A059CF719A2DCE3D20941EFE9A625122715BADD0B76244F6DD','n',
 		'master',
 		'B6E0lnRevAWmKnASHCYY',
-		0,null,sysdate,'unknown','unknown.jpg',null
-		);
+		0,null,sysdate,'unknown','unknown.jpg',''
+		)
 	</insert>
 
 

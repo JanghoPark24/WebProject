@@ -1,10 +1,15 @@
 package thelecture.controller;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import thelecture.model.MemberBean;
 import thelecture.service.MemberServiceImpl;
 
 /**
@@ -13,9 +18,10 @@ import thelecture.service.MemberServiceImpl;
  */
 @Controller
 public class MemberController {
-	
+
 	@Autowired
 	private MemberServiceImpl memberService;
+
 	/**
 	 * 회원 가입하기 위한 양식이 있는 곳으로 이동
 	 */
@@ -28,13 +34,27 @@ public class MemberController {
 	 * 회원 가입 버튼을 눌러서 가입 시도
 	 */
 	@RequestMapping(value = "join.do", method = RequestMethod.POST)
-	public String join(String email) throws Exception {
-		
-		int result = memberService.member_dup_check(email);
+	public String join(
+			@RequestParam("email") String email,
+			@RequestParam("nickname") String nickname,
+			@RequestParam("password") String password
+			) throws Exception {
+		System.out.println(email);
+		int authcode = memberService.member_dup_check(email);
+		// authcode가 -1이면 중복 이메일이 없다는 뜻
+		System.out.println("authcode : " + authcode);
+		if (authcode == -1) {
+			MemberBean mb = new MemberBean();
+			mb.setEmail(email);
+			mb.setNickname(nickname);
+			System.out.println(mb.getEmail());
+			System.out.println(mb.getNickname());
+			memberService.member_join(mb);
+			System.out.println("memberBean 입력");
+			return "redirect:loginForm.do";
+		}
 
-		System.out.println("authcode : "+result);
-		
-		return "join_form";
+		return "redirect:join_form";
 	}
 
 	/**

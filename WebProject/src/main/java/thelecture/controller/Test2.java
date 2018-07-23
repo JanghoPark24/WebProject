@@ -10,9 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class Test2 {
 	
 	@RequestMapping("lectureList.do")
-	public String test2() {		
+	public String lectureList() {		
 	
-		System.out.println("lectureList");
 		return "content/lecture/lectureList";
 	}
 	
