@@ -15,16 +15,13 @@
 	<definition name="home" extends="main_tile">
 		<put-attribute name="title" value="herere" />
 		<put-attribute name="body" value="/WEB-INF/views/content/home.jsp" />
-	</definition>
-	
+	</definition>	
 	<definition name="tos" extends="main_tile">
 		<put-attribute name="body" value="/WEB-INF/views/content/tos.jsp" />
 	</definition>
-	
 	<definition name="join_form" extends="main_tile">
 		<put-attribute name="body" value="/WEB-INF/views/member/join_form.jsp" />
 	</definition>
-	
 	<definition name="join" extends="main_tile">
 		<put-attribute name="body" value="/WEB-INF/views/member/join.jsp" />
 	</definition>
@@ -34,7 +31,6 @@
 	<definition name="login_form" extends="main_tile">
 		<put-attribute name="body" value="/WEB-INF/views/member/login_form.jsp" />
 	</definition>
-	
 	<definition name="privacy" extends="main_tile">
 		<put-attribute name="body" value="/WEB-INF/views/content/privacy.jsp" />
 	</definition>

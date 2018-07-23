@@ -36,7 +36,7 @@
 						value="wnddkd1971">
 				</div>
 				<div class="form-group">
-					<label>비밀번호 확인</label> <span class="err" id="isntDup"> <br>비밀번호가
+					<label>비밀번호 확인</label> <span class="err" id="isDup"> <br>비밀번호가
 						일치하지 않음
 					</span> <input type="password" class="form-control" placeholder="비밀번호 확인"
 						name="password2" maxlength="20" required="required"
