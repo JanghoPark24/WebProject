@@ -18,14 +18,17 @@
         <div>
             <h2 align=center>대학이름</h2>
         <table  class="table" id="" align=center width=800 >
+        <form action="검색링크.do" method="get">
         <tr>
             <td colspan="6"><input type="text" class="form-control" placeholder="글 검색" id="search" weight="70"></td>
-        	<td><button type=submit weight="20">검색</button></td>
+        	<td><button type=submit weight="20">검색</button></td> 
             <td align="right"><input type="button"  value="글작성" onClick="링크" ></td>
         </tr>
+        </form>
+        
         <tr>
-            <td align="right" colspan=7><input type="button"  value="강의관리" onClick="링크" ></td>
-            <td align="right" colspan=7><input type="button"  value="글작성" onClick="링크" ></td>
+            <td align="right" colspan=7><input type="button"  value="강의관리" onClick="강의관리.do" ></td>
+            <td align="right" colspan=7><input type="button"  value="글작성" onClick="글작성.do" ></td>
         </tr>
     
     <!-- table title -->
@@ -41,13 +44,13 @@
             
     <!-- table list--> 
         <tr>
-            <td>${글 종류 전체공지}</td>
-            <td>${공지번호}</td>
+            <td>글 종류 전체공지</td>
+            <td>공지번호</td>
             <td><a href="공지링크"><input type="button" value="x"></a></td>
-            <td>${공지 닉네임}</td>
-            <td>${공지 조회수}</td>
-            <td>${공지 추천}</td>
-            <td>${공지 날짜}</td>            
+            <td>공지 닉네임</td>
+            <td>공지 조회수</td>
+            <td>공지 추천</td>
+            <td>공지 날짜</td>            
         </tr>
         </table>
         </div>
