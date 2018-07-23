@@ -7,13 +7,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * Handles requests for the application home page.
  */
 @Controller
-public class Test2 {
+public class ServiceController {
 	
-	@RequestMapping("lectureList.do")
-	public String test2() {		
+	@RequestMapping("service_profile.do")
+	public String service() {		
 	
-		System.out.println("lectureList");
-		return "content/lecture/lectureList";
+		System.out.println("service_profile");
+		return "service_profile";
 	}
 	
 }
