@@ -46,30 +46,7 @@ public class HomeController {
 		
 		return "tos";
 	}
-	@RequestMapping("joinForm.do")
-	public String joinForm() {		
-		
-		return "join_form";
-	}
-	@RequestMapping("join.do")
-	public String join() {		
-		
-		return "join";
-	}
-	@RequestMapping("loginForm.do")
-	public String loginForm() {		
-		
-		return "login_form";
-	}
-	@RequestMapping("login.do")
-	public String login() {		
-		
-		return "login";
-	}
-	@RequestMapping("resetPasswd.do")
-	public String resetPasswd() {		
-		
-		return "reset_passwd";
-	}
-	
+
+
+
 }

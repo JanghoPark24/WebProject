@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+ <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="memberns">
+
+
+
+	<!-- 회원저장 -->
+	<insert id="member_join" parameterType="member">
+		insert INTO member
+		values(
+		'TheLecture.corp@snu.ac.kr','TheLecture','서울대학교','C54F4493021DE0A059CF719A2DCE3D20941EFE9A625122715BADD0B76244F6DD','y',
+		'master',
+		'B6E0lnRevAWmKnASHCYY',
+		0,null,sysdate,'컴퓨터공학과','image.jpg','관리자입니다.'
+		);
+	</insert>
+
+
+</mapper>
+
+
+
+
+
+
+
+
