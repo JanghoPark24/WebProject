@@ -8,11 +8,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import thelecture.model.MemberBean;
+import thelecture.security.TempKey;
 import thelecture.service.MemberServiceImpl;
 
 /**
  *
  * 회원 컨트롤러
+ * @author Spectral Fox
  */
 @Controller
 public class MemberController {
@@ -43,9 +45,14 @@ public class MemberController {
 			 * 등록된 도메인이 아니면 가입거부 창을 띄워야함
 			 * 
 			 */
+			
+			//회원 등록
+			TempKey tk=TempKey.Instance;
+			String reg_key=tk.getKey(20, false);
 			MemberBean mb = new MemberBean();
 			mb.setEmail(email.trim());
 			mb.setNickname(nickname.trim());
+			mb.setReg_key(reg_key);
 			memberService.member_join(mb);
 			
 		}else {//중복 아이디 또는 중복 이메일
@@ -56,6 +63,7 @@ public class MemberController {
 		return "redirect:reg_info.do";
 	}
 
+	
 	/**
 	 * 로그인하기 위한 form이 있는 곳으로 이동
 	 */
