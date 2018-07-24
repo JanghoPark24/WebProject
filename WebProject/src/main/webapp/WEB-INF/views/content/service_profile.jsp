@@ -24,7 +24,6 @@ table, th, td {
 </head>
 <body>
 
-<header align="center">헤더</header>
 
     
    <div class="container">
@@ -35,7 +34,7 @@ table, th, td {
            </div>   
           
    <div  align="center" style="background-color:LightCyan;">    
- <img src="../images/theLecture.png"
+ <img src="webapp/../images/theLecture.png"
 			style="height: 200px;"
 			align="bottom">
 		</div>	 
@@ -84,9 +83,6 @@ table, th, td {
   </table>
 </div>
       
-
-                
-    <footer align="center" border=1  > footer</footer>
 
 </body>
 </html>
