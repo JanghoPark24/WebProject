@@ -42,5 +42,8 @@
 	<definition name="service_profile" extends="main_tile">
 		<put-attribute name="body" value="/WEB-INF/views/content/service_profile.jsp" />
 	</definition>
+	<definition name="reg_info" extends="main_tile">
+		<put-attribute name="body" value="/WEB-INF/views/member/reg_info.jsp" />
+	</definition>
 	
 </tiles-definitions>
