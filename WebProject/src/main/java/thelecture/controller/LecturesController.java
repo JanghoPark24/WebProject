@@ -32,7 +32,6 @@ public class LecturesController {
 		String formattedDate = dateFormat.format(date);
 		
 		model.addAttribute("serverTime", formattedDate );
-		
 		return "home2";
 	}
 	

@@ -5,6 +5,7 @@
 
 	<typeAliases>
 		<typeAlias alias="member" type="thelecture.model.MemberBean" />		
+		<typeAlias alias="univ" type="thelecture.model.UnivBean" />		
 	</typeAliases>
 
 

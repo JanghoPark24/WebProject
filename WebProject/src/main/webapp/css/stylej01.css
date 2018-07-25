@@ -30,7 +30,7 @@ a:active, a:hover {
 /* "홈 박스" */
 #homebox {
 	border-radius: 0 ! important;
-	color: black;
+	color: #101b2d;
 	background-position: center;
 	background-size: 100%;
 	/* 	style=text-shadow: 3px 2px 3px black; */

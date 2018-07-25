@@ -2,12 +2,22 @@ package thelecture.security;
 
 import java.util.Random;
 
+/**
+ * 임의의 길이의 문자열을 생성합니다.<br>
+ * 범위 : 대문자 소문자 숫자
+ */
 public enum TempKey {
 	Instance;
 
     private boolean lowerCheck;
     private int size;
 
+    /**
+     * 임의의 길이의 문자열을 생성합니다.
+     * @param size
+     * @param lowerCheck(소문자로 변형시킬지 말지 여부)
+     * @return TempKey
+     */
     public String getKey(int size, boolean lowerCheck) {
         this.size = size;
         this.lowerCheck = lowerCheck;
