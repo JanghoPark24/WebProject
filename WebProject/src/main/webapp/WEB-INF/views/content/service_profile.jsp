@@ -6,6 +6,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>서비스 소개</title>
+<link
+	href='https://cdn.rawgit.com/openhiun/hangul/14c0f6faa2941116bb53001d6a7dcd5e82300c3f/nanumbarungothic.css'
+	rel='stylesheet' type='text/css'>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
  
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -34,11 +37,14 @@ table, th, td {
            </div>   
           
    <div  align="center" style="background-color:LightCyan;">    
- <img src="webapp/../images/theLecture.png"
+ <img src="main/../images/theLecture2.svg"
 			style="height: 200px;"
 			align="bottom">
+ <h1 style="font-family: 'Nanum Barun Gothic'; font-weight: 900; color:">
+				The Lecture</h1>
 		</div>	 
-   <div align="center" style="background-color:LightCyan;">     
+   <div align="center" style="background-color:LightCyan;
+  font-family: 'Nanum Barun Gothic'; ">     
    <p>The Lecture는 여러분의 대학생활을 더욱 더 
    보람차고 유익하게 보낼 수 있도록 다양한 정보를 제공
    하고 있습니다 </p> 
