@@ -1,5 +1,8 @@
 package thelecture.controller;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,8 +14,8 @@ import thelecture.model.MemberBean;
 import thelecture.service.MemberServiceImpl;
 
 /**
+ * @author Administrator
  *
- * 회원 컨트롤러
  */
 @Controller
 public class MemberController {
@@ -21,46 +24,49 @@ public class MemberController {
 	private MemberServiceImpl memberService;
 
 	/**
-	 * 회원 가입하기 위한 form이 있는 곳으로 이동
+	 * 회원 가입하기 위한 양식이 있는 곳으로 이동
 	 */
 	@RequestMapping("joinForm.do")
-	public String joinForm(Model model) {
+	public String joinForm() {
 		return "join_form";
 	}
 
 	/**
 	 * 회원 가입 버튼을 눌러서 가입 시도
 	 */
-	@RequestMapping(value = "/join.do", method = RequestMethod.POST)
-	public String join(@RequestParam("email") String email, @RequestParam("nickname") String nickname,
-			@RequestParam("password") String password, Model model) throws Exception {
-
-		int dupemail = memberService.is_dup_email(email);
-		int dupnickname = memberService.is_dup_nickname(nickname);
-		if (dupemail+dupnickname ==0) {
-			/*
-			 * DB에서 도메인 탐색하여 비교하는 과정 필요
-			 * 등록된 도메인이 아니면 가입거부 창을 띄워야함
-			 * 
-			 */
+	@RequestMapping(value = "join.do", method = RequestMethod.POST)
+	public String join(
+			@RequestParam("email") String email,
+			@RequestParam("nickname") String nickname,
+			@RequestParam("password") String password
+			) throws Exception {
+		System.out.println(email);
+		int authcode = memberService.member_dup_check(email);
+		// authcode가 -1이면 중복 이메일이 없다는 뜻
+		System.out.println("authcode : " + authcode);
+		if (authcode == -1) {
 			MemberBean mb = new MemberBean();
-			mb.setEmail(email.trim());
-			mb.setNickname(nickname.trim());
+			mb.setEmail(email);
+			mb.setNickname(nickname);
+			System.out.println(mb.getEmail());
+			System.out.println(mb.getNickname());
 			memberService.member_join(mb);
-			
-		}else {//중복 아이디 또는 중복 이메일
-			if(dupemail!=0)model.addAttribute("dupemail", dupemail);
-			if(dupnickname!=0)	model.addAttribute("dupnickname", dupnickname);
-			return "join_form";
+			System.out.println("memberBean 입력");
+			return "redirect:loginForm.do";
 		}
-		return "redirect:reg_info.do";
+
+		return "redirect:join_form";
 	}
 
 	/**
-	 * 로그인하기 위한 form이 있는 곳으로 이동
+	 * 로그인하기 위한 양식이 있는 곳으로 이동
 	 */
 	@RequestMapping("loginForm.do")
 	public String loginForm() {
+		//로그인 실패 시
+		
+		//로그인 성공 시
+		
 		return "login_form";
 	}
 
@@ -68,28 +74,29 @@ public class MemberController {
 	 * 로그인 버튼을 눌러서 로그인 시도
 	 */
 	@RequestMapping(value = "login.do", method = RequestMethod.POST)
-	public String login() {
+	public String login( MemberBean member,Model model) {
+		
+
+		int result=1;
+		
+		//로그인 성공
+		if(result==1) {
+			
+		}
+		//로그인 실패(로그인 카운트 늘어남)
+		else {
+			
+		}
+		//로그인 
+		
 		return "login";
-	}
-
-	/**
-	 * 비밀번호를 재설정 하기 위한 form으로 이동
-	 */
-	@RequestMapping("resetPasswd.do")
-	public String resetPasswd() {
-		return "reset_passwd";
-	}
-
-	/**
-	 * 이메일 등록하라는 안내
-	 */
-	@RequestMapping("reg_info.do")
-	public String reg_info() {
-		return "reg_info";
 	}
 
 	/**
 	 * 
 	 */
-
+	@RequestMapping("resetPasswd.do")
+	public String resetPasswd() {
+		return "reset_passwd";
+	}
 }

@@ -1,11 +1,15 @@
+
+//function getChart(jsonfile){
 function getChart(){
     let myChart = document.getElementById('myChart').getContext('2d');
         
     //Global Options
-    Chart.defaultFontFamily='Lato';
+   
     Chart.defaultFontSize=18;
     Chart.defaultFontColor='#777';
-    
+        
+        
+    //표 성질
     var jsonfile = {
         "jsonarray": [{
            "standard": "지표1",
@@ -40,9 +44,9 @@ function getChart(){
                 label:'평점',
                 data:data,
                 // backgroundColor:'green'
-                backgroundColor:[
-                'rgba(191, 63, 63, 0.6)','rgba(191, 127, 63, 0.6)','rgba(191, 191, 63, 0.6)','rgba(63, 191, 191, 0.6)','rgba(63, 127, 191, 0.6)',
-                ],
+                backgroundColor:
+                'rgba(63, 127, 191, 0.6)'
+                ,
                 borderWidth:1,
                 borderColor:'#777',
                 hoverBorderwidth:3,

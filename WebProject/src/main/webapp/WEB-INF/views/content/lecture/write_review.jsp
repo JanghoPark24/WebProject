@@ -1,29 +1,23 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
+<%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
 <!DOCTYPE html>
 <html>
     
     <head>
-          <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <meta charset="utf-8">
+ 		<meta name="viewport" content="width=device-width, initial-scale=1">
+ 
         <style>td {text-align: center}
             button {align-items: center}
         </style>
     </head>
-    <body>
-        <header>
-            헤더
-        </header>
-        
-        <h2 align=center> [강의코드] 강의 2</h2>
-    <br>
-    <br>
-    <div class="container">    
-        <table  class="table" id="" align="center" width=600>
+   
+   <h2 align=center> [강의코드] 강의 2</h2>
+    	<br>
+    	<br>
+       
+        <table  class="evaluate_table" id="" align="center" width=100%>
         
         <tr>
             <td>질문</td>
@@ -96,13 +90,13 @@
         
         <div id="button">
     
-            <center><button type="button" class="btn btn-primary" id="">완료</button></center>
+            <div align="center"><button type="button" class="btn btn-primary" id="">완료</button></div>
     
         </div>
 
-    </div>
+   
         
-	</body>
+
 	
 
 </html>

@@ -11,6 +11,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import thelecture.model.LectureBean;
+import thelecture.model.MemberBean;
+
 /**
  * Handles requests for the application home page.
  */
@@ -23,7 +26,7 @@ public class LecturesController {
 	 * Simply selects the home view to render by returning its name.
 	 */
 	@RequestMapping(value = "home2.do", method = RequestMethod.GET)
-	public String home(Locale locale, Model model) {
+	public String home2(Locale locale, Model model) {
 		logger.info("Welcome home! The client locale is {}.", locale);
 		
 		Date date = new Date();
@@ -36,6 +39,27 @@ public class LecturesController {
 		return "home2";
 	}
 	
+	
+
+	@RequestMapping(value = "review.do", method = RequestMethod.GET)
+
+	public String review( MemberBean member,LectureBean lecture,Model model){
+		
+		
+		//
+		//관리자 일 경우
+//		if()
+		//일반 유저일 경우
+		
+		return member.getGrade() =="manager"? "review_manager":"review";
+		
+	}
+	
+	@RequestMapping(value="write_review.do")
+	public String write_review(String id) {
+		
+		return "";
+	}
 	
 	
 }

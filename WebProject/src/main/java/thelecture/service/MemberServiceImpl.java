@@ -11,17 +11,8 @@ public class MemberServiceImpl {
 	@Autowired
 	private MemberDaoImpl memberDao;
 
-	public int is_dup_email(String email) throws Exception {
-		//비교를 위해서 대문자로 만든다.
-		int result = memberDao.isDup_email(email.toUpperCase());
-		return result;
-
-	}
-	public int is_dup_nickname( String nickname) throws Exception {
-		//비교를 위해서 대문자로 만든다.
-		int result = memberDao.isDup_nickname(nickname.toUpperCase());
-		return result;
-		
+	public int member_dup_check(String email) throws Exception {
+		return memberDao.member_dup_check(email);
 	}
 
 	public void member_join(MemberBean mb) throws Exception {

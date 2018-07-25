@@ -15,13 +15,15 @@
     <div class="jumbotron">
       <h3 style="text-align: center;">로그인</h3>
       <br>
-      <div class="form-group">
-        <label>이메일</label> <input required="required" type="email" class="form-control" placeholder="이메일" name="userEmail" maxlength="80">
-      </div>
-      <div class="form-group">
-        <label>비밀번호</label> <input required="required" type="password" class="form-control" placeholder="비밀번호" name="userPasswd" maxlength="80">
-      </div>
-      <input type="button" class="btn btn-primary align-center" value="로그인"> <br> <br>
+      <form action="login.do">
+	      <div class="form-group">
+	        <label>이메일</label> <input required="required" type="email" class="form-control" placeholder="이메일" name="userEmail" maxlength="80">
+	      </div>
+	      <div class="form-group">
+	        <label>비밀번호</label> <input required="required" type="password" class="form-control" placeholder="비밀번호" name="userPasswd" maxlength="80">
+	      </div>
+	      <input type="submit" class="btn btn-primary align-center" value="로그인"> <br> <br>
+      </form>
       <p style="font-size: 1em; font: bold;">
         <a href="joinForm.do" id="signup"><span
 						class="glyphicon glyphicon-user"></span> 혹시 아직 회원이 아니신가요? </a>
