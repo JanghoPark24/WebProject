@@ -1,6 +1,6 @@
 package thelecture.model;
 
-public class LectureBean {
+public class BoardBean {
 	private int semester;
 	private String lecture_code;
 	private String univ_name;

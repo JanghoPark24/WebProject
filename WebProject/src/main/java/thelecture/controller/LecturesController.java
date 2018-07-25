@@ -11,7 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import thelecture.model.LectureBean;
+import thelecture.model.BoardBean;
 import thelecture.model.MemberBean;
 
 /**
@@ -43,7 +43,7 @@ public class LecturesController {
 
 	@RequestMapping(value = "review.do", method = RequestMethod.GET)
 
-	public String review( MemberBean member,LectureBean lecture,Model model){
+	public String review( MemberBean member,BoardBean lecture,Model model){
 		
 		
 		//
