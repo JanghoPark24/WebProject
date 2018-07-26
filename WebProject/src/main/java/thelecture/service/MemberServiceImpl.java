@@ -12,11 +12,16 @@ public class MemberServiceImpl {
 	private MemberDaoImpl memberDao;
 
 	public int is_dup_email(String email) throws Exception {
-		return memberDao.is_dup_email(email);
+		//비교를 위해서 대문자로 만든다.
+		int result = memberDao.isDup_email(email.toUpperCase());
+		return result;
+
 	}
-	
-	public int is_dup_nickname(String email) throws Exception {
-		return memberDao.is_dup_nickname(email);
+	public int is_dup_nickname( String nickname) throws Exception {
+		//비교를 위해서 대문자로 만든다.
+		int result = memberDao.isDup_nickname(nickname.toUpperCase());
+		return result;
+		
 	}
 
 	public void member_join(MemberBean mb) throws Exception {

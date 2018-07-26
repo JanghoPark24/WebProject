@@ -69,6 +69,8 @@
 		<put-attribute name="body" value="/WEB-INF/views/content/lecture/review.jsp" />
 	</definition>
 	
-
+	<definition name="reg_info" extends="main_tile">
+		<put-attribute name="body" value="/WEB-INF/views/member/reg_info.jsp" />
+	</definition>
 	
 </tiles-definitions>

@@ -55,11 +55,11 @@ public class LecturesController {
 	public String review( MemberBean member,BoardBean lecture,Model model){
 		
 		
-		//
+		
 		//관리자 일 경우
 //		if()
 		//일반 유저일 경우
-		
+		model.addAttribute("checked",true);
 		return member.getGrade() =="manager"? "review_manager":"review";
 		
 	}

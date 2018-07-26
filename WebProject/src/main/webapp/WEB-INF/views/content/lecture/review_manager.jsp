@@ -43,8 +43,6 @@
     <!-- 평균 점수 ${average}로 불러옴-->
     
 
-    
-
         <div id ="content">
             <div id="content_header">
                 <h3>[00000]무슨 강의</h3>

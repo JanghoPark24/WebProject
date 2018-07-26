@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 
 <head>
@@ -64,10 +64,12 @@
                 </div>
                 
                 <!-- 로그인된 아이디가 이 학교 아이디이면  나타남.-->
-                <div id="write_review_wrapper" >
-                	<button>평가하기</button>
-                	<%@include file="write_review.jsp" %>
-            	</div>
+                <c:if test="${checked== true}">
+	                <div id="write_review_wrapper" >
+	                	<button>평가하기</button>
+	                	<%@include file="write_review.jsp" %>
+	            	</div>
+            	</c:if>
             </div>
             
     

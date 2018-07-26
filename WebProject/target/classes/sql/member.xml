@@ -2,16 +2,14 @@
  <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="memberns">
-	<!-- 중복검사 -->
-	<select id="is_dup_email" parameterType="String"
-		resultType="member">
-		select * from member where upper(email)=#{email}
+	<!-- email 중복검사 -->
+	<select id="isdup_email" parameterType="String"	resultType="member">
+		select * from member where Upper(email)= #{email}
 	</select>
-
-	<!-- 중복검사 -->
-	<select id="is_dup_nickname" parameterType="String"
-		resultType="member">
-		select * from member where upper(nickname)=#{nickname}
+	
+	<!-- nickname 중복검사 -->
+	<select id="isdup_nickname" parameterType="String" resultType="member">
+		select * from member where Upper(nickname)= #{nickname}
 	</select>
 
 
@@ -29,10 +27,3 @@
 
 
 </mapper>
-
-
-
-
-
-
-

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <!DOCTYPE html>
 <head>
@@ -16,16 +17,27 @@
 		<div class="jumbotron">
 			<h3 style="text-align: center;">회원가입</h3>
 			<br>
-			<form method="post" action="join.do" onsubmit="return validateForm()">
+			<form name="join_form" method="post" action="join.do"
+				onsubmit="return validateForm(this)">
 				<div class="form-group">
-					<label>이메일</label> <input type="email" class="form-control"
-						placeholder="이메일" name="email"  id="email" maxlength="40" required="required"
+					<label>이메일</label>
+					<c:if test="${!empty dupemail}">
+						<span class="errc" style="color:red;"> <br>이미 가입된 이메일입니다.
+						</span>
+					</c:if>
+					<input type="email" class="form-control" placeholder="이메일"
+						name="email" id="email" maxlength="40" required="required"
 						value="TheLecture.corp@gmail.com">
 				</div>
 				<div class="form-group">
-					<label>닉네임</label> <input type="text" class="form-control"
-						placeholder="닉네임" name="nickname" id="nickname" maxlength="20"
-						required="required" value="TheStudent">
+					<label>닉네임</label>
+					<c:if test="${!empty dupnickname}">
+						<span class="errc" style="color:red;"> <br>이미 사용중인 닉네임입니다.
+						</span>
+					</c:if>
+					<input type="text" class="form-control" placeholder="닉네임"
+						name="nickname" id="nickname" maxlength="20" required="required"
+						value="TheStudent">
 				</div>
 				<div class="form-group">
 					<label>비밀번호 <span>(8자 이상)</span></label> <span class="err"
@@ -35,8 +47,8 @@
 						value="wnddkd1971">
 				</div>
 				<div class="form-group">
-					<label>비밀번호 확인</label> <span class="err" id="isDup"> <br>비밀번호가
-						일치하지 않음
+					<label>비밀번호 확인</label> <span class="err" id="isntDup_password">
+						<br>비밀번호가 일치하지 않음
 					</span> <input type="password" class="form-control" placeholder="비밀번호 확인"
 						name="password2" id="password2" maxlength="20" required="required"
 						value="wnddkd1971">
