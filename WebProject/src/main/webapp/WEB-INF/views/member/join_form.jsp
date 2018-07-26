@@ -22,7 +22,7 @@
 				<div class="form-group">
 					<label>이메일</label>
 					<c:if test="${!empty dupemail}">
-						<span class="errc" style="color:red;"> <br>이미 가입된 이메일입니다.
+					 	<span class="errc" style="color:red;"> <br>이미 가입된 이메일입니다.
 						</span>
 					</c:if>
 					<input type="email" class="form-control" placeholder="이메일"
