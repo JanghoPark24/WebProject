@@ -30,7 +30,7 @@ public class MemberDaoImpl {
 		if (mb != null)
 			authcode = 1; 	// 중복id
 		return authcode;
-		 
+		  
 	}
 	/**
 	 * 회원가입
