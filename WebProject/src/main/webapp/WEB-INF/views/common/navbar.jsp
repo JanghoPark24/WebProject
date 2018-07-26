@@ -49,7 +49,7 @@
 						<li><a href="#">개발정보</a></li>
 						<li><a href="#">연락처</a></li>
 					</ul></li>
-				<li><a href="">평가 게시판</a></li>
+				<li><a href="lectureList.do">평가 게시판</a></li>
 
 				<li class="dropdown"><a class="dropdown-toggle"
 					data-toggle="dropdown" href="#">커뮤니티 <span class="caret"></span></a>

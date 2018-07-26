@@ -22,11 +22,7 @@ public class LecturesControllerTest {
 	@Mock
 	LecturesController lecturesController;
 	
-	
-	@Test
-	public void testHome() {
-		fail("Not yet implemented");
-	}
+
 
 	@Test
 	public void testReview() {

@@ -38,8 +38,18 @@ public class LecturesController {
 		return "home2";
 	}
 	
-	
-
+	@RequestMapping(value = "lectureList.do", method = RequestMethod.GET)
+	public String lectureList( MemberBean member,BoardBean lecture,Model model){
+		
+		//session확인
+		//
+		//관리자 일 경우
+//		if()
+		//일반 유저일 경우
+		
+		return "content/lecture/lectureList";
+		
+	}
 	@RequestMapping(value = "review.do", method = RequestMethod.GET)
 
 	public String review( MemberBean member,BoardBean lecture,Model model){

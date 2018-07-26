@@ -44,8 +44,8 @@
 		<put-attribute name="body" value="/WEB-INF/views/content/privacy.jsp" />
 	</definition>
 	
-	<definition name="lectureList" extends="main_tile">
-		<put-attribute name="body" value="/WEB-INF/views/lecture/lectureList.jsp" />
+	<definition name="*/*/*" extends="main_tile">
+		<put-attribute name="body" value="/WEB-INF/views/{1}/{2}/{3}.jsp" />
 	</definition>
 	
 	<definition name="service_profile" extends="main_tile">
