@@ -16,7 +16,7 @@
 	<div class="container" id='joinbox'>
 		<div class="jumbotron">
 			<h3 style="text-align: center;">회원가입</h3>
-			<br>
+		 	<br>
 			<form name="join_form" method="post" action="join.do"
 				onsubmit="return validateForm(this)">
 				<div class="form-group">
