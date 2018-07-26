@@ -1,5 +1,4 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
-<link rel="stylesheet" type="text/css"	href="<%=request.getContextPath()%>/css/sb_style.css" />
 
 
 <!doctype html>
