@@ -1,0 +1,26 @@
+<!DOCTYPE tiles-definitions PUBLIC
+"-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
+"http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+
+<!-- 타일즈 layout 설정 -->
+<tiles-definitions>
+	
+	<definition name="board_detail" template="/WEB-INF/views/layout/layout_board.jsp">
+		<put-attribute name="title" value="" />
+		<put-attribute name="header" value="/WEB-INF/views/common/header.jsp" />
+		<put-attribute name="navbar" value="/WEB-INF/views/common/navbar.jsp" />
+		<put-attribute name="body" value="" />
+		<put-attribute name="comment" value="/WEB-INF/views/common/comment.jsp" />
+		<put-attribute name="footer" value="/WEB-INF/views/common/footer.jsp" />
+	</definition>
+	
+	<definition name="review_manager" extends="board_detail">
+		<put-attribute name="body" value="/WEB-INF/views/content/lecture/review_manager.jsp" />
+	</definition>
+	
+	<definition name="review" extends="board_detail">
+		<put-attribute name="body" value="/WEB-INF/views/content/lecture/review.jsp" />
+	</definition>
+	
+	
+</tiles-definitions>

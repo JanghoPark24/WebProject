@@ -1,3 +1,10 @@
+$(function (req, res, next) {
+  if (req.url && req.url.indexOf('.jsp') > -1) {
+    res.header('Content-Type', 'text/html');
+  }
+ 
+});
+
 //처음에 답글 쓰기 모두 숨김
 
 function starting_function(){

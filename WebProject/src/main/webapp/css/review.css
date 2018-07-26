@@ -1,15 +1,12 @@
-body{
-    padding:5% 2%;
-}
-
-
+   
 textarea{
     resize: none;
 }
+           
 #container{
     width:100%;
     margin:0 auto;
-    
+   
 }
 
 #content{
@@ -23,6 +20,13 @@ textarea{
 }
 #content_header{
     width:100%;
+}
+  
+#write_review_wrapper{
+	border:1px solid ;
+	clear:both;
+	width:100%;
+	padding:2%;
 }
 
 .reply-button-container > *{

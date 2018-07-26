@@ -14,6 +14,7 @@ public class LoggingAspect {
 		
 		try {
 			Object obj = joinpoint.proceed();
+			
 			return obj;
 		} finally {
 			long et = System.currentTimeMillis();
