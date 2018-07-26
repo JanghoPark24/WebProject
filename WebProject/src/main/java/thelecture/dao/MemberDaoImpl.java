@@ -22,7 +22,7 @@ public class MemberDaoImpl {
 	
 	}
 	/**
-	 * 중복 체크
+	 * 중복 체크3
 	 */
 	public int is_dup_nickname(String nickname) throws Exception {
 		int authcode = -1;	// 사용 가능한 ID
@@ -30,7 +30,7 @@ public class MemberDaoImpl {
 		if (mb != null)
 			authcode = 1; 	// 중복id
 		return authcode;
-		  
+		   
 	}
 	/**
 	 * 회원가입
