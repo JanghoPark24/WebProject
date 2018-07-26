@@ -1,0 +1,24 @@
+@media (min-width: 720px) {
+    #content-middle  div{
+        width:100%;
+        
+    }
+    
+}
+@media (max-width: 720px) {
+    #content-middle > *{
+        width:80%;
+        
+    }
+    
+}
+@media (min-width: 320px) {
+    #content-middle > *{
+        width:100%;
+        
+    }
+    
+}
+
+
+

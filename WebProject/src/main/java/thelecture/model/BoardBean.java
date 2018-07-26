@@ -11,6 +11,7 @@ public class BoardBean {
  	private int total_avg_score;
  	
  	
+ 	
 	public int getSemester() {
 		return semester;
 	}
