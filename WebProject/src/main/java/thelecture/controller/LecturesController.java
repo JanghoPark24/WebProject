@@ -48,7 +48,7 @@ public class LecturesController {
 	}
 	
 	@RequestMapping(value = "lectureList.do", method = RequestMethod.GET)
-	public String lectureList( String email,String password, BoardBean lecture,Model model){
+	public String lectureList( String email, BoardBean lecture,Model model){
 	
 		//불러온 email로 계정 정보 불러옴
 //		MemberBean member = memberdao.getMemberInfo(email);
@@ -75,6 +75,7 @@ public class LecturesController {
 			
 		}else {
 			//비밀번호가 다르면 불러옴
+			
 		}
 		
 		
