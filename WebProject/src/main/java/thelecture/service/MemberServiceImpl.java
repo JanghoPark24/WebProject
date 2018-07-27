@@ -42,9 +42,11 @@ public class MemberServiceImpl {
 		memberDao.member_join(mb);
 	}
 
+
 	/*public void member_update(MemberBean mb) throws Exception {
 		memberDao.member_update(mb);
 	}
 */	
 		
 }
+

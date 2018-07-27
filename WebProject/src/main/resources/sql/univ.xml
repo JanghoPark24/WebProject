@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+ <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="univns">
+	<!-- domain 탐색 -->
+	<select id="find_domain" parameterType="String"
+		resultType="univ">
+		select univ_name from univ where Upper(univ_domain)= #{domain}
+	</select>
+
+
+
+</mapper>
+
+
+
+
+
+
+

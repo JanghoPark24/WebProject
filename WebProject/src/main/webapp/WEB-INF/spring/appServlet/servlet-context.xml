@@ -34,6 +34,7 @@
 		<beans:property name="definitions">
 			<beans:list>
 				<beans:value>/WEB-INF/tiles/tiles.xml</beans:value>
+				
 			</beans:list>
 		</beans:property>
 		
@@ -57,7 +58,10 @@
              <aop:around pointcut-ref="controllers" method="mainAdvice"/>
         </aop:aspect>
      </aop:config>
+     
+     
        
-	<context:component-scan base-package="thelecture" />
+	<context:component-scan base-package="thelecture.*" />
+	<context:component-scan base-package="org.mockito.*" />
 
 </beans:beans>

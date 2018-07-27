@@ -42,6 +42,16 @@ public class MemberDaoImpl {
 	public void member_join(MemberBean m) throws Exception {
 		sqlSession.insert("member_join", m);
 	}
+	
+	/*
+	 * 이메일을 따라 계정정보를 불러오는 메소드 필요
+	 * */
+	
+//	public MemberBean getMemberInfo(String email) {
+//		
+//		return sqlSession.selectOne("get_member", email);
+//	}
+
 
 	/*
 	 * 회원정보수정
@@ -71,3 +81,6 @@ public class MemberDaoImpl {
 	}
 	
 }
+
+
+

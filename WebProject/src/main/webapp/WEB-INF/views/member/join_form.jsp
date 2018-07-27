@@ -5,7 +5,6 @@
 <!DOCTYPE html>
 <head>
 <title>회원가입</title>
-<!-- //// -->
 <link rel="stylesheet" type="text/css"
 	href="<%=request.getContextPath()%>/css/stylej01.css" />
 <script src="<%=request.getContextPath()%>/js/validation.js"></script>
@@ -16,13 +15,13 @@
 	<div class="container" id='joinbox'>
 		<div class="jumbotron">
 			<h3 style="text-align: center;">회원가입</h3>
-			<br>
+		 	<br>
 			<form name="join_form" method="post" action="join.do"
 				onsubmit="return validateForm(this)">
 				<div class="form-group">
 					<label>이메일</label>
 					<c:if test="${!empty dupemail}">
-						<span class="errc" style="color:red;"> <br>이미 가입된 이메일입니다.
+					 	<span class="errc" style="color:red;"> <br>이미 가입된 이메일입니다.
 						</span>
 					</c:if>
 					<input type="email" class="form-control" placeholder="이메일"
