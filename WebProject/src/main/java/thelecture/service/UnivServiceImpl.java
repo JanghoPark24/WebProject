@@ -11,7 +11,6 @@ public class UnivServiceImpl {
 	private UnivDaoImpl univDao;
 
 	public String find_domain(String domain) throws Exception {
-		System.out.println("US");
 		return univDao.find_domain(domain);
 
 	}
