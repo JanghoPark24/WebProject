@@ -1,15 +1,27 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+<c:set var="contextPath" value="<%=request.getContextPath()%>"></c:set>
 
 <!DOCTYPE html>
+
 <html>
-    
     <head>
          <meta charset="utf-8">
   		<meta name="viewport" content="width=device-width, initial-scale=1">
     </head>
-    <body>
+    
+   <link rel="stylesheet" href="${contextPath}/css/lecture/lectureList.css">
+   <link rel="stylesheet" href="${contextPath}/css/rating/rateit.css">
+   <link rel="stylesheet" href="${contextPath}/css/review.css">
+   <script src="${contextPath}/js/rating/jquery.rateit.js"></script>
+    <script src="${contextPath}/js/review.js" charset="utf-8"></script>
    
+
+	<body>
+    
+  
         
             
 <div class="container text-center">    
@@ -21,28 +33,67 @@
 		            <button type=submit weight="10">검색</button>
 	            </form>
 			    
-			    <table  class="table" id="" align=center width=800 >
-			        <tr rowspan="2">
-			             oo 대학
-			        </tr>
-			        <tr>
-			        	<td colspan=2>
-			        	
-			            </td>
-			        </tr>
-			        <tr>
-			            <td rowspan="10">
-			                <button type="button" class="btn btn-primary">강의관리</button><br><br>
-			                <button type="button" class="btn btn-primary">글작성</button>
-			
-			                   
-			        </tr>
-					<tr>
-						<td><a href="review.do">강의 list</a></td> 
+			    <table class="table" id="" align=center width=800  >
+			       
+					<tr id="lectureList_columns" >
+						<td>
+							대학
+						</td>
+						<td>
+							강의명
+						</td>
+						<td>
+							수강학기
+						</td>
+						 
+						
+						<td>
+							강의코드
+						</td>
+						
+						<td>
+							평점
+						</td> 
+						
 					</tr>
-			        
+			        <tr class="lectureList_content">
+						<td>
+							대학
+						</td>
+						<td>
+							<a href="review.do">
+							강의명
+							</a>
+						</td> 
+						<td>
+							수강학기
+						</td>
+						
+						
+						<td>
+							강의코드
+						</td>
+						
+						<td class="star_rating">
+							<div data-productid="313" class="rateit" 
+								data-rateit-mode="font" data-rateit-value="2.5" 
+								data-rateit-readonly="true"
+								style="font-size:100%;">
+							</div>
+                   		<div style="clear: both;">
+                   			2.5
+                   		</div>
+                   			
+                   			
+						</td> 
+						
+					</tr>
 			        <tr>
-			            <td colspan="2"><button type="button" class="btn btn-primary">강의 입력</button></td>
+			            <td colspan="100%">
+			            	<a href="lectureInsert.do">
+			            		<button type="submit" class="btn btn-primary">강의 입력</button>
+			            	</a>
+			            </td>
 			        </tr>            
 			
 			    </table>
