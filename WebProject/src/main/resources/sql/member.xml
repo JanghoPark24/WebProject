@@ -24,6 +24,43 @@
 		0,null,sysdate,'unknown','unknown.jpg',''
 		)
 	</insert>
+  
+  
+	<!-- 회원 목록 -->
+	<select id="memberList" resultType="thelecture.model.MemberBean">
+		select
+		email as email,
+		nickname as nickname,
+		univ_name as univ_name
+		from member
+		order by email
+		
+	</select>
+	
+  
+     <!-- 회원정보수정 -->
+   <!--  <update id="member_update">
+		update 
+		member
+		set 
+		NICKNAME = #{nickname}
+		where
+		EMAIL = #{email}
+	</update> -->
+
+<!-- 회원정보 상세조회 -->
+	 <select id="viewMember" 
+	 parameterType="String"
+	 resultType="thelecture.model.MemberBean">
+		select
+		email,
+		nickname,
+		univ_name 
+		from member
+		where nickname = #{nickname}
+		
+	</select>  
+	
 
 
 </mapper>

@@ -1,5 +1,7 @@
 package thelecture.controller;
 
+
+import java.util.List;
 import java.util.StringTokenizer;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -113,8 +115,27 @@ public class MemberController {
 	}
 
 	/**
+
+	 *   내회원정보 창
+
 	 * 이메일 인증
+
 	 */
+
+	/*@RequestMapping("user_profile.do")
+	public String user_profile(@ModelAttribute MemberBean mb) throws Exception {
+		memberService.member_update(mb);
+		
+		return "user_profile";
+	}
+*/
+	/*@RequestMapping("my_profile.do")
+	public String my_profile(@ModelAttribute MemberBean mb) throws Exception {
+	//	memberService.member_update(mb);
+		
+		return "my_profile";
+	}
+	*/
 	@RequestMapping("email_confirm.do")
 	public String email_confirm() {
 		return "redirect:home.do";
@@ -123,9 +144,35 @@ public class MemberController {
 	/**
 	 * 보안 테스트
 	 */
-	@RequestMapping("loginhtml.do")
-	public String loginhtml() {
-		return "security/login";
-	}
 
+
+/*	@RequestMapping("update.do")
+	public String update(@ModelAttribute MemberBean mb) throws Exception {
+		memberService.member_update(mb);
+		
+		return "profile.do";
+	}
+*/
+	// 회원목록 조회
+	@RequestMapping("profile.do")
+	public String memberList(Model model) { 
+	List<MemberBean> list = memberService.memberList();
+	model.addAttribute("list",list);
+	
+	System.out.println("리스트 ==> " + list.toString());
+	return "profilelist";
+	}
+	
+	// 회원 상세정보 조회
+    @RequestMapping("my_profile.do")
+    public String memberView(/*@RequestParam("nickname") String nickname,*/ Model model) {
+    	/*System.out.println(nickname);*/
+    		String nickname="11";
+    	MemberBean dto = memberService.viewMember(nickname);
+    	model.addAttribute("dto",dto);
+    	
+        return "my_profile";
+    	
+    }
+	
 }
