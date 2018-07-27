@@ -77,15 +77,15 @@
 		<put-attribute name="body" value="/WEB-INF/views/member/login_form.jsp" />
 	</definition>
 
-	<definition name="*/*" extends="board_detail">
-        <put-attribute name="content" value="/WEB-INF/views/{1}/{2}.jsp" />
+	<definition name="*/*" extends="main_tile">
+        <put-attribute name="body" value="/WEB-INF/views/{1}/{2}.jsp" />
     </definition>
     
-    <definition name="*/*/*" extends="board_detail">
-        <put-attribute name="content" value="/WEB-INF/views/{1}/{2}/{3}.jsp" />
+    <definition name="*/*/*" extends="main_tile">
+        <put-attribute name="body" value="/WEB-INF/views/{1}/{2}/{3}.jsp" />
     </definition>
     <definition name="*/*/d" extends="board_detail">
-        <put-attribute name="content" value="/WEB-INF/views/content/{2}/{3}.jsp" />
+        <put-attribute name="body" value="/WEB-INF/views/content/{1}/{2}.jsp" />
     </definition>
 
 
