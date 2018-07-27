@@ -26,11 +26,11 @@ import thelecture.model.MemberBean;
 	 "classpath*:spring/root-context.xml"})
 public class LecturesControllerTest {
 		
-	@Autowired
-	private MockMvc mvc;
 	
 	@Mock
 	private LecturesController lecturesController;
+	
+	
 	
 	@Mock
 	private MemberBean member;
@@ -45,17 +45,10 @@ public class LecturesControllerTest {
 	@Test
 	public void testReview() {
 		
-		//계정확인
-		
-		member.setPassword("있는 비밀번호");
-		
-		//
-		String pass = member.getPassword();
-		
-		
-		when(member.getGrade().equals("manager"))
-			.thenReturn(lecturesController.review(member, lecture, model)=="review_manager");
-			
+	  
+	  
+	  
+	  
 		
 		
 		
