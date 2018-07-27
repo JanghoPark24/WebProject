@@ -56,7 +56,7 @@ public class MemberController {
 		System.out.println("univ_name : " + univ_name);
 
 		if ((dupemail + dupnickname == 0)// DB(member)안에 중복 이메일, 중복 닉네임이 없으면,
-		 && (!univ_name.equals("")) /* DB(univ)안에 도메인이 있으면, */ ) {
+				&& (!univ_name.equals("")) /* DB(univ)안에 도메인이 있으면, */ ) {
 
 			// 인증용 랜덤키 생성
 			TempKey tk = TempKey.Instance;
@@ -66,7 +66,7 @@ public class MemberController {
 			MemberBean mb = new MemberBean();
 			mb.setEmail(email.trim());
 			mb.setNickname(nickname.trim());
-			// mb.setUniv_name(univ_name);
+			mb.setUniv_name(univ_name);
 			mb.setReg_key(reg_key);
 			memberService.member_join(mb);
 

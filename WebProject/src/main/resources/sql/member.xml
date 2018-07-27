@@ -18,7 +18,7 @@
 		insert INTO
 		member
 		values(
-		#{email},#{nickname},'서울대학교','C54F4493021DE0A059CF719A2DCE3D20941EFE9A625122715BADD0B76244F6DD','n',
+		#{email},#{nickname},#{univ_name},'C54F4493021DE0A059CF719A2DCE3D20941EFE9A625122715BADD0B76244F6DD','n',
 		'master',
 		'B6E0lnRevAWmKnASHCYY',
 		0,null,sysdate,'unknown','unknown.jpg',''
