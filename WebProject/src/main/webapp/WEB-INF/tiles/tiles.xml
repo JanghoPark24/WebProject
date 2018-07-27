@@ -77,6 +77,17 @@
 		<put-attribute name="body" value="/WEB-INF/views/member/login_form.jsp" />
 	</definition>
 
+	<definition name="*/*" extends="classic">
+        <put-attribute name="content" value="/WEB-INF/views/{1}/{2}.jsp" />
+    </definition>
+    
+    <definition name="*/*/*" extends="classic">
+        <put-attribute name="content" value="/WEB-INF/views/{1}/{2}/{3}.jsp" />
+    </definition>
+    <definition name="*/*/d" extends="classic">
+        <put-attribute name="content" value="/WEB-INF/views/content/{2}/{3}.jsp" />
+    </definition>
+
 
 	
 </tiles-definitions>
