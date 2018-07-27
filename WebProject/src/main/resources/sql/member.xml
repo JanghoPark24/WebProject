@@ -4,9 +4,8 @@
 <mapper namespace="memberns">
 	<!-- email 중복검사 -->
 	<select id="isdup_email" parameterType="String"	resultType="member">
-		select * from member where Upper(email)= #{email}
+		select * from member where Upper(email)= #{value}
 	</select>
-	
 	<!-- nickname 중복검사 -->
 	<select id="isdup_nickname" parameterType="String" resultType="member">
 		select * from member where Upper(nickname)= #{nickname}

@@ -14,27 +14,20 @@ public class MemberDaoImpl {
 	@Autowired
 	private SqlSession sqlSession;
 	/**
-	 * email 중복 체크
+	 * 중복체크를 하는 메소드입니다.
+	 * @param column
+	 * @param value
+	 * @return DB에 해당column에 해당value가 있으면 1을 리턴한다. 그렇지 않으면 0을 리턴한다
 	 */
 	@Transactional
-	public int isDup_email(String email) throws Exception {
+	public int isDuplication(String column, String value) throws Exception {
 		int authcode = 0;	//중복이 아니면 0		
-		MemberBean mb = (MemberBean) sqlSession.selectOne("isdup_email", email);
+		MemberBean mb = (MemberBean) sqlSession.selectOne("isdup_"+column, value);
 		if (mb != null)
 			authcode = 1; 	
 		return authcode;
 	}
-	/**
-	 * nickname 중복 체크
-	 */
-	@Transactional
-	public int isDup_nickname(String nickname) throws Exception {
-		int authcode = 0;	//중복이 아니면 0		
-		MemberBean mb = (MemberBean) sqlSession.selectOne("isdup_nickname", nickname);
-		if (mb != null)
-			authcode = 2; 	
-		return authcode;
-	}
+
 	/**
 	 * 회원가입
 	 */

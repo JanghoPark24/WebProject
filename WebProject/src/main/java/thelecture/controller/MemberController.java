@@ -16,12 +16,7 @@ import thelecture.security.TempKey;
 import thelecture.service.MemberServiceImpl;
 import thelecture.service.UnivServiceImpl;
 
-/**
- *
- * 회원 컨트롤러
- * 
- * @author Spectral Fox
- */
+
 @Controller
 public class MemberController {
 
@@ -45,8 +40,8 @@ public class MemberController {
 	public String join(@RequestParam("email") String email, @RequestParam("nickname") String nickname,
 			@RequestParam("password") String password, Model model) throws Exception {
 
-		int dupemail = memberService.is_dup_email(email);
-		int dupnickname = memberService.is_dup_nickname(nickname);
+		int dupemail = memberService.isDuplication("email", email);
+		int dupnickname = memberService.isDuplication("nickname", nickname);
 
 		// DB에서 도메인 탐색하여 비교하는 과정
 		// 등록된 도메인이 아니면 가입거부 창을 띄워야함
@@ -115,38 +110,14 @@ public class MemberController {
 	}
 
 	/**
-
-	 *   내회원정보 창
-
 	 * 이메일 인증
-
 	 */
-
-	/*@RequestMapping("user_profile.do")
-	public String user_profile(@ModelAttribute MemberBean mb) throws Exception {
-		memberService.member_update(mb);
-		
-		return "user_profile";
-	}
-*/
-	/*@RequestMapping("my_profile.do")
-	public String my_profile(@ModelAttribute MemberBean mb) throws Exception {
-	//	memberService.member_update(mb);
-		
-		return "my_profile";
-	}
-	*/
 	@RequestMapping("email_confirm.do")
 	public String email_confirm() {
 		return "redirect:home.do";
 	}
-
-	/**
-	 * 보안 테스트
-	 */
-
-
-/*	@RequestMapping("update.do")
+/*	
+ * @RequestMapping("update.do")
 	public String update(@ModelAttribute MemberBean mb) throws Exception {
 		memberService.member_update(mb);
 		
