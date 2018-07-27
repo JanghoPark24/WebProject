@@ -45,5 +45,14 @@
 	<definition name="reg_info" extends="main_tile">
 		<put-attribute name="body" value="/WEB-INF/views/member/reg_info.jsp" />
 	</definition>
+	<definition name="my_profile" extends="main_tile">
+		<put-attribute name="body" value="/WEB-INF/views/content/profile/my_profile.jsp" />
+	</definition>
+	<definition name="user_profile" extends="main_tile">
+		<put-attribute name="body" value="/WEB-INF/views/content/profile/user_profile.jsp" />
+	</definition>
+	<definition name="profilelist" extends="main_tile">
+		<put-attribute name="body" value="/WEB-INF/views/content/profile/profilelist.jsp" />
+	</definition>
 	
 </tiles-definitions>

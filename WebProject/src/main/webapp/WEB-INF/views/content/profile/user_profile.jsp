@@ -23,7 +23,7 @@ table, th, td {
 </head>
 <body>
 
-<header align="center">헤더</header>
+
 
 <table border=1 align=center height=400 class="table">
 <form method="post">
@@ -51,9 +51,9 @@ table, th, td {
  </form>      
 </table>
 
-     <center><a href="profile.html" class="btn btn-info" role="button"> 회원정보수정</a></center>
+     <center><a href="my_profile.do" class="btn btn-info" role="button"> 회원정보수정</a></center>
                 
-    <footer align="center" border=1  > footer</footer>
+    
 
 </body>
 </html>

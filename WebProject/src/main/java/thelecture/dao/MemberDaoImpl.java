@@ -1,5 +1,7 @@
 package thelecture.dao;
 
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -41,4 +43,31 @@ public class MemberDaoImpl {
 		sqlSession.insert("member_join", m);
 	}
 
+	/*
+	 * 회원정보수정
+	*/
+	/*@Transactional
+	public void member_update(MemberBean m) throws Exception {
+	    sqlSession.update("member_update", m);	
+	}*/
+
+	/*
+	 * 전체회원목록
+	*/
+	
+	@Transactional
+	public List<MemberBean> memberList() {
+ return sqlSession.selectList("memberList");	
+	}
+	
+	/*
+	 * 회원상세정보
+	*/
+	
+	@Transactional
+	public MemberBean viewMember(String nickname) {
+		System.out.println("dao");
+		return sqlSession.selectOne("viewMember",nickname);
+	}
+	
 }

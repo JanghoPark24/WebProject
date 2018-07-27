@@ -94,5 +94,11 @@ public class MemberBean {
 	public void setProfile(String profile) {
 		this.profile = profile;
 	}
+	@Override
+	public String toString() {
+		return "MemberBean[email="+email+",nickname="+nickname+",univ_name="+univ_name+"]";
+	}
+	
+	
 	
 }
