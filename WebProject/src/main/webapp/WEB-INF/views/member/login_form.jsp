@@ -18,10 +18,10 @@
       <br>
       <form action="login.do" method="post" >
 	      <div class="form-group">
-	        <label>이메일</label> <input required="required" type="email" class="form-control" placeholder="이메일" name="email" maxlength="80">
+	        <label>이메일</label> <input value= "TheLecture.corp@gmail.com" required="required" type="email" class="form-control" placeholder="이메일" name="email" maxlength="80">
 	      </div>
 	      <div class="form-group">
-	        <label>비밀번호</label> <input required="required" type="password" class="form-control" placeholder="비밀번호" name="password" maxlength="80">
+	        <label>비밀번호</label> <input value="wnddkd1971" required="required" type="password" class="form-control" placeholder="비밀번호" name="password" maxlength="80">
 	      </div>
 	      <input type="submit" class="btn btn-primary align-center" value="로그인"> <br> <br>
       </form>
