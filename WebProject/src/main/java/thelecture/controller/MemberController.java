@@ -146,7 +146,7 @@ public class MemberController {
 	 */
 	@RequestMapping("resetPasswd.do")
 	public String resetPasswd() {
-		return "reset_passwd";
+		return "member/reset_passwd";
 	}
 
 	/**
@@ -154,7 +154,7 @@ public class MemberController {
 	 */
 	@RequestMapping("reg_info.do")
 	public String reg_info() {
-		return "reg_info";
+		return "member/reg_info";
 	}
 
 	/**
