@@ -4,6 +4,8 @@ import java.text.DateFormat;
 import java.util.Date;
 import java.util.Locale;
 
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,7 +50,7 @@ public class LecturesController {
 	}
 	
 	@RequestMapping(value = "lectureList.do", method = RequestMethod.GET)
-	public String lectureList( String email,String password, BoardBean lecture,Model model){
+	public String lectureList( String email, BoardBean lecture,Model model){
 	
 		//불러온 email로 계정 정보 불러옴
 //		MemberBean member = memberdao.getMemberInfo(email);
@@ -58,48 +60,35 @@ public class LecturesController {
 		return "content/lecture/lectureList";
 		
 	}
-	@RequestMapping(value = "lecture_manager.do", method = RequestMethod.GET)
-	public String lecture_manager( String email,String password, BoardBean lecture,Model model){
 	
-		//불러온 email로 계정 정보 불러옴
-//		MemberBean member = memberdao.getMemberInfo(email);
+	@RequestMapping(value = "lecture_master.do", method = RequestMethod.GET)
+	public String lecture_master(HttpSession session,String password, BoardBean lecture,Model model){
 		
+		String grade = (String)session.getAttribute("grade");
 		
-		//Test
-		MemberBean member=new MemberBean();
-		member.setPassword("");
-		
-		//비밀번호가 다르면 Grade를 불러오지 않음.
-		if(!member.getPassword().equals(password)) {
+		if(grade =="master") {
 			
+			return "content/lecture/lecture_master";
 			
 		}else {
-			//비밀번호가 다르면 불러옴
+			return "error/isNotMaster";
+			
 		}
 		
-		
-		//manager일 경우 lecture_manager로 ,일반 유저일 경우 lectureList로
-		
-		
-		return "content/lecture/lectureList";
-		
 	}
+	
+	
 	
 	@RequestMapping(value = "review.do", method = RequestMethod.GET)
 
 	public String review( MemberBean member,BoardBean lecture,Model model){
 		
+		//password가 맞으면
 		
-		
-		
-		
-		//관리자일 경우 review_manager, 일반 유저일 경우 review
-		//checked - 체크했을 경우 
 		model.addAttribute("checked",true);
 		
-		return member.getGrade() =="manager"? 
-				"lecture/review_manager/d":
-				"lecture/review/d";
+		return "lecture/review/d";
+				
 		
 	}
 	

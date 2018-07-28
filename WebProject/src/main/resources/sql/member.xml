@@ -4,9 +4,8 @@
 <mapper namespace="memberns">
 	<!-- email 중복검사 -->
 	<select id="isdup_email" parameterType="String"	resultType="member">
-		select * from member where Upper(email)= #{email}
+		select * from member where Upper(email)= #{value}
 	</select>
-	
 	<!-- nickname 중복검사 -->
 	<select id="isdup_nickname" parameterType="String" resultType="member">
 		select * from member where Upper(nickname)= #{nickname}
@@ -18,12 +17,49 @@
 		insert INTO
 		member
 		values(
-		#{email},#{nickname},'서울대학교','C54F4493021DE0A059CF719A2DCE3D20941EFE9A625122715BADD0B76244F6DD','n',
+		#{email},#{nickname},#{univ_name},'C54F4493021DE0A059CF719A2DCE3D20941EFE9A625122715BADD0B76244F6DD','n',
 		'master',
 		'B6E0lnRevAWmKnASHCYY',
 		0,null,sysdate,'unknown','unknown.jpg',''
 		)
 	</insert>
+  
+  
+	<!-- 회원 목록 -->
+	<select id="memberList" resultType="thelecture.model.MemberBean">
+		select
+		email as email,
+		nickname as nickname,
+		univ_name as univ_name
+		from member
+		order by email
+		
+	</select>
+	
+  
+     <!-- 회원정보수정 -->
+   <!--  <update id="member_update">
+		update 
+		member
+		set 
+		NICKNAME = #{nickname}
+		where
+		EMAIL = #{email}
+	</update> -->
+
+<!-- 회원정보 상세조회 -->
+	 <select id="viewMember" 
+	 parameterType="String"
+	 resultType="thelecture.model.MemberBean">
+		select
+		email,
+		nickname,
+		univ_name 
+		from member
+		where nickname = #{nickname}
+		
+	</select>  
+	
 
 
 </mapper>

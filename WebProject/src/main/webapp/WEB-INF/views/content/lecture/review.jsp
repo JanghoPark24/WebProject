@@ -54,9 +54,11 @@
                     
                    <h5>평균 평점 :<span> ${average}</span> </h5>
                   
-                   <div data-productid="312" class="rateit" data-rateit-mode="font" style="" 
-                   data-rateit-value="2.5" data-rateit-ispreset="true" data-rateit-readonly="true"
-                   ></div>
+                   			<div data-productid="313" class="rateit" 
+								data-rateit-mode="font" data-rateit-value="2.5" 
+								data-rateit-readonly="true"
+								style="font-size:350%; color:lime;">
+							</div>
                    
                    <!-- 평가 -->
                   	
