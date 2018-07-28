@@ -21,8 +21,8 @@
 	<!-- 회원저장 -->
 	<insert id="member_join" parameterType="member">
 		insert INTO	member values(
-		#{email},#{nickname},#{univ_name},#{password},'n','unknown',
-		#{reg_key},	0,null,sysdate,'unknown','unknown.jpg','')
+		#{email},#{univ_name},#{nickname},#{password},'n','unknown',
+			0,null,#{reg_key},sysdate,'unknown','unknown.jpg','')
 	</insert>
   
   

@@ -146,7 +146,7 @@ public class MemberController {
 	 */
 	@RequestMapping("resetPasswd.do")
 	public String resetPasswd() {
-		return "reset_passwd";
+		return "member/reset_passwd";
 	}
 
 	/**
@@ -154,7 +154,7 @@ public class MemberController {
 	 */
 	@RequestMapping("reg_info.do")
 	public String reg_info() {
-		return "reg_info";
+		return "member/reg_info";
 	}
 
 	/**
@@ -170,6 +170,14 @@ public class MemberController {
 	 */
 	@RequestMapping("logout.do")
 	public String logout(HttpSession session) {
+		session.invalidate();
+		return "content/home";
+	}
+	/**
+	 * 탈퇴 신청
+	 */
+	@RequestMapping("signOut.do")
+	public String request(HttpSession session) {
 		session.invalidate();
 		return "content/home";
 	}
@@ -199,7 +207,6 @@ public class MemberController {
 		model.addAttribute("dto", dto);
 
 		return "my_profile";
-
 	}
 
 }

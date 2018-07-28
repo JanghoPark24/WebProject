@@ -6,7 +6,7 @@
 	href="<%=request.getContextPath()%>/css/stylej01.css" />
 </head>
 <body>
-	<div class="container text-center" style="padding:30px;">
+	<div id="homebox" class="container text-center" style="padding:30px;">
 		<div class="jumbotron">
 			<h3 style="text-align: center;">이메일 등록</h3>
 			<br>
@@ -18,6 +18,10 @@
 			<form action="home.do">
 				<input type="submit" class="btn btn-primary align-center"
 					value="홈으로 되돌아가기">
+			</form>
+			<form action="home.do">
+				<input type="submit" class="btn btn-primary align-center"
+					value="인증메일 재발송">
 			</form>
 			<br>
 		</div>

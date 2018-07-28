@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@page import="java.sql.DriverManager"%>
+<%@page import="java.sql.ResultSet"%>
+<%@page import="java.sql.Statement"%>
+<%@page import="java.sql.Connection"%>
 
 <!DOCTYPE html>
 <head>
@@ -14,6 +18,7 @@
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <link rel="stylesheet" type="text/css"
 	href="<%=request.getContextPath()%>/css/stylej01.css" />
+
 <script>
 	$(function() {
 		var availableTags = [ "ActionScript", "AppleScript", "Asp", "BASIC",
