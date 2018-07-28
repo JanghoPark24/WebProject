@@ -6,8 +6,8 @@
 	<typeAliases>
 		<typeAlias alias="member" type="thelecture.model.MemberBean" />		
 		<typeAlias alias="univ" type="thelecture.model.UnivBean" />		
-	<!-- 	<typeAlias alias="lecture" type="thelecture.model.LectureBean" />		
-		<typeAlias alias="replies" type="thelecture.model.ReplyBean" />		 -->
+	 	<typeAlias alias="lectureList" type="thelecture.model.BoardBean" />		
+		<!-- <typeAlias alias="replies" type="thelecture.model.ReplyBean" />		 -->
 	</typeAliases>
 
 

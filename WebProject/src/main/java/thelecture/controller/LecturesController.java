@@ -50,32 +50,26 @@ public class LecturesController {
 	}
 	
 	@RequestMapping(value = "lectureList.do", method = RequestMethod.GET)
-	public String lectureList( String email, BoardBean lecture,Model model){
-	
-		//불러온 email로 계정 정보 불러옴
-//		MemberBean member = memberdao.getMemberInfo(email);
+	public String lectureList( HttpSession session, Model model) {
 		
-		
-		
-		return "content/lecture/lectureList";
-		
-	}
-	
-	@RequestMapping(value = "lecture_master.do", method = RequestMethod.GET)
-	public String lecture_master(HttpSession session,String password, BoardBean lecture,Model model){
-		
-		String grade = (String)session.getAttribute("grade");
-		
-		if(grade =="master") {
-			
-			return "content/lecture/lecture_master";
-			
-		}else {
-			return "error/isNotMaster";
-			
+		//lecture 불러오기
+		try {
+			BoardBean lectureList = lecturedao.getlectureList();
+			model.addAttribute("lectureList",lectureList);
+		}catch(Exception e) {
+			return "error/500error";
 		}
 		
+		//grade가 master면 마스터 모드 아니면 일반 모드
+		String grade = (String)session.getAttribute("grade");
+		
+		return grade =="master"? 
+				"content/lecture/lecture_master":
+				"content/lecture/lectureList";
+		
 	}
+	
+	
 	
 	
 	
