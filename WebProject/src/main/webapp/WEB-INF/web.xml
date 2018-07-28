@@ -64,5 +64,31 @@
 		<servlet-name>appServlet</servlet-name>
 		<url-pattern>*.do</url-pattern>
 	</servlet-mapping>
+	
+	
+	
+	<!-- error page 설정 -->
+	<error-page>
+		<error-code>401</error-code>
+		<location>/views/content/error/401error.jsp</location>
+	</error-page>
+		
+	<error-page>
+		<error-code>403</error-code>
+		<location>/views/content/error/403error.jsp</location>
+	</error-page>
+	
+	<error-page>
+	    <error-code>404</error-code>
+	    <location>/views/content/error/404error.jsp</location>
+	</error-page>
+		
+	<error-page>
+		<error-code>500</error-code>
+		<location>/views/content/error/500error.jsp</location>
+	</error-page>
+
+
+
 
 </web-app>

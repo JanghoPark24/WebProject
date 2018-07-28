@@ -1,6 +1,5 @@
 package thelecture.model;
 
-import java.sql.Date;
 
 public class Page {
 
