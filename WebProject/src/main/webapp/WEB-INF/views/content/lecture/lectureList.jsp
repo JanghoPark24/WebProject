@@ -21,6 +21,7 @@
 
 	<body>
     
+    
   
         
             
@@ -56,6 +57,8 @@
 						</td> 
 						
 					</tr>
+					
+					
 			        <tr class="lectureList_content">
 						<td>
 							대학
@@ -88,7 +91,13 @@
 						</td> 
 						
 					</tr>
-			             
+			       <tr>
+			            <td colspan="100%">
+			            	<a href="lectureInsert.do">
+			            		<button type="submit" class="btn btn-primary">강의 입력</button>
+			            	</a>
+			            </td>
+			        </tr>        
 			
 			    </table>
 			</div>

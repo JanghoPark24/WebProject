@@ -1,7 +1,9 @@
 package thelecture.controller;
 
 import java.text.DateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 import javax.servlet.http.HttpSession;
@@ -50,16 +52,15 @@ public class LecturesController {
 	}
 	
 	@RequestMapping(value = "lectureList.do", method = RequestMethod.GET)
-	public String lectureList( HttpSession session, Model model) {
+	public String lectureList( HttpSession session, Model model) throws Exception {
 		
 		//lecture 불러오기
-		try {
-			BoardBean lectureList = lecturedao.getlectureList();
-			model.addAttribute("lectureList",lectureList);
-		}catch(Exception e) {
-			return "error/500error";
-		}
+	
+		List<BoardBean> lectureList = lecturedao.getlectureList();
 		
+		
+		//다음으로 전하기
+		model.addAttribute("lectureList",lectureList);
 		//grade가 master면 마스터 모드 아니면 일반 모드
 		String grade = (String)session.getAttribute("grade");
 		

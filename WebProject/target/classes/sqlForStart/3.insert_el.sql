@@ -46,3 +46,10 @@ insert INTO member values(
 0,null,sysdate,'무역학과','image.jpg','탈퇴하려는 회원입니다.'
 );
 
+
+/*
+ * author:종혁
+ * lecture List 새로 추가
+ * 
+ * */
+

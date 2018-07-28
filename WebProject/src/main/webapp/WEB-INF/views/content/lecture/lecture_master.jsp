@@ -88,13 +88,50 @@
 						</td> 
 						
 					</tr>
-			        <tr>
-			            <td colspan="100%">
-			            	<a href="lectureInsert.do">
-			            		<button type="submit" class="btn btn-primary">강의 입력</button>
-			            	</a>
-			            </td>
-			        </tr>            
+					<c:if test="${lectureList not empty}">
+						<c:forEach var="lecture" items="lectureList">
+							<tr class="lectureList_content">
+								<td>
+									${lecture.univ_name}
+								</td>
+								<td>
+									<a href="review.do">
+										
+									</a>
+								</td> 
+								<td>
+									수강학기
+								</td>
+								
+								
+								<td>
+									강의코드
+								</td>
+								
+								<td class="star_rating">
+									<div data-productid="313" class="rateit" 
+										data-rateit-mode="font" data-rateit-value="2.5" 
+										data-rateit-readonly="true"
+										style="font-size:100%;">
+									</div>
+		                   		<div style="clear: both;">
+		                   			2.5
+		                   		</div>
+		                   			
+								</td> 
+								
+							</tr>
+					        <tr>
+					            <td colspan="100%">
+					            	<a href="lectureInsert.do">
+					            		<button type="submit" class="btn btn-primary">강의 입력</button>
+					            	</a>
+					            </td>
+					        </tr>      
+						</c:forEach>>
+						      
+					</c:if>
+					
 			
 			    </table>
 			</div>
