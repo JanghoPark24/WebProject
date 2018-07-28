@@ -1,8 +1,11 @@
 package thelecture.controller;
 
-
+import java.io.PrintWriter;
 import java.util.List;
 import java.util.StringTokenizer;
+
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,12 +13,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 import thelecture.model.MemberBean;
+import thelecture.security.SHA256;
 import thelecture.security.TempKey;
 import thelecture.service.MemberServiceImpl;
 import thelecture.service.UnivServiceImpl;
-
 
 @Controller
 public class MemberController {
@@ -56,8 +60,18 @@ public class MemberController {
 				&& (!univ_name.equals("")) /* DB(univ)안에 도메인이 있으면, */ ) {
 
 			// 인증용 랜덤키 생성
-			TempKey tk = TempKey.Instance;
-			String reg_key = tk.getKey(20, false);
+			TempKey keyGenerator = TempKey.Instance;
+			int dupkey; 
+			String reg_key;
+			do {
+				reg_key =  keyGenerator.getKey(20, false);
+				dupkey = memberService.isDuplication("reg_key", reg_key,true);
+			}while(dupkey!=0);//인증키 충돌할경우 다시 생성한다.
+			
+			// SHA256 (해쉬화)
+			SHA256 encrypter = SHA256.Instance;
+			String hashed_text = encrypter.encrypt(password).toUpperCase();
+			/*향후 개선점 : SHA방식에 소금치는 방법을 추가하면 더 낫다.*/
 
 			// 멤버빈 주입
 			MemberBean mb = new MemberBean();
@@ -65,6 +79,7 @@ public class MemberController {
 			mb.setNickname(nickname.trim());
 			mb.setUniv_name(univ_name);
 			mb.setReg_key(reg_key);
+			mb.setPassword(hashed_text);
 			memberService.member_join(mb);
 
 		} else {// 중복 아이디 또는 중복 이메일
@@ -89,8 +104,39 @@ public class MemberController {
 	 * 로그인 버튼을 눌러서 로그인 시도
 	 */
 	@RequestMapping(value = "login.do", method = RequestMethod.POST)
-	public String login() {
-		return "login";
+	public ModelAndView login(@RequestParam("email") String email, @RequestParam("password") String password,
+			HttpServletResponse response, HttpSession session) throws Exception {
+		System.out.println("로그인시도 \n email:" + email + "password:" + password);
+		response.setContentType("text/html;charset=UTF-8");
+		MemberBean mb = this.memberService.select_member(email);
+		// SHA256 (해쉬화)
+		SHA256 encrypter = SHA256.Instance;
+		String hashed_text = encrypter.encrypt(password).toUpperCase();
+
+		PrintWriter out = response.getWriter();// 출력스트림 객체 생성
+		System.out.println(hashed_text);
+
+		if (mb == null) {// member테이블에 email이 존재하지 않음
+			out.println("<script>");
+			out.println("alert('등록되지 않은 회원입니다!')");
+			out.println("history.back()");
+			out.println("</script>");
+		} else {
+			System.out.println(mb.getPassword());
+
+			if (hashed_text.equals(mb.getPassword())) {// 비밀번호해쉬값이 일치함
+			session.setAttribute("email", email);
+			session.setAttribute("grade", mb.getGrade());
+			ModelAndView loginM = new ModelAndView("content/home");
+			
+			return loginM;
+		} else {
+			out.println("<script>");
+			out.println("alert('비번이 다릅니다!')");
+			out.println("history.go(-1)");
+			out.println("</script>");
+		}}
+		return null;
 	}
 
 	/**
@@ -116,34 +162,33 @@ public class MemberController {
 	public String email_confirm() {
 		return "redirect:home.do";
 	}
-/*	
- * @RequestMapping("update.do")
-	public String update(@ModelAttribute MemberBean mb) throws Exception {
-		memberService.member_update(mb);
-		
-		return "profile.do";
-	}
-*/
+
+	/*
+	 * @RequestMapping("update.do") public String update(@ModelAttribute MemberBean
+	 * mb) throws Exception { memberService.member_update(mb);
+	 * 
+	 * return "profile.do"; }
+	 */
 	// 회원목록 조회
 	@RequestMapping("profile.do")
-	public String memberList(Model model) { 
-	List<MemberBean> list = memberService.memberList();
-	model.addAttribute("list",list);
-	
-	System.out.println("리스트 ==> " + list.toString());
-	return "profilelist";
+	public String memberList(Model model) {
+		List<MemberBean> list = memberService.memberList();
+		model.addAttribute("list", list);
+
+		System.out.println("리스트 ==> " + list.toString());
+		return "profilelist";
 	}
-	
+
 	// 회원 상세정보 조회
-    @RequestMapping("my_profile.do")
-    public String memberView(/*@RequestParam("nickname") String nickname,*/ Model model) {
-    	/*System.out.println(nickname);*/
-    		String nickname="11";
-    	MemberBean dto = memberService.viewMember(nickname);
-    	model.addAttribute("dto",dto);
-    	
-        return "my_profile";
-    	
-    }
-	
+	@RequestMapping("my_profile.do")
+	public String memberView(/* @RequestParam("nickname") String nickname, */ Model model) {
+		/* System.out.println(nickname); */
+		String nickname = "11";
+		MemberBean dto = memberService.viewMember(nickname);
+		model.addAttribute("dto", dto);
+
+		return "my_profile";
+
+	}
+
 }
