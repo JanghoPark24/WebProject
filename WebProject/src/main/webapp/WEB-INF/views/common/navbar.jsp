@@ -72,7 +72,7 @@
 			<c:if test="${sessionScope.grade != null }">
 				<ul class="nav navbar-nav navbar-right">
 					<li class="dropdown"><a class="dropdown-toggle"
-					data-toggle="dropdown" href="#">${sessionScope.nickname}<span class="caret"></span></a>
+					data-toggle="dropdown" href="#">${sessionScope.nickname}</a>
 					<ul class="dropdown-menu">
 						<li><a href="my_profile.do"><span
 							class="glyphicon glyphicon-user"></span> My profile</a></li>
