@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import thelecture.model.BoardBean;
+import thelecture.model.LectureBean;
 
 @Repository
 public class LectureDaoImpl {
@@ -17,7 +17,7 @@ public class LectureDaoImpl {
 	private SqlSession sqlSession;
 	
 	@Transactional
-	public List<BoardBean> getlectureList() throws Exception {
+	public List<LectureBean> getlectureList() throws Exception {
 		
 		return sqlSession.selectList("lectureMap.getLectures");
 		

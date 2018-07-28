@@ -16,7 +16,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import thelecture.controller.LecturesController;
-import thelecture.model.BoardBean;
+import thelecture.model.LectureBean;
 import thelecture.model.MemberBean;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -36,7 +36,7 @@ public class LecturesControllerTest {
 	private MemberBean member;
 
 	@Mock
-	private BoardBean lecture;
+	private LectureBean lecture;
 	
 	@Mock
 	private Model model;

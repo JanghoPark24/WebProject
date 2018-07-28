@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import thelecture.dao.LectureDaoImpl;
 import thelecture.dao.MemberDaoImpl;
-import thelecture.model.BoardBean;
+import thelecture.model.LectureBean;
 import thelecture.model.MemberBean;
 
 /**
@@ -55,12 +55,16 @@ public class LecturesController {
 	public String lectureList( HttpSession session, Model model) throws Exception {
 		
 		//lecture 불러오기
-	
-		List<BoardBean> lectureList = lecturedao.getlectureList();
+		List<LectureBean> lectureList=null;
 		
-		
+		lectureList = lecturedao.getlectureList();
 		//다음으로 전하기
 		model.addAttribute("lectureList",lectureList);
+			
+		
+		
+		
+		
 		//grade가 master면 마스터 모드 아니면 일반 모드
 		String grade = (String)session.getAttribute("grade");
 		
@@ -76,7 +80,7 @@ public class LecturesController {
 	
 	@RequestMapping(value = "review.do", method = RequestMethod.GET)
 
-	public String review( MemberBean member,BoardBean lecture,Model model){
+	public String review( MemberBean member,LectureBean lecture,Model model){
 		
 		//password가 맞으면
 		

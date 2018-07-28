@@ -3,6 +3,7 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <c:set var="contextPath" value="<%=request.getContextPath()%>"></c:set>
+<c:set var="lec_List" value="${sessionScope.lectureList}"></c:set>
 
 <!DOCTYPE html>
 
@@ -91,6 +92,50 @@
 						</td> 
 						
 					</tr>
+					<c:if test="${lec_List empty}">
+						<tr class="lectureList_content">
+							<td>
+							올라온 강의가 없습니다.
+							</td>
+						</tr>
+					</c:if>
+					<c:if test="${lec_List not empty}">
+						<c:forEach var="lecture" items="lec_List">
+							<tr class="lectureList_content">
+								<td>
+									${lecture.univ_name}
+								</td>
+								<td>
+									<a href="review.do?${lecture.lecture_id }">
+										${lecture.lecture_name}
+									</a>
+								</td> 
+								<td>
+									 ${lecture.semester}
+								</td>
+								
+								
+								<td>
+									${lecture.lecture_code }
+								</td>
+								
+								<td class="star_rating">
+									<div data-productid="313" class="rateit" 
+										data-rateit-mode="font" data-rateit-value="${lecture.total_avg_score}" 
+										data-rateit-readonly="true"
+										style="font-size:100%;">
+									</div>
+		                   		<div style="clear: both;">
+		                   			${lecture.total_avg_score}
+		                   		</div>
+		                   			
+								</td> 
+								
+							</tr>
+					           
+						</c:forEach>>
+						      
+					</c:if>
 			       <tr>
 			            <td colspan="100%">
 			            	<a href="lectureInsert.do">
