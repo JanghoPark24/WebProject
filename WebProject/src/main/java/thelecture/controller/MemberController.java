@@ -176,7 +176,7 @@ public class MemberController {
 	/**
 	 * 탈퇴 신청
 	 */
-	@RequestMapping("logout.do")
+	@RequestMapping("signOut.do")
 	public String request(HttpSession session) {
 		session.invalidate();
 		return "content/home";

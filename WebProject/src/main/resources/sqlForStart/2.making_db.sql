@@ -716,3 +716,6 @@ ALTER TABLE TheLecture.question
 		REFERENCES TheLecture.question_version (
 			question_version
 		);
+
+		commit;
+		
