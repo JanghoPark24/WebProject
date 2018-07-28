@@ -13,17 +13,17 @@
 		resultType="member">
 		select * from member where upper(nickname)=#{nickname}
 	</select>
-
+	
+	<!-- 중복검사 -->
+	<select id="is_dup_reg_key" parameterType="String"
+		resultType="member">
+		select * from member where upper(reg_key)=#{reg_key}
+	</select>
 
 	<!-- 회원저장 -->
 	<insert id="member_join" parameterType="member">
-		insert INTO
-		member
-		values(
-		#{email},#{nickname},'서울대학교','C54F4493021DE0A059CF719A2DCE3D20941EFE9A625122715BADD0B76244F6DD','n',
-		'master',
-		'B6E0lnRevAWmKnASHCYY',
-		0,null,sysdate,'unknown','unknown.jpg',''
+		insert INTO	member	values(	#{email},'서울대학교',#{nickname},'C54F4493021DE0A059CF719A2DCE3D20941EFE9A625122715BADD0B76244F6DD','n',
+		'unknown',0,null,'B6E0lnRevAWmKnASHCYY',sysdate,'unknown','unknown.jpg',''
 		)
 	</insert>
 

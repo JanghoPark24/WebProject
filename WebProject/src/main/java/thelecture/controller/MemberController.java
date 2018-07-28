@@ -173,6 +173,14 @@ public class MemberController {
 		session.invalidate();
 		return "content/home";
 	}
+	/**
+	 * 탈퇴 신청
+	 */
+	@RequestMapping("logout.do")
+	public String request(HttpSession session) {
+		session.invalidate();
+		return "content/home";
+	}
 
 	/*
 	 * @RequestMapping("update.do") public String update(@ModelAttribute MemberBean
@@ -199,7 +207,6 @@ public class MemberController {
 		model.addAttribute("dto", dto);
 
 		return "my_profile";
-
 	}
 
 }
