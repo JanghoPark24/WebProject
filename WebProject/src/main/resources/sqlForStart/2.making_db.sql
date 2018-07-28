@@ -1,42 +1,3 @@
-﻿/* 질문항목당평균 */
-CREATE TABLE TheLecture.item_avg (
-	semester NUMBER NOT NULL, /* 수강학기 */
-	lecture_code NUMBER NOT NULL, /* 강의코드 */
-	question_num NUMBER NOT NULL, /* 질문번호 */
-	question_version NUMBER NOT NULL, /* 질문버전 */
-	item_avg_score NUMBER /* 항목당평균점수 */
-);
-
-CREATE UNIQUE INDEX TheLecture.PK_item_avg
-	ON TheLecture.item_avg (
-		semester ASC,
-		lecture_code ASC,
-		question_num ASC,
-		question_version ASC
-	);
-
-ALTER TABLE TheLecture.item_avg
-	ADD
-		CONSTRAINT PK_item_avg
-		PRIMARY KEY (
-			semester,
-			lecture_code,
-			question_num,
-			question_version
-		);
-
-COMMENT ON TABLE TheLecture.item_avg IS '질문항목당평균';
-
-COMMENT ON COLUMN TheLecture.item_avg.semester IS '수강학기';
-
-COMMENT ON COLUMN TheLecture.item_avg.lecture_code IS '강의코드';
-
-COMMENT ON COLUMN TheLecture.item_avg.question_num IS '질문번호';
-
-COMMENT ON COLUMN TheLecture.item_avg.question_version IS '질문버전';
-
-COMMENT ON COLUMN TheLecture.item_avg.item_avg_score IS '항목당평균점수';
-
 /* 강의댓글추천 */
 CREATE TABLE TheLecture.lecture_reply_like (
 	reply_num NUMBER NOT NULL, /* 강의 번호 */
@@ -63,46 +24,46 @@ COMMENT ON COLUMN TheLecture.lecture_reply_like.reply_num IS '강의 번호';
 
 COMMENT ON COLUMN TheLecture.lecture_reply_like.email IS '이메일';
 
-/* 질문 */
-CREATE TABLE TheLecture.question (
-	question_num NUMBER NOT NULL, /* 질문번호 */
-	question_version NUMBER NOT NULL, /* 질문버전 */
-	question_content VARCHAR2(2000) /* 질문내용 */
+/* 항목당 질문평가 */
+CREATE TABLE TheLecture.lecture_rating (
+	lecture_id VARCHAR2(20) NOT NULL, /* 강의ID */
+	question_id NUMBER NOT NULL, /* 질문번호 */
+	avg_score NUMBER /* 항목당 평균점수 */
 );
 
-CREATE UNIQUE INDEX TheLecture.PK_question
-	ON TheLecture.question (
-		question_num ASC,
-		question_version ASC
+CREATE UNIQUE INDEX TheLecture.PK_lecture_rating
+	ON TheLecture.lecture_rating (
+		lecture_id ASC,
+		question_id ASC
 	);
 
-ALTER TABLE TheLecture.question
+ALTER TABLE TheLecture.lecture_rating
 	ADD
-		CONSTRAINT PK_question
+		CONSTRAINT PK_lecture_rating
 		PRIMARY KEY (
-			question_num,
-			question_version
+			lecture_id,
+			question_id
 		);
 
-COMMENT ON TABLE TheLecture.question IS '질문';
+COMMENT ON TABLE TheLecture.lecture_rating IS '항목당 질문평가';
 
-COMMENT ON COLUMN TheLecture.question.question_num IS '질문번호';
+COMMENT ON COLUMN TheLecture.lecture_rating.lecture_id IS '강의ID';
 
-COMMENT ON COLUMN TheLecture.question.question_version IS '질문버전';
+COMMENT ON COLUMN TheLecture.lecture_rating.question_id IS '질문번호';
 
-COMMENT ON COLUMN TheLecture.question.question_content IS '질문내용';
+COMMENT ON COLUMN TheLecture.lecture_rating.avg_score IS '항목당 평균점수';
 
 /* 회원 */
 CREATE TABLE TheLecture.member (
 	email VARCHAR2(40) NOT NULL, /* 이메일 */
-	nickname VARCHAR2(20) NOT NULL, /* 닉네임 */
 	univ_name VARCHAR2(20) NOT NULL, /* 대학 이름 */
+	nickname VARCHAR2(20) NOT NULL, /* 닉네임 */
 	password VARCHAR2(64) NOT NULL, /* 비밀번호 */
 	is_mail_open VARCHAR2(1) NOT NULL, /* 메일공개여부 */
 	grade VARCHAR2(8) NOT NULL, /* 등급(상태) */
-	reg_key VARCHAR2(20) NOT NULL, /* 인증용키 */
 	fail_count NUMBER NOT NULL, /* 접속실패횟수 */
 	try_date DATE, /* 마지막접속시도 */
+	reg_key VARCHAR2(60) NOT NULL, /* 인증용키 */
 	reg_date DATE NOT NULL, /* 등록날짜 */
 	major VARCHAR2(30) NOT NULL, /* 전공 */
 	profile_img VARCHAR2(20), /* 프로필사진 */
@@ -137,9 +98,9 @@ COMMENT ON TABLE TheLecture.member IS '회원';
 
 COMMENT ON COLUMN TheLecture.member.email IS '이메일';
 
-COMMENT ON COLUMN TheLecture.member.nickname IS '닉네임';
-
 COMMENT ON COLUMN TheLecture.member.univ_name IS '대학 이름';
+
+COMMENT ON COLUMN TheLecture.member.nickname IS '닉네임';
 
 COMMENT ON COLUMN TheLecture.member.password IS '비밀번호';
 
@@ -147,11 +108,11 @@ COMMENT ON COLUMN TheLecture.member.is_mail_open IS '메일공개여부';
 
 COMMENT ON COLUMN TheLecture.member.grade IS '등급(상태)';
 
-COMMENT ON COLUMN TheLecture.member.reg_key IS '인증용키';
-
 COMMENT ON COLUMN TheLecture.member.fail_count IS '접속실패횟수';
 
 COMMENT ON COLUMN TheLecture.member.try_date IS '마지막접속시도';
+
+COMMENT ON COLUMN TheLecture.member.reg_key IS '인증용키';
 
 COMMENT ON COLUMN TheLecture.member.reg_date IS '등록날짜';
 
@@ -164,14 +125,13 @@ COMMENT ON COLUMN TheLecture.member.profile IS '프로필';
 /* 강의 댓글 */
 CREATE TABLE TheLecture.lecture_reply (
 	reply_num NUMBER NOT NULL, /* 강의 번호 */
-	semester NUMBER NOT NULL, /* 수강학기 */
-	lecture_code NUMBER NOT NULL, /* 강의코드 */
+	lecture_id VARCHAR2(20), /* 강의ID */
 	email VARCHAR2(40) NOT NULL, /* 이메일 */
 	ref NUMBER NOT NULL, /* 레퍼런스 */
 	depth NUMBER NOT NULL, /* 깊이 */
 	content VARCHAR2(600) NOT NULL, /* 내용 */
 	reg_date DATE NOT NULL, /* 등록날짜 */
-	is_deleted NUMBER NOT NULL /* 삭제여부 */
+	is_deleted VARCHAR2(1) NOT NULL /* 삭제여부 */
 );
 
 CREATE UNIQUE INDEX TheLecture.PK_lecture_reply
@@ -190,9 +150,7 @@ COMMENT ON TABLE TheLecture.lecture_reply IS '강의 댓글';
 
 COMMENT ON COLUMN TheLecture.lecture_reply.reply_num IS '강의 번호';
 
-COMMENT ON COLUMN TheLecture.lecture_reply.semester IS '수강학기';
-
-COMMENT ON COLUMN TheLecture.lecture_reply.lecture_code IS '강의코드';
+COMMENT ON COLUMN TheLecture.lecture_reply.lecture_id IS '강의ID';
 
 COMMENT ON COLUMN TheLecture.lecture_reply.email IS '이메일';
 
@@ -208,48 +166,38 @@ COMMENT ON COLUMN TheLecture.lecture_reply.is_deleted IS '삭제여부';
 
 /* 내 평가 */
 CREATE TABLE TheLecture.my_rating (
-	question_num NUMBER NOT NULL, /* 질문번호 */
-	question_version NUMBER NOT NULL, /* 질문버전 */
 	email VARCHAR2(40) NOT NULL, /* 이메일 */
-	semester NUMBER NOT NULL, /* 수강학기 */
-	lecture_code NUMBER NOT NULL, /* 강의코드 */
-	question_score NUMBER NOT NULL, /* 질문점수 */
+	lecture_id VARCHAR2(20) NOT NULL, /* 강의ID */
+	question_id NUMBER NOT NULL, /* 질문번호 */
+	score NUMBER NOT NULL, /* 점수 */
 	reg_date DATE NOT NULL /* 등록날짜 */
 );
 
 CREATE UNIQUE INDEX TheLecture.PK_my_rating
 	ON TheLecture.my_rating (
-		question_num ASC,
-		question_version ASC,
 		email ASC,
-		semester ASC,
-		lecture_code ASC
+		lecture_id ASC,
+		question_id ASC
 	);
 
 ALTER TABLE TheLecture.my_rating
 	ADD
 		CONSTRAINT PK_my_rating
 		PRIMARY KEY (
-			question_num,
-			question_version,
 			email,
-			semester,
-			lecture_code
+			lecture_id,
+			question_id
 		);
 
 COMMENT ON TABLE TheLecture.my_rating IS '내 평가';
 
-COMMENT ON COLUMN TheLecture.my_rating.question_num IS '질문번호';
-
-COMMENT ON COLUMN TheLecture.my_rating.question_version IS '질문버전';
-
 COMMENT ON COLUMN TheLecture.my_rating.email IS '이메일';
 
-COMMENT ON COLUMN TheLecture.my_rating.semester IS '수강학기';
+COMMENT ON COLUMN TheLecture.my_rating.lecture_id IS '강의ID';
 
-COMMENT ON COLUMN TheLecture.my_rating.lecture_code IS '강의코드';
+COMMENT ON COLUMN TheLecture.my_rating.question_id IS '질문번호';
 
-COMMENT ON COLUMN TheLecture.my_rating.question_score IS '질문점수';
+COMMENT ON COLUMN TheLecture.my_rating.score IS '점수';
 
 COMMENT ON COLUMN TheLecture.my_rating.reg_date IS '등록날짜';
 
@@ -309,7 +257,7 @@ CREATE TABLE TheLecture.community_board_reply (
 	depth NUMBER NOT NULL, /* 깊이 */
 	content VARCHAR2(600), /* 내용 */
 	reg_date DATE NOT NULL, /* 등록날짜 */
-	is_deleted NUMBER NOT NULL /* 삭제여부 */
+	is_deleted VARCHAR2(1) NOT NULL /* 삭제여부 */
 );
 
 CREATE UNIQUE INDEX TheLecture.PK_community_board_reply
@@ -344,38 +292,39 @@ COMMENT ON COLUMN TheLecture.community_board_reply.is_deleted IS '삭제여부';
 
 /* 강의 */
 CREATE TABLE TheLecture.lecture (
+	lecture_id VARCHAR2(20) NOT NULL, /* 강의ID */
+	univ_name VARCHAR2(20) NOT NULL, /* 대학 이름 */
 	semester NUMBER NOT NULL, /* 수강학기 */
 	lecture_code NUMBER NOT NULL, /* 강의코드 */
-	univ_name VARCHAR2(20) NOT NULL, /* 대학 이름 */
 	major VARCHAR2(30) NOT NULL, /* 전공 */
 	lecture_name VARCHAR2(40) NOT NULL, /* 강의 이름 */
 	view_count NUMBER NOT NULL, /* 조회수 */
 	rating_count NUMBER NOT NULL, /* 평가수 */
-	is_deleted NUMBER NOT NULL, /* 삭제여부 */
+	is_deleted VARCHAR2(1) NOT NULL, /* 삭제여부 */
 	total_avg_score NUMBER NOT NULL /* 총평균점수 */
 );
 
 CREATE UNIQUE INDEX TheLecture.PK_lecture
 	ON TheLecture.lecture (
-		semester ASC,
-		lecture_code ASC
+		lecture_id ASC
 	);
 
 ALTER TABLE TheLecture.lecture
 	ADD
 		CONSTRAINT PK_lecture
 		PRIMARY KEY (
-			semester,
-			lecture_code
+			lecture_id
 		);
 
 COMMENT ON TABLE TheLecture.lecture IS '강의';
 
+COMMENT ON COLUMN TheLecture.lecture.lecture_id IS '강의ID';
+
+COMMENT ON COLUMN TheLecture.lecture.univ_name IS '대학 이름';
+
 COMMENT ON COLUMN TheLecture.lecture.semester IS '수강학기';
 
 COMMENT ON COLUMN TheLecture.lecture.lecture_code IS '강의코드';
-
-COMMENT ON COLUMN TheLecture.lecture.univ_name IS '대학 이름';
 
 COMMENT ON COLUMN TheLecture.lecture.major IS '전공';
 
@@ -475,7 +424,7 @@ CREATE TABLE TheLecture.community_board (
 	content VARCHAR2(2000) NOT NULL, /* 내용 */
 	view_count NUMBER NOT NULL, /* 조회수 */
 	reg_date DATE NOT NULL, /* 등록날짜 */
-	is_deleted NUMBER NOT NULL /* 삭제여부 */
+	is_deleted VARCHAR2(1) NOT NULL /* 삭제여부 */
 );
 
 CREATE UNIQUE INDEX TheLecture.PK_community_board
@@ -508,29 +457,53 @@ COMMENT ON COLUMN TheLecture.community_board.reg_date IS '등록날짜';
 
 COMMENT ON COLUMN TheLecture.community_board.is_deleted IS '삭제여부';
 
-ALTER TABLE TheLecture.item_avg
+/* 질문 */
+CREATE TABLE TheLecture.question (
+	question_id NUMBER NOT NULL, /* 질문번호 */
+	question_version NUMBER, /* 질문버젼 */
+	question_content VARCHAR2(2000) /* 질문내용 */
+);
+
+CREATE UNIQUE INDEX TheLecture.PK_question2
+	ON TheLecture.question (
+		question_id ASC
+	);
+
+ALTER TABLE TheLecture.question
 	ADD
-		CONSTRAINT FK_lecture_TO_item_avg
-		FOREIGN KEY (
-			semester,
-			lecture_code
-		)
-		REFERENCES TheLecture.lecture (
-			semester,
-			lecture_code
+		CONSTRAINT PK_question2
+		PRIMARY KEY (
+			question_id
 		);
 
-ALTER TABLE TheLecture.item_avg
+COMMENT ON TABLE TheLecture.question IS '질문';
+
+COMMENT ON COLUMN TheLecture.question.question_id IS '질문번호';
+
+COMMENT ON COLUMN TheLecture.question.question_version IS '질문버젼';
+
+COMMENT ON COLUMN TheLecture.question.question_content IS '질문내용';
+
+/* 질문 버젼 */
+CREATE TABLE TheLecture.question_version (
+	question_version NUMBER NOT NULL /* 질문버젼 */
+);
+
+CREATE UNIQUE INDEX TheLecture.PK_question_version2
+	ON TheLecture.question_version (
+		question_version ASC
+	);
+
+ALTER TABLE TheLecture.question_version
 	ADD
-		CONSTRAINT FK_question_TO_item_avg
-		FOREIGN KEY (
-			question_num,
-			question_version
-		)
-		REFERENCES TheLecture.question (
-			question_num,
+		CONSTRAINT PK_question_version2
+		PRIMARY KEY (
 			question_version
 		);
+
+COMMENT ON TABLE TheLecture.question_version IS '질문 버젼';
+
+COMMENT ON COLUMN TheLecture.question_version.question_version IS '질문버젼';
 
 ALTER TABLE TheLecture.lecture_reply_like
 	ADD
@@ -552,6 +525,26 @@ ALTER TABLE TheLecture.lecture_reply_like
 			email
 		);
 
+ALTER TABLE TheLecture.lecture_rating
+	ADD
+		CONSTRAINT FK_lecture_TO_lecture_rating
+		FOREIGN KEY (
+			lecture_id
+		)
+		REFERENCES TheLecture.lecture (
+			lecture_id
+		);
+
+ALTER TABLE TheLecture.lecture_rating
+	ADD
+		CONSTRAINT FK_question_TO_lecture_rating
+		FOREIGN KEY (
+			question_id
+		)
+		REFERENCES TheLecture.question (
+			question_id
+		);
+
 ALTER TABLE TheLecture.member
 	ADD
 		CONSTRAINT FK_univ_TO_member
@@ -566,12 +559,10 @@ ALTER TABLE TheLecture.lecture_reply
 	ADD
 		CONSTRAINT FK_lecture_TO_lecture_reply
 		FOREIGN KEY (
-			semester,
-			lecture_code
+			lecture_id
 		)
 		REFERENCES TheLecture.lecture (
-			semester,
-			lecture_code
+			lecture_id
 		);
 
 ALTER TABLE TheLecture.lecture_reply
@@ -586,18 +577,6 @@ ALTER TABLE TheLecture.lecture_reply
 
 ALTER TABLE TheLecture.my_rating
 	ADD
-		CONSTRAINT FK_question_TO_my_rating
-		FOREIGN KEY (
-			question_num,
-			question_version
-		)
-		REFERENCES TheLecture.question (
-			question_num,
-			question_version
-		);
-
-ALTER TABLE TheLecture.my_rating
-	ADD
 		CONSTRAINT FK_member_TO_my_rating
 		FOREIGN KEY (
 			email
@@ -608,14 +587,14 @@ ALTER TABLE TheLecture.my_rating
 
 ALTER TABLE TheLecture.my_rating
 	ADD
-		CONSTRAINT FK_lecture_TO_my_rating
+		CONSTRAINT FK_lecture_rating_TO_my_rating
 		FOREIGN KEY (
-			semester,
-			lecture_code
+			lecture_id,
+			question_id
 		)
-		REFERENCES TheLecture.lecture (
-			semester,
-			lecture_code
+		REFERENCES TheLecture.lecture_rating (
+			lecture_id,
+			question_id
 		);
 
 ALTER TABLE TheLecture.notice
@@ -728,3 +707,12 @@ ALTER TABLE TheLecture.community_board
 			email
 		);
 
+ALTER TABLE TheLecture.question
+	ADD
+		CONSTRAINT FK_qes_ver_TO_qes
+		FOREIGN KEY (
+			question_version
+		)
+		REFERENCES TheLecture.question_version (
+			question_version
+		);

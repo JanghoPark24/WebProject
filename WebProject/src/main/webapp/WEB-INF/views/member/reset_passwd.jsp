@@ -19,7 +19,7 @@
 				<div class="form-group">
 					<label>이메일</label> <input type="email" class="form-control"
 						required="required" placeholder="이메일" name="userEmail"
-						maxlength="80" value="spectralfox05@gmail.com">
+						maxlength="80" value="TheLecture.corp@gmail.com">
 				</div>
 				<input type="button" class="btn btn-primary align-center"
 					required="required" value="비밀번호 재설정"> <br> <br>

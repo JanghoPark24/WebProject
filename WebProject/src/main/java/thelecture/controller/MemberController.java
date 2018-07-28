@@ -61,17 +61,17 @@ public class MemberController {
 
 			// 인증용 랜덤키 생성
 			TempKey keyGenerator = TempKey.Instance;
-			int dupkey; 
+			int dupkey;
 			String reg_key;
 			do {
-				reg_key =  keyGenerator.getKey(20, false);
-				dupkey = memberService.isDuplication("reg_key", reg_key,true);
-			}while(dupkey!=0);//인증키 충돌할경우 다시 생성한다.
-			
+				reg_key = keyGenerator.getKey(20, false);
+				dupkey = memberService.isDuplication("reg_key", reg_key, true);
+			} while (dupkey != 0);// 인증키 충돌할경우 다시 생성한다.
+
 			// SHA256 (해쉬화)
 			SHA256 encrypter = SHA256.Instance;
 			String hashed_text = encrypter.encrypt(password).toUpperCase();
-			/*향후 개선점 : SHA방식에 소금치는 방법을 추가하면 더 낫다.*/
+			/* 향후 개선점 : SHA방식에 소금치는 방법을 추가하면 더 낫다. */
 
 			// 멤버빈 주입
 			MemberBean mb = new MemberBean();
@@ -125,17 +125,19 @@ public class MemberController {
 			System.out.println(mb.getPassword());
 
 			if (hashed_text.equals(mb.getPassword())) {// 비밀번호해쉬값이 일치함
-			session.setAttribute("email", email);
-			session.setAttribute("grade", mb.getGrade());
-			ModelAndView loginM = new ModelAndView("content/home");
-			
-			return loginM;
-		} else {
-			out.println("<script>");
-			out.println("alert('비번이 다릅니다!')");
-			out.println("history.go(-1)");
-			out.println("</script>");
-		}}
+				session.setAttribute("email", email);
+				session.setAttribute("nickname", mb.getNickname());
+				session.setAttribute("grade", mb.getGrade());
+				ModelAndView loginM = new ModelAndView("content/home");
+
+				return loginM;
+			} else {
+				out.println("<script>");
+				out.println("alert('비번이 다릅니다!')");
+				out.println("history.go(-1)");
+				out.println("</script>");
+			}
+		}
 		return null;
 	}
 
@@ -161,6 +163,15 @@ public class MemberController {
 	@RequestMapping("email_confirm.do")
 	public String email_confirm() {
 		return "redirect:home.do";
+	}
+
+	/**
+	 * 로그 아웃
+	 */
+	@RequestMapping("logout.do")
+	public String logout(HttpSession session) {
+		session.invalidate();
+		return "content/home";
 	}
 
 	/*
