@@ -97,5 +97,16 @@ public class LecturesController {
 		return "";
 	}
 	
+	@RequestMapping(value="insertLectureView.do")
+	public String insert_lecture_view(String id) {
+		
+		return "content/lecture/insert_lecture_view";
+	}
+	@RequestMapping(value="insertLecture.do")
+	public String insert_lecture(String id) {
+		
+		return "";
+	}
+	
 	
 }

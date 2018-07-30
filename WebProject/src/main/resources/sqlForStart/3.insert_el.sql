@@ -18,6 +18,7 @@ insert INTO univ values(
 insert INTO univ values(
 '구글대학교','gmail.com','logo4.gif'
 );
+
 insert INTO univ values(
 '네이버대학교','naver.com','logo5.gif'
 );
@@ -70,6 +71,6 @@ create sequence lecture_id_seq
 	increment by 1
 	minvalue 0;
 	
-insert values(lecture_id_seq.nextval, "서울대학교","교양","수리과학부",) into lecture 
 
+commit;
 

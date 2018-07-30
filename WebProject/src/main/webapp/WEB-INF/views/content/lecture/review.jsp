@@ -69,7 +69,7 @@
                 <c:if test="${checked== true}">
 	                <div id="write_review_wrapper" >
 	                	<button>평가하기</button>
-	                	<%@include file="write_review.jsp" %>
+	                	<%@include file="rating_sheet.jsp" %>
 	            	</div>
             	</c:if>
             </div>
