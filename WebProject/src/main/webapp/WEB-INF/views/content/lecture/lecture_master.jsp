@@ -88,6 +88,11 @@
 						</td> 
 						
 					</tr>
+					<c:if test="${lectureList empty}">
+						<tr>
+							<td colspan="6"> 아직 게시물이 없습니다.</td>
+						</tr>
+					</c:if>
 					<c:if test="${lectureList not empty}">
 						<c:forEach var="lecture" items="lectureList">
 							<tr class="lectureList_content">

@@ -52,7 +52,7 @@ public class LecturesController {
 	}
 	
 	@RequestMapping(value = "lectureList.do", method = RequestMethod.GET)
-	public String lectureList( HttpSession session, Model model) throws Exception {
+	public String lectureList( HttpSession session, Model model) {
 		
 		//lecture 불러오기
 		List<LectureBean> lectureList=null;

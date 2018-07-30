@@ -42,4 +42,11 @@ sysdate,'무역학과','image.jpg','탈퇴하려는 회원입니다.'
  * 
  * */
 
+create sequence lecture_id_seq
+	start with 1
+	increment by 1
+	minvalue 0;
+	
+insert values(lecture_id_seq.nextval, "서울대학교","2","") into lecture 
+
 
