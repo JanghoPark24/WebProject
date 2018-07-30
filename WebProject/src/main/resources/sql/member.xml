@@ -4,24 +4,25 @@
 <mapper namespace="memberns">
 	<!-- email 중복검사 -->
 	<select id="isdup_email" parameterType="String"	resultType="member">
-		select * from member where Upper(email)= #{value}
+		select * from member where lower(email)= #{value}
 	</select>
 	<!-- nickname 중복검사 -->
 	<select id="isdup_nickname" parameterType="String" resultType="member">
-		select * from member where Upper(nickname)= #{nickname}
+		select * from member where lower(nickname)= #{nickname}
 	</select>
-
-
+	<!-- reg_key 중복검사 -->
+	<select id="isdup_reg_key" parameterType="String" resultType="member">
+		select * from member where lower(reg_key)= #{reg_key}
+	</select>
+	<!-- 회원선택 -->
+	<select id="select_member" parameterType="String" resultType="member">
+		select * from member where lower(email)= #{email}
+	</select>
 	<!-- 회원저장 -->
 	<insert id="member_join" parameterType="member">
-		insert INTO
-		member
-		values(
-		#{email},#{nickname},#{univ_name},'C54F4493021DE0A059CF719A2DCE3D20941EFE9A625122715BADD0B76244F6DD','n',
-		'master',
-		'B6E0lnRevAWmKnASHCYY',
-		0,null,sysdate,'unknown','unknown.jpg',''
-		)
+		insert INTO	member values(
+		#{email},#{univ_name},#{nickname},#{password},'n','unknown',
+			0,null,#{reg_key},sysdate,'unknown','unknown.jpg','')
 	</insert>
   
   

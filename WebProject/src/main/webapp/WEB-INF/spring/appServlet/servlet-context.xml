@@ -55,7 +55,11 @@
     <aop:config>
         <aop:aspect id="aop" ref="LogAspect">
              <aop:pointcut id="controllers" expression="within(thelecture.controller.*)"/>
+             <aop:pointcut id="service" expression="within(thelecture.service.*)"/>
+             <aop:pointcut id="dao" expression="within(thelecture.dao.*)"/>
              <aop:around pointcut-ref="controllers" method="mainAdvice"/>
+             <aop:around pointcut-ref="service" method="mainAdvice"/>
+             <aop:around pointcut-ref="dao" method="mainAdvice"/>
         </aop:aspect>
      </aop:config>
      

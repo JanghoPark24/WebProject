@@ -1,6 +1,7 @@
 package thelecture.model;
 
-public class BoardBean {
+public class LectureBean {
+	private int lecture_id;
 	private int semester;
 	private String lecture_code;
 	private String univ_name;
@@ -59,6 +60,12 @@ public class BoardBean {
 	}
 	public void setTotal_avg_score(int total_avg_score) {
 		this.total_avg_score = total_avg_score;
+	}
+	public int getLecture_id() {
+		return lecture_id;
+	}
+	public void setLecture_id(int lecture_id) {
+		this.lecture_id = lecture_id;
 	}
 	
 	

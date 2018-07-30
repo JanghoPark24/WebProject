@@ -16,7 +16,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import thelecture.controller.LecturesController;
-import thelecture.model.BoardBean;
+import thelecture.model.LectureBean;
 import thelecture.model.MemberBean;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -26,17 +26,17 @@ import thelecture.model.MemberBean;
 	 "classpath*:spring/root-context.xml"})
 public class LecturesControllerTest {
 		
-	@Autowired
-	private MockMvc mvc;
 	
 	@Mock
 	private LecturesController lecturesController;
+	
+	
 	
 	@Mock
 	private MemberBean member;
 
 	@Mock
-	private BoardBean lecture;
+	private LectureBean lecture;
 	
 	@Mock
 	private Model model;
@@ -45,17 +45,10 @@ public class LecturesControllerTest {
 	@Test
 	public void testReview() {
 		
-		//계정확인
-		
-		member.setPassword("있는 비밀번호");
-		
-		//
-		String pass = member.getPassword();
-		
-		
-		when(member.getGrade().equals("manager"))
-			.thenReturn(lecturesController.review(member, lecture, model)=="review_manager");
-			
+	  
+	  
+	  
+	  
 		
 		
 		

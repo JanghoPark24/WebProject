@@ -1,8 +1,12 @@
 package thelecture.controller;
 
 import java.text.DateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
+
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import thelecture.dao.LectureDaoImpl;
 import thelecture.dao.MemberDaoImpl;
-import thelecture.model.BoardBean;
+import thelecture.model.LectureBean;
 import thelecture.model.MemberBean;
 
 /**
@@ -48,59 +52,42 @@ public class LecturesController {
 	}
 	
 	@RequestMapping(value = "lectureList.do", method = RequestMethod.GET)
-	public String lectureList( String email, BoardBean lecture,Model model){
-	
-		//불러온 email로 계정 정보 불러옴
-//		MemberBean member = memberdao.getMemberInfo(email);
+	public String lectureList( HttpSession session, Model model) throws Exception {
+		
+		//lecture 불러오기
+		List<LectureBean> lectureList=null;
+		
+		lectureList = lecturedao.getlectureList();
+		//다음으로 전하기
+		model.addAttribute("lectureList",lectureList);
+			
 		
 		
 		
-		return "content/lecture/lectureList";
+		
+		//grade가 master면 마스터 모드 아니면 일반 모드
+		String grade = (String)session.getAttribute("grade");
+		
+		return grade =="master"? 
+				"content/lecture/lecture_master":
+				"content/lecture/lectureList";
 		
 	}
-	@RequestMapping(value = "lecture_manager.do", method = RequestMethod.GET)
-	public String lecture_manager( String email,String password, BoardBean lecture,Model model){
 	
-		//불러온 email로 계정 정보 불러옴
-//		MemberBean member = memberdao.getMemberInfo(email);
-		
-		
-		//Test
-		MemberBean member=new MemberBean();
-		member.setPassword("");
-		
-		//비밀번호가 다르면 Grade를 불러오지 않음.
-		if(!member.getPassword().equals(password)) {
-			
-			
-		}else {
-			//비밀번호가 다르면 불러옴
-			
-		}
-		
-		
-		//manager일 경우 lecture_manager로 ,일반 유저일 경우 lectureList로
-		
-		
-		return "content/lecture/lectureList";
-		
-	}
+	
+	
+	
 	
 	@RequestMapping(value = "review.do", method = RequestMethod.GET)
 
-	public String review( MemberBean member,BoardBean lecture,Model model){
+	public String review( MemberBean member,LectureBean lecture,Model model){
 		
+		//password가 맞으면
 		
-		
-		
-		
-		//관리자일 경우 review_manager, 일반 유저일 경우 review
-		//checked - 체크했을 경우 
 		model.addAttribute("checked",true);
 		
-		return member.getGrade() =="manager"? 
-				"lecture/review_manager/d":
-				"lecture/review/d";
+		return "lecture/review/d";
+				
 		
 	}
 	

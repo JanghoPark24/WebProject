@@ -23,33 +23,39 @@ public class MemberServiceImpl {
 		System.out.println("Service");
 		return memberDao.viewMember(nickname);
 	}
+
 	/**
 	 * 중복체크를 하는 메소드입니다.
+	 * 
 	 * @param column
 	 * @param value
 	 * @return DB에 해당column에 해당value가 있으면 1을 리턴한다. 그렇지 않으면 0을 리턴한다
 	 */
 	public int isDuplication(String column, String value) throws Exception {
-		int result = memberDao.isDuplication(column,value.toUpperCase());
+		int result = memberDao.isDuplication(column, value.toLowerCase());
 		return result;
 	}
 
 	/**
 	 * 중복체크를 하는 메소드입니다.
+	 * 
 	 * @param column
 	 * @param value
-	 * @param caseSensitive가 true면 대소문자를 구분한다.
+	 * @param caseSensitive가
+	 *            true면 대소문자를 구분한다.
 	 * @return DB에 해당column에 해당value가 있으면 1을 리턴한다. 그렇지 않으면 0을 리턴한다
 	 */
 	public int isDuplication(String column, String value, boolean caseSensitive) throws Exception {
-		int result = memberDao.isDuplication(column,(caseSensitive)? value:value.toLowerCase());
+		int result = memberDao.isDuplication(column, (caseSensitive) ? value : value.toLowerCase());
 		return result;
 	}
 
 	public void member_join(MemberBean mb) throws Exception {
 		memberDao.member_join(mb);
 	}
-
+	public MemberBean select_member(String email) throws Exception {
+		return memberDao.select_member(email.toLowerCase());
+	}
 	/*
 	 * public void member_update(MemberBean mb) throws Exception {
 	 * memberDao.member_update(mb); }
