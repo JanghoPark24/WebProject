@@ -23,6 +23,7 @@ public class MemberDaoImpl {
 	 */
 	@Transactional
 	public int isDuplication(String column, String value) throws Exception {
+		System.out.println("memberDAO");
 		int authcode = 0; // 중복이 아니면 0
 		MemberBean mb = (MemberBean) sqlSession.selectOne("isdup_" + column, value);
 		if (mb != null)

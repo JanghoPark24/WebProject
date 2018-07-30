@@ -8,7 +8,7 @@
 	</select>
 	<!-- nickname 중복검사 -->
 	<select id="isdup_nickname" parameterType="String" resultType="member">
-		select * from member where lower(nickname)= #{nickname}
+		select * from member where lower(nickname)= #{value}
 	</select>
 	<!-- reg_key 중복검사 -->
 	<select id="isdup_reg_key" parameterType="String" resultType="member">
@@ -24,6 +24,7 @@
 		#{email},#{univ_name},#{nickname},#{password},'n','unknown',
 			0,null,#{reg_key},sysdate,'컴퓨터공학과','unknown.jpg','안넝하세여')
 	</insert>
+
   
   
 	<!-- 회원 목록 -->
