@@ -114,7 +114,7 @@ public class MemberController {
 		MemberBean mb = this.memberService.select_member(email);
 		// SHA256 (해쉬화)
 		SHA256 encrypter = SHA256.Instance;
-		String hashed_text = encrypter.encrypt(password).toUpperCase();
+		String hashed_text = encrypter.encrypt(password).toLowerCase();
 
 		PrintWriter out = response.getWriter();// 출력스트림 객체 생성
 		System.out.println(hashed_text);
