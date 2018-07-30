@@ -143,7 +143,14 @@ public class MemberController {
     	model.addAttribute("dto",dto);
     	
         return "my_profile";
-    	
+    
+    }
+    //마이 페이지    
+     @RequestMapping("user_profile.do")
+     public String user1() {
+    	 return "user_profile";
+     
+        
     }
 	
 }
