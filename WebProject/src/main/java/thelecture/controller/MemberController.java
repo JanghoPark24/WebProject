@@ -96,7 +96,10 @@ public class MemberController {
 	 * 로그인하기 위한 form이 있는 곳으로 이동
 	 */
 	@RequestMapping("loginForm.do")
-	public String loginForm() {
+	public String loginForm(HttpSession session) {
+		if (session.getAttribute("grade") != null) {// 이미 로그인한 유저가 다시 이 주소로 왔을 경우
+			return "redirect:home.do";
+		}
 		return "login_form";
 	}
 
@@ -123,13 +126,17 @@ public class MemberController {
 			out.println("</script>");
 		} else {
 			System.out.println(mb.getPassword());
-
 			if (hashed_text.equals(mb.getPassword())) {// 비밀번호해쉬값이 일치함
 				session.setAttribute("email", email);
 				session.setAttribute("nickname", mb.getNickname());
-				session.setAttribute("grade", mb.getGrade());
-				ModelAndView loginM = new ModelAndView("content/home");
-
+				String grade = mb.getGrade();
+				ModelAndView loginM;
+				if (grade.equals("unknown")) {// grade가 "unknown"이면
+					loginM = new ModelAndView("member/reg_info");
+				} else {
+					loginM = new ModelAndView("content/home");
+				}
+				session.setAttribute("grade", grade);
 				return loginM;
 			} else {
 				out.println("<script>");
@@ -171,8 +178,9 @@ public class MemberController {
 	@RequestMapping("logout.do")
 	public String logout(HttpSession session) {
 		session.invalidate();
-		return "content/home";
+		return "redirect:home.do";
 	}
+
 	/**
 	 * 탈퇴 신청
 	 */
@@ -199,14 +207,23 @@ public class MemberController {
 	}
 
 	// 회원 상세정보 조회
+
 	@RequestMapping("my_profile.do")
-	public String memberView(/* @RequestParam("nickname") String nickname, */ Model model) {
-		/* System.out.println(nickname); */
-		String nickname = "11";
+	public String memberView(@RequestParam("nickname") String nickname, Model model) {
+		System.out.println(nickname);
+
 		MemberBean dto = memberService.viewMember(nickname);
 		model.addAttribute("dto", dto);
 
 		return "my_profile";
+
+	}
+
+	// 마이 페이지
+	@RequestMapping("user_profile.do")
+	public String user1() {
+		return "user_profile";
+
 	}
 
 }

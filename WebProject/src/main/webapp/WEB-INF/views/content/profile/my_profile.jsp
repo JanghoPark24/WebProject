@@ -59,15 +59,15 @@ table, th, td {
       </tr>
       <tr class="info">
      <td> 
-          <input type=text value="${dto.nickname}" disabled="disabled">
-          <input type=text value="서울대학교" disabled="disabled"></td>
+          <input type=text value="${dto.email}" disabled="disabled">
+          <input type=text value="${dto.univ_name}" disabled="disabled"></td>
        </tr>
       <tr class="success">
     <td>  <input type=checkbox id="email" >메일 공개</td>
     </tr>
     <tr class="danger">
     <td>  
-    <input type=text value="닉네임" size=20>
+    <input type=text value="${dto.nickname}" size=20>
     <input type=text value="학과" size=20></td>
        </tr>
       <tr class="warning">    
