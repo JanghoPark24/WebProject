@@ -22,11 +22,12 @@ insert INTO univ values(
 '네이버대학교','naver.com','logo5.gif'
 );
 
+commit
 
 /* 회원 입력*/
 insert INTO member values(
-    'TheLecture.corp@snu.ac.kr',
-    '서울대학교', 'TheLecture',
+    'TheLecture.corp@gmail.com',
+    '구글대학교', 'Admin',
     'c54f4493021de0a059cf719a2dce3d20941efe9a625122715badd0b76244f6dd',
     'y','master',/*관리자계정*/
     0,null,'B6E0lnRevAWmKnASHCYY',/*인증키*/
