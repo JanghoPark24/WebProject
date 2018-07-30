@@ -23,6 +23,15 @@ insert INTO univ values(
 '네이버대학교','naver.com','logo5.gif'
 );
 
+insert INTO member values(
+    'jonghyeok34@gmail.com',
+    '서울대학교', 'TheLecture2',
+    'c54f4493021de0a059cf719a2dce3d20941efe9a625122715badd0b76244f6dd',
+    'y','master',/*관리자계정*/
+    0,null,'B6E0lnRevAWmKnASHCYY',/*인증키*/
+    sysdate,'컴퓨터공학과','image.jpg','관리자입니다.'
+);
+
 
 /* 회원 입력*/
 insert INTO member values(

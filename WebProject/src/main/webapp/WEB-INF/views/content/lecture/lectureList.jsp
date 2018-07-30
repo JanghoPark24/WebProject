@@ -136,13 +136,7 @@
 						</c:forEach>>
 						      
 					</c:if>
-			       <tr>
-			            <td colspan="100%">
-			            	<a href="insertLectureView.do">
-			            		<button type="button" class="btn btn-primary">강의 입력</button>
-			            	</a>
-			            </td>
-			        </tr>        
+			        
 			
 			    </table>
 			</div>

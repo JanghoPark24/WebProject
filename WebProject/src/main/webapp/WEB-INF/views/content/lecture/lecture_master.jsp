@@ -3,6 +3,7 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <c:set var="contextPath" value="<%=request.getContextPath()%>"></c:set>
+<c:set var="lec_List" value="${sessionScope.lectureList}"></c:set>
 
 <!DOCTYPE html>
 
@@ -20,6 +21,7 @@
    
 
 	<body>
+    
     
   
         
@@ -56,6 +58,8 @@
 						</td> 
 						
 					</tr>
+					
+					
 			        <tr class="lectureList_content">
 						<td>
 							대학
@@ -88,55 +92,57 @@
 						</td> 
 						
 					</tr>
-					<c:if test="${lectureList empty}">
-						<tr>
-							<td colspan="6"> 아직 게시물이 없습니다.</td>
+					<c:if test="${empty lec_List  }">
+						<tr class="lectureList_content">
+							<td colspan="100%">
+							올라온 강의가 없습니다.
+							</td>
 						</tr>
 					</c:if>
-					<c:if test="${lectureList not empty}">
-						<c:forEach var="lecture" items="lectureList">
+					<c:if test="${not empty lec_List}">
+						<c:forEach var="lecture" items="lec_List">
 							<tr class="lectureList_content">
 								<td>
 									${lecture.univ_name}
 								</td>
 								<td>
-									<a href="review.do">
-										
+									<a href="review.do?${lecture.lecture_id }">
+										${lecture.lecture_name}
 									</a>
 								</td> 
 								<td>
-									수강학기
+									 ${lecture.semester}
 								</td>
 								
 								
 								<td>
-									강의코드
+									${lecture.lecture_code }
 								</td>
 								
 								<td class="star_rating">
 									<div data-productid="313" class="rateit" 
-										data-rateit-mode="font" data-rateit-value="2.5" 
+										data-rateit-mode="font" data-rateit-value="${lecture.total_avg_score}" 
 										data-rateit-readonly="true"
 										style="font-size:100%;">
 									</div>
 		                   		<div style="clear: both;">
-		                   			2.5
+		                   			${lecture.total_avg_score}
 		                   		</div>
 		                   			
 								</td> 
 								
 							</tr>
-					        <tr>
-					            <td colspan="100%">
-					            	<a href="lectureInsert.do">
-					            		<button type="submit" class="btn btn-primary">강의 입력</button>
-					            	</a>
-					            </td>
-					        </tr>      
+					           
 						</c:forEach>>
 						      
 					</c:if>
-					
+			       <tr>
+			            <td colspan="100%">
+			            	<a href="insertLectureView.do">
+			            		<button type="button" class="btn btn-primary">강의 입력</button>
+			            	</a>
+			            </td>
+			        </tr>        
 			
 			    </table>
 			</div>

@@ -60,6 +60,8 @@
 				<li><a href="#"><span class="glyphicon glyphicon-phone-alt"></span>
 						문 의</a></li>
 			</ul>
+			
+			<!-- 로그인 안했을때 -->
 			<c:if test="${sessionScope.grade == null }">
 				<ul class="nav navbar-nav navbar-right">
 					<li><a href="joinForm.do"><span
@@ -69,6 +71,7 @@
 				</ul>
 			</c:if>
 
+             <!-- 로그인 했을때 -->
 			<c:if test="${sessionScope.grade != null }">
 				<ul class="nav navbar-nav navbar-right">
 					<li class="dropdown"><a class="dropdown-toggle"

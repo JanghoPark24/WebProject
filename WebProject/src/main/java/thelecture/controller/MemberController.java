@@ -114,7 +114,7 @@ public class MemberController {
 		MemberBean mb = this.memberService.select_member(email);
 		// SHA256 (해쉬화)
 		SHA256 encrypter = SHA256.Instance;
-		String hashed_text = encrypter.encrypt(password).toUpperCase();
+		String hashed_text = encrypter.encrypt(password).toLowerCase();
 
 		PrintWriter out = response.getWriter();// 출력스트림 객체 생성
 		System.out.println(hashed_text);
@@ -197,13 +197,13 @@ public class MemberController {
 	 * return "profile.do"; }
 	 */
 	// 회원목록 조회
-	@RequestMapping("profile.do")
+	@RequestMapping("user_list.do")
 	public String memberList(Model model) {
 		List<MemberBean> list = memberService.memberList();
 		model.addAttribute("list", list);
 
 		System.out.println("리스트 ==> " + list.toString());
-		return "profilelist";
+		return "content/profile/user_list";
 	}
 
 	// 회원 상세정보 조회

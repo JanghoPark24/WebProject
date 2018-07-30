@@ -59,7 +59,7 @@ table, th, td {
       </tr>
       <tr class="info">
      <td> 
-          <input type=text value="${dto.email}" disabled="disabled">
+          <input type=text value="${dto.email}" disabled="disabled" size="30">
           <input type=text value="${dto.univ_name}" disabled="disabled"></td>
        </tr>
       <tr class="success">
@@ -68,10 +68,10 @@ table, th, td {
     <tr class="danger">
     <td>  
     <input type=text value="${dto.nickname}" size=20>
-    <input type=text value="학과" size=20></td>
+    <input type=text value="${dto.major }" size=20></td>
        </tr>
       <tr class="warning">    
-          <td><textarea cols=90 rows=10  >자신을소개하세요!</textarea></td>
+          <td><textarea cols=90 rows=10 >${dto.profile }</textarea></td>
       </tr>
       
       <tr class="info"><td colspan=2 align=center>    
