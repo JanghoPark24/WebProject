@@ -131,12 +131,12 @@ public class MemberController {
 				session.setAttribute("nickname", mb.getNickname());
 				String grade = mb.getGrade();
 				ModelAndView loginM;
-				if (grade.equals("unknown")) {//grade가 "unknown"이면
-					loginM = new ModelAndView("redirect:reg_info.do");
+				if (grade.equals("unknown")) {// grade가 "unknown"이면
+					loginM = new ModelAndView("member/reg_info");
 				} else {
-					session.setAttribute("grade", grade);
-					loginM = new ModelAndView("redirect:home.do");
+					loginM = new ModelAndView("content/home");
 				}
+				session.setAttribute("grade", grade);
 				return loginM;
 			} else {
 				out.println("<script>");
@@ -208,24 +208,22 @@ public class MemberController {
 
 	// 회원 상세정보 조회
 
-    @RequestMapping("my_profile.do")
-    public String memberView(@RequestParam("nickname") String nickname, Model model) {
-    	System.out.println(nickname);
-    		
-    	MemberBean dto = memberService.viewMember(nickname);
-    	model.addAttribute("dto",dto);
-    	
-        return "my_profile";
-    
-    }
-    //마이 페이지    
-     @RequestMapping("user_profile.do")
-     public String user1() {
-    	 return "user_profile";
-     
-        
-    }
-	
+	@RequestMapping("my_profile.do")
+	public String memberView(@RequestParam("nickname") String nickname, Model model) {
+		System.out.println(nickname);
 
+		MemberBean dto = memberService.viewMember(nickname);
+		model.addAttribute("dto", dto);
+
+		return "my_profile";
+
+	}
+
+	// 마이 페이지
+	@RequestMapping("user_profile.do")
+	public String user1() {
+		return "user_profile";
+
+	}
 
 }
