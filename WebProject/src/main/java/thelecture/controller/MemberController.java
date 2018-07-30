@@ -209,7 +209,8 @@ public class MemberController {
 	// 회원 상세정보 조회
 
 	@RequestMapping("my_profile.do")
-	public String memberView(@RequestParam("nickname") String nickname, Model model) {
+	public String memberView(HttpSession session, Model model) {
+		String nickname= (String) session.getAttribute("nickname");
 		System.out.println(nickname);
 
 		MemberBean dto = memberService.viewMember(nickname);
