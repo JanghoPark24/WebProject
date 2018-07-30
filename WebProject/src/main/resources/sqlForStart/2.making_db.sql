@@ -2,13 +2,29 @@
 CREATE TABLE TheLecture.lecture_reply_like (
 	reply_num NUMBER NOT NULL, /* 강의 번호 */
 	email VARCHAR2(40) NOT NULL /* 이메일 */
-);
+)
+	STORAGE (
+		BUFFER_POOL DEFAULT
+	)
+	LOGGING
+	NOCOMPRESS
+	NOCACHE
+	NOPARALLEL
+	NOROWDEPENDENCIES
+	DISABLE ROW MOVEMENT;
 
 CREATE UNIQUE INDEX TheLecture.PK_lecture_reply_like
 	ON TheLecture.lecture_reply_like (
 		reply_num ASC,
 		email ASC
-	);
+	)
+	STORAGE (
+		BUFFER_POOL DEFAULT
+	)
+	NOLOGGING
+	NOCOMPRESS
+	NOSORT
+	NOPARALLEL;
 
 ALTER TABLE TheLecture.lecture_reply_like
 	ADD
@@ -16,26 +32,40 @@ ALTER TABLE TheLecture.lecture_reply_like
 		PRIMARY KEY (
 			reply_num,
 			email
-		);
-
-COMMENT ON TABLE TheLecture.lecture_reply_like IS '강의댓글추천';
-
-COMMENT ON COLUMN TheLecture.lecture_reply_like.reply_num IS '강의 번호';
-
-COMMENT ON COLUMN TheLecture.lecture_reply_like.email IS '이메일';
+		)
+		NOT DEFERRABLE
+		INITIALLY IMMEDIATE
+		ENABLE
+		VALIDATE;
 
 /* 항목당 질문평가 */
 CREATE TABLE TheLecture.lecture_rating (
 	lecture_id VARCHAR2(20) NOT NULL, /* 강의ID */
 	question_id NUMBER NOT NULL, /* 질문번호 */
 	avg_score NUMBER /* 항목당 평균점수 */
-);
+)
+	STORAGE (
+		BUFFER_POOL DEFAULT
+	)
+	LOGGING
+	NOCOMPRESS
+	NOCACHE
+	NOPARALLEL
+	NOROWDEPENDENCIES
+	DISABLE ROW MOVEMENT;
 
 CREATE UNIQUE INDEX TheLecture.PK_lecture_rating
 	ON TheLecture.lecture_rating (
 		lecture_id ASC,
 		question_id ASC
-	);
+	)
+	STORAGE (
+		BUFFER_POOL DEFAULT
+	)
+	NOLOGGING
+	NOCOMPRESS
+	NOSORT
+	NOPARALLEL;
 
 ALTER TABLE TheLecture.lecture_rating
 	ADD
@@ -43,15 +73,11 @@ ALTER TABLE TheLecture.lecture_rating
 		PRIMARY KEY (
 			lecture_id,
 			question_id
-		);
-
-COMMENT ON TABLE TheLecture.lecture_rating IS '항목당 질문평가';
-
-COMMENT ON COLUMN TheLecture.lecture_rating.lecture_id IS '강의ID';
-
-COMMENT ON COLUMN TheLecture.lecture_rating.question_id IS '질문번호';
-
-COMMENT ON COLUMN TheLecture.lecture_rating.avg_score IS '항목당 평균점수';
+		)
+		NOT DEFERRABLE
+		INITIALLY IMMEDIATE
+		ENABLE
+		VALIDATE;
 
 /* 회원 */
 CREATE TABLE TheLecture.member (
@@ -68,59 +94,62 @@ CREATE TABLE TheLecture.member (
 	major VARCHAR2(30) NOT NULL, /* 전공 */
 	profile_img VARCHAR2(20), /* 프로필사진 */
 	profile VARCHAR2(200) /* 프로필 */
-);
+)
+	STORAGE (
+		BUFFER_POOL DEFAULT
+	)
+	LOGGING
+	NOCOMPRESS
+	NOCACHE
+	NOPARALLEL
+	NOROWDEPENDENCIES
+	DISABLE ROW MOVEMENT;
 
 CREATE UNIQUE INDEX TheLecture.PK_member
 	ON TheLecture.member (
 		email ASC
-	);
+	)
+	STORAGE (
+		BUFFER_POOL DEFAULT
+	)
+	NOLOGGING
+	NOCOMPRESS
+	NOSORT
+	NOPARALLEL;
 
 CREATE UNIQUE INDEX TheLecture.UIX_member
 	ON TheLecture.member (
 		nickname ASC
-	);
+	)
+	STORAGE (
+		BUFFER_POOL DEFAULT
+	)
+	NOLOGGING
+	NOCOMPRESS
+	NOSORT
+	NOPARALLEL;
 
 ALTER TABLE TheLecture.member
 	ADD
 		CONSTRAINT PK_member
 		PRIMARY KEY (
 			email
-		);
+		)
+		NOT DEFERRABLE
+		INITIALLY IMMEDIATE
+		ENABLE
+		VALIDATE;
 
 ALTER TABLE TheLecture.member
 	ADD
 		CONSTRAINT UK_member
 		UNIQUE (
 			nickname
-		);
-
-COMMENT ON TABLE TheLecture.member IS '회원';
-
-COMMENT ON COLUMN TheLecture.member.email IS '이메일';
-
-COMMENT ON COLUMN TheLecture.member.univ_name IS '대학 이름';
-
-COMMENT ON COLUMN TheLecture.member.nickname IS '닉네임';
-
-COMMENT ON COLUMN TheLecture.member.password IS '비밀번호';
-
-COMMENT ON COLUMN TheLecture.member.is_mail_open IS '메일공개여부';
-
-COMMENT ON COLUMN TheLecture.member.grade IS '등급(상태)';
-
-COMMENT ON COLUMN TheLecture.member.fail_count IS '접속실패횟수';
-
-COMMENT ON COLUMN TheLecture.member.try_date IS '마지막접속시도';
-
-COMMENT ON COLUMN TheLecture.member.reg_key IS '인증용키';
-
-COMMENT ON COLUMN TheLecture.member.reg_date IS '등록날짜';
-
-COMMENT ON COLUMN TheLecture.member.major IS '전공';
-
-COMMENT ON COLUMN TheLecture.member.profile_img IS '프로필사진';
-
-COMMENT ON COLUMN TheLecture.member.profile IS '프로필';
+		)
+		NOT DEFERRABLE
+		INITIALLY IMMEDIATE
+		ENABLE
+		VALIDATE;
 
 /* 강의 댓글 */
 CREATE TABLE TheLecture.lecture_reply (
@@ -132,37 +161,39 @@ CREATE TABLE TheLecture.lecture_reply (
 	content VARCHAR2(600) NOT NULL, /* 내용 */
 	reg_date DATE NOT NULL, /* 등록날짜 */
 	is_deleted VARCHAR2(1) NOT NULL /* 삭제여부 */
-);
+)
+	STORAGE (
+		BUFFER_POOL DEFAULT
+	)
+	LOGGING
+	NOCOMPRESS
+	NOCACHE
+	NOPARALLEL
+	NOROWDEPENDENCIES
+	DISABLE ROW MOVEMENT;
 
 CREATE UNIQUE INDEX TheLecture.PK_lecture_reply
 	ON TheLecture.lecture_reply (
 		reply_num ASC
-	);
+	)
+	STORAGE (
+		BUFFER_POOL DEFAULT
+	)
+	NOLOGGING
+	NOCOMPRESS
+	NOSORT
+	NOPARALLEL;
 
 ALTER TABLE TheLecture.lecture_reply
 	ADD
 		CONSTRAINT PK_lecture_reply
 		PRIMARY KEY (
 			reply_num
-		);
-
-COMMENT ON TABLE TheLecture.lecture_reply IS '강의 댓글';
-
-COMMENT ON COLUMN TheLecture.lecture_reply.reply_num IS '강의 번호';
-
-COMMENT ON COLUMN TheLecture.lecture_reply.lecture_id IS '강의ID';
-
-COMMENT ON COLUMN TheLecture.lecture_reply.email IS '이메일';
-
-COMMENT ON COLUMN TheLecture.lecture_reply.ref IS '레퍼런스';
-
-COMMENT ON COLUMN TheLecture.lecture_reply.depth IS '깊이';
-
-COMMENT ON COLUMN TheLecture.lecture_reply.content IS '내용';
-
-COMMENT ON COLUMN TheLecture.lecture_reply.reg_date IS '등록날짜';
-
-COMMENT ON COLUMN TheLecture.lecture_reply.is_deleted IS '삭제여부';
+		)
+		NOT DEFERRABLE
+		INITIALLY IMMEDIATE
+		ENABLE
+		VALIDATE;
 
 /* 내 평가 */
 CREATE TABLE TheLecture.my_rating (
@@ -171,14 +202,30 @@ CREATE TABLE TheLecture.my_rating (
 	question_id NUMBER NOT NULL, /* 질문번호 */
 	score NUMBER NOT NULL, /* 점수 */
 	reg_date DATE NOT NULL /* 등록날짜 */
-);
+)
+	STORAGE (
+		BUFFER_POOL DEFAULT
+	)
+	LOGGING
+	NOCOMPRESS
+	NOCACHE
+	NOPARALLEL
+	NOROWDEPENDENCIES
+	DISABLE ROW MOVEMENT;
 
 CREATE UNIQUE INDEX TheLecture.PK_my_rating
 	ON TheLecture.my_rating (
 		email ASC,
 		lecture_id ASC,
 		question_id ASC
-	);
+	)
+	STORAGE (
+		BUFFER_POOL DEFAULT
+	)
+	NOLOGGING
+	NOCOMPRESS
+	NOSORT
+	NOPARALLEL;
 
 ALTER TABLE TheLecture.my_rating
 	ADD
@@ -187,52 +234,76 @@ ALTER TABLE TheLecture.my_rating
 			email,
 			lecture_id,
 			question_id
-		);
-
-COMMENT ON TABLE TheLecture.my_rating IS '내 평가';
-
-COMMENT ON COLUMN TheLecture.my_rating.email IS '이메일';
-
-COMMENT ON COLUMN TheLecture.my_rating.lecture_id IS '강의ID';
-
-COMMENT ON COLUMN TheLecture.my_rating.question_id IS '질문번호';
-
-COMMENT ON COLUMN TheLecture.my_rating.score IS '점수';
-
-COMMENT ON COLUMN TheLecture.my_rating.reg_date IS '등록날짜';
+		)
+		NOT DEFERRABLE
+		INITIALLY IMMEDIATE
+		ENABLE
+		VALIDATE;
 
 /* 공지사항 */
 CREATE TABLE TheLecture.notice (
 	board_num NUMBER NOT NULL /* 게시판 번호 */
-);
+)
+	STORAGE (
+		BUFFER_POOL DEFAULT
+	)
+	LOGGING
+	NOCOMPRESS
+	NOCACHE
+	NOPARALLEL
+	NOROWDEPENDENCIES
+	DISABLE ROW MOVEMENT;
 
 CREATE UNIQUE INDEX TheLecture.PK_notice
 	ON TheLecture.notice (
 		board_num ASC
-	);
+	)
+	STORAGE (
+		BUFFER_POOL DEFAULT
+	)
+	NOLOGGING
+	NOCOMPRESS
+	NOSORT
+	NOPARALLEL;
 
 ALTER TABLE TheLecture.notice
 	ADD
 		CONSTRAINT PK_notice
 		PRIMARY KEY (
 			board_num
-		);
-
-COMMENT ON TABLE TheLecture.notice IS '공지사항';
-
-COMMENT ON COLUMN TheLecture.notice.board_num IS '게시판 번호';
+		)
+		NOT DEFERRABLE
+		INITIALLY IMMEDIATE
+		ENABLE
+		VALIDATE;
 
 /* 게시판댓글추천 */
 CREATE TABLE TheLecture.comunnity_board_reply_like (
 	email VARCHAR2(40) NOT NULL, /* 이메일 */
 	reply_num NUMBER NOT NULL /* 댓글번호 */
-);
+)
+	STORAGE (
+		BUFFER_POOL DEFAULT
+	)
+	LOGGING
+	NOCOMPRESS
+	NOCACHE
+	NOPARALLEL
+	NOROWDEPENDENCIES
+	DISABLE ROW MOVEMENT;
 
 CREATE UNIQUE INDEX TheLecture.PK_comunnity_board_reply_like
 	ON TheLecture.comunnity_board_reply_like (
 		email ASC,
 		reply_num ASC
-	);
+	)
+	STORAGE (
+		BUFFER_POOL DEFAULT
+	)
+	NOLOGGING
+	NOCOMPRESS
+	NOSORT
+	NOPARALLEL;
 
 ALTER TABLE TheLecture.comunnity_board_reply_like
 	ADD
@@ -240,13 +311,11 @@ ALTER TABLE TheLecture.comunnity_board_reply_like
 		PRIMARY KEY (
 			email,
 			reply_num
-		);
-
-COMMENT ON TABLE TheLecture.comunnity_board_reply_like IS '게시판댓글추천';
-
-COMMENT ON COLUMN TheLecture.comunnity_board_reply_like.email IS '이메일';
-
-COMMENT ON COLUMN TheLecture.comunnity_board_reply_like.reply_num IS '댓글번호';
+		)
+		NOT DEFERRABLE
+		INITIALLY IMMEDIATE
+		ENABLE
+		VALIDATE;
 
 /* 게시판댓글 */
 CREATE TABLE TheLecture.community_board_reply (
@@ -258,121 +327,152 @@ CREATE TABLE TheLecture.community_board_reply (
 	content VARCHAR2(600), /* 내용 */
 	reg_date DATE NOT NULL, /* 등록날짜 */
 	is_deleted VARCHAR2(1) NOT NULL /* 삭제여부 */
-);
+)
+	STORAGE (
+		BUFFER_POOL DEFAULT
+	)
+	LOGGING
+	NOCOMPRESS
+	NOCACHE
+	NOPARALLEL
+	NOROWDEPENDENCIES
+	DISABLE ROW MOVEMENT;
 
 CREATE UNIQUE INDEX TheLecture.PK_community_board_reply
 	ON TheLecture.community_board_reply (
 		reply_num ASC
-	);
+	)
+	STORAGE (
+		BUFFER_POOL DEFAULT
+	)
+	NOLOGGING
+	NOCOMPRESS
+	NOSORT
+	NOPARALLEL;
 
 ALTER TABLE TheLecture.community_board_reply
 	ADD
 		CONSTRAINT PK_community_board_reply
 		PRIMARY KEY (
 			reply_num
-		);
-
-COMMENT ON TABLE TheLecture.community_board_reply IS '게시판댓글';
-
-COMMENT ON COLUMN TheLecture.community_board_reply.reply_num IS '댓글번호';
-
-COMMENT ON COLUMN TheLecture.community_board_reply.board_num IS '게시판 번호';
-
-COMMENT ON COLUMN TheLecture.community_board_reply.email IS '이메일';
-
-COMMENT ON COLUMN TheLecture.community_board_reply.ref IS '레퍼런스';
-
-COMMENT ON COLUMN TheLecture.community_board_reply.depth IS '깊이';
-
-COMMENT ON COLUMN TheLecture.community_board_reply.content IS '내용';
-
-COMMENT ON COLUMN TheLecture.community_board_reply.reg_date IS '등록날짜';
-
-COMMENT ON COLUMN TheLecture.community_board_reply.is_deleted IS '삭제여부';
+		)
+		NOT DEFERRABLE
+		INITIALLY IMMEDIATE
+		ENABLE
+		VALIDATE;
 
 /* 강의 */
 CREATE TABLE TheLecture.lecture (
 	lecture_id VARCHAR2(20) NOT NULL, /* 강의ID */
 	univ_name VARCHAR2(20) NOT NULL, /* 대학 이름 */
+	major VARCHAR2(30) NOT NULL, /* 전공 */
 	semester NUMBER NOT NULL, /* 수강학기 */
 	lecture_code NUMBER NOT NULL, /* 강의코드 */
-	major VARCHAR2(30) NOT NULL, /* 전공 */
 	lecture_name VARCHAR2(40) NOT NULL, /* 강의 이름 */
+	professor VARCHAR2(40), /* 교수 */
 	view_count NUMBER NOT NULL, /* 조회수 */
 	rating_count NUMBER NOT NULL, /* 평가수 */
 	is_deleted VARCHAR2(1) NOT NULL, /* 삭제여부 */
 	total_avg_score NUMBER NOT NULL /* 총평균점수 */
-);
+)
+	STORAGE (
+		BUFFER_POOL DEFAULT
+	)
+	LOGGING
+	NOCOMPRESS
+	NOCACHE
+	NOPARALLEL
+	NOROWDEPENDENCIES
+	DISABLE ROW MOVEMENT;
 
 CREATE UNIQUE INDEX TheLecture.PK_lecture
 	ON TheLecture.lecture (
 		lecture_id ASC
-	);
+	)
+	STORAGE (
+		BUFFER_POOL DEFAULT
+	)
+	NOLOGGING
+	NOCOMPRESS
+	NOSORT
+	NOPARALLEL;
 
 ALTER TABLE TheLecture.lecture
 	ADD
 		CONSTRAINT PK_lecture
 		PRIMARY KEY (
 			lecture_id
-		);
-
-COMMENT ON TABLE TheLecture.lecture IS '강의';
-
-COMMENT ON COLUMN TheLecture.lecture.lecture_id IS '강의ID';
-
-COMMENT ON COLUMN TheLecture.lecture.univ_name IS '대학 이름';
-
-COMMENT ON COLUMN TheLecture.lecture.semester IS '수강학기';
-
-COMMENT ON COLUMN TheLecture.lecture.lecture_code IS '강의코드';
-
-COMMENT ON COLUMN TheLecture.lecture.major IS '전공';
-
-COMMENT ON COLUMN TheLecture.lecture.lecture_name IS '강의 이름';
-
-COMMENT ON COLUMN TheLecture.lecture.view_count IS '조회수';
-
-COMMENT ON COLUMN TheLecture.lecture.rating_count IS '평가수';
-
-COMMENT ON COLUMN TheLecture.lecture.is_deleted IS '삭제여부';
-
-COMMENT ON COLUMN TheLecture.lecture.total_avg_score IS '총평균점수';
+		)
+		NOT DEFERRABLE
+		INITIALLY IMMEDIATE
+		ENABLE
+		VALIDATE;
 
 /* 탈퇴요청회원 */
 CREATE TABLE TheLecture.member_delete_requests (
 	email VARCHAR2(40) NOT NULL, /* 이메일 */
 	delete_date DATE NOT NULL /* 삭제날짜 */
-);
+)
+	STORAGE (
+		BUFFER_POOL DEFAULT
+	)
+	LOGGING
+	NOCOMPRESS
+	NOCACHE
+	NOPARALLEL
+	NOROWDEPENDENCIES
+	DISABLE ROW MOVEMENT;
 
 CREATE UNIQUE INDEX TheLecture.PK_member_delete_requests
 	ON TheLecture.member_delete_requests (
 		email ASC
-	);
+	)
+	STORAGE (
+		BUFFER_POOL DEFAULT
+	)
+	NOLOGGING
+	NOCOMPRESS
+	NOSORT
+	NOPARALLEL;
 
 ALTER TABLE TheLecture.member_delete_requests
 	ADD
 		CONSTRAINT PK_member_delete_requests
 		PRIMARY KEY (
 			email
-		);
-
-COMMENT ON TABLE TheLecture.member_delete_requests IS '탈퇴요청회원';
-
-COMMENT ON COLUMN TheLecture.member_delete_requests.email IS '이메일';
-
-COMMENT ON COLUMN TheLecture.member_delete_requests.delete_date IS '삭제날짜';
+		)
+		NOT DEFERRABLE
+		INITIALLY IMMEDIATE
+		ENABLE
+		VALIDATE;
 
 /* 추천 */
 CREATE TABLE TheLecture.comunnity_board_like (
 	board_num NUMBER NOT NULL, /* 게시판 번호 */
 	email VARCHAR2(40) NOT NULL /* 이메일 */
-);
+)
+	STORAGE (
+		BUFFER_POOL DEFAULT
+	)
+	LOGGING
+	NOCOMPRESS
+	NOCACHE
+	NOPARALLEL
+	NOROWDEPENDENCIES
+	DISABLE ROW MOVEMENT;
 
 CREATE UNIQUE INDEX TheLecture.PK_comunnity_board_like
 	ON TheLecture.comunnity_board_like (
 		board_num ASC,
 		email ASC
-	);
+	)
+	STORAGE (
+		BUFFER_POOL DEFAULT
+	)
+	NOLOGGING
+	NOCOMPRESS
+	NOSORT
+	NOPARALLEL;
 
 ALTER TABLE TheLecture.comunnity_board_like
 	ADD
@@ -380,40 +480,50 @@ ALTER TABLE TheLecture.comunnity_board_like
 		PRIMARY KEY (
 			board_num,
 			email
-		);
-
-COMMENT ON TABLE TheLecture.comunnity_board_like IS '추천';
-
-COMMENT ON COLUMN TheLecture.comunnity_board_like.board_num IS '게시판 번호';
-
-COMMENT ON COLUMN TheLecture.comunnity_board_like.email IS '이메일';
+		)
+		NOT DEFERRABLE
+		INITIALLY IMMEDIATE
+		ENABLE
+		VALIDATE;
 
 /* 대학 */
 CREATE TABLE TheLecture.univ (
 	univ_name VARCHAR2(20) NOT NULL, /* 대학 이름 */
 	univ_domain VARCHAR2(20), /* 대학 도메인 */
 	univ_logo VARCHAR2(30) /* 대학 로고 */
-);
+)
+	STORAGE (
+		BUFFER_POOL DEFAULT
+	)
+	LOGGING
+	NOCOMPRESS
+	NOCACHE
+	NOPARALLEL
+	NOROWDEPENDENCIES
+	DISABLE ROW MOVEMENT;
 
 CREATE UNIQUE INDEX TheLecture.PK_univ
 	ON TheLecture.univ (
 		univ_name ASC
-	);
+	)
+	STORAGE (
+		BUFFER_POOL DEFAULT
+	)
+	NOLOGGING
+	NOCOMPRESS
+	NOSORT
+	NOPARALLEL;
 
 ALTER TABLE TheLecture.univ
 	ADD
 		CONSTRAINT PK_univ
 		PRIMARY KEY (
 			univ_name
-		);
-
-COMMENT ON TABLE TheLecture.univ IS '대학';
-
-COMMENT ON COLUMN TheLecture.univ.univ_name IS '대학 이름';
-
-COMMENT ON COLUMN TheLecture.univ.univ_domain IS '대학 도메인';
-
-COMMENT ON COLUMN TheLecture.univ.univ_logo IS '대학 로고';
+		)
+		NOT DEFERRABLE
+		INITIALLY IMMEDIATE
+		ENABLE
+		VALIDATE;
 
 /* 커뮤니티 게시판 */
 CREATE TABLE TheLecture.community_board (
@@ -425,85 +535,115 @@ CREATE TABLE TheLecture.community_board (
 	view_count NUMBER NOT NULL, /* 조회수 */
 	reg_date DATE NOT NULL, /* 등록날짜 */
 	is_deleted VARCHAR2(1) NOT NULL /* 삭제여부 */
-);
+)
+	STORAGE (
+		BUFFER_POOL DEFAULT
+	)
+	LOGGING
+	NOCOMPRESS
+	NOCACHE
+	NOPARALLEL
+	NOROWDEPENDENCIES
+	DISABLE ROW MOVEMENT;
 
 CREATE UNIQUE INDEX TheLecture.PK_community_board
 	ON TheLecture.community_board (
 		board_num ASC
-	);
+	)
+	STORAGE (
+		BUFFER_POOL DEFAULT
+	)
+	NOLOGGING
+	NOCOMPRESS
+	NOSORT
+	NOPARALLEL;
 
 ALTER TABLE TheLecture.community_board
 	ADD
 		CONSTRAINT PK_community_board
 		PRIMARY KEY (
 			board_num
-		);
-
-COMMENT ON TABLE TheLecture.community_board IS '커뮤니티 게시판';
-
-COMMENT ON COLUMN TheLecture.community_board.board_num IS '게시판 번호';
-
-COMMENT ON COLUMN TheLecture.community_board.univ_name IS '대학 이름';
-
-COMMENT ON COLUMN TheLecture.community_board.email IS '이메일';
-
-COMMENT ON COLUMN TheLecture.community_board.subject IS '제목';
-
-COMMENT ON COLUMN TheLecture.community_board.content IS '내용';
-
-COMMENT ON COLUMN TheLecture.community_board.view_count IS '조회수';
-
-COMMENT ON COLUMN TheLecture.community_board.reg_date IS '등록날짜';
-
-COMMENT ON COLUMN TheLecture.community_board.is_deleted IS '삭제여부';
+		)
+		NOT DEFERRABLE
+		INITIALLY IMMEDIATE
+		ENABLE
+		VALIDATE;
 
 /* 질문 */
 CREATE TABLE TheLecture.question (
 	question_id NUMBER NOT NULL, /* 질문번호 */
 	question_version NUMBER, /* 질문버젼 */
 	question_content VARCHAR2(2000) /* 질문내용 */
-);
+)
+	STORAGE (
+		BUFFER_POOL DEFAULT
+	)
+	LOGGING
+	NOCOMPRESS
+	NOCACHE
+	NOPARALLEL
+	NOROWDEPENDENCIES
+	DISABLE ROW MOVEMENT;
 
 CREATE UNIQUE INDEX TheLecture.PK_question2
 	ON TheLecture.question (
 		question_id ASC
-	);
+	)
+	STORAGE (
+		BUFFER_POOL DEFAULT
+	)
+	NOLOGGING
+	NOCOMPRESS
+	NOSORT
+	NOPARALLEL;
 
 ALTER TABLE TheLecture.question
 	ADD
 		CONSTRAINT PK_question2
 		PRIMARY KEY (
 			question_id
-		);
-
-COMMENT ON TABLE TheLecture.question IS '질문';
-
-COMMENT ON COLUMN TheLecture.question.question_id IS '질문번호';
-
-COMMENT ON COLUMN TheLecture.question.question_version IS '질문버젼';
-
-COMMENT ON COLUMN TheLecture.question.question_content IS '질문내용';
+		)
+		NOT DEFERRABLE
+		INITIALLY IMMEDIATE
+		ENABLE
+		VALIDATE;
 
 /* 질문 버젼 */
 CREATE TABLE TheLecture.question_version (
 	question_version NUMBER NOT NULL /* 질문버젼 */
-);
+)
+	STORAGE (
+		BUFFER_POOL DEFAULT
+	)
+	LOGGING
+	NOCOMPRESS
+	NOCACHE
+	NOPARALLEL
+	NOROWDEPENDENCIES
+	DISABLE ROW MOVEMENT;
 
 CREATE UNIQUE INDEX TheLecture.PK_question_version2
 	ON TheLecture.question_version (
 		question_version ASC
-	);
+	)
+	STORAGE (
+		BUFFER_POOL DEFAULT
+	)
+	NOLOGGING
+	NOCOMPRESS
+	NOSORT
+	NOPARALLEL;
 
 ALTER TABLE TheLecture.question_version
 	ADD
 		CONSTRAINT PK_question_version2
 		PRIMARY KEY (
 			question_version
-		);
-
-COMMENT ON TABLE TheLecture.question_version IS '질문 버젼';
-
-COMMENT ON COLUMN TheLecture.question_version.question_version IS '질문버젼';
+		)
+		NOT DEFERRABLE
+		INITIALLY IMMEDIATE
+		ENABLE
+		VALIDATE;
 
 ALTER TABLE TheLecture.lecture_reply_like
 	ADD
@@ -513,7 +653,11 @@ ALTER TABLE TheLecture.lecture_reply_like
 		)
 		REFERENCES TheLecture.lecture_reply (
 			reply_num
-		);
+		)
+		NOT DEFERRABLE
+		INITIALLY IMMEDIATE
+		ENABLE
+		VALIDATE;
 
 ALTER TABLE TheLecture.lecture_reply_like
 	ADD
@@ -523,7 +667,11 @@ ALTER TABLE TheLecture.lecture_reply_like
 		)
 		REFERENCES TheLecture.member (
 			email
-		);
+		)
+		NOT DEFERRABLE
+		INITIALLY IMMEDIATE
+		ENABLE
+		VALIDATE;
 
 ALTER TABLE TheLecture.lecture_rating
 	ADD
@@ -533,7 +681,11 @@ ALTER TABLE TheLecture.lecture_rating
 		)
 		REFERENCES TheLecture.lecture (
 			lecture_id
-		);
+		)
+		NOT DEFERRABLE
+		INITIALLY IMMEDIATE
+		ENABLE
+		VALIDATE;
 
 ALTER TABLE TheLecture.lecture_rating
 	ADD
@@ -543,7 +695,11 @@ ALTER TABLE TheLecture.lecture_rating
 		)
 		REFERENCES TheLecture.question (
 			question_id
-		);
+		)
+		NOT DEFERRABLE
+		INITIALLY IMMEDIATE
+		ENABLE
+		VALIDATE;
 
 ALTER TABLE TheLecture.member
 	ADD
@@ -553,7 +709,11 @@ ALTER TABLE TheLecture.member
 		)
 		REFERENCES TheLecture.univ (
 			univ_name
-		);
+		)
+		NOT DEFERRABLE
+		INITIALLY IMMEDIATE
+		ENABLE
+		VALIDATE;
 
 ALTER TABLE TheLecture.lecture_reply
 	ADD
@@ -563,7 +723,11 @@ ALTER TABLE TheLecture.lecture_reply
 		)
 		REFERENCES TheLecture.lecture (
 			lecture_id
-		);
+		)
+		NOT DEFERRABLE
+		INITIALLY IMMEDIATE
+		ENABLE
+		VALIDATE;
 
 ALTER TABLE TheLecture.lecture_reply
 	ADD
@@ -573,7 +737,11 @@ ALTER TABLE TheLecture.lecture_reply
 		)
 		REFERENCES TheLecture.member (
 			email
-		);
+		)
+		NOT DEFERRABLE
+		INITIALLY IMMEDIATE
+		ENABLE
+		VALIDATE;
 
 ALTER TABLE TheLecture.my_rating
 	ADD
@@ -583,7 +751,11 @@ ALTER TABLE TheLecture.my_rating
 		)
 		REFERENCES TheLecture.member (
 			email
-		);
+		)
+		NOT DEFERRABLE
+		INITIALLY IMMEDIATE
+		ENABLE
+		VALIDATE;
 
 ALTER TABLE TheLecture.my_rating
 	ADD
@@ -595,7 +767,11 @@ ALTER TABLE TheLecture.my_rating
 		REFERENCES TheLecture.lecture_rating (
 			lecture_id,
 			question_id
-		);
+		)
+		NOT DEFERRABLE
+		INITIALLY IMMEDIATE
+		ENABLE
+		VALIDATE;
 
 ALTER TABLE TheLecture.notice
 	ADD
@@ -605,7 +781,11 @@ ALTER TABLE TheLecture.notice
 		)
 		REFERENCES TheLecture.community_board (
 			board_num
-		);
+		)
+		NOT DEFERRABLE
+		INITIALLY IMMEDIATE
+		ENABLE
+		VALIDATE;
 
 ALTER TABLE TheLecture.comunnity_board_reply_like
 	ADD
@@ -615,7 +795,11 @@ ALTER TABLE TheLecture.comunnity_board_reply_like
 		)
 		REFERENCES TheLecture.member (
 			email
-		);
+		)
+		NOT DEFERRABLE
+		INITIALLY IMMEDIATE
+		ENABLE
+		VALIDATE;
 
 ALTER TABLE TheLecture.comunnity_board_reply_like
 	ADD
@@ -625,7 +809,11 @@ ALTER TABLE TheLecture.comunnity_board_reply_like
 		)
 		REFERENCES TheLecture.community_board_reply (
 			reply_num
-		);
+		)
+		NOT DEFERRABLE
+		INITIALLY IMMEDIATE
+		ENABLE
+		VALIDATE;
 
 ALTER TABLE TheLecture.community_board_reply
 	ADD
@@ -635,7 +823,11 @@ ALTER TABLE TheLecture.community_board_reply
 		)
 		REFERENCES TheLecture.community_board (
 			board_num
-		);
+		)
+		NOT DEFERRABLE
+		INITIALLY IMMEDIATE
+		ENABLE
+		VALIDATE;
 
 ALTER TABLE TheLecture.community_board_reply
 	ADD
@@ -645,7 +837,11 @@ ALTER TABLE TheLecture.community_board_reply
 		)
 		REFERENCES TheLecture.member (
 			email
-		);
+		)
+		NOT DEFERRABLE
+		INITIALLY IMMEDIATE
+		ENABLE
+		VALIDATE;
 
 ALTER TABLE TheLecture.lecture
 	ADD
@@ -655,7 +851,11 @@ ALTER TABLE TheLecture.lecture
 		)
 		REFERENCES TheLecture.univ (
 			univ_name
-		);
+		)
+		NOT DEFERRABLE
+		INITIALLY IMMEDIATE
+		ENABLE
+		VALIDATE;
 
 ALTER TABLE TheLecture.member_delete_requests
 	ADD
@@ -665,7 +865,11 @@ ALTER TABLE TheLecture.member_delete_requests
 		)
 		REFERENCES TheLecture.member (
 			email
-		);
+		)
+		NOT DEFERRABLE
+		INITIALLY IMMEDIATE
+		ENABLE
+		VALIDATE;
 
 ALTER TABLE TheLecture.comunnity_board_like
 	ADD
@@ -675,7 +879,11 @@ ALTER TABLE TheLecture.comunnity_board_like
 		)
 		REFERENCES TheLecture.community_board (
 			board_num
-		);
+		)
+		NOT DEFERRABLE
+		INITIALLY IMMEDIATE
+		ENABLE
+		VALIDATE;
 
 ALTER TABLE TheLecture.comunnity_board_like
 	ADD
@@ -685,7 +893,11 @@ ALTER TABLE TheLecture.comunnity_board_like
 		)
 		REFERENCES TheLecture.member (
 			email
-		);
+		)
+		NOT DEFERRABLE
+		INITIALLY IMMEDIATE
+		ENABLE
+		VALIDATE;
 
 ALTER TABLE TheLecture.community_board
 	ADD
@@ -695,7 +907,11 @@ ALTER TABLE TheLecture.community_board
 		)
 		REFERENCES TheLecture.univ (
 			univ_name
-		);
+		)
+		NOT DEFERRABLE
+		INITIALLY IMMEDIATE
+		ENABLE
+		VALIDATE;
 
 ALTER TABLE TheLecture.community_board
 	ADD
@@ -705,7 +921,11 @@ ALTER TABLE TheLecture.community_board
 		)
 		REFERENCES TheLecture.member (
 			email
-		);
+		)
+		NOT DEFERRABLE
+		INITIALLY IMMEDIATE
+		ENABLE
+		VALIDATE;
 
 ALTER TABLE TheLecture.question
 	ADD
@@ -715,4 +935,8 @@ ALTER TABLE TheLecture.question
 		)
 		REFERENCES TheLecture.question_version (
 			question_version
-		);
+		)
+		NOT DEFERRABLE
+		INITIALLY IMMEDIATE
+		ENABLE
+		VALIDATE;

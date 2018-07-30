@@ -1,4 +1,21 @@
-select * from univ;
+SELECT * FROM tab;
+SELECT * FROM member;
+SELECT * FROM univ;
+
+delete from member;
+purge;
+
+/* 대학입력 */
+insert INTO univ values(
+'서울대학교','snu.ac.kr','logo1.gif'
+);
+insert INTO univ values(
+'고려대학교','korea.ac.kr','logo2.gif'
+);
+insert INTO univ values(
+'연세대학교','yonsei.ac.kr','logo3.gif'
+);
+
 
 /* 회원 입력*/
 insert INTO member values(
@@ -41,5 +58,12 @@ sysdate,'무역학과','image.jpg','탈퇴하려는 회원입니다.'
  * lecture List 새로 추가
  * 
  * */
+
+create sequence lecture_id_seq
+	start with 1
+	increment by 1
+	minvalue 0;
+	
+insert values(lecture_id_seq.nextval, "서울대학교","교양","수리과학부",) into lecture 
 
 

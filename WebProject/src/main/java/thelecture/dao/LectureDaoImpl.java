@@ -17,10 +17,13 @@ public class LectureDaoImpl {
 	private SqlSession sqlSession;
 	
 	@Transactional
-	public List<LectureBean> getlectureList() throws Exception {
-		
-		return sqlSession.selectList("lectureMap.getLectures");
-		
+	public List<LectureBean> getlectureList() {
+		try {
+			return sqlSession.selectList("lectureMap.getLectures");
+		}catch(Exception e){
+			e.printStackTrace();
+			return null;
+		}
 	}
 	
 	

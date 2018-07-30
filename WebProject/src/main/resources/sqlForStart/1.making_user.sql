@@ -1,4 +1,4 @@
-﻿/* 계정삭제 */
+/* 계정삭제 */
 drop user thelecture CASCADE;
 /* 계정생성 */
 create user thelecture identified by wnddkd1971;

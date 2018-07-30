@@ -92,14 +92,14 @@
 						</td> 
 						
 					</tr>
-					<c:if test="${lec_List empty}">
+					<c:if test="${empty lec_List  }">
 						<tr class="lectureList_content">
-							<td>
+							<td colspan="100%">
 							올라온 강의가 없습니다.
 							</td>
 						</tr>
 					</c:if>
-					<c:if test="${lec_List not empty}">
+					<c:if test="${not empty lec_List}">
 						<c:forEach var="lecture" items="lec_List">
 							<tr class="lectureList_content">
 								<td>
