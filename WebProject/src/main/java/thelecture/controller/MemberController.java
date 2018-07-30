@@ -197,13 +197,13 @@ public class MemberController {
 	 * return "profile.do"; }
 	 */
 	// 회원목록 조회
-	@RequestMapping("profile.do")
+	@RequestMapping("user_list.do")
 	public String memberList(Model model) {
 		List<MemberBean> list = memberService.memberList();
 		model.addAttribute("list", list);
 
 		System.out.println("리스트 ==> " + list.toString());
-		return "profilelist";
+		return "content/profile/user_list";
 	}
 
 	// 회원 상세정보 조회

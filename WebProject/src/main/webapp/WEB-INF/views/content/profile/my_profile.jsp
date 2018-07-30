@@ -59,7 +59,7 @@ table, th, td {
       </tr>
       <tr class="info">
      <td> 
-          <input type=text value="${dto.email}" disabled="disabled">
+          <input type=text value="${dto.email}" disabled="disabled" size="30">
           <input type=text value="${dto.univ_name}" disabled="disabled"></td>
        </tr>
       <tr class="success">
