@@ -49,10 +49,6 @@ public class MemberDaoImpl {
 		return sqlSession.selectOne("select_member", email);
 	}
 
-	/*
-	 * 이메일을 따라 계정정보를 불러오는 메소드 필요
-	 */
-
 	// public MemberBean getMemberInfo(String email) {
 	//
 	// return sqlSession.selectOne("get_member", email);
