@@ -15,6 +15,12 @@ insert INTO univ values(
 insert INTO univ values(
 '연세대학교','yonsei.ac.kr','logo3.gif'
 );
+insert INTO univ values(
+'구글대학교','gmail.com','logo4.gif'
+);
+insert INTO univ values(
+'네이버대학교','naver.com','logo5.gif'
+);
 
 
 /* 회원 입력*/
