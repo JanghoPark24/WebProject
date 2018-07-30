@@ -16,10 +16,22 @@ public class LectureDaoImpl {
 	@Autowired
 	private SqlSession sqlSession;
 	
+	
+	
 	@Transactional
-	public List<LectureBean> getlectureList() {
+	public List<LectureBean> getAllLectureList() {
 		try {
-			return sqlSession.selectList("lectureMap.getLectures");
+			return sqlSession.selectList("lectureMap.getAllLectures");
+		}catch(Exception e){
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+	@Transactional
+	public List<LectureBean> getSpecificLectures() {
+		try {
+			return sqlSession.selectList("lectureMap.getSpecificLectures");
 		}catch(Exception e){
 			e.printStackTrace();
 			return null;

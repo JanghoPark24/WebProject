@@ -4,8 +4,11 @@
 <mapper namespace="lectureMap">
 	<!-- 중복검사 -->
 	
-	<select id="getLectures" resultType="lectureList">
+	<select id="getAllLectures" resultType="lectureList">
 		select * from lecture
+	</select>
+	<select id="getSpecificLectures" parameterType="String" resultType="lectureList">
+		select * from lecture where major like %#{input}%
 	</select>
 	
 

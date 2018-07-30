@@ -57,18 +57,15 @@ public class LecturesController {
 		//lecture 불러오기
 		List<LectureBean> lectureList=null;
 		
-		lectureList = lecturedao.getlectureList();
+//		lectureList = lecturedao.getlectureList();
 		//다음으로 전하기
 		model.addAttribute("lectureList",lectureList);
 			
 		
-		
-		
-		
 		//grade가 master면 마스터 모드 아니면 일반 모드
 		String grade = (String)session.getAttribute("grade");
-		
-		return grade =="master"? 
+
+		return grade!=null && grade.equals("master")? 
 				"content/lecture/lecture_master":
 				"content/lecture/lectureList";
 		
@@ -98,9 +95,11 @@ public class LecturesController {
 	}
 	
 	@RequestMapping(value="insertLectureView.do")
-	public String insert_lecture_view(String id) {
+	public String insert_lecture_view(HttpSession session) {
 		
-		return "content/lecture/insert_lecture_view";
+		if(!session.getAttribute("grade").equals("master")) return "isNotMaster//e";
+		
+		else return "content/lecture/insert_lecture_view";
 	}
 	@RequestMapping(value="insertLecture.do")
 	public String insert_lecture(String id) {
