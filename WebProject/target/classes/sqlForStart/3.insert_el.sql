@@ -15,6 +15,9 @@ insert INTO univ values(
 insert INTO univ values(
 '연세대학교','yonsei.ac.kr','logo3.gif'
 );
+insert INTO univ values(
+'구글대학교','gmail.com','logo4.gif'
+);
 
 
 /* 회원 입력*/
@@ -66,4 +69,5 @@ create sequence lecture_id_seq
 	
 insert values(lecture_id_seq.nextval, "서울대학교","교양","수리과학부",) into lecture 
 
+commit;
 
