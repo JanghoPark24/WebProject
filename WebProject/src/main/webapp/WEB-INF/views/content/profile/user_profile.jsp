@@ -42,7 +42,7 @@ table, th, td {
     <center><label>이름(닉네임)</label></center>
     <input type="text" name="nickname" 
     id="nickname" maxlength="20" 
-	 value="TheStudent" align="center">
+	 value="zz" align="center">
     </td>
        </tr>
       <tr class="warning">    

@@ -22,7 +22,7 @@
 	<insert id="member_join" parameterType="member">
 		insert INTO	member values(
 		#{email},#{univ_name},#{nickname},#{password},'n','unknown',
-			0,null,#{reg_key},sysdate,'unknown','unknown.jpg','')
+			0,null,#{reg_key},sysdate,'컴퓨터공학과','unknown.jpg','안넝하세여')
 	</insert>
 
   
@@ -56,7 +56,9 @@
 		select
 		email,
 		nickname,
-		univ_name 
+		univ_name,
+		major,
+		profile
 		from member
 		where nickname = #{nickname}
 		
