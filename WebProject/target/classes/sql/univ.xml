@@ -5,7 +5,7 @@
 	<!-- domain 탐색 -->
 	<select id="find_domain" parameterType="String"
 		resultType="univ">
-		select univ_name from univ where Upper(univ_domain)= #{domain}
+		select univ_name from univ where Lower(univ_domain)= #{domain}
 	</select>
 
 

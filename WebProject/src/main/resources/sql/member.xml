@@ -4,19 +4,19 @@
 <mapper namespace="memberns">
 	<!-- email 중복검사 -->
 	<select id="isdup_email" parameterType="String"	resultType="member">
-		select * from member where lower(email)= #{value}
+		select * from member where Lower(email)= #{value}
 	</select>
 	<!-- nickname 중복검사 -->
 	<select id="isdup_nickname" parameterType="String" resultType="member">
-		select * from member where lower(nickname)= #{value}
+		select * from member where Lower(nickname)= #{value}
 	</select>
 	<!-- reg_key 중복검사 -->
 	<select id="isdup_reg_key" parameterType="String" resultType="member">
-		select * from member where lower(reg_key)= #{reg_key}
+		select * from member where Lower(reg_key)= #{value}
 	</select>
 	<!-- 회원선택 -->
 	<select id="select_member" parameterType="String" resultType="member">
-		select * from member where lower(email)= #{email}
+		select * from member where Lower(email)= #{email}
 	</select>
 	<!-- 회원저장 -->
 	<insert id="member_join" parameterType="member">
