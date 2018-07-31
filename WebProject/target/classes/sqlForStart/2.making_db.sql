@@ -56,7 +56,7 @@ ALTER TABLE TheLecture.lecture_rating
 /* 회원 */
 CREATE TABLE TheLecture.member (
 	email VARCHAR2(40) NOT NULL, /* 이메일 */
-	univ_name VARCHAR2(20) NOT NULL, /* 대학 이름 */
+	univ_name VARCHAR2(25) NOT NULL, /* 대학 이름(영어) */
 	nickname VARCHAR2(20) NOT NULL, /* 닉네임 */
 	password VARCHAR2(64) NOT NULL, /* 비밀번호 */
 	is_mail_open VARCHAR2(1) NOT NULL, /* 메일공개여부 */
@@ -74,7 +74,7 @@ COMMENT ON TABLE TheLecture.member IS '회원';
 
 COMMENT ON COLUMN TheLecture.member.email IS '이메일';
 
-COMMENT ON COLUMN TheLecture.member.univ_name IS '대학 이름';
+COMMENT ON COLUMN TheLecture.member.univ_name IS '대학 이름(영어)';
 
 COMMENT ON COLUMN TheLecture.member.nickname IS '닉네임';
 
@@ -293,11 +293,11 @@ ALTER TABLE TheLecture.community_board_reply
 /* 강의 */
 CREATE TABLE TheLecture.lecture (
 	lecture_id NUMBER NOT NULL, /* 강의ID */
-	univ_name VARCHAR2(20) NOT NULL, /* 대학 이름 */
+	univ_name VARCHAR2(25) NOT NULL, /* 대학 이름(영어) */
 	major VARCHAR2(30) NOT NULL, /* 전공 */
 	grade NUMBER, /* 학년 */
 	semester NUMBER NOT NULL, /* 수강학기 */
-	lecture_code NUMBER NOT NULL, /* 강의코드 */
+	lecture_code VARCHAR2 NOT NULL, /* 강의코드 */
 	lecture_name VARCHAR2(40) NOT NULL, /* 강의 이름 */
 	professor VARCHAR2(40), /* 교수 */
 	credit VARCHAR2(20), /* 학점 */
@@ -311,7 +311,7 @@ COMMENT ON TABLE TheLecture.lecture IS '강의';
 
 COMMENT ON COLUMN TheLecture.lecture.lecture_id IS '강의ID';
 
-COMMENT ON COLUMN TheLecture.lecture.univ_name IS '대학 이름';
+COMMENT ON COLUMN TheLecture.lecture.univ_name IS '대학 이름(영어)';
 
 COMMENT ON COLUMN TheLecture.lecture.major IS '전공';
 
@@ -399,14 +399,17 @@ ALTER TABLE TheLecture.comunnity_board_like
 
 /* 대학 */
 CREATE TABLE TheLecture.univ (
-	univ_name VARCHAR2(20) NOT NULL, /* 대학 이름 */
+	univ_name VARCHAR2(25) NOT NULL, /* 대학 이름(영어) */
+	univ_name_eng VARCHAR2(35), /* 대학이름(한글) */
 	univ_domain VARCHAR2(20), /* 대학 도메인 */
 	univ_logo VARCHAR2(30) /* 대학 로고 */
 );
 
 COMMENT ON TABLE TheLecture.univ IS '대학';
 
-COMMENT ON COLUMN TheLecture.univ.univ_name IS '대학 이름';
+COMMENT ON COLUMN TheLecture.univ.univ_name IS '대학 이름(영어)';
+
+COMMENT ON COLUMN TheLecture.univ.univ_name_eng IS '대학이름(한글)';
 
 COMMENT ON COLUMN TheLecture.univ.univ_domain IS '대학 도메인';
 
@@ -427,7 +430,7 @@ ALTER TABLE TheLecture.univ
 /* 커뮤니티 게시판 */
 CREATE TABLE TheLecture.community_board (
 	board_num NUMBER NOT NULL, /* 게시판 번호 */
-	univ_name VARCHAR2(20) NOT NULL, /* 대학 이름 */
+	univ_name VARCHAR2(25) NOT NULL, /* 대학 이름(영어) */
 	email VARCHAR2(40) NOT NULL, /* 이메일 */
 	subject VARCHAR2(40) NOT NULL, /* 제목 */
 	content VARCHAR2(2000) NOT NULL, /* 내용 */
@@ -440,7 +443,7 @@ COMMENT ON TABLE TheLecture.community_board IS '커뮤니티 게시판';
 
 COMMENT ON COLUMN TheLecture.community_board.board_num IS '게시판 번호';
 
-COMMENT ON COLUMN TheLecture.community_board.univ_name IS '대학 이름';
+COMMENT ON COLUMN TheLecture.community_board.univ_name IS '대학 이름(영어)';
 
 COMMENT ON COLUMN TheLecture.community_board.email IS '이메일';
 
