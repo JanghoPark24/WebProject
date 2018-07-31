@@ -106,9 +106,9 @@ public class MemberController {
 		return "content/home";
 	}
 
-
+    //회원정보 수정
     @RequestMapping("update.do") 
-    public String update(@ModelAttribute MemberBean mb, Model model) throws Exception { 
+    public String update(@ModelAttribute MemberBean mb) throws Exception { 
     	 System.out.println("1");
     	memberService.member_update(mb);
 	 
