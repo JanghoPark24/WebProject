@@ -20,6 +20,7 @@ import thelecture.dao.LectureDaoImpl;
 import thelecture.dao.MemberDaoImpl;
 import thelecture.model.LectureBean;
 import thelecture.model.MemberBean;
+import thelecture.model.Page;
 
 /**
  * Handles requests for the application home page.
@@ -52,23 +53,32 @@ public class LecturesController {
 	}
 	
 	@RequestMapping(value = "lectureList.do", method = RequestMethod.GET)
-	public String lectureList( HttpSession session, Model model) {
+	public String lectureList( HttpSession session, Model model,Integer currentPage) {
+		
+		
+		//현재 페이지 불러오기
+		if(currentPage ==null) currentPage=1;
+		int rowPerPage = 10;
+		
+//		Page pageInfo = new Page(currentPage, rowPerPage);
+		
+		
 		
 		//lecture 불러오기
 		List<LectureBean> lectureList=null;
 		
-		lectureList = lecturedao.getlectureList();
+		
+		
+		
+//		lectureList = lecturedao.getlectureList();
 		//다음으로 전하기
 		model.addAttribute("lectureList",lectureList);
 			
 		
-		
-		
-		
 		//grade가 master면 마스터 모드 아니면 일반 모드
 		String grade = (String)session.getAttribute("grade");
-		
-		return grade =="master"? 
+
+		return grade!=null && grade.equals("master")? 
 				"content/lecture/lecture_master":
 				"content/lecture/lectureList";
 		
@@ -98,9 +108,11 @@ public class LecturesController {
 	}
 	
 	@RequestMapping(value="insertLectureView.do")
-	public String insert_lecture_view(String id) {
+	public String insert_lecture_view(HttpSession session) {
 		
-		return "content/lecture/insert_lecture_view";
+		if(!session.getAttribute("grade").equals("master")) return "isNotMaster//e";
+		
+		else return "content/lecture/insert_lecture_view";
 	}
 	@RequestMapping(value="insertLecture.do")
 	public String insert_lecture(String id) {
