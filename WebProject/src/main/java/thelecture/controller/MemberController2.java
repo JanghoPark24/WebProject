@@ -21,18 +21,18 @@ public class MemberController2 {
 	
 	}
 		
-	@RequestMapping("writeAction.do")
-	public String insert(@ModelAttribute WriteBean WriteBean, Model model) {//
+	@RequestMapping("write.do")
+	public String insert(@ModelAttribute WriteBean WriteBean, Model model) {
 		int result = service.insert(WriteBean);
 		model.addAttribute("result", result);
 		return "writeAction";
 	}
-	@RequestMapping("read.do")
+/*	@RequestMapping("read.do")
 	public String read(@RequestParam("num") int num, Model model) {
 		WriteBean board = service.read(num);
 		model.addAttribute("board", board);
 
-		return "read";
+		return "read";*/
 	
-	}
+	/*}*/
 }

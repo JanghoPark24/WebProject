@@ -16,13 +16,11 @@ public class WriteDaoImpl{
 		return session.insert("insert", writeBean);		
 	}
 
-	public WriteBean read(int num){
+/*	public WriteBean read(int num){
 	return session.selectOne("read", num);
 	}
-
+*/
 		
-/*	public int insert(WriteBean WriteBean){
-		return session.insert("insert", WriteBean);
-	}*/
+
 }
 

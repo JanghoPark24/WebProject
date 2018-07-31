@@ -1,6 +1,7 @@
 package thelecture.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import thelecture.dao.WriteDaoImpl;
 import thelecture.model.WriteBean;
 
@@ -14,11 +15,11 @@ public class WriteServiceImple {
 		return dao.insert(writeBean);
 	}
 
-	public WriteBean read(int num){
+/*	public WriteBean read(int num){
 	
 		return dao.read(num);
 	}
-
+*/
 	
 	
 }
