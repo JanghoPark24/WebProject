@@ -3,6 +3,7 @@ SELECT * FROM member;
 SELECT * FROM univ;
 
 delete from member;
+delete from univ;
 purge;
 
 
@@ -12,25 +13,31 @@ CREATE SEQUENCE seq_board1_re_no START WITH 1 INCREMENT BY 1;--커뮤니티 게�
 CREATE SEQUENCE seq_lecture_no START WITH 1 INCREMENT BY 1;--강의 리플 시퀀스
 CREATE SEQUENCE seq_lecture_re_no START WITH 1 INCREMENT BY 1;--강의 리플 시퀀스
 
+ALTER TABLE univ
+ADD CONSTRAINT uk_univ_url  UNIQUE (univ_url); 
+
+select * from univ;
+
+delete from univ;
 
 
 
 /* 대학입력 */
 insert INTO univ values(
-'서울대학교','snu.ac.kr','logo1.gif'
+'서울대학교','snu','snu.ac.kr','logo1.gif'
 );
 insert INTO univ values(
-'고려대학교','korea.ac.kr','logo2.gif'
+'고려대학교','korea','korea.ac.kr','logo2.gif'
 );
 insert INTO univ values(
-'연세대학교','yonsei.ac.kr','logo3.gif'
+'연세대학교','yonsei','yonsei.ac.kr','logo3.gif'
 );
 insert INTO univ values(
-'구글대학교','gmail.com','logo4.gif'
+'구글대학교','google','gmail.com','logo4.gif'
 );
 
 insert INTO univ values(
-'네이버대학교','naver.com','logo5.gif'
+'네이버대학교','naver','naver.com','logo5.gif'
 );
 
 
@@ -76,11 +83,16 @@ sysdate,'무역학과','image.jpg','탈퇴하려는 회원입니다.'
  * 
  * */
 
-create sequence lecture_id_seq
-	start with 1
-	increment by 1
-	minvalue 0;
-	
 
 commit;
+DROP table lecture  CASCADE CONSTRAINTS;
+
+select * from LECTURE;
+
+
+insert into lecture values(seq_lecture_no.nextval, '서울대학교','언어학과',1,1,'L0441.000100_001','핀란드어 1','정도상','3',0,0,'n',0)
+
+
+
+
 

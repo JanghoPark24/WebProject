@@ -4,16 +4,16 @@ public class LectureBean {
 	private int lecture_id;
 	private String univ_name;
 	private String major;
+	private int grade;
 	private int semester;
 	private String lecture_code;
 	private String lecture_name;
 	private String professor;
-	
+	private String credit;
 	private int view_count;
 	private int rating_count;
 	private String is_deleted; // y: 삭제됨 n:삭제되지않음(default)
  	private int total_avg_score;
- 	
  	
  	
 	public int getSemester() {
@@ -81,6 +81,18 @@ public class LectureBean {
 	}
 	public void setProfessor(String professor) {
 		this.professor = professor;
+	}
+	public int getGrade() {
+		return grade;
+	}
+	public void setGrade(int grade) {
+		this.grade = grade;
+	}
+	public String getCredit() {
+		return credit;
+	}
+	public void setCredit(String credit) {
+		this.credit = credit;
 	}
 	
 	
