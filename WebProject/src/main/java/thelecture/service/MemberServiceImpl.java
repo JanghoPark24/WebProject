@@ -58,9 +58,10 @@ public class MemberServiceImpl {
 	public MemberBean select_member(String email) throws Exception {
 		return memberDao.select_member(email.toLowerCase());
 	}
-	/*
-	 * public void member_update(MemberBean mb) throws Exception {
-	 * memberDao.member_update(mb); }
-	 */
+	
+	  public void member_update(MemberBean mb) throws Exception {
+	  System.out.println("2");
+		  memberDao.member_update(mb); }
+	 
 
 }

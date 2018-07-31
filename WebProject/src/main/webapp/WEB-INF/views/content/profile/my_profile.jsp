@@ -8,14 +8,14 @@
 <meta charset="UTF-8">
 <title>내 프로필(수정)</title>
  
-<script>
+<!-- <script>
  $(function (){
 	 $("#btnUpdate").click(function(){
 		 document.form1.action = "${path}/update.do";
 		 document.form1.submit();
 	 })
  })
-</script>
+</script> -->
 
 <style>
 .filebox label { display: inline-block; padding: .5em .75em; 
@@ -75,8 +75,9 @@ table, th, td {
       </tr>
       
       <tr class="info"><td colspan=2 align=center>    
-          <input type="button" value="회원정보 수정" id="btnUpdate">
-          <a href="profile2.html" class="btn btn-info" role="button" id="p">저장</a>
+       <!--     <input type="button" value="회원정보 수정" id="btnUpdate">
+        --> <a href="update.do" class="btn btn-info" role="button" id="p">회원정보 수정</a>
+           <a href="profile2.html" class="btn btn-info" role="button" id="p">저장</a>
           </td>
           </tr>
  </form>      

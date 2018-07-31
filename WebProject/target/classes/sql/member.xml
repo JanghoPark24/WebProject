@@ -40,14 +40,17 @@
 	
   
      <!-- 회원정보수정 -->
-   <!--  <update id="member_update">
+     <update id="member_update">
 		update 
 		member
 		set 
-		NICKNAME = #{nickname}
+		NICKNAME = #{nickname},
+		nuiv_name = #{univ_name},
+		major = #{major},
+		profile = #{profile}
 		where
 		EMAIL = #{email}
-	</update> -->
+	</update> 
 
 <!-- 회원정보 상세조회 -->
 	 <select id="viewMember" 
