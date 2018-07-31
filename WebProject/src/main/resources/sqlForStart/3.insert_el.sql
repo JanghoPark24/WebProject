@@ -90,7 +90,7 @@ DROP table lecture  CASCADE CONSTRAINTS;
 select * from LECTURE;
 
 
-insert into lecture values(seq_lecture_no.nextval, '서울대학교','언어학과',1,1,'L0441.000100_001','핀란드어 1','정도상','3',0,0,'n',0)
+--insert into lecture values(seq_lecture_no.nextval, '서울대학교','언어학과',1,1,'L0441.000100_001','핀란드어 1','정도상','3',0,0,'n',0)
 
 
 

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import thelecture.model.LectureBean;
+import thelecture.model.PageBean;
 
 @Repository
 public class LectureDaoImpl {
@@ -16,7 +17,15 @@ public class LectureDaoImpl {
 	@Autowired
 	private SqlSession sqlSession;
 	
-	
+	@Transactional
+	public int getRowCount() {
+		try {
+			return sqlSession.selectOne("lectureMap.getRowCount");
+		}catch(Exception e){
+			e.printStackTrace();
+			return 0;
+		}
+	}
 	
 	@Transactional
 	public List<LectureBean> getAllLectureList() {
@@ -29,9 +38,12 @@ public class LectureDaoImpl {
 	}
 	
 	@Transactional
-	public List<LectureBean> getSpecificLectures() {
+	public List<LectureBean> getLectureList(PageBean page_index) {
 		try {
-			return sqlSession.selectList("lectureMap.getSpecificLectures");
+			System.out.println("startRow:"+page_index.getStartRow());
+			System.out.println("endRow:"+page_index.getEndRow());
+			return sqlSession.selectList("lectureMap.getLectureList");
+			
 		}catch(Exception e){
 			e.printStackTrace();
 			return null;

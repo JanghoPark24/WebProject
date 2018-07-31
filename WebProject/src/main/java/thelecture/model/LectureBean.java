@@ -1,6 +1,7 @@
 package thelecture.model;
 
 public class LectureBean {
+	
 	private int lecture_id;
 	private String univ_name;
 	private String major;
@@ -14,6 +15,7 @@ public class LectureBean {
 	private int rating_count;
 	private String is_deleted; // y: 삭제됨 n:삭제되지않음(default)
  	private int total_avg_score;
+ 	private int rnum;
  	
  	
 	public int getSemester() {
@@ -93,6 +95,12 @@ public class LectureBean {
 	}
 	public void setCredit(String credit) {
 		this.credit = credit;
+	}
+	public int getRnum() {
+		return rnum;
+	}
+	public void setRnum(int rnum) {
+		this.rnum = rnum;
 	}
 	
 	

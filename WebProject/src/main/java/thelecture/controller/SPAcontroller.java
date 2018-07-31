@@ -18,14 +18,14 @@ public class SPAcontroller {
 	@Autowired
 	LectureDaoImpl lecturedao;
 	
-	@RequestMapping("/majorList/{major}")
-	public List<LectureBean> majorList(){
-		
-		ArrayList<LectureBean> majorList =
-				(ArrayList<LectureBean>) lecturedao.getSpecificLectures() ;
-		
-		return majorList;
-		
-	}
+//	@RequestMapping("/majorList/{major}")
+//	public List<LectureBean> majorList(){
+//		
+//		ArrayList<LectureBean> majorList =
+//				(ArrayList<LectureBean>) lecturedao.getLectureList(page_index)() ;
+//		
+//		return majorList;
+//		
+//	}
 	
 }
