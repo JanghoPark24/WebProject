@@ -3,6 +3,7 @@ package thelecture.controller;
 import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Hashtable;
 import java.util.List;
 import java.util.Locale;
 
@@ -20,7 +21,8 @@ import thelecture.dao.LectureDaoImpl;
 import thelecture.dao.MemberDaoImpl;
 import thelecture.model.LectureBean;
 import thelecture.model.MemberBean;
-import thelecture.model.Page;
+
+import thelecture.service.BoardService;
 
 /**
  * Handles requests for the application home page.
@@ -31,8 +33,9 @@ public class LecturesController {
 	@Autowired
 	MemberDaoImpl memberdao;
 	
+	
 	@Autowired
-	LectureDaoImpl lecturedao;
+	BoardService boardService;
 	
 	private static final Logger logger = LoggerFactory.getLogger(LecturesController.class);
 	
@@ -67,12 +70,12 @@ public class LecturesController {
 		//lecture 불러오기
 		List<LectureBean> lectureList=null;
 		
-		
-		
+		//get indexes
+		Hashtable board = boardService.getLectureBoard(currentPage);
 		
 //		lectureList = lecturedao.getlectureList();
 		//다음으로 전하기
-		model.addAttribute("lectureList",lectureList);
+		model.addAllAttributes(board);
 			
 		
 		//grade가 master면 마스터 모드 아니면 일반 모드

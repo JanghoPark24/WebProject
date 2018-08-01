@@ -40,16 +40,15 @@
 	
   
      <!-- 회원정보수정 -->
-     <update id="member_update">
+     <update id="member_update" parameterType="member">
 		update 
 		member
 		set 
-		NICKNAME = #{nickname},
-		nuiv_name = #{univ_name},
+		NICKNAME = #{nickname},	
 		major = #{major},
 		profile = #{profile}
 		where
-		EMAIL = #{email}
+		email = 'TheLecture.corp@gmail.com'	
 	</update> 
 
 <!-- 회원정보 상세조회 -->

@@ -45,7 +45,7 @@
 							전공
 						</td>
 						<td>
-						 	수강 학기
+							학년-학기
 						</td>
 						<td>
 							강의명
@@ -111,14 +111,16 @@
 									${lecture.univ_name}
 								</td>
 								<td>
+									${lecture.major}
+								</td>
+								<td>
+									${lecture.grade}-${lecture.semester}
+								</td>
+								<td>
 									<a href="review.do?${lecture.lecture_id }">
 										${lecture.lecture_name}
 									</a>
 								</td> 
-								<td>
-									 ${lecture.semester}
-								</td>
-								
 								
 								<td>
 									${lecture.lecture_code }

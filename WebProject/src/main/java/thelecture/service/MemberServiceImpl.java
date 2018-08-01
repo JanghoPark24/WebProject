@@ -167,11 +167,11 @@ public class MemberServiceImpl {
 		return memberDao.select_member(email.toLowerCase());
 	}
 	
-	  public MemberBean member_update(MemberBean mb) throws Exception {
+	  public int member_update(MemberBean mb) throws Exception {
 	  System.out.println("2");
-		  memberDao.member_update(mb);
-		  return mb;
-		  }
+		  return memberDao.member_update(mb);
+		  
+		 }
 	 
 
 }

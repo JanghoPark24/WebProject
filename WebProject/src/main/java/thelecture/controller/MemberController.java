@@ -104,15 +104,7 @@ public class MemberController {
 		return "content/home";
 	}
 
-    //회원정보 수정
-    @RequestMapping("update.do") 
-    public String update(@ModelAttribute MemberBean mb , HttpSession session) throws Exception { 
-    	 System.out.println("1");
-    session.setAttribute("mb" , memberService.member_update(mb)); 
-	 
-    	
-	 return "redirect:home.do";
-	 }
+   
 	 
 	
 	// 회원목록 조회
@@ -146,4 +138,16 @@ public class MemberController {
 
 	}
 
+	 //회원정보 수정
+    @RequestMapping("update.do") 
+    public String update(@ModelAttribute MemberBean mb , HttpSession session ) throws Exception { 
+    	 System.out.println("1");
+    	int result = memberService.member_update(mb);
+      	 System.out.println("result:"+result);
+    	//  session.setAttribute("mb" , memberService.member_update(mb));  
+    
+    //회원정보 수정 후 로그아웃해야 반영되는 오류가있음 	
+	 return "redirect:logout.do";
+	 }
+	
 }

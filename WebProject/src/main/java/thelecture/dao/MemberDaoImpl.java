@@ -58,9 +58,11 @@ public class MemberDaoImpl {
 	 * 회원정보수정
 	 */
 	
-	  @Transactional public void member_update(MemberBean mb) throws Exception {
+	  @Transactional 
+	  public int member_update(MemberBean mb) throws Exception {
 		  System.out.println("3");
-		  sqlSession.update("member_update", mb); }
+		  return sqlSession.update("memberns.member_update", mb); 
+		 }
 	 
 
 	/*

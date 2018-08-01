@@ -88,6 +88,10 @@
 		<put-attribute name="body" value="/WEB-INF/views/content/university/write_manager.jsp" />
 	</definition>
 	
+	<definition name="writeAction" extends="board_detail">
+		<put-attribute name="body" value="/WEB-INF/views/content/university/writeAction.jsp" />
+	</definition>
+	
 	<definition name="login_form" extends="main_tile">
 		<put-attribute name="body" value="/WEB-INF/views/member/login_form.jsp" />
 	</definition>

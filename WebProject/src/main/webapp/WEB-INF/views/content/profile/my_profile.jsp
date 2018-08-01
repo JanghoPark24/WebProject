@@ -8,14 +8,17 @@
 <meta charset="UTF-8">
 <title>내 프로필(수정)</title>
  
-<!-- <script>
+ <script>
  $(function (){
 	 $("#btnUpdate").click(function(){
-		 document.form1.action = "${path}/update.do";
+		 alert(" 회원 정보가 변경 되었습니다. \n 다시 로그인해주세요.");
+		 document.form1.action = "update.do";
+		 
 		 document.form1.submit();
+		 
 	 })
  })
-</script> -->
+</script> 
 
 <style>
 .filebox label { display: inline-block; padding: .5em .75em; 
@@ -43,7 +46,7 @@ table, th, td {
 <body>
 
 <table border=1 align=center width=50 class="table">
-<form method="post" name="form1">
+<form method="post" name="form1" >
       <h2 align="center" >내 프로필</h2>
   <tr class="info">
   <td rowspan="5">
@@ -59,26 +62,26 @@ table, th, td {
       </tr>
       <tr class="info">
      <td> 
-          <input type=text value="${dto.email}" disabled="disabled" size="30">
-          <input type=text value="${dto.univ_name}" disabled="disabled"></td>
+         <input type=text value="${dto.email}" disabled="disabled" size="30" >
+          <input type=text value="${dto.univ_name}" disabled="disabled" ></td>
        </tr>
       <tr class="success">
     <td>  <input type=checkbox id="email" >메일 공개</td>
     </tr>
     <tr class="danger">
     <td>  
-    <input type=text value="${dto.nickname}" size=20>
-    <input type=text value="${dto.major }" size=20></td>
+    <input type=text value="${dto.nickname}" size=20 name="nickname">
+    <input type=text value="${dto.major }" size=20 name="major"></td>
        </tr>
       <tr class="warning">    
-          <td><textarea cols=90 rows=10 >${dto.profile }</textarea></td>
+          <td><textarea cols=90 rows=10 name="profile" >${dto.profile }</textarea></td>
       </tr>
       
       <tr class="info"><td colspan=2 align=center>    
-       <!--     <input type="button" value="회원정보 수정" id="btnUpdate">
-        --> <a href="update.do" class="btn btn-info" role="button" id="p">회원정보 수정</a>
-           <a href="profile2.html" class="btn btn-info" role="button" id="p">저장</a>
-          </td>
+           <input type="button" value="회원정보 수정" id="btnUpdate">
+        <!--  <a href="update.do" class="btn btn-info" role="button" id="p">회원정보 수정</a>
+         -->  <!--  <a href="profile2.html" class="btn btn-info" role="button" id="p">저장</a>
+           --></td>
           </tr>
  </form>      
 </table>            
