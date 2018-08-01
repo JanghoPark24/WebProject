@@ -92,7 +92,7 @@ public class LecturesController {
 	
 	@RequestMapping(value = "review.do", method = RequestMethod.GET)
 
-	public String review( MemberBean member,LectureBean lecture,Model model){
+	public String review( HttpSession session,LectureBean lecture,Model model){
 		
 		//password가 맞으면
 		
