@@ -42,16 +42,21 @@
 							대학
 						</td>
 						<td>
+							전공
+						</td>
+						<td>
+						 	수강 학기
+						</td>
+						<td>
 							강의명
 						</td>
 						<td>
-							수강학기
-						</td>
-						 
-						
-						<td>
 							강의코드
 						</td>
+						
+						<td>
+							교수
+						</td> 
 						
 						<td>
 							평점
@@ -143,12 +148,10 @@
 			        
 			<div class="container text-center">
 	            <ul class="pagination">
+	            	
 	                <li><a href="#">맨처음</a>
 	                <li><a href="#">1</a></li>
-	                  <li><a href="#">2</a></li>
-	                  <li><a href="#">3</a></li>
-	                  <li><a href="#">4</a></li>
-	                  <li><a href="#">5</a></li>
+	                
 	                <li><a href="#">맨끝</a>
 	            </ul>
 			</div>

@@ -1,6 +1,5 @@
 package thelecture.controller;
 
-import java.io.PrintWriter;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
@@ -16,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import thelecture.model.MemberBean;
-import thelecture.security.SHA256;
 import thelecture.service.MemberServiceImpl;
 
 @Controller
@@ -108,12 +106,13 @@ public class MemberController {
 
     //회원정보 수정
     @RequestMapping("update.do") 
-    public String update(@ModelAttribute MemberBean mb) throws Exception { 
+    public String update(@ModelAttribute MemberBean mb , HttpSession session) throws Exception { 
     	 System.out.println("1");
-    	memberService.member_update(mb);
+    session.setAttribute("mb" , memberService.member_update(mb)); 
 	 
     	
-	 return "home"; }
+	 return "redirect:home.do";
+	 }
 	 
 	
 	// 회원목록 조회
