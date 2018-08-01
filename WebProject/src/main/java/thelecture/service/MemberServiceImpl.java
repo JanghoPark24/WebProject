@@ -98,8 +98,8 @@ public class MemberServiceImpl {
 		if ((dupemail + dupnickname == 0)// DB(member)안에 중복 이메일, 중복 닉네임이 없으면,
 				&& (!univ_name.equals("")) /* DB(univ)안에 도메인이 있으면, */ ) {
 
-			//서버 아이피
-			/*InetAddress ip = InetAddress.getLocalHost();*/
+			// 서버 아이피
+			/* InetAddress ip = InetAddress.getLocalHost(); */
 
 			// 인증용 랜덤키 생성
 			TempKey keyGenerator = TempKey.Instance;
@@ -110,7 +110,7 @@ public class MemberServiceImpl {
 				dupkey = isDuplication("reg_key", reg_key, true);
 			} while (dupkey != 0);// 인증키 충돌할경우 다시 생성한다.
 
-			String joinConfirmUrl = "http://localhost/WebProject/email_confirm.do?" + reg_key;
+			// 이메일 전송
 			MailHandler sendMail = new MailHandler(mailSender);
 			sendMail.setSubject("[TheLecture]회원가입 인증메일입니다.");
 			sendMail.setText(new StringBuffer().append(
@@ -120,10 +120,10 @@ public class MemberServiceImpl {
 					.append(nickname)// 닉네임
 					.append(" 님,</span><br><br>TheLecture 가입을 환영합니다.<br>시작하기 전에, 본인 확인을 위해 이메일 인증이 필요합니다.<br>")//
 					.append("아래의 이메일 인증 주소를 클릭해주세요:<br><br><a class='btn' href='")//
-					.append(joinConfirmUrl)// 가입 인증 url주소
+					.append("http://localhost/WebProject/email_confirm.do?key=")// 가입 인증 url주소
+					.append(reg_key)// 인증키값
 					.append("' style='color:white;text-decoration:none;font-size:14px;border-radius:3px;background-color:#337ab7;padding:8px 12px;border:none'>이메일 인증</a>")//
-					.append("<p style='font-size:12px;color:#444444'><a href='http://")
-					.append("localhost")//ip.getHostAddress())
+					.append("<p style='font-size:12px;color:#444444'><a href='http://").append("localhost")// ip.getHostAddress())
 					.append("/WebProject/home.do'style='text-decoration: none; color: #009'>TheLecture</a>에서 보낸 메일<br></p></div></div>")
 					.toString());//
 			sendMail.setFrom("TheLectue.corp@gmail.com", "TheLectue.corp");//
@@ -201,8 +201,13 @@ public class MemberServiceImpl {
 	 * memberDao.member_update(mb); }
 	 */
 
-	public void member_auth(String email) {
-		memberDao.member_auth(email);
+	public String email_confirm(String reg_key) throws Exception {
+		String email = (String) memberDao.getEmail(reg_key);
+		if (email != null) {// 유효함
+
+			return "redirect:home.do";
+		}
+		return "redirect:home.do";// 유효하지 않음
 	}
 
 }

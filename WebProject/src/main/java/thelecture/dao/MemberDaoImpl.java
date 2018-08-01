@@ -23,7 +23,6 @@ public class MemberDaoImpl {
 	 */
 	@Transactional
 	public int isDuplication(String column, String value) throws Exception {
-		System.out.println("memberDAO");
 		int authcode = 0; // 중복이 아니면 0
 		MemberBean mb = (MemberBean) sqlSession.selectOne("isdup_" + column, value);
 		if (mb != null)
@@ -40,24 +39,23 @@ public class MemberDaoImpl {
 	}
 
 	/**
+	 * 회원인증
+	 */
+	@Transactional
+	public String getEmail(String reg_key) throws Exception {
+		return sqlSession.selectOne("getEmail",reg_key);
+	}
+	/**
 	 * 회원선택
+	 * 
 	 * @param email
 	 * @return MemberBean
 	 */
 	@Transactional
-	public MemberBean select_member(String email)throws Exception {
+	public MemberBean select_member(String email) throws Exception {
 		return sqlSession.selectOne("select_member", email);
 	}
 
-	/**
-	 * 이메일 인증
-	 * @param email
-	 */
-	public void member_auth(String email) {
-		
-	}
-	
-	
 	// public MemberBean getMemberInfo(String email) {
 	//
 	// return sqlSession.selectOne("get_member", email);
@@ -89,7 +87,5 @@ public class MemberDaoImpl {
 		System.out.println("dao");
 		return sqlSession.selectOne("viewMember", nickname);
 	}
-
-
 
 }

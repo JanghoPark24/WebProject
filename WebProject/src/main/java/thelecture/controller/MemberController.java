@@ -81,9 +81,9 @@ public class MemberController {
 	 * 이메일 인증
 	 */
 	@RequestMapping(value="email_confirm.do",method=RequestMethod.GET)
-	public String email_confirm(String email, Model model) {
-		memberService.member_auth(email);
-		return "redirect:home.do";
+	public String email_confirm(String key, Model model) throws Exception{
+		//멤버권한 부여
+		return memberService.email_confirm(key);
 	}
 
 	/**
