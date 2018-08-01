@@ -1,17 +1,21 @@
 package thelecture.service;
 
+import java.net.InetAddress;
 import java.util.List;
 import java.util.StringTokenizer;
 
+import javax.inject.Inject;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.servlet.ModelAndView;
 
+import thelecture.controller.MailHandler;
 import thelecture.dao.MemberDaoImpl;
 import thelecture.dao.UnivDaoImpl;
 import thelecture.model.MemberBean;
@@ -25,6 +29,8 @@ public class MemberServiceImpl {
 	private MemberDaoImpl memberDao;
 	@Autowired
 	private UnivDaoImpl univDao;
+	@Inject
+	private JavaMailSender mailSender;
 
 	// 전체 회원 목록 조희
 	public List<MemberBean> memberList() {
@@ -92,19 +98,43 @@ public class MemberServiceImpl {
 		if ((dupemail + dupnickname == 0)// DB(member)안에 중복 이메일, 중복 닉네임이 없으면,
 				&& (!univ_name.equals("")) /* DB(univ)안에 도메인이 있으면, */ ) {
 
+			//서버 아이피
+			/*InetAddress ip = InetAddress.getLocalHost();*/
+
 			// 인증용 랜덤키 생성
 			TempKey keyGenerator = TempKey.Instance;
-			int dupkey;
+			int dupkey = 1;
 			String reg_key;
 			do {
 				reg_key = keyGenerator.getKey(20, false);
 				dupkey = isDuplication("reg_key", reg_key, true);
 			} while (dupkey != 0);// 인증키 충돌할경우 다시 생성한다.
 
+			String joinConfirmUrl = "http://localhost/WebProject/email_confirm.do?" + reg_key;
+			MailHandler sendMail = new MailHandler(mailSender);
+			sendMail.setSubject("[TheLecture]회원가입 인증메일입니다.");
+			sendMail.setText(new StringBuffer().append(
+					"<div class='container' style='padding: 20px;background: #eeeeee;font-size:16px;border: 1px solid #999999;'>")//
+					.append("<div class='jumbotron' style='margin: 20px;background: #eeeeee;'>")//
+					.append("<h2>회원가입 메일 인증</h2>" + "<span style='font-size: 18px; font-weight: 500;'>안녕하세요.  ")//
+					.append(nickname)// 닉네임
+					.append(" 님,</span><br><br>TheLecture 가입을 환영합니다.<br>시작하기 전에, 본인 확인을 위해 이메일 인증이 필요합니다.<br>")//
+					.append("아래의 이메일 인증 주소를 클릭해주세요:<br><br><a class='btn' href='")//
+					.append(joinConfirmUrl)// 가입 인증 url주소
+					.append("' style='color:white;text-decoration:none;font-size:14px;border-radius:3px;background-color:#337ab7;padding:8px 12px;border:none'>이메일 인증</a>")//
+					.append("<p style='font-size:12px;color:#444444'><a href='http://")
+					.append("localhost")//ip.getHostAddress())
+					.append("/WebProject/home.do'style='text-decoration: none; color: #009'>TheLecture</a>에서 보낸 메일<br></p></div></div>")
+					.toString());//
+			sendMail.setFrom("TheLectue.corp@gmail.com", "TheLectue.corp");//
+			sendMail.setTo(email);
+			sendMail.send();// 메일 전송
+
 			// SHA256 (해쉬화)
 			SHA256 encrypter = SHA256.Instance;
 			String hashed_text = encrypter.encrypt(password).toLowerCase();
 			/* 향후 개선점 : SHA방식에 소금치는 방법을 추가하면 더 낫다. */
+			/* 스프링 시큐리티의 Bcrypt 방식이 더 낫다. */
 
 			// 멤버빈 주입
 			MemberBean mb = new MemberBean();
@@ -151,15 +181,15 @@ public class MemberServiceImpl {
 				ModelAndView loginM;
 				if (grade.equals("unknown")) {// grade가 "unknown"이면
 					loginM = new ModelAndView("member/reg_info");
-				} else {//정상적으로 로그인
+				} else {// 정상적으로 로그인
 					loginM = new ModelAndView("content/home");
 				}
 				session.setAttribute("grade", grade);
 				return loginM;
-			} 
+			}
 		}
-		session.setAttribute("err_msg","로그인 실패");
-		//로그인 실패
+		session.setAttribute("err_msg", "로그인 실패");
+		// 로그인 실패
 		return new ModelAndView("member/login_form");
 	}
 
@@ -170,5 +200,9 @@ public class MemberServiceImpl {
 	 * public void member_update(MemberBean mb) throws Exception {
 	 * memberDao.member_update(mb); }
 	 */
+
+	public void member_auth(String email) {
+		memberDao.member_auth(email);
+	}
 
 }
