@@ -161,8 +161,8 @@ public class MemberServiceImpl {
 	 * @throws Exception
 	 */
 	@Transactional
-	public ModelAndView member_login(String email, String password, HttpSession session)
-			throws Exception {
+	public ModelAndView member_login(String email, String password, HttpSession session,
+		Model model	)throws Exception {
 
 		// SHA256 (해쉬화)
 		SHA256 encrypter = SHA256.Instance;
@@ -186,7 +186,7 @@ public class MemberServiceImpl {
 				return loginM;
 			}
 		}
-		session.setAttribute("err_msg", "로그인 실패");
+		model.addAttribute("err_msg", "로그인 실패");
 		// 로그인 실패
 		return new ModelAndView("member/login_form");
 	}

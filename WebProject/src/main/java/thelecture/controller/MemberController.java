@@ -23,7 +23,6 @@ public class MemberController {
 	@Autowired
 	private MemberServiceImpl memberService;
 
-
 	/**
 	 * 회원 가입하기 위한 form이 있는 곳으로 이동
 	 */
@@ -38,7 +37,7 @@ public class MemberController {
 	@RequestMapping(value = "/join.do", method = RequestMethod.POST)
 	public String join(@RequestParam("email") String email, @RequestParam("nickname") String nickname,
 			@RequestParam("password") String password, Model model) throws Exception {
-		return memberService.member_join(email, nickname,password, model);
+		return memberService.member_join(email, nickname, password, model);
 	}
 
 	/**
@@ -54,12 +53,13 @@ public class MemberController {
 
 	/**
 	 * 로그인 버튼을 눌러서 로그인 시도
-	 * @throws Exception 
+	 * 
+	 * @throws Exception
 	 */
 	@RequestMapping(value = "login.do", method = RequestMethod.POST)
 	public ModelAndView login(@RequestParam("email") String email, @RequestParam("password") String password,
-			HttpServletResponse response, HttpSession session) throws Exception   {
-		return this.memberService.member_login(email, password, session);
+			HttpServletResponse response, HttpSession session, Model model) throws Exception {
+		return this.memberService.member_login(email, password, session, model);
 	}
 
 	/**
@@ -81,9 +81,9 @@ public class MemberController {
 	/**
 	 * 이메일 인증
 	 */
-	@RequestMapping(value="email_confirm.do",method=RequestMethod.GET)
-	public String email_confirm(String key, Model model) throws Exception{
-		//멤버권한 부여
+	@RequestMapping(value = "email_confirm.do", method = RequestMethod.GET)
+	public String email_confirm(String key, Model model) throws Exception {
+		// 멤버권한 부여
 		return memberService.email_confirm(key);
 	}
 
@@ -105,9 +105,6 @@ public class MemberController {
 		return "content/home";
 	}
 
-   
-	 
-	
 	// 회원목록 조회
 	@RequestMapping("user_list.do")
 	public String memberList(Model model) {
@@ -122,7 +119,7 @@ public class MemberController {
 
 	@RequestMapping("my_profile.do")
 	public String memberView(HttpSession session, Model model) {
-		String nickname= (String) session.getAttribute("nickname");
+		String nickname = (String) session.getAttribute("nickname");
 		System.out.println(nickname);
 
 		MemberBean dto = memberService.viewMember(nickname);
@@ -139,16 +136,16 @@ public class MemberController {
 
 	}
 
-	 //회원정보 수정!
-    @RequestMapping("update.do") 
-    public String update(@ModelAttribute MemberBean mb , HttpSession session ) throws Exception { 
-    	 System.out.println("1");
-    	int result = memberService.member_update(mb);
-      	 System.out.println("result:"+result);
-    	//  session.setAttribute("mb" , memberService.member_update(mb));  
-    
-    //회원정보 수정 후 로그아웃해야 반영되는 오류가있음 	
-	 return "redirect:logout.do";
-	 }
-	
+	// 회원정보 수정!
+	@RequestMapping("update.do")
+	public String update(@ModelAttribute MemberBean mb, HttpSession session) throws Exception {
+		System.out.println("1");
+		int result = memberService.member_update(mb);
+		System.out.println("result:" + result);
+		// session.setAttribute("mb" , memberService.member_update(mb));
+
+		// 회원정보 수정 후 로그아웃해야 반영되는 오류가있음
+		return "redirect:logout.do";
+	}
+
 }
