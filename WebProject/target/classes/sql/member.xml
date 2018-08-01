@@ -18,6 +18,15 @@
 	<select id="select_member" parameterType="String" resultType="member">
 		select * from member where Lower(email)= #{email}
 	</select>
+	<!-- 회원선택 -->
+	<select id="getEmail" parameterType="String" resultType="String">
+		select email from member where reg_key= #{reg_key}
+	</select>
+	<!-- 등급변환 -->
+	<update id="setGrade_to_member"  parameterType="String">
+		update member set grade ='member' where email =#{email}
+	</update>
+	
 	<!-- 회원저장 -->
 	<insert id="member_join" parameterType="member">
 		insert INTO	member values(

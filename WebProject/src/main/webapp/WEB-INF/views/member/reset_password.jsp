@@ -12,10 +12,10 @@
 		<div class="jumbotron">
 			<h3 style="text-align: center;">비밀번호 재설정</h3>
 			<div class="container text-center">
-				혹시 비밀번호를 잊어버리셨나요? <br> 비밀번호를 수신하기 위하여 가입했던 이메일을 입력하세요.
+				혹시 비밀번호를 잊어버리셨나요? <br> 비밀번호를 재설정하기 위하여 가입했던 이메일을 입력하세요.
 			</div>
 			<br>
-			<form name="resetform" method="post" action="resetReq.do">
+			<form name="resetform" method="post" action="password.do">
 				<div class="form-group">
 					<label>이메일</label> <input type="email" class="form-control"
 						required="required" placeholder="이메일" name="userEmail"
@@ -27,5 +27,5 @@
 		</div>
 	</div>
 
-	
+
 </body>

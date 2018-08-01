@@ -25,14 +25,14 @@
 				<div class="form-group">
 					<label>비밀번호</label> <input value="wnddkd1971" required="required"
 						type="password" class="form-control" placeholder="비밀번호"
-						name="password" maxlength="80">
-				</div>
-				<c:if test="${!empty err_msg}">
+						name="password" maxlength="80"><c:if test="${!empty err_msg}">
 					<span class="errc" style="color: red;"> <br>이메일과 비밀번호를
 						다시 확인해주세요.<br> 사이트에 등록되지 않은 이메일이거나,
 						 이메일 또는 비밀번호를 잘못 입력하셨습니다.
 					</span><br>
 				</c:if>
+				</div>
+				
 				<input type="submit" class="btn btn-primary align-center"
 					value="로그인"> <br> <br>
 			</form>

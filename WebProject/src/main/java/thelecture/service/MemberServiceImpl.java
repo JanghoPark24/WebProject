@@ -1,11 +1,9 @@
 package thelecture.service;
 
-import java.net.InetAddress;
 import java.util.List;
 import java.util.StringTokenizer;
 
 import javax.inject.Inject;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -124,7 +122,7 @@ public class MemberServiceImpl {
 					.append(reg_key)// 인증키값
 					.append("' style='color:white;text-decoration:none;font-size:14px;border-radius:3px;background-color:#337ab7;padding:8px 12px;border:none'>이메일 인증</a>")//
 					.append("<p style='font-size:12px;color:#444444'><a href='http://").append("localhost")// ip.getHostAddress())
-					.append("/WebProject/home.do'style='text-decoration: none; color: #009'>TheLecture</a>에서 보낸 메일<br></p></div></div>")
+					.append("/WebProject/home.do'style='text-decoration: none; color: #009;target='_blank'>TheLecture</a>에서 보낸 메일<br></p></div></div>")
 					.toString());//
 			sendMail.setFrom("TheLectue.corp@gmail.com", "TheLectue.corp");//
 			sendMail.setTo(email);
@@ -163,7 +161,7 @@ public class MemberServiceImpl {
 	 * @throws Exception
 	 */
 	@Transactional
-	public ModelAndView member_login(String email, String password, HttpServletResponse response, HttpSession session)
+	public ModelAndView member_login(String email, String password, HttpSession session)
 			throws Exception {
 
 		// SHA256 (해쉬화)
@@ -206,9 +204,10 @@ public class MemberServiceImpl {
 	 
 
 	public String email_confirm(String reg_key) throws Exception {
-		String email = (String) memberDao.getEmail(reg_key);
+		String email =  memberDao.getEmail(reg_key);
 		if (email != null) {// 유효함
-
+			System.out.println(email);
+			memberDao.setGrade_to("member", email);
 			return "redirect:home.do";
 		}
 		return "redirect:home.do";// 유효하지 않음

@@ -60,7 +60,7 @@
 				<li><a href="#"><span class="glyphicon glyphicon-phone-alt"></span>
 						문 의</a></li>
 			</ul>
-			
+
 			<!-- 로그인 안했을때 -->
 			<c:if test="${sessionScope.grade == null }">
 				<ul class="nav navbar-nav navbar-right">
@@ -71,17 +71,21 @@
 				</ul>
 			</c:if>
 
-             <!-- 로그인 했을때 -->
+			<!-- 로그인 했을때 -->
 			<c:if test="${sessionScope.grade != null }">
 				<ul class="nav navbar-nav navbar-right">
 					<li class="dropdown"><a class="dropdown-toggle"
-					data-toggle="dropdown" href="#">${sessionScope.nickname}</a>
-					<ul class="dropdown-menu">
-						<li><a href="my_profile.do"><span
-							class="glyphicon glyphicon-user"></span> My profile</a></li>
-						<li><a href="logout.do"><span
-							class="glyphicon glyphicon-log-out"></span> Logout</a></li>
-					</ul></li>
+						data-toggle="dropdown" href="#">${sessionScope.nickname}</a>
+						<ul class="dropdown-menu">
+							<li><a href="my_profile.do"><span
+									class="glyphicon glyphicon-user"></span> My profile</a></li>
+							<c:if test="${sessionScope.grade.equals('master') }">
+								<li><a href="my_profile.do"><span
+										class="glyphicon glyphicon-user"></span> Member List</a></li>
+							</c:if>
+							<li><a href="logout.do"><span
+									class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+						</ul></li>
 				</ul>
 			</c:if>
 		</div>

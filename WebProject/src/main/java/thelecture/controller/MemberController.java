@@ -59,15 +59,15 @@ public class MemberController {
 	@RequestMapping(value = "login.do", method = RequestMethod.POST)
 	public ModelAndView login(@RequestParam("email") String email, @RequestParam("password") String password,
 			HttpServletResponse response, HttpSession session) throws Exception   {
-		return this.memberService.member_login(email, password, response, session);
+		return this.memberService.member_login(email, password, session);
 	}
 
 	/**
 	 * 비밀번호를 재설정 하기 위한 form으로 이동
 	 */
-	@RequestMapping("resetPasswd.do")
+	@RequestMapping("password.do")
 	public String resetPasswd() {
-		return "member/reset_passwd";
+		return "member/reset_password";
 	}
 
 	/**
