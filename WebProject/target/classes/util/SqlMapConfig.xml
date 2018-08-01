@@ -7,7 +7,8 @@
 		<typeAlias alias="writeDTO" type="thelecture.model.WriteBean"/>
 		<typeAlias alias="member" type="thelecture.model.MemberBean" />		
 		<typeAlias alias="univ" type="thelecture.model.UnivBean" />		
-	 	<typeAlias alias="lectureList" type="thelecture.model.LectureBean" />		
+	 	<typeAlias alias="lectureResult" type="thelecture.model.LectureBean" />		
+	 	<typeAlias alias="page_index" type="thelecture.model.PageBean" />		
 		<!-- <typeAlias alias="replies" type="thelecture.model.ReplyBean" />		 -->
 	</typeAliases>
 
