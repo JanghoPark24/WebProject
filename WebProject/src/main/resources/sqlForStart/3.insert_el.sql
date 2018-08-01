@@ -12,6 +12,7 @@ CREATE SEQUENCE seq_board1_no START WITH 1 INCREMENT BY 1;--커뮤니티 게시�
 CREATE SEQUENCE seq_board1_re_no START WITH 1 INCREMENT BY 1;--커뮤니티 게시판 리플 시퀀스
 CREATE SEQUENCE seq_lecture_no START WITH 1 INCREMENT BY 1;--강의 리플 시퀀스
 CREATE SEQUENCE seq_lecture_re_no START WITH 1 INCREMENT BY 1;--강의 리플 시퀀스
+create SEQUENCE seq_qestion_version START WITH 1 INCREMENT BY 1;--강의 리플 시퀀스
 
 ALTER TABLE univ
 ADD CONSTRAINT uk_univ_url  UNIQUE (univ_url); 

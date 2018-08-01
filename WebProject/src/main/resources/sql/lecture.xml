@@ -4,11 +4,11 @@
 <mapper namespace="lectureMap">
 
 
-	<select id="getRowCount" parameterType="page_index" resultType="int">
+	<select id="getRowCount" parameterType="pageIndex" resultType="int">
 		select count(*) from lecture
 		
 	</select>
-	<select id="getSearchRowCount" parameterType="page_index" resultType="int">
+	<!-- <select id="getSearchRowCount" parameterType="pageIndex" resultType="int">
 		select count(*) from lecture
 		<where>
 			<if test="keyword != null and search !='subcon'">
@@ -19,8 +19,9 @@
 				content like '%'||#{keyword}||'%'
 			</if>
 		</where>
-	</select>
-	<select id="getLectureList" parameterType="page_index" resultType="lectureResult">
+	</select> -->
+	<select id="getLectureList" parameterType="java.util.HashMap" resultType="lectureResult">
+	<!-- <select id="getLectureList" parameterType="pageIndex" resultType="lectureResult"> -->
 		select * from (select a.*,rowNum rnum from (
 			select * from lecture
 		<!-- <where>

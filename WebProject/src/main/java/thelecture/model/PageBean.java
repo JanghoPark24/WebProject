@@ -21,6 +21,9 @@ public class PageBean {
 	private int firstIndex; // 현재 페이지의 첫 인덱스
 	private int lastIndex;  // 현재 페이지의 마지막 인덱스
 	
+	public PageBean() {
+		
+	}
 	public PageBean(int currentPage ,int rowPerPage, int countOfRow) {
 		this.countOfRow = countOfRow;
 		this.rowPerPage = rowPerPage;

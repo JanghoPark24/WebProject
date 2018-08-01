@@ -1,6 +1,7 @@
 package thelecture.dao;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
@@ -38,11 +39,12 @@ public class LectureDaoImpl {
 	}
 	
 	@Transactional
+//	public List<LectureBean> getLectureList(HashMap<String, Integer> page_index) {
 	public List<LectureBean> getLectureList(PageBean page_index) {
 		try {
 			System.out.println("startRow:"+page_index.getStartRow());
 			System.out.println("endRow:"+page_index.getEndRow());
-			return sqlSession.selectList("lectureMap.getLectureList");
+			return sqlSession.selectList("lectureMap.getLectureList",page_index);
 			
 		}catch(Exception e){
 			e.printStackTrace();
