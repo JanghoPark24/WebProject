@@ -49,6 +49,15 @@ public class MemberDaoImpl {
 		return sqlSession.selectOne("select_member", email);
 	}
 
+	/**
+	 * 이메일 인증
+	 * @param email
+	 */
+	public void member_auth(String email) {
+		
+	}
+	
+	
 	// public MemberBean getMemberInfo(String email) {
 	//
 	// return sqlSession.selectOne("get_member", email);
@@ -83,5 +92,7 @@ public class MemberDaoImpl {
 		System.out.println("dao");
 		return sqlSession.selectOne("viewMember", nickname);
 	}
+
+
 
 }

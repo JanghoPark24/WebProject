@@ -48,7 +48,7 @@
 		major = #{major},
 		profile = #{profile}
 		where
-		email = 'TheLecture.corp@gmail.com'	
+		email = #{email}	
 	</update> 
 
 <!-- 회원정보 상세조회 -->

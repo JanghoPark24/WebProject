@@ -62,8 +62,8 @@ table, th, td {
       </tr>
       <tr class="info">
      <td> 
-         <input type=text value="${dto.email}" disabled="disabled" size="30" >
-          <input type=text value="${dto.univ_name}" disabled="disabled" ></td>
+         <input type=text value="${dto.email}" readonly="readonly" size="30" name="email">
+          <input type=text value="${dto.univ_name}" readonly="readonly" ></td>
        </tr>
       <tr class="success">
     <td>  <input type=checkbox id="email" >메일 공개</td>

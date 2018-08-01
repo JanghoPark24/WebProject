@@ -81,8 +81,9 @@ public class MemberController {
 	/**
 	 * 이메일 인증
 	 */
-	@RequestMapping("email_confirm.do")
-	public String email_confirm() {
+	@RequestMapping(value="email_confirm.do",method=RequestMethod.GET)
+	public String email_confirm(String email, Model model) {
+		memberService.member_auth(email);
 		return "redirect:home.do";
 	}
 
@@ -98,7 +99,7 @@ public class MemberController {
 	/**
 	 * 탈퇴 신청
 	 */
-	@RequestMapping("signOut.do")
+	@RequestMapping("sign_out.do")
 	public String request(HttpSession session) {
 		session.invalidate();
 		return "content/home";
