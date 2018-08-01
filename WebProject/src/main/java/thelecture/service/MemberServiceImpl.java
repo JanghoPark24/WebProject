@@ -197,6 +197,7 @@ public class MemberServiceImpl {
 		return memberDao.select_member(email.toLowerCase());
 	}
 	
+	//회원정보수정
 	  public int member_update(MemberBean mb) throws Exception {
 	  System.out.println("2");
 		  return memberDao.member_update(mb);

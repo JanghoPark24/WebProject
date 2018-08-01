@@ -64,7 +64,7 @@ public class MemberDaoImpl {
 	// }
 
 	/*
-	 * 회원정보수정
+	 * 회원정보수정!
 	 */
 	
 	  @Transactional 

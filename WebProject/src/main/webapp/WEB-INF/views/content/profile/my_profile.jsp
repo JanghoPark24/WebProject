@@ -31,7 +31,6 @@ border-bottom-color: #e2e2e2; border-radius: .25em; }
  margin: -1px; overflow: hidden; clip:rect(0,0,0,0); border: 0; }
 
 
-/* Add a dark background color to the footer */
 
 table, th, td {
     border: 1px solid black;

@@ -139,7 +139,7 @@ public class MemberController {
 
 	}
 
-	 //회원정보 수정
+	 //회원정보 수정!
     @RequestMapping("update.do") 
     public String update(@ModelAttribute MemberBean mb , HttpSession session ) throws Exception { 
     	 System.out.println("1");
