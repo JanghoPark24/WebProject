@@ -8,6 +8,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -104,12 +105,9 @@ public class MemberController {
 		return "content/home";
 	}
 
-	/*
-	 * @RequestMapping("update.do") public String update(@ModelAttribute MemberBean
-	 * mb) throws Exception { memberService.member_update(mb);
-	 * 
-	 * return "profile.do"; }
-	 */
+   
+	 
+	
 	// 회원목록 조회
 	@RequestMapping("user_list.do")
 	public String memberList(Model model) {
@@ -141,4 +139,16 @@ public class MemberController {
 
 	}
 
+	 //회원정보 수정!
+    @RequestMapping("update.do") 
+    public String update(@ModelAttribute MemberBean mb , HttpSession session ) throws Exception { 
+    	 System.out.println("1");
+    	int result = memberService.member_update(mb);
+      	 System.out.println("result:"+result);
+    	//  session.setAttribute("mb" , memberService.member_update(mb));  
+    
+    //회원정보 수정 후 로그아웃해야 반영되는 오류가있음 	
+	 return "redirect:logout.do";
+	 }
+	
 }

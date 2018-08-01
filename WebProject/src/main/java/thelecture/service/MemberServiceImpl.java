@@ -196,10 +196,14 @@ public class MemberServiceImpl {
 	public MemberBean select_member(String email) throws Exception {
 		return memberDao.select_member(email.toLowerCase());
 	}
-	/*
-	 * public void member_update(MemberBean mb) throws Exception {
-	 * memberDao.member_update(mb); }
-	 */
+	
+	//회원정보수정
+	  public int member_update(MemberBean mb) throws Exception {
+	  System.out.println("2");
+		  return memberDao.member_update(mb);
+		  
+		 }
+	 
 
 	public String email_confirm(String reg_key) throws Exception {
 		String email = (String) memberDao.getEmail(reg_key);

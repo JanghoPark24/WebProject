@@ -62,12 +62,15 @@ public class MemberDaoImpl {
 	// }
 
 	/*
-	 * 회원정보수정
+	 * 회원정보수정!
 	 */
-	/*
-	 * @Transactional public void member_update(MemberBean m) throws Exception {
-	 * sqlSession.update("member_update", m); }
-	 */
+	
+	  @Transactional 
+	  public int member_update(MemberBean mb) throws Exception {
+		  System.out.println("3");
+		  return sqlSession.update("memberns.member_update", mb); 
+		 }
+	 
 
 	/*
 	 * 전체회원목록

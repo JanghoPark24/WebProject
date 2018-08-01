@@ -31,7 +31,8 @@
 	</insert>
 	<!-- 회원인증 -->
 	<update id="member_to_member" parameterType="String">
-		update member set grade = 'member' where reg_key =#{reg_key};
+		update member set
+		grade = 'member' where reg_key =#{reg_key};
 	</update>
 
 
@@ -45,6 +46,20 @@
 		order by email
 
 	</select>
+
+
+	<!-- 회원정보수정! -->
+	<update id="member_update" parameterType="member">
+		update
+		member
+		set
+		NICKNAME = #{nickname},
+		major = #{major},
+		profile = #{profile}
+		where
+		email = #{email}
+	</update>
+
 
 
 	<!-- 회원정보수정 -->
