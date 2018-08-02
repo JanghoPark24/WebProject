@@ -80,7 +80,7 @@
 							<li><a href="my_profile.do"><span
 									class="glyphicon glyphicon-user"></span> My profile</a></li>
 							<c:if test="${sessionScope.grade.equals('master') }">
-								<li><a href="my_profile.do"><span
+								<li><a href="user_list.do"><span
 										class="glyphicon glyphicon-user"></span> Member List</a></li>
 							</c:if>
 							<li><a href="logout.do"><span

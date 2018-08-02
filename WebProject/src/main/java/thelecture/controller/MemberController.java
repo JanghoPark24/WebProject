@@ -142,7 +142,7 @@ public class MemberController {
 		int result = memberService.member_update(mb);
 		System.out.println("result:" + result);
 		session.setAttribute("nickname", mb.getNickname());
-		return "redirect:my_profile.do";
+		return "redirect:home.do";
 	}
 
 }
