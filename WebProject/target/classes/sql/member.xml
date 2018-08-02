@@ -39,7 +39,8 @@
 		select
 		email as email,
 		nickname as nickname,
-		univ_name as univ_name
+		univ_name as univ_name,
+		major as major
 		from member
 		order by email
 

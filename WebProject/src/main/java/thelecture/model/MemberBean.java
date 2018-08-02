@@ -96,7 +96,7 @@ public class MemberBean {
 	}
 	@Override
 	public String toString() {
-		return "MemberBean[email="+email+",nickname="+nickname+",univ_name="+univ_name+"]";
+		return "MemberBean[email="+email+",nickname="+nickname+",univ_name="+univ_name+",major="+major+"]";
 	}
 	
 	
