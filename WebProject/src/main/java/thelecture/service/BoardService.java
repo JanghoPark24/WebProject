@@ -20,42 +20,10 @@ public class BoardService {
 	@Autowired
 	LectureDaoImpl lecturedao;
 	
-	@Transactional
-	public HashMap<String, Object> getLectureBoard(int currentPage ){
-		HashMap<String, Object> boardInfo = new HashMap<>();
-		
-		//현재 총 페이지수
-		int countOfRow = lecturedao.getRowCount();
-		//페이지 당 줄 개수
-		int rowPerPage = 10;
-
-		
-		PageBean page_index = new PageBean(currentPage, rowPerPage, countOfRow);
-		
-		if(countOfRow==0 || currentPage >page_index.getLastIndex() ) return null;
-		
-		
-		//list추가
-		List<LectureBean>
-		lectureList= lecturedao.getLectureList(page_index);
-		
-		System.out.println(page_index.getCurrentPage());
-		
-		System.out.println("firstrow:"+page_index.getStartRow());
-		System.out.println("endrow:"+page_index.getEndRow());
-		
-		
-		//index 추가
-		boardInfo.put("page_index", page_index);
-		boardInfo.put("lectureList",lectureList);
-		
-		
-		return boardInfo;
-		
-	}
+	
 	
 	@Transactional
-	public HashMap<String, Object> getSearchLectureBoard(int currentPage , String search, String keyword){
+	public HashMap<String, Object> getLectureBoard(int currentPage , String search, String keyword){
 		
 		HashMap<String, Object> boardInfo = new HashMap<>();
 		

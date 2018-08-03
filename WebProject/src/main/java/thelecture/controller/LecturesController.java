@@ -83,10 +83,8 @@ public class LecturesController {
 		HashMap<String, Object> boardInfo=null;
 		
 		//get List Info -search가 있으면 
-		if(keyword==null && search==null)
-			boardInfo = boardService.getLectureBoard(currentPage);
-		else
-			boardInfo = boardService.getSearchLectureBoard(currentPage, search, keyword);
+		
+		boardInfo = boardService.getLectureBoard(currentPage, search, keyword);
 		
 		//다음으로 전하기
 		model.addAllAttributes(boardInfo); // page_index, lectureList 전달
