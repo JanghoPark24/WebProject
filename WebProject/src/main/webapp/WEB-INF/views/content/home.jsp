@@ -49,12 +49,11 @@
 			<h3 style="font-family: 'Nanum Barun Gothic'; font-weight: 900;'">대학
 				강의 길라잡이 The Lecture</h3>
 			<br>
-			<form class="form-group"
-				style="text-align: center;">
+			<form class="form-group" style="text-align: center;">
 				<table class="searchform" style="margin: auto;">
 					<tr>
-						<td><select name="category" class="form-control" style="height: 34px;"
-						onchange="change_select()">
+						<td><select name="category" class="form-control"
+							style="height: 34px;" onchange="change_select()">
 								<option value="all">전체</option>
 								<option value="univ">대학</option>
 						</select></td>

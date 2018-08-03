@@ -1,7 +1,5 @@
 /* 유효성 검사 */
 function validateForm() {
-	var email = document.join_form.email.value.toUpperCase();
-	var nickname = document.join_form.nickname.value.toUpperCase();
 	var password = document.join_form.password.value;
 	var password2 = document.join_form.password2.value;
 	var permit = true;

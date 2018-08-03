@@ -18,6 +18,15 @@
 	<select id="select_member" parameterType="String" resultType="member">
 		select * from member where Lower(email)= #{email}
 	</select>
+	<!-- 회원선택 -->
+	<select id="getEmail" parameterType="String" resultType="String">
+		select email from member where reg_key= #{reg_key}
+	</select>
+	<!-- 등급변환 -->
+	<update id="setGrade_to_member"  parameterType="String">
+		update member set grade ='member' where email =#{email}
+	</update>
+	
 	<!-- 회원저장 -->
 	<insert id="member_join" parameterType="member">
 		insert INTO	member values(
@@ -25,29 +34,31 @@
 			0,null,#{reg_key},sysdate,'컴퓨터공학과','unknown.jpg','안넝하세여')
 	</insert>
 
-  
-  
 	<!-- 회원 목록 -->
 	<select id="memberList" resultType="thelecture.model.MemberBean">
 		select
 		email as email,
 		nickname as nickname,
-		univ_name as univ_name
+		univ_name as univ_name,
+		major as major
 		from member
 		order by email
-		
+
 	</select>
+
 	
   
-     <!-- 회원정보수정 -->
-   <!--  <update id="member_update">
+     <!-- 회원정보수정! -->
+     <update id="member_update" parameterType="member">
 		update 
 		member
 		set 
-		NICKNAME = #{nickname}
+		NICKNAME = #{nickname},	
+		major = #{major},
+		profile = #{profile}
 		where
-		EMAIL = #{email}
-	</update> -->
+		email = #{email}	
+	</update> 
 
 <!-- 회원정보 상세조회 -->
 	 <select id="viewMember" 
@@ -61,9 +72,9 @@
 		profile
 		from member
 		where nickname = #{nickname}
-		
-	</select>  
-	
+
+	</select>
+
 
 
 </mapper>
