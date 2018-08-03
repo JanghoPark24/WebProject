@@ -22,11 +22,11 @@ public class MemberDaoImpl {
 	 * @return DB에 해당column에 해당value가 있으면 1을 리턴한다. 그렇지 않으면 0을 리턴한다
 	 */
 	@Transactional
-	public int isDuplication(String column, String value) throws Exception {
-		int authcode = 0; // 중복이 아니면 0
+	public boolean isDuplication(String column, String value) throws Exception {
+		boolean authcode = false; // 중복이 아니면 0
 		MemberBean mb = (MemberBean) sqlSession.selectOne("isdup_" + column, value);
 		if (mb != null)
-			authcode = 1;
+			authcode = true;
 		return authcode;
 	}
 

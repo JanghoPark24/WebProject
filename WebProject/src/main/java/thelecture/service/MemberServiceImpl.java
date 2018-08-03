@@ -30,6 +30,8 @@ public class MemberServiceImpl {
 	@Inject
 	private JavaMailSender mailSender;
 
+	private String hostAddress = "localhost";
+
 	// 전체 회원 목록 조희
 	public List<MemberBean> memberList() {
 		return memberDao.memberList();
@@ -48,9 +50,8 @@ public class MemberServiceImpl {
 	 * @param value
 	 * @return DB에 해당column에 해당value가 있으면 1을 리턴한다. 그렇지 않으면 0을 리턴한다
 	 */
-	public int isDuplication(String column, String value) throws Exception {
-		int result = memberDao.isDuplication(column, value.toLowerCase());
-		return result;
+	public boolean isDuplication(String column, String value) throws Exception {
+		return memberDao.isDuplication(column, value.toLowerCase());
 	}
 
 	/**
@@ -62,9 +63,9 @@ public class MemberServiceImpl {
 	 *            true면 대소문자를 구분한다.
 	 * @return DB에 해당column에 해당value가 있으면 1을 리턴한다. 그렇지 않으면 0을 리턴한다
 	 */
-	public int isDuplication(String column, String value, boolean caseSensitive) throws Exception {
-		int result = memberDao.isDuplication(column, (caseSensitive) ? value : value.toLowerCase());
-		return result;
+	public boolean isDuplication(String column, String value, boolean caseSensitive) throws Exception {
+		System.out.println("[DUP]" + column + " : " + value);
+		return memberDao.isDuplication(column, (caseSensitive) ? value : value.toLowerCase());
 	}
 
 	public String find_domain(String domain) throws Exception {
@@ -82,18 +83,16 @@ public class MemberServiceImpl {
 	@Transactional
 	public String member_join(String email, String nickname, String password, Model model) throws Exception {
 		// 중복확인
-		int dupemail = isDuplication("email", email);
-		int dupnickname = isDuplication("nickname", nickname);
+		boolean dupemail = isDuplication("email", email);
+		boolean dupnickname = isDuplication("nickname", nickname);
 
 		// 등록된 도메인이 아니면 가입거부 창을 띄움
 		StringTokenizer st = new StringTokenizer(email, "@");
 		st.nextToken();// 첫번째 토큰은 버림 (첫번째 토큰)@(도메인)
 		String domain = st.nextToken().trim().toLowerCase();
-		System.out.println("domain : " + domain);
 		String univ_name = find_domain(domain);
-		System.out.println("univ_name : " + univ_name);
 
-		if ((dupemail + dupnickname == 0)// DB(member)안에 중복 이메일, 중복 닉네임이 없으면,
+		if (!(dupemail || dupnickname)// DB(member)안에 중복 이메일, 중복 닉네임이 없으면,
 				&& (!univ_name.equals("")) /* DB(univ)안에 도메인이 있으면, */ ) {
 
 			// 서버 아이피
@@ -101,12 +100,12 @@ public class MemberServiceImpl {
 
 			// 인증용 랜덤키 생성
 			TempKey keyGenerator = TempKey.Instance;
-			int dupkey = 1;
+			boolean dupkey = false;
 			String reg_key;
 			do {
 				reg_key = keyGenerator.getKey(20, false);
 				dupkey = isDuplication("reg_key", reg_key, true);
-			} while (dupkey != 0);// 인증키 충돌할경우 다시 생성한다.
+			} while (!dupkey);// 인증키 충돌할경우 다시 생성한다.
 
 			// 이메일 전송
 			MailHandler sendMail = new MailHandler(mailSender);
@@ -121,8 +120,12 @@ public class MemberServiceImpl {
 					.append("http://localhost/WebProject/email_confirm.do?key=")// 가입 인증 url주소
 					.append(reg_key)// 인증키값
 					.append("' style='color:white;text-decoration:none;font-size:14px;border-radius:3px;background-color:#337ab7;padding:8px 12px;border:none'>이메일 인증</a>")//
-					.append("<p style='font-size:12px;color:#444444'><a href='http://").append("localhost")// ip.getHostAddress())
-					.append("/WebProject/home.do'style='text-decoration: none; color: #009;target='_blank'>TheLecture</a>에서 보낸 메일<br></p></div></div>")
+					.append("<p style='font-size:12px;color:#444444'><a href='http://").append(hostAddress)//
+					.append("/WebProject/home.do'style='text-decoration: none; color: #333;'target='_blank';>TheLecture</a> / <a href='http://")
+					.append(hostAddress)//
+					.append("/WebProject/tos.do'style='text-decoration: none; color: #333;'target='_blank';>이용약관</a> / <a href='http://")
+					.append(hostAddress)//
+					.append("/WebProject/privacy.do'style='text-decoration: none; color: #333;'target='_blank';>개인정보 처리방침</a> / <br></p></div></div>")
 					.toString());//
 			sendMail.setFrom("TheLectue.corp@gmail.com", "TheLectue.corp");//
 			sendMail.setTo(email);
@@ -144,9 +147,9 @@ public class MemberServiceImpl {
 			memberDao.member_join(mb);
 
 		} else {// 중복 아이디 또는 중복 이메일
-			if (dupemail != 0)
+			if (dupemail)
 				model.addAttribute("dupemail", dupemail);
-			if (dupnickname != 0)
+			if (dupnickname)
 				model.addAttribute("dupnickname", dupnickname);
 			return "join_form";
 
@@ -156,18 +159,78 @@ public class MemberServiceImpl {
 	}
 
 	/**
+	 * 패스워드를 변경하기 위한 이메일 전송
+	 * 
+	 * @param email
+	 */
+	public String request_reset_password(String email, Model model) throws Exception {
+		boolean dupemail = isDuplication("email", email);
+		if (dupemail) {// 이메일 계정이 존재함
+			MemberBean mb = memberDao.select_member(email);
+			MailHandler sendMail = new MailHandler(mailSender);
+			sendMail.setSubject("[TheLecture]비밀번호 재설정 메일입니다.");
+			sendMail.setText(new StringBuffer().append(
+					"<div class='container' style='padding: 20px;background: #eeeeee;font-size:16px;border: 1px solid #999999;'>")//
+					.append("<div class='jumbotron' style='margin: 20px;background: #eeeeee;'>")//
+					.append("<h2>비밀번호 재설정</h2>" + "<span style='font-size: 18px; font-weight: 500;'>안녕하세요.  ")//
+					.append(mb.getNickname())// 닉네임
+					.append(" 님,</span><br><br>비밀번호 재설정을 하기 위해서 아래의 주소를 클릭해주세요<br>")//
+					.append("본인이 요청한 메일이 아닌 경우, 개인정보 보호를 위해 비밀번호를 다시 설정하시길 바랍니다.:<br><br><a class='btn' href='")//
+					.append("http://localhost/WebProject/passwordForm.do?key=")// 가입 인증 url주소
+					.append(mb.getReg_key())// 인증키값
+					.append("' style='color:white;text-decoration:none;font-size:14px;border-radius:3px;background-color:#337ab7;padding:8px 12px;border:none'>비밀번호 재설정</a>")//
+					.append("<p style='font-size:12px;color:#444444'><a href='http://").append(hostAddress)//
+					.append("/WebProject/home.do'style='text-decoration: none; color: #333;'target='_blank';>TheLecture</a> / <a href='http://")
+					.append(hostAddress)//
+					.append("/WebProject/tos.do'style='text-decoration: none; color: #333;'target='_blank';>이용약관</a> / <a href='http://")
+					.append(hostAddress)//
+					.append("/WebProject/privacy.do'style='text-decoration: none; color: #333;'target='_blank';>개인정보 처리방침</a> / <br></p></div></div>")
+					.toString());//
+			sendMail.setFrom("TheLectue.corp@gmail.com", "TheLectue.corp");//
+			sendMail.setTo(email);
+			sendMail.send();// 메일 전송
+			System.out.println("메일전송");
+			return "redirect:loginForm.do";
+		}
+		System.out.println("메일전송실패");
+		model.addAttribute("err_msg", "유효하지 않은 이메일");
+		return "member/find_password_form";
+
+	}
+
+	/**
+	 * 비밀번호 변경 form으로 이동
+	 */
+	public String passwordForm(String reg_key, Model model) throws Exception {
+		String email = memberDao.getEmail(reg_key);
+		if (email != null) {// 유효함
+			model.addAttribute("email", email);
+			return "member/password_form";
+		}
+		model.addAttribute("err_msg", "유효하지 않음");
+		return "member/password_form";// 유효하지 않음
+	}
+
+	/**
+	 * 비밀번호 변경
+	 */
+	public String reset_password(String email, String password) throws Exception {
+		MemberBean mb = memberDao.select_member(email);
+		mb.setPassword(password);
+		return "redirect:home.do";
+	}
+
+	/**
 	 * 멤버 로그인
 	 * 
 	 * @throws Exception
 	 */
 	@Transactional
-	public ModelAndView member_login(String email, String password, HttpSession session,
-		Model model	)throws Exception {
+	public ModelAndView member_login(String email, String password, HttpSession session, Model model) throws Exception {
 
 		// SHA256 (해쉬화)
 		SHA256 encrypter = SHA256.Instance;
 		String hashed_text = encrypter.encrypt(password).toLowerCase();
-		System.out.println(hashed_text);
 
 		MemberBean mb = (MemberBean) select_member(email);
 
@@ -194,19 +257,17 @@ public class MemberServiceImpl {
 	public MemberBean select_member(String email) throws Exception {
 		return memberDao.select_member(email.toLowerCase());
 	}
-	
-	//회원정보수정
-	  public int member_update(MemberBean mb) throws Exception {
-	  System.out.println("2");
-		  return memberDao.member_update(mb);
-		  
-		 }
-	 
+
+	// 회원정보수정
+	public int member_update(MemberBean mb) throws Exception {
+		System.out.println("2");
+		return memberDao.member_update(mb);
+
+	}
 
 	public String email_confirm(String reg_key) throws Exception {
-		String email =  memberDao.getEmail(reg_key);
+		String email = memberDao.getEmail(reg_key);
 		if (email != null) {// 유효함
-			System.out.println(email);
 			memberDao.setGrade_to("member", email);
 			return "redirect:home.do";
 		}

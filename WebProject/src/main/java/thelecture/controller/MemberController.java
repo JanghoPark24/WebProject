@@ -63,11 +63,38 @@ public class MemberController {
 	}
 
 	/**
-	 * 비밀번호를 재설정 하기 위한 form으로 이동
+	 * 비밀번호를 재설정 이메일을 전송 하기 위한 form으로 이동
 	 */
-	@RequestMapping("password.do")
-	public String resetPasswd() {
-		return "member/reset_password";
+	@RequestMapping("findPasswordForm.do")
+	public String findPasswordForm() {
+		return "member/find_password_form";
+	}
+
+	/**
+	 * 비밀번호 재설정 메일 전송
+	 */
+	@RequestMapping(value = "request_reset_password.do", method = RequestMethod.POST)
+	public String request_reset_password(@RequestParam("email") String email, Model model) throws Exception {
+		return memberService.request_reset_password(email, model);
+	}
+
+	/**
+	 * 비밀번호 변경 form으로 이동
+	 */
+	@RequestMapping(value = "passwordForm.do", method = RequestMethod.GET)
+	public String passwordForm(String key, Model model) throws Exception {
+		// 리셋
+		return memberService.passwordForm(key, model);
+	}
+
+	/**
+	 * 비밀번호 변경
+	 */
+	@RequestMapping(value = "reset_password.do", method = RequestMethod.POST)
+	public String reset_password(@RequestParam("email") String email, @RequestParam("password") String password)
+			throws Exception {
+		// 멤버권한 부여
+		return memberService.reset_password(email, password);
 	}
 
 	/**
@@ -97,7 +124,7 @@ public class MemberController {
 	}
 
 	/**
-	 * 탈퇴 신청
+	 * 탈퇴 신청 (미구현)
 	 */
 	@RequestMapping("sign_out.do")
 	public String request(HttpSession session) {
