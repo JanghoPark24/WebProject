@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import thelecture.model.LectureBean;
 import thelecture.model.PageBean;
+import thelecture.model.ReplyBean;
 
 @Repository
 public class LectureDaoImpl {
@@ -42,9 +43,28 @@ public class LectureDaoImpl {
 //	public List<LectureBean> getLectureList(HashMap<String, Integer> page_index) {
 	public List<LectureBean> getLectureList(PageBean page_index) {
 		try {
-			System.out.println("startRow:"+page_index.getStartRow());
-			System.out.println("endRow:"+page_index.getEndRow());
 			return sqlSession.selectList("lectureMap.getLectureList",page_index);
+			
+		}catch(Exception e){
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+	public LectureBean getLectureListById(int lecture_id) {
+		try {
+			
+			return sqlSession.selectOne("lectureMap.getLectureListById",lecture_id);
+			
+		}catch(Exception e){
+			e.printStackTrace();
+			return null;
+		}
+	}
+	public List<ReplyBean> getReplyListById(int lecture_id) {
+		try {
+			
+			return sqlSession.selectList("lectureMap.getLectureReplyListById",lecture_id);
 			
 		}catch(Exception e){
 			e.printStackTrace();

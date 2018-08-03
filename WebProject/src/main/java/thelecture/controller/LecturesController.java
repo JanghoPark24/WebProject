@@ -8,21 +8,26 @@ import java.util.Hashtable;
 import java.util.List;
 import java.util.Locale;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import thelecture.dao.LectureDaoImpl;
 import thelecture.dao.MemberDaoImpl;
 import thelecture.model.LectureBean;
 import thelecture.model.MemberBean;
-
+import thelecture.model.PageBean;
 import thelecture.service.BoardService;
 
 /**
@@ -56,23 +61,32 @@ public class LecturesController {
 		return "home2";
 	}
 	
-	@RequestMapping(value = "lectureList.do", method = RequestMethod.GET)
-	public String lectureList( HttpSession session, Model model,Integer currentPage) {
+	
+	/*
+	 * lectureList정보 불러오기 : 
+	 * 일반 :
+	 *  1., 페이징 기능, detail로 들어가는 기능
+	 * 	2.검색기능	 
+	 *  master일시 : master로 감
+	 * 
+	 * */
+	@RequestMapping(value = "/lectureList.do")
+	public String lectureList( HttpSession session, Model model,Integer currentPage, String search, String keyword) {
 		
 		
 		//현재 페이지 불러오기
 		if(currentPage ==null) currentPage=1;
-		int rowPerPage = 10;
 		
-//		Page pageInfo = new Page(currentPage, rowPerPage);
+		System.out.println(search);
+		System.out.println(keyword);
 		
+		HashMap<String, Object> boardInfo=null;
 		
-		
-		//lecture 불러오기
-//		List<LectureBean> lectureList=null;
-		
-		//get indexes
-		HashMap<String, Object> boardInfo = boardService.getLectureBoard(currentPage);
+		//get List Info -search가 있으면 
+		if(keyword==null && search==null)
+			boardInfo = boardService.getLectureBoard(currentPage);
+		else
+			boardInfo = boardService.getSearchLectureBoard(currentPage, search, keyword);
 		
 		//다음으로 전하기
 		model.addAllAttributes(boardInfo); // page_index, lectureList 전달
@@ -89,13 +103,12 @@ public class LecturesController {
 	
 	
 	
-	
 	@RequestMapping(value = "review.do", method = RequestMethod.GET)
 
-	public String review( HttpSession session,LectureBean lecture,Model model){
+	public String review(int lecture_id, HttpSession session, HttpServletRequest request,Model model){
 		
 		//password가 맞으면
-		
+		boardService.getReviewDetail(lecture_id);
 		model.addAttribute("checked",true);
 		
 		return "lecture/review/d";

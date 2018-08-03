@@ -32,7 +32,7 @@ public class PageBean {
 		//row정의
 		
 		//현재 페이지 시작 줄
-		startRow = countOfRow-(rowPerPage*(currentPage-1));
+		startRow = 1+(rowPerPage*(currentPage-1));
 		//현재 페이지 마지막 줄
 		endRow = startRow+rowPerPage-1;
 		if(endRow>countOfRow) endRow =countOfRow;
