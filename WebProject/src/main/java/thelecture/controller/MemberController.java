@@ -83,18 +83,17 @@ public class MemberController {
 	 */
 	@RequestMapping(value = "passwordForm.do", method = RequestMethod.GET)
 	public String passwordForm(String key, Model model) throws Exception {
-		// 리셋
-		return memberService.passwordForm(key, model);
+		model.addAttribute("reg_key",key);
+		return "member/password_form";
 	}
 
 	/**
 	 * 비밀번호 변경
 	 */
 	@RequestMapping(value = "reset_password.do", method = RequestMethod.POST)
-	public String reset_password(@RequestParam("email") String email, @RequestParam("password") String password)
+	public String reset_password(@RequestParam("authenticity_token") String authenticity_token,@RequestParam("password") String password, Model model)
 			throws Exception {
-		// 멤버권한 부여
-		return memberService.reset_password(email, password);
+		return memberService.reset_password(authenticity_token, password, model);
 	}
 
 	/**

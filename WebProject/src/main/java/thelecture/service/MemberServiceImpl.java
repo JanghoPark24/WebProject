@@ -120,7 +120,7 @@ public class MemberServiceImpl {
 					.append("http://localhost/WebProject/email_confirm.do?key=")// 가입 인증 url주소
 					.append(reg_key)// 인증키값
 					.append("' style='color:white;text-decoration:none;font-size:14px;border-radius:3px;background-color:#337ab7;padding:8px 12px;border:none'>이메일 인증</a>")//
-					.append("<p style='font-size:12px;color:#444444'><a href='http://").append(hostAddress)//
+					.append("<br><p style='font-size:12px;color:#444444'><br><a href='http://").append(hostAddress)//
 					.append("/WebProject/home.do'style='text-decoration: none; color: #333;'target='_blank';>TheLecture</a> / <a href='http://")
 					.append(hostAddress)//
 					.append("/WebProject/tos.do'style='text-decoration: none; color: #333;'target='_blank';>이용약관</a> / <a href='http://")
@@ -179,7 +179,7 @@ public class MemberServiceImpl {
 					.append("http://localhost/WebProject/passwordForm.do?key=")// 가입 인증 url주소
 					.append(mb.getReg_key())// 인증키값
 					.append("' style='color:white;text-decoration:none;font-size:14px;border-radius:3px;background-color:#337ab7;padding:8px 12px;border:none'>비밀번호 재설정</a>")//
-					.append("<p style='font-size:12px;color:#444444'><a href='http://").append(hostAddress)//
+					.append("<br><p style='font-size:12px;color:#444444'><br><a href='http://").append(hostAddress)//
 					.append("/WebProject/home.do'style='text-decoration: none; color: #333;'target='_blank';>TheLecture</a> / <a href='http://")
 					.append(hostAddress)//
 					.append("/WebProject/tos.do'style='text-decoration: none; color: #333;'target='_blank';>이용약관</a> / <a href='http://")
@@ -199,24 +199,22 @@ public class MemberServiceImpl {
 	}
 
 	/**
-	 * 비밀번호 변경 form으로 이동
-	 */
-	public String passwordForm(String reg_key, Model model) throws Exception {
-		String email = memberDao.getEmail(reg_key);
-		if (email != null) {// 유효함
-			model.addAttribute("email", email);
-			return "member/password_form";
-		}
-		model.addAttribute("err_msg", "유효하지 않음");
-		return "member/password_form";// 유효하지 않음
-	}
-
-	/**
 	 * 비밀번호 변경
 	 */
-	public String reset_password(String email, String password) throws Exception {
-		MemberBean mb = memberDao.select_member(email);
-		mb.setPassword(password);
+	public String reset_password(String reg_key, String password, Model model) throws Exception {
+		String email = memberDao.getEmail(reg_key);
+		if (email != null) {// 유효함
+			if (!email.toLowerCase().equals("thelecture.corp@gmail.com")) {
+				// SHA256 (해쉬화)
+				SHA256 encrypter = SHA256.Instance;
+				String hashed_text = encrypter.encrypt(password).toLowerCase();
+				MemberBean mb = memberDao.select_member(email);
+				mb.setPassword(hashed_text);
+				memberDao.member_reset_password(mb);
+				return "redirect:home.do";
+			}
+		}
+		model.addAttribute("err_msg", "유효하지 않음");
 		return "redirect:home.do";
 	}
 
@@ -254,8 +252,10 @@ public class MemberServiceImpl {
 		return new ModelAndView("member/login_form");
 	}
 
+	
+	
 	public MemberBean select_member(String email) throws Exception {
-		return memberDao.select_member(email.toLowerCase());
+		return memberDao.select_member(email);
 	}
 
 	// 회원정보수정
