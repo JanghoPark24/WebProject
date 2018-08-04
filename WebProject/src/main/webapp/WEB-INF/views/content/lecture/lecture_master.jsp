@@ -3,7 +3,7 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <c:set var="contextPath" value="<%=request.getContextPath()%>"></c:set>
-<c:set var="lec_List" value="${sessionScope.lectureList}"></c:set>
+<%-- <c:set var="lec_List" value="${sessionScope.lectureList}"></c:set> --%>
 
 <!DOCTYPE html>
 
@@ -39,19 +39,19 @@
 			       
 					<tr id="lectureList_columns" >
 						<td>
-							대학
+							대학/전공
 						</td>
-						<td>
-							강의명
-						</td>
-						<td>
-							수강학기
-						</td>
-						 
 						
 						<td>
-							강의코드
+							학년-학기
 						</td>
+						<td>
+							강의명[강의코드]
+						</td>
+						
+						<td>
+							교수
+						</td> 
 						
 						<td>
 							평점
@@ -92,42 +92,46 @@
 						</td> 
 						
 					</tr>
-					<c:if test="${empty lec_List  }">
+					<c:if test="${empty lectureList  }">
 						<tr class="lectureList_content">
 							<td colspan="100%">
 							올라온 강의가 없습니다.
 							</td>
 						</tr>
 					</c:if>
-					<c:if test="${not empty lec_List}">
-						<c:forEach var="lecture" items="lec_List">
+					<c:if test="${not empty lectureList}">
+						<c:forEach items="${lectureList}" var="lecture" >
 							<tr class="lectureList_content">
+								
 								<td>
-									${lecture.univ_name}
+									${lecture.univ_name}/${lecture.major}
+								</td>
+							
+								<td>
+									${lecture.grade}-${lecture.semester}
 								</td>
 								<td>
-									<a href="review.do?${lecture.lecture_id }">
-										${lecture.lecture_name}
+									<a onclick="location.href='review.do?${lecture.lecture_id }'">
+										<div>${lecture.lecture_name}</div>
+										<p>[${lecture.lecture_code }]</p>
 									</a>
 								</td> 
-								<td>
-									 ${lecture.semester}
-								</td>
-								
 								
 								<td>
-									${lecture.lecture_code }
+									${lecture.professor}
 								</td>
 								
 								<td class="star_rating">
 									<div data-productid="313" class="rateit" 
 										data-rateit-mode="font" data-rateit-value="${lecture.total_avg_score}" 
 										data-rateit-readonly="true"
-										style="font-size:100%;">
+										style="font-size:100%; float:left;">
+										${lecture.total_avg_score}
 									</div>
-		                   		<div style="clear: both;">
-		                   			${lecture.total_avg_score}
-		                   		</div>
+			                   		<div style="color:grey;">
+			                   			(${lecture.rating_count})
+			                   		</div>
+		                   			<div style="clear:both"></div>
 		                   			
 								</td> 
 								
@@ -136,25 +140,23 @@
 						</c:forEach>>
 						      
 					</c:if>
-			       <tr>
+			        <tr>
 			            <td colspan="100%">
 			            	<a href="insertLectureView.do">
 			            		<button type="button" class="btn btn-primary">강의 입력</button>
 			            	</a>
 			            </td>
-			        </tr>        
+			        </tr> 
 			
 			    </table>
 			</div>
 			        
 			<div class="container text-center">
 	            <ul class="pagination">
+	            	
 	                <li><a href="#">맨처음</a>
 	                <li><a href="#">1</a></li>
-	                  <li><a href="#">2</a></li>
-	                  <li><a href="#">3</a></li>
-	                  <li><a href="#">4</a></li>
-	                  <li><a href="#">5</a></li>
+	                
 	                <li><a href="#">맨끝</a>
 	            </ul>
 			</div>

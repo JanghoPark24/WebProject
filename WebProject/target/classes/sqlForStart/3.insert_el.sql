@@ -7,7 +7,8 @@ delete from univ;
 purge;
 
 
-
+-- 시퀀스 생성
+create SEQUENCE seq_question_id START WITH 1 INCREMENT BY 1;--질문 시퀀스
 CREATE SEQUENCE seq_board1_no START WITH 1 INCREMENT BY 1;--커뮤니티 게시판 시퀀스
 CREATE SEQUENCE seq_board1_re_no START WITH 1 INCREMENT BY 1;--커뮤니티 게시판 리플 시퀀스
 CREATE SEQUENCE seq_lecture_no START WITH 1 INCREMENT BY 1;--강의 리플 시퀀스
@@ -91,9 +92,31 @@ DROP table lecture  CASCADE CONSTRAINTS;
 select * from LECTURE;
 
 
---insert into lecture values(seq_lecture_no.nextval, '서울대학교','언어학과',1,1,'L0441.000100_001','핀란드어 1','정도상','3',0,0,'n',0)
+
+insert into lecture values(seq_lecture_no.nextval, '서울대학교','언어학과',1,1,'L0441.000100_001','핀란드어 1','정도상','3',0,0,'n',0)
+insert into lecture values(seq_lecture_no.nextval, '연세대학교','컴퓨터공학과',1,1,'111123','알고리즘','교수님1','2',0,0,'n',0);
+insert into question_version values('강의평가1');
+
+insert into question values(seq_question_id.nextval,
+                            '강의평가1',
+                            '난이도');
+insert into question values(seq_question_id.nextval,
+                            '강의평가1',
+                            '학점');                            
+insert into question values(seq_question_id.nextval,
+                            '강의평가1',
+                            '강의력');                            
+insert into question values(seq_question_id.nextval,
+                            '강의평가1',
+                            '과제');
 
 
 
-
-
+--검색하기 위한 view 생성
+create or replace view lecture_search 
+as select 
+    lecture_id, univ_name, major,grade , semester, lecture_code , lecture_name, 
+    professor,credit,view_count,rating_count, is_deleted, total_avg_score, --lecture table 정보
+    major||univ_name || lecture_code ||lecture_name || credit || professor char_info,
+    grade ||' , '||semester number_info --검색시 사용하는 정보
+from lecture;

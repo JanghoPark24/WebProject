@@ -402,8 +402,8 @@ ALTER TABLE TheLecture.comunnity_board_like
 /* 대학 */
 CREATE TABLE TheLecture.univ (
 	univ_name VARCHAR2(25) NOT NULL, /* 대학 이름(영어) */
-	univ_name_eng VARCHAR2(35), /* 대학이름(한글) */
-	univ_domain VARCHAR2(20), /* 대학 도메인 */
+	univ_url VARCHAR2(35) NOT NULL, /* 대학이름(한글) */
+	univ_domain VARCHAR2(20) NOT NULL, /* 대학 도메인 */
 	univ_logo VARCHAR2(30) /* 대학 로고 */
 );
 
@@ -411,7 +411,7 @@ COMMENT ON TABLE TheLecture.univ IS '대학';
 
 COMMENT ON COLUMN TheLecture.univ.univ_name IS '대학 이름(영어)';
 
-COMMENT ON COLUMN TheLecture.univ.univ_name_eng IS '대학이름(한글)';
+COMMENT ON COLUMN TheLecture.univ.univ_url IS '대학이름(한글)';
 
 COMMENT ON COLUMN TheLecture.univ.univ_domain IS '대학 도메인';
 
@@ -474,7 +474,7 @@ ALTER TABLE TheLecture.community_board
 /* 질문 */
 CREATE TABLE TheLecture.question (
 	question_id NUMBER NOT NULL, /* 질문번호 */
-	question_version NUMBER, /* 질문버젼 */
+	question_version VARCHAR2, /* 질문버젼 */
 	question_content VARCHAR2(2000) /* 질문내용 */
 );
 
@@ -500,7 +500,7 @@ ALTER TABLE TheLecture.question
 
 /* 질문 버젼 */
 CREATE TABLE TheLecture.question_version (
-	question_version NUMBER NOT NULL /* 질문버젼 */
+	question_version VARCHAR2 NOT NULL /* 질문버젼 */
 );
 
 COMMENT ON TABLE TheLecture.question_version IS '질문 버젼';

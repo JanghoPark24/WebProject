@@ -20,25 +20,39 @@
 			</if>
 		</where>
 	</select> -->
-	<select id="getLectureList" parameterType="java.util.HashMap" resultType="lectureResult">
-	<!-- <select id="getLectureList" parameterType="pageIndex" resultType="lectureResult"> -->
+	<!-- <select id="getLectureList" parameterType="java.util.HashMap" resultType="lectureResult"> -->
+	<select id="getLectureList" parameterType="pageIndex" resultType="lectureResult">
 		select * from (select a.*,rowNum rnum from (
 			select * from lecture
-		<!-- <where>
-			<if test="keyword != null and search !='subcon'">
-				${search} like '%'||#{keyword}||'%'
+		<where>
+			<!--keyword null아니지만 , search는 null-->
+			<if test="keyword != null and search ==''">
+				lecture_id = -1
 			</if>
-			<if test="keyword != null and search=='subcon'">
-				subject like '%'||#{keyword}||'%' or
-				content like '%'||#{keyword}||'%'
+			<!--keyword가 대학-->
+			<if test="keyword == 'univ' and search !=null">
+				lecture_id in
+				(select lecture_id from lecture where univ_name like '%${search}%')
 			</if>
-		</where>		  -->
-			 order by lecture_id ) a )
+			<!--keyword가 all일 경우-->
+			<if test="keyword == 'all' and search !=null">
+				lecture_id in
+				(select lecture_id from lecture_search 
+				where char_info like '%${search}%')
+			</if>
+		</where>		 
+			 order by lecture_id desc) a )
 			where rnum between #{startRow,jdbcType=INTEGER} and #{endRow,jdbcType=INTEGER}
 		
 	</select>
 	<!-- 중복검사 -->
 	
+	<!-- id에 따라 강의 하나 구하기-->
+	<select id="getLectureListById" parameterType="int" resultType="lectureResult">
+		select * from lecture where lecture_id=#{lecture_id}
+	</select>
+	
+	<select id="get"></select>
 	
 
 

@@ -31,57 +31,62 @@
         
         <tr> 
             <td>1.질문</td>
-            <td><input type="checkbox" class="q1"></td>
-            <td><input type="checkbox" class="q2"></td>
-            <td><input type="checkbox" class="q3"></td>
-            <td><input type="checkbox" class="q4"></td>
-            <td><input type="checkbox" class="q5"></td>
-            <td><input type="checkbox" class="q6"></td>
+            
+            <td><input type="radio" name="q1" value='0'></td>
+            <td><input type="radio" name="q1" value='1'></td>
+            <td><input type="radio" name="q1" value='2'></td>
+            <td><input type="radio" name="q1" value='3'></td>
+            <td><input type="radio" name="q1" value='4'></td>
+            <td><input type="radio" name="q1" value='5'></td>
+            
         </tr>
         <tr> 
             <td>2.질문</td>
-            <td><input type="checkbox" class="q1"></td>
-            <td><input type="checkbox" class="q2"></td>
-            <td><input type="checkbox" class="q3"></td>
-            <td><input type="checkbox" class="q4"></td>
-            <td><input type="checkbox" class="q5"></td>
-            <td><input type="checkbox" class="q6"></td>
+            <td><input type="radio" name="q2" value='0'></td>
+            <td><input type="radio" name="q2" value='1'></td>
+            <td><input type="radio" name="q2" value='2'></td>
+            <td><input type="radio" name="q2" value='3'></td>
+            <td><input type="radio" name="q2" value='4'></td>
+            <td><input type="radio" name="q2" value='5'></td>
+            
         </tr>
         <tr> 
             <td>3.질문</td>
-            <td><input type="checkbox" class="q1"></td>
-            <td><input type="checkbox" class="q2"></td>
-            <td><input type="checkbox" class="q3"></td>
-            <td><input type="checkbox" class="q4"></td>
-            <td><input type="checkbox" class="q5"></td>
-            <td><input type="checkbox" class="q6"></td>
+            <td><input type="radio" name="q3" value='0'></td>
+            <td><input type="radio" name="q3" value='1'></td>
+            <td><input type="radio" name="q3" value='2'></td>
+            <td><input type="radio" name="q3" value='3'></td>
+            <td><input type="radio" name="q3" value='4'></td>
+            <td><input type="radio" name="q3" value='5'></td>
+            
         </tr>
         <tr> 
             <td>4.질문</td>
-            <td><input type="checkbox" class="q1"></td>
-            <td><input type="checkbox" class="q2"></td>
-            <td><input type="checkbox" class="q3"></td>
-            <td><input type="checkbox" class="q4"></td>
-            <td><input type="checkbox" class="q5"></td>
-            <td><input type="checkbox" class="q6"></td>
+            <td><input type="radio" name="q4" value='0'></td>
+            <td><input type="radio" name="q4" value='1'></td>
+            <td><input type="radio" name="q4" value='2'></td>
+            <td><input type="radio" name="q4" value='3'></td>
+            <td><input type="radio" name="q4" value='4'></td>
+            <td><input type="radio" name="q4" value='5'></td>
+            
         </tr>
         <tr> 
             <td>5.질문</td>
-            <td><input type="checkbox" class="q1"></td>
-            <td><input type="checkbox" class="q2"></td>
-            <td><input type="checkbox" class="q3"></td>
-            <td><input type="checkbox" class="q4"></td>
-            <td><input type="checkbox" class="q5"></td>
-            <td><input type="checkbox" class="q6"></td>
+            <td><input type="radio" name="q5" value='0'></td>
+            <td><input type="radio" name="q5" value='1'></td>
+            <td><input type="radio" name="q5" value='2'></td>
+            <td><input type="radio" name="q5" value='3'></td>
+            <td><input type="radio" name="q5" value='4'></td>
+            <td><input type="radio" name="q5" value='5'></td>
         </tr>
         <tr> 
             <td>6.질문</td>
-            <td><input type="checkbox" class="q1"></td>
-            <td><input type="checkbox" class="q2"></td>
-            <td><input type="checkbox" class="q3"></td>
-            <td><input type="checkbox" class="q4"></td>
-            <td><input type="checkbox" class="q5"></td>
-            <td><input type="checkbox" class="q6"></td>
+            <td><input type="radio" name="q6" value='0'></td>
+            <td><input type="radio" name="q6" value='1'></td>
+            <td><input type="radio" name="q6" value='2'></td>
+            <td><input type="radio" name="q6" value='3'></td>
+            <td><input type="radio" name="q6" value='4'></td>
+            <td><input type="radio" name="q6" value='5'></td>
         </tr>
         
         </table>
