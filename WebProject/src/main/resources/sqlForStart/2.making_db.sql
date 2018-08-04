@@ -53,6 +53,8 @@ ALTER TABLE TheLecture.lecture_rating
 			question_id
 		);
 
+
+		
 /* 회원 */
 CREATE TABLE TheLecture.member (
 	email VARCHAR2(40) NOT NULL, /* 이메일 */
@@ -65,7 +67,7 @@ CREATE TABLE TheLecture.member (
 	try_date DATE, /* 마지막접속시도 */
 	reg_key VARCHAR2(60) NOT NULL, /* 인증용키 */
 	reg_date DATE NOT NULL, /* 등록날짜 */
-	major VARCHAR2(30) NOT NULL, /* 전공 */
+	major VARCHAR2(30) , /* 전공 */
 	profile_img VARCHAR2(20), /* 프로필사진 */
 	profile VARCHAR2(200) /* 프로필 */
 );
