@@ -9,23 +9,26 @@ import org.springframework.web.bind.annotation.RestController;
 
 import thelecture.dao.LectureDaoImpl;
 import thelecture.model.LectureBean;
+import thelecture.model.ReplyBean;
 
 
 
-//
+/**
+ * SPA ajax를 다루는 controller
+ * 
+ */
 @RestController
 public class SPAcontroller {
 	@Autowired
 	LectureDaoImpl lecturedao;
 	
-//	@RequestMapping("/majorList/{major}")
-//	public List<LectureBean> majorList(){
+//	@RequestMapping("reply.do")
+//	public List<ReplyBean> reply(){
 //		
-//		ArrayList<LectureBean> majorList =
-//				(ArrayList<LectureBean>) lecturedao.getLectureList(page_index)() ;
+//		List<ReplyBean> replies = new ArrayList<>();
 //		
-//		return majorList;
-//		
+//		return replies;
 //	}
+	
 	
 }

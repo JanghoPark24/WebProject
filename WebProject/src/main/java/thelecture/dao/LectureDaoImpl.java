@@ -3,6 +3,7 @@ package thelecture.dao;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,19 @@ public class LectureDaoImpl {
 	public int getRowCount() {
 		try {
 			return sqlSession.selectOne("lectureMap.getRowCount");
+		}catch(Exception e){
+			e.printStackTrace();
+			return 0;
+		}
+	}
+	@Transactional
+	public int getSearchRowCount(String keyword, String search) {
+		try {
+			Map<String, String> keyword_search = new HashMap<>();
+			keyword_search.put("keyword",keyword);
+			keyword_search.put("search",search);
+			
+			return sqlSession.selectOne("lectureMap.getSearchRowCount",keyword_search);
 		}catch(Exception e){
 			e.printStackTrace();
 			return 0;
