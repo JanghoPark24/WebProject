@@ -64,7 +64,6 @@ public class MemberServiceImpl {
 	 * @return DB에 해당column에 해당value가 있으면 1을 리턴한다. 그렇지 않으면 0을 리턴한다
 	 */
 	public boolean isDuplication(String column, String value, boolean caseSensitive) throws Exception {
-		System.out.println("[DUP]" + column + " : " + value);
 		return memberDao.isDuplication(column, (caseSensitive) ? value : value.toLowerCase());
 	}
 
