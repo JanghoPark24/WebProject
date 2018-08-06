@@ -52,8 +52,8 @@ table, th, td {
   <article align="center">
   <p id="status"></p>
   <div class="filebox">
-  <label for="ex_file">프로필 수정</label>
-  <input type="file" id="ex_file">
+  <label for="profileImg">프로필 수정</label>
+  <input type="file" id="profileImg">
 </div>
   <div id="holder"></div> 
    </article> 
@@ -85,7 +85,39 @@ table, th, td {
  </form>      
 </table>            
 
-<script src="profile.js"> </script>
+<script> 
+var upload = document.getElementsByTagName('input')[0],
+holder = document.getElementById('holder'),
+state = document.getElementById('status');
+
+if (typeof window.FileReader === 'undefined') {
+state.className = 'fail';
+} else {
+state.className = 'success';
+state.innerHTML = '';
+}
+
+upload.onchange = function (e) {
+e.preventDefault();
+
+var file = upload.files[0],
+  reader = new FileReader();
+reader.onload = function (event) {
+var img = new Image();
+img.src = event.target.result;
+// note: no onload required since we've got the dataurl...I think! :)
+if (img.width < 100000) { // holder width
+  img.width = 95;
+  img.height = 195;
+}
+holder.innerHTML = '';
+holder.appendChild(img);
+};
+reader.readAsDataURL(file);
+
+return false;
+};
+</script>
 
 </body>
 </html>

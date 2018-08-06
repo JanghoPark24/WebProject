@@ -129,7 +129,7 @@ public class MemberController {
 
 	}
 
-	// 마이 페이지
+	// 유저 페이지
 	@RequestMapping("user_profile.do")
 	public String user1() {
 		return "user_profile";
