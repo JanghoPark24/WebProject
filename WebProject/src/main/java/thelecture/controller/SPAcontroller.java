@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import thelecture.dao.LectureDaoImpl;
 import thelecture.model.LectureBean;
 import thelecture.model.ReplyBean;
+import thelecture.service.BoardService;
 
 
 
@@ -20,7 +21,11 @@ import thelecture.model.ReplyBean;
 @RestController
 public class SPAcontroller {
 	@Autowired
+	BoardService boardService;
+	
+	@Autowired
 	LectureDaoImpl lecturedao;
+	
 	
 //	@RequestMapping("reply.do")
 //	public List<ReplyBean> reply(){
@@ -30,5 +35,11 @@ public class SPAcontroller {
 //		return replies;
 //	}
 	
+	@RequestMapping("selectQuetionnaire.do")
+	public List<String> selectQuestionnaire( String questionVersion){
+		List<String> questionnaire=boardService.getQuestionnaire(questionVersion);
+		
+		return questionnaire;
+	}
 	
 }

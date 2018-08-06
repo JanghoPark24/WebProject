@@ -2,6 +2,7 @@ package thelecture.dao;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -73,6 +74,28 @@ public class LectureDaoImpl {
 			e.printStackTrace();
 			return null;
 		}
+	}
+
+	public List<String> getQuestionnaire(String questionVersion) {
+		try {
+				
+			return sqlSession.selectList("lectureMap.getQuestionnaire",questionVersion);
+			
+		}catch(Exception e){
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	public List<String> getQuestionVersions() {
+		try {
+			
+			return sqlSession.selectList("lectureMap.getQuestionVersions");
+				
+			}catch(Exception e){
+				e.printStackTrace();
+				return null;
+			}
 	}
 	
 	

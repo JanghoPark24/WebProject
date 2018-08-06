@@ -68,5 +68,17 @@ public class BoardService {
 		return null;
 	}
 	
+	@Transactional
+	public List<String> getQuestionVersions() {
+		
+		return lecturedao.getQuestionVersions();
+	}
+	
+	@Transactional
+	public List<String> getQuestionnaire(String questionVersion) {
+		
+		return lecturedao.getQuestionnaire(questionVersion);
+	}
+	
 
 }

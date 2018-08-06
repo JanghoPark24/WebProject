@@ -59,7 +59,16 @@
 		select * from lecture where lecture_id=#{lecture_id}
 	</select>
 	
-	<select id="get"></select>
+	<select id="getQuestionVersions" resultType="String">
+		select question_version from question group by question_version
+	</select>
+	
+	
+	<select id="getQuestionnaire" parameterType="String" resultType="String">
+		select question_content from question 
+        where question_version= #{question_version,jdbcType=VARCHAR}
+        order by question_id 
+	</select>
 	
 
 

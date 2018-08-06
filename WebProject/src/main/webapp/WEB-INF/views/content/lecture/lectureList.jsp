@@ -17,7 +17,7 @@
    <link rel="stylesheet" href="${contextPath}/css/rating/rateit.css">
    <link rel="stylesheet" href="${contextPath}/css/review.css">
    <script src="${contextPath}/js/rating/jquery.rateit.js"></script>
-    <script src="${contextPath}/js/review.js" charset="utf-8"></script>
+   <script src="${contextPath}/js/review.js" charset="utf-8"></script>
    
 
 	<body>

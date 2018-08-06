@@ -122,11 +122,17 @@ public class LecturesController {
 	}
 	
 	@RequestMapping(value="insertLectureView.do")
-	public String insert_lecture_view(HttpSession session) {
+	public String insert_lecture_view(HttpSession session,Model model) {
 		
 		if(!session.getAttribute("grade").equals("master")) return "isNotMaster//e";
 		
-		else return "content/lecture/insert_lecture_view";
+		List<String> questionVersions = boardService.getQuestionVersions();
+		
+		
+		model.addAttribute("questionVersions",questionVersions);
+		
+		
+		return "content/lecture/insert_lecture_view";
 	}
 	@RequestMapping(value="insertLecture.do")
 	public String insert_lecture(String id) {
