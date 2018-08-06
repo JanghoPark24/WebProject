@@ -73,30 +73,25 @@ public class LecturesController {
 	 * @author Jonghyeok
 	 * */
 	@RequestMapping(value = "/lectureList.do")
-	public String lectureList( HttpSession session, Model model,Integer currentPage, String search, String keyword) {
+	public String lectureList( HttpSession session, Model model,PageBean pagebean) {
 		
 		
 		//현재 페이지 불러오기
-		if(currentPage ==null) currentPage=1;
+		Integer currentPage = pagebean.getCurrentPage();
 		
-		System.out.println(search);
-		System.out.println(keyword);
+		if (currentPage==0) currentPage =1;
 		
 		HashMap<String, Object> boardInfo=null;
 		
 		//get List Info -search가 있으면 
 		
-		boardInfo = boardService.getLectureBoard(currentPage, search, keyword);
+		boardInfo = boardService.getLectureBoard(currentPage, pagebean);
 		
-		//다음으로 전하기
+		//보드 정보 다음으로 전하기
 		model.addAllAttributes(boardInfo); // page_index, lectureList 전달
 		
-		//grade가 master면 마스터 모드 아니면 일반 모드
-		String grade = (String)session.getAttribute("grade");
 
-		return grade!=null && grade.equals("master")? 
-				"content/lecture/lecture_master":
-				"content/lecture/lectureList";
+		return "content/lecture/lectureList";
 		
 	}
 	
