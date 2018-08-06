@@ -62,13 +62,15 @@ public class LecturesController {
 	}
 	
 	
-	/*
-	 * lectureList정보 불러오기 : 
-	 * 일반 :
-	 *  1., 페이징 기능, detail로 들어가는 기능
-	 * 	2.검색기능	 
-	 *  master일시 : master로 감
-	 * 
+	/**
+	 *  
+	 * 하는 일 :
+	 *  1.lectureList정보 불러오기 (1) 페이징 기능, 리스트 정보
+	 *  2.detail로 들어가는 기능
+	 * 	3.검색기능	 
+	 * @param 설명 : session, view로 정보를 전하는 model, 현재 페이지,  검색어, 검색키워드
+	 * @return session의 grade가 master면 lecture_master경로, 아니면 lectureList경로 리턴
+	 * @author Jonghyeok
 	 * */
 	@RequestMapping(value = "/lectureList.do")
 	public String lectureList( HttpSession session, Model model,Integer currentPage, String search, String keyword) {
@@ -99,14 +101,18 @@ public class LecturesController {
 	}
 	
 	
-	
-	
+	/**
+	 * review detail정보 불러오기 :
+	 *  1. id에 따라 게시판 정보 불러옴.
+	 * @param 설명
+	 * @return 
+	 * */
 	@RequestMapping(value = "review.do", method = RequestMethod.GET)
 
-	public String review(int lecture_id, HttpSession session, HttpServletRequest request,Model model){
+	public String review(String lecture_id, HttpSession session,Model model){
 		
 		//password가 맞으면
-		boardService.getReviewDetail(lecture_id);
+		boardService.getReviewDetail(Integer.parseInt(lecture_id));
 		model.addAttribute("checked",true);
 		
 		return "lecture/review/d";

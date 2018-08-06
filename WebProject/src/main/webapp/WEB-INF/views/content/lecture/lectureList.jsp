@@ -164,7 +164,7 @@
 					</c:if>
 					<tr >
 						<td colspan="100%" style="text-align:right;">
-							${page_index.endRow-page_index.startRow+1} 개의 결과가 검색 되었습니다.
+							${page_index.countOfRow} 개의 결과가 검색 되었습니다.
 						</td>
 						
 						

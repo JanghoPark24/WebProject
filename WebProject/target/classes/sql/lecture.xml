@@ -4,22 +4,31 @@
 <mapper namespace="lectureMap">
 
 
-	<select id="getRowCount" parameterType="pageIndex" resultType="int">
+	<select id="getRowCount" resultType="int">
 		select count(*) from lecture
-		
 	</select>
-	<!-- <select id="getSearchRowCount" parameterType="pageIndex" resultType="int">
+	<select id="getSearchRowCount" parameterType="java.util.Map" resultType="int">
 		select count(*) from lecture
 		<where>
-			<if test="keyword != null and search !='subcon'">
-				${search} like '%'||#{keyword}||'%'
+			<!--keyword null아니지만 , search는 null-->
+			<if test="keyword != null and search ==''">
+				lecture_id = -1
 			</if>
-			<if test="keyword != null and search=='subcon'">
-				subject like '%'||#{keyword}||'%' or
-				content like '%'||#{keyword}||'%'
+			keyword가 대학
+			<if test="keyword == 'univ' and search !=null">
+				lecture_id in
+				(select lecture_id from lecture where univ_name like '%${search}%')
 			</if>
-		</where>
-	</select> -->
+			keyword가 all일 경우
+			<if test="keyword == 'all' and search !=null">
+				lecture_id in
+				(select lecture_id from lecture_search 
+				where char_info like '%${search}%')
+			</if>
+		</where>	
+		
+	</select>
+	
 	<!-- <select id="getLectureList" parameterType="java.util.HashMap" resultType="lectureResult"> -->
 	<select id="getLectureList" parameterType="pageIndex" resultType="lectureResult">
 		select * from (select a.*,rowNum rnum from (

@@ -9,6 +9,8 @@
 		<typeAlias alias="univ" type="thelecture.model.UnivBean" />		
 	 	<typeAlias alias="lectureResult" type="thelecture.model.LectureBean" />		
 	 	<typeAlias alias="pageIndex" type="thelecture.model.PageBean" />		
+	 	<typeAlias alias="hashMap" type="java.util.HashMap" />		
+	 	
 		<!-- <typeAlias alias="replies" type="thelecture.model.ReplyBean" />		 -->
 	</typeAliases>
 
