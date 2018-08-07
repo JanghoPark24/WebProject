@@ -29,7 +29,8 @@
 	}
 }
 </style>
-<!-- 개인(김준) css-->
+
+
 
 <title>The Lecture :: 대학 강의 길라잡이</title>
 </head>

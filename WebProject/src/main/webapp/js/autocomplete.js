@@ -5,12 +5,20 @@ $(function() {
 				"Perl", "PHP", "Python", "Ruby", "Scala", "Scheme" ];
 		$("#search").autocomplete({
 			source : availableTags
+	
+		
+		
+		
 		});
 	});
+
+
+
 
 function( request, response ){$.ajax({
 	url: 'autocomplete.do',
 	dataType:"json",
 	success:function (data){
+		response
 	}
 })}
