@@ -13,9 +13,10 @@ public class PageBean {
 	private int startRow;
 	private int endRow;
 	private int indexPerBlk = 10; // 블록당 인덱스 개수
-	private int rowPerPage; //페이지마다 row
+	private int rowPerPage=10; //페이지마다 row
 	private int countOfRow; // 전체 row 개수
 	private int totalPage;  // 전체 페이지
+	
 	
 	//검색
 	private String search;
@@ -28,9 +29,8 @@ public class PageBean {
 	public PageBean() {
 		
 	}
-	public PageBean(int currentPage ,int rowPerPage, int countOfRow) {
+	public void setPage_andRow(int currentPage, int countOfRow) {
 		
-		this.rowPerPage = rowPerPage;
 		this.currentPage = currentPage;
 		this.countOfRow = countOfRow;
 		//row정의
@@ -40,8 +40,16 @@ public class PageBean {
 		//현재 페이지 마지막 줄
 		endRow = startRow+rowPerPage-1;
 		if(endRow>countOfRow) endRow =countOfRow;
-		adjustEndRow_Page_andIndex();
+		
+		//index 정의
+		totalPage = (int) Math.ceil((double) countOfRow / rowPerPage);
+		firstIndex = currentPage - (currentPage - 1) % rowPerPage;	// 1,  11, 21...
+		lastIndex = firstIndex + indexPerBlk - 1;	// 10, 20, 30...
+		
+		if (lastIndex > totalPage)
+			lastIndex = totalPage;
 	}
+	
 	
 	public int getStartRow() {
 		return startRow;
@@ -127,17 +135,6 @@ public class PageBean {
 		this.lastIndex = lastIndex;
 	}
 	
-	public void adjustEndRow_Page_andIndex() {
-		
-		
-		//index 정의
-		totalPage = (int) Math.ceil((double) countOfRow / rowPerPage);
-		firstIndex = currentPage - (currentPage - 1) % rowPerPage;	// 1,  11, 21...
-		lastIndex = firstIndex + indexPerBlk - 1;	// 10, 20, 30...
-		
-		if (lastIndex > totalPage)
-			lastIndex = totalPage;
-	}
 }
 	
 	
