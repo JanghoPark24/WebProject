@@ -13,6 +13,7 @@ import thelecture.dao.LectureDaoImpl;
 
 import thelecture.model.LectureBean;
 import thelecture.model.PageBean;
+import thelecture.model.QuestionBean;
 import thelecture.model.ReplyBean;
 
 @Service
@@ -75,7 +76,7 @@ public class BoardService {
 	}
 	
 	@Transactional
-	public List<String> getQuestionnaire(String questionVersion) {
+	public List<QuestionBean> getQuestionnaire(String questionVersion) {
 		
 		return lecturedao.getQuestionnaire(questionVersion);
 	}

@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import thelecture.model.LectureBean;
 import thelecture.model.PageBean;
+import thelecture.model.QuestionBean;
 import thelecture.model.ReplyBean;
 
 @Repository
@@ -76,7 +77,7 @@ public class LectureDaoImpl {
 		}
 	}
 
-	public List<String> getQuestionnaire(String questionVersion) {
+	public List<QuestionBean> getQuestionnaire(String questionVersion) {
 		try {
 				
 			return sqlSession.selectList("lectureMap.getQuestionnaire",questionVersion);

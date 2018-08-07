@@ -64,8 +64,8 @@
 	</select>
 	
 	
-	<select id="getQuestionnaire" parameterType="String" resultType="String">
-		select question_content from question 
+	<select id="getQuestionnaire" parameterType="String" resultType="question">
+		select * from question 
         where question_version= #{question_version,jdbcType=VARCHAR}
         order by question_id 
 	</select>

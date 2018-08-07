@@ -11,6 +11,7 @@
 	 	<typeAlias alias="page_index" type="thelecture.model.PageBean" />		
 	 	<typeAlias alias="hashMap" type="java.util.HashMap" />		
 	 	<typeAlias alias="List" type="java.util.List" />	
+	 	<typeAlias alias="question" type="thelecture.model.QuestionBean" />	
 		<!-- <typeAlias alias="replies" type="thelecture.model.ReplyBean" />		 -->
 	</typeAliases>
 

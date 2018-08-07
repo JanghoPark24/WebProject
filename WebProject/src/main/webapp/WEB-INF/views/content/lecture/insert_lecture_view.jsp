@@ -29,113 +29,26 @@
     		float:left;
     		width:80px;
     	}
+    	
+    	#questions{
+    		margin:0 auto;
+    		border:1px solid gray;
+    	}
+    	#question_button > button{
+    		
+    	}
+    	#questionnaire > * {
+    		float:right;
+    	}
     </style>
     <script>
    
-    /*An array containing all the country names in the world:*/
-    var countries = ["Afghanistan","Albania","Algeria","Andorra","Angola","Anguilla","Antigua & Barbuda","Argentina","Armenia","Aruba","Australia","Austria","Azerbaijan","Bahamas","Bahrain","Bangladesh","Barbados","Belarus","Belgium","Belize","Benin","Bermuda","Bhutan","Bolivia","Bosnia & Herzegovina","Botswana","Brazil","British Virgin Islands","Brunei","Bulgaria","Burkina Faso","Burundi","Cambodia","Cameroon","Canada","Cape Verde","Cayman Islands","Central Arfrican Republic","Chad","Chile","China","Colombia","Congo","Cook Islands","Costa Rica","Cote D Ivoire","Croatia","Cuba","Curacao","Cyprus","Czech Republic","Denmark","Djibouti","Dominica","Dominican Republic","Ecuador","Egypt","El Salvador","Equatorial Guinea","Eritrea","Estonia","Ethiopia","Falkland Islands","Faroe Islands","Fiji","Finland","France","French Polynesia","French West Indies","Gabon","Gambia","Georgia","Germany","Ghana","Gibraltar","Greece","Greenland","Grenada","Guam","Guatemala","Guernsey","Guinea","Guinea Bissau","Guyana","Haiti","Honduras","Hong Kong","Hungary","Iceland","India","Indonesia","Iran","Iraq","Ireland","Isle of Man","Israel","Italy","Jamaica","Japan","Jersey","Jordan","Kazakhstan","Kenya","Kiribati","Kosovo","Kuwait","Kyrgyzstan","Laos","Latvia","Lebanon","Lesotho","Liberia","Libya","Liechtenstein","Lithuania","Luxembourg","Macau","Macedonia","Madagascar","Malawi","Malaysia","Maldives","Mali","Malta","Marshall Islands","Mauritania","Mauritius","Mexico","Micronesia","Moldova","Monaco","Mongolia","Montenegro","Montserrat","Morocco","Mozambique","Myanmar","Namibia","Nauro","Nepal","Netherlands","Netherlands Antilles","New Caledonia","New Zealand","Nicaragua","Niger","Nigeria","North Korea","Norway","Oman","Pakistan","Palau","Palestine","Panama","Papua New Guinea","Paraguay","Peru","Philippines","Poland","Portugal","Puerto Rico","Qatar","Reunion","Romania","Russia","Rwanda","Saint Pierre & Miquelon","Samoa","San Marino","Sao Tome and Principe","Saudi Arabia","Senegal","Serbia","Seychelles","Sierra Leone","Singapore","Slovakia","Slovenia","Solomon Islands","Somalia","South Africa","South Korea","South Sudan","Spain","Sri Lanka","St Kitts & Nevis","St Lucia","St Vincent","Sudan","Suriname","Swaziland","Sweden","Switzerland","Syria","Taiwan","Tajikistan","Tanzania","Thailand","Timor L'Este","Togo","Tonga","Trinidad & Tobago","Tunisia","Turkey","Turkmenistan","Turks & Caicos","Tuvalu","Uganda","Ukraine","United Arab Emirates","United Kingdom","United States of America","Uruguay","Uzbekistan","Vanuatu","Vatican City","Venezuela","Vietnam","Virgin Islands (US)","Yemen","Zambia","Zimbabwe"];
     
     /*initiate the autocomplete function on the "myInput" element, and pass along the countries array as possible autocomplete values:*/
     function autocomplete(arr){
-    	arrVal =document.getElementById(this).value
-    	autocomplete(arrVal,country);
+    	
     }
-    function autocomplete(inp, arr) {
-      /*the autocomplete function takes two arguments,
-      the text field element and an array of possible autocompleted values:*/
-      var currentFocus;
-      /*execute a function when someone writes in the text field:*/
-      inp.addEventListener("input", function(e) {
-          var a, b, i, val = this.value;
-          /*close any already open lists of autocompleted values*/
-          closeAllLists();
-          if (!val) { return false;}
-          currentFocus = -1;
-          /*create a DIV element that will contain the items (values):*/
-          a = document.createElement("DIV");
-          a.setAttribute("id", this.id + "autocomplete-list");
-          a.setAttribute("class", "autocomplete-items");
-          /*append the DIV element as a child of the autocomplete container:*/
-          this.parentNode.appendChild(a);
-          /*for each item in the array...*/
-          for (i = 0; i < arr.length; i++) {
-            /*check if the item starts with the same letters as the text field value:*/
-            if (arr[i].substr(0, val.length).toUpperCase() == val.toUpperCase()) {
-              /*create a DIV element for each matching element:*/
-              b = document.createElement("DIV");
-              /*make the matching letters bold:*/
-              b.innerHTML = "<strong>" + arr[i].substr(0, val.length) + "</strong>";
-              b.innerHTML += arr[i].substr(val.length);
-              /*insert a input field that will hold the current array item's value:*/
-              b.innerHTML += "<input type='hidden' value='" + arr[i] + "'>";
-              /*execute a function when someone clicks on the item value (DIV element):*/
-              b.addEventListener("click", function(e) {
-                  /*insert the value for the autocomplete text field:*/
-                  inp.value = this.getElementsByTagName("input")[0].value;
-                  /*close the list of autocompleted values,
-                  (or any other open lists of autocompleted values:*/
-                  closeAllLists();
-              });
-              a.appendChild(b);
-            }
-          }
-      });
-      /*execute a function presses a key on the keyboard:*/
-      inp.addEventListener("keydown", function(e) {
-          var x = document.getElementById(this.id + "autocomplete-list");
-          if (x) x = x.getElementsByTagName("div");
-          if (e.keyCode == 40) {
-            /*If the arrow DOWN key is pressed,
-            increase the currentFocus variable:*/
-            currentFocus++;
-            /*and and make the current item more visible:*/
-            addActive(x);
-          } else if (e.keyCode == 38) { //up
-            /*If the arrow UP key is pressed,
-            decrease the currentFocus variable:*/
-            currentFocus--;
-            /*and and make the current item more visible:*/
-            addActive(x);
-          } else if (e.keyCode == 13) {
-            /*If the ENTER key is pressed, prevent the form from being submitted,*/
-            e.preventDefault();
-            if (currentFocus > -1) {
-              /*and simulate a click on the "active" item:*/
-              if (x) x[currentFocus].click();
-            }
-          }
-      });
-      function addActive(x) {
-        /*a function to classify an item as "active":*/
-        if (!x) return false;
-        /*start by removing the "active" class on all items:*/
-        removeActive(x);
-        if (currentFocus >= x.length) currentFocus = 0;
-        if (currentFocus < 0) currentFocus = (x.length - 1);
-        /*add class "autocomplete-active":*/
-        x[currentFocus].classList.add("autocomplete-active");
-      }
-      function removeActive(x) {
-        /*a function to remove the "active" class from all autocomplete items:*/
-        for (var i = 0; i < x.length; i++) {
-          x[i].classList.remove("autocomplete-active");
-        }
-      }
-      function closeAllLists(elmnt) {
-        /*close all autocomplete lists in the document,
-        except the one passed as an argument:*/
-        var x = document.getElementsByClassName("autocomplete-items");
-        for (var i = 0; i < x.length; i++) {
-          if (elmnt != x[i] && elmnt != inp) {
-            x[i].parentNode.removeChild(x[i]);
-          }
-        }
-      }
-      /*execute a function when someone clicks in the document:*/
-      document.addEventListener("click", function (e) {
-          closeAllLists(e.target);
-          });
-    }
+    
 
   
    
@@ -145,36 +58,55 @@
 	<!-- 질문 불러오기  -->
 	<script>
 	$(function(){	
+		
+		//질문지 선택
 		function searchFunction(){
 			var selectedVersion = $('#qSelect > option:selected').val();
 			if(selectedVersion=='질문지를 선택하세요'){
 				selectedVersion='';
 			}
-			alert(selectedVersion);
+			
 			selectQuestionnaire(selectedVersion);
 		}
-		
+		/*question에 대한 */
 		function selectQuestionnaire(questionVersion){
 			
-			$.get("selectQuetionnaire.do",questionVersion,function(questions){
-				alert(questions)
-				var output=JSON.parse(questions);
+			$.post("selectQuetionnaire.do",{"questionVersion":questionVersion},function(questions){
+				
+				var questionId="";
+				var output="";
 				
 				$.each(questions,function(index,item){
-					output +="<div>"+"<p>"+index+"번</p>"+item+"</div>";
+					questionId += "<input type='hidden' value=\'"+item.question_id+"\' />"
+					output +="<div>"+"<p>"+(index+1)+"번</p>"+item.question_content+"</div>";
 				})
-				
-				$("#questions").html(output);
+				$("#questions").html(questionId+output);
 			})
-				
-			
 		}
-		$("#qSelect > option").on("click",function(){
-			$(this).attr("selected","selected");
-		})
+		
+		//질문지 추가하기
+		function addQuestion(){
+			
+			//질문 개수
+			var nextElement = $( ".questions > .question" ).length+1;
+			//질문 최대 개수
+			if(nextElement<11){
+				$("#makeQuestion_body > .questions")
+					.append("<div class=\'question\'>"+nextElement+"번: "+
+							"<input type=\'text\' name=\'"+nextElement+"\' value=\'\' placeholder=\'질문"+nextElement+"\'/></div>")
+			}
+		}
+		
 		$("#qSelect").on("change",function(){
 			searchFunction();
 		})
+		
+		
+		$("#addQuestion").on("click",function(){
+			addQuestion();
+		})
+		
+		
 		
 	})
 		
@@ -224,9 +156,10 @@
                 </div>
                 
                 
-				<div id='questionnaire'>
+				<div id='questionnaire' >
 					
 					<p>질문지 선택</p>
+					<div>
 					<select id="qSelect"onChange="searchFunction()">
 					  <option>질문지를 선택하세요</option>
 					  <c:if test="${not empty questionVersions }">
@@ -238,12 +171,44 @@
 					<div id='questions'>
 						
 					</div>
+					</div>
 					<div>				
-						<a>질문지 추가하기</a>
+						<a data-toggle="modal" data-target="#questionModal">질문지 추가하기</a>
 					</div>
 				</div>                
-             	
-            </div>
+             	<!-- 질문지 추가 Modal -->
+				  <div class="modal fade" id="questionModal" role="dialog">
+				    <div class="modal-dialog">
+				    
+				      <!-- Modal content-->
+				      <div class="modal-content">
+				        <div class="modal-header">
+				          <button type="button" class="close" data-dismiss="modal">&times;</button>
+				          <h4 class="modal-title">질문지 추가하기</h4>
+				        </div>
+				        <div id="makeQuestion_body" class="modal-body">
+				          <div id="questionTitle">
+				          	<h4>질문 제목: </h4><input type="text" name="m" placeholder="질문지 제목"/>
+				          </div>
+				          
+				          <div class="questions">
+					          <div class="question">1번: <input type="text" name="1" value="" placeholder="질문1"/></div>
+					          <div class="question">2번: <input type="text" name="2" value="" placeholder="질문2"/></div>
+					          <div class="question">3번: <input type="text" name="3" value="" placeholder="질문3"/></div>
+					          <div class="question">4번: <input type="text" name="4" value="" placeholder="질문4"/></div>
+				          </div>
+				          <div id="question_button" >
+				            <button id="addQuestion" class="btn btn-default">질문추가</button>
+				          </div>	
+				        </div>
+				        <div class="modal-footer">
+				          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				        </div>
+				      </div>
+				      
+				    </div>
+				  </div>
+			 </div>
             
   
     <script>
