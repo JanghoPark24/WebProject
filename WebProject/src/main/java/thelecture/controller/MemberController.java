@@ -168,13 +168,13 @@ public class MemberController {
 	}
 
 	// 회원정보 수정
-/*	@RequestMapping("update.do")
+	@RequestMapping("update.do")
 	public String update(@ModelAttribute MemberBean mb, HttpSession session) throws Exception {
 		int result = memberService.member_update(mb);
 		System.out.println("result:" + result);
 		session.setAttribute("nickname", mb.getNickname());
 		return "redirect:home.do";
-	}*/
+	}
 // 파일 업로드
 	@RequestMapping("fileupload.do")
 	public String fileupload(@ModelAttribute MemberBean mb,
@@ -205,8 +205,8 @@ public class MemberController {
        memberService.member_update(mb);
 	  
        session.setAttribute("myprofile", mb);
-       session.setAttribute("nickname", mb.getNickname());
-       
+      /* session.setAttribute("nickname", mb.getNickname());
+       */
  	   return "redirect:my_profile.do";
 	}
 }

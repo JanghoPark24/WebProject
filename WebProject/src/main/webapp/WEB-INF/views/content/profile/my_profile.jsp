@@ -12,7 +12,7 @@
  $(function (){
 	 $("#btnUpdate").click(function(){
 		 alert(" 회원 정보가 변경 되었습니다.");
-		 document.form1.action = "fileupload.do";
+		 document.form1.action = "update.do";
 		 
 		 document.form1.submit();
 		 
@@ -31,6 +31,7 @@ border-bottom-color: #e2e2e2; border-radius: .25em; }
  margin: -1px; overflow: hidden; clip:rect(0,0,0,0); border: 0; }
 
 
+
 table, th, td {
     border: 1px solid black;
     border-collapse: collapse;
@@ -44,7 +45,7 @@ table, th, td {
 <body>
 
 <table border=1 align=center width=50 class="table">
-<form method="post" name="form1"  enctype="multipart/form-data">
+<form method="post" name="form1" action="fileupload.do" enctype="multipart/form-data">
       <h2 align="center" >내 프로필</h2>
   <tr class="info">
   <td rowspan="5">
@@ -60,8 +61,8 @@ table, th, td {
   	<img src="<%=request.getContextPath()%>/images/${dto.profile_img}"  width=200 height="300">
   </c:if>
   <input type="file" id="profileImg" name="profileImg">
-<!--   <input type="submit" name="업로드" value="변경">
- -->
+  <input type="submit" name="업로드" value="이미지변경">
+
 <!-- </div> -->
   <div id="holder"></div> 
    </article> 
