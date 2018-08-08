@@ -9,7 +9,6 @@
 
 <style>
 
-/* Add a dark background color to the footer */
 
 table, th, td {
     border: 1px solid black;

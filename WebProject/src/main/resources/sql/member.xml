@@ -54,7 +54,7 @@
 
 	
   
-     <!-- 회원정보수정! -->
+     <!-- 회원정보수정 -->
      <update id="member_update" parameterType="member">
 		update 
 		member
