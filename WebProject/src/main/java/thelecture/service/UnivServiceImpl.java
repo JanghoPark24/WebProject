@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import thelecture.dao.UnivDaoImpl;
-import thelecture.model.UnivBean;
 
 @Service
 @Transactional
@@ -21,8 +20,8 @@ public class UnivServiceImpl {
 	 * 
 	 * @return
 	 */
-	public List<UnivBean> univ_list() {
-		return univDao.univ_list();
+	public List<String> getUniv_list() {
+		return univDao.getUniv_list();
 	}
 
 }

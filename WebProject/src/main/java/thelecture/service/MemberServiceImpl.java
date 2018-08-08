@@ -91,7 +91,7 @@ public class MemberServiceImpl {
 		String domain = st.nextToken().trim().toLowerCase();
 		String univ_name = find_domain(domain);
 
-		if (!(dupemail || dupnickname)// DB(member)안에 중복 이메일, 중복 닉네임이 없으면,
+		if (!dupemail && !dupnickname// DB(member)안에 중복 이메일, 중복 닉네임이 없으면,
 				&& (!univ_name.equals("")) /* DB(univ)안에 도메인이 있으면, */ ) {
 
 			// 서버 아이피
@@ -104,7 +104,7 @@ public class MemberServiceImpl {
 			do {
 				reg_key = keyGenerator.getKey(20, false);
 				dupkey = isDuplication("reg_key", reg_key, true);
-			} while (!dupkey);// 인증키 충돌할경우 다시 생성한다.
+			} while (dupkey);// 인증키 충돌할경우 다시 생성한다.
 
 			// 이메일 전송
 			MailHandler sendMail = new MailHandler(mailSender);
@@ -234,6 +234,7 @@ public class MemberServiceImpl {
 		if (mb != null) {// member테이블에 email이 존재함
 			if (hashed_text.equals(mb.getPassword())) {// 비밀번호해쉬값이 일치함
 				session.setAttribute("email", email);
+				session.setAttribute("univ_name", mb.getUniv_name());
 				session.setAttribute("nickname", mb.getNickname());
 				String grade = mb.getGrade();
 				ModelAndView loginM;
