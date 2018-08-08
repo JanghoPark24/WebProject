@@ -17,7 +17,7 @@
    <link rel="stylesheet" href="${contextPath}/css/rating/rateit.css">
    <link rel="stylesheet" href="${contextPath}/css/review.css">
    <script src="${contextPath}/js/rating/jquery.rateit.js"></script>
-    <script src="${contextPath}/js/review.js" charset="utf-8"></script>
+   <script src="${contextPath}/js/review.js" charset="utf-8"></script>
    
 
 	<body>
@@ -31,17 +31,18 @@
 			<div class="container text-center">
 				<!-- 검색 -->    
 			    <form class="form-group" action="lectureList.do" style="text-align: center;">
-				
+				<input type="hidden" name="currentPage" value="1"> 
 				
 				<table class="searchform" style="margin: auto;">
 					<tr>
 						<td>
-						<select name="keyword" class="form-control" style="height: 34px; width:80 em">
-							<option value="all">전체</option>
-							<option value="univ">대학</option>
+						
+						<select name="keyword" class="form-control" style="height: 34px; width:80 em" >
+							<option value="all" <c:if test="${page_index.keyword=='all' }">selected</c:if>>전체</option>
+							<option value="univ" <c:if test="${page_index.keyword=='univ' }">selected</c:if>>대학</option>
 						</select></td>
 						<td><input type="text" class="form-control" placeholder="강의검색"
-							id="search" name="search" size="90%" style="height: 34px;"></td>
+							id="search" name="search" size="90%" style="height: 34px;" value="${page_index.search}"></td>
 						<td>
 							<button class="btn btn-default" type="submit"
 								style="height: 34px;">
@@ -173,7 +174,14 @@
 			
 			    </table>
 			</div>
-			        
+			<!-- master일 경우에만 보여줌 -->
+			<c:if test="${sessionScope.grade=='master' }">
+			<div id="buttons_for_write">
+				<a href="insertLectureView.do">
+            		<button type="button" class="btn btn-primary">강의 입력</button>
+            	</a>
+			</div>  
+			</c:if>
 			<div class="container text-center">
 				
 				

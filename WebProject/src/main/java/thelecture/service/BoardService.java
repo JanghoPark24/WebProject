@@ -10,9 +10,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import thelecture.dao.LectureDaoImpl;
-import thelecture.info.BoardInfo;
+
 import thelecture.model.LectureBean;
 import thelecture.model.PageBean;
+import thelecture.model.QuestionBean;
 import thelecture.model.ReplyBean;
 
 @Service
@@ -31,42 +32,27 @@ public class BoardService {
 	 * @return 페이지정보, 검색한 값, 알맞은 리스트를 hashmap에 담아서 return
 	 * */
 	@Transactional
-	public HashMap<String, Object> getLectureBoard(int currentPage , String search, String keyword){
+	public HashMap<String, Object> getLectureBoard(int currentPage , PageBean pagebean){
 		
 		HashMap<String, Object> boardInfo = new HashMap<>();
 		
 		//현재 총 행
-		int countOfRow;
-		
-		//keyword,search가 없으면 전체 행
-		if(keyword==null && search==null) countOfRow=lecturedao.getRowCount();
-		//keyword,search가 있으면 검색어를 포함한 행
-		else countOfRow =lecturedao.getSearchRowCount(search,keyword);
+		int countOfRow =lecturedao.getRowCount(pagebean);
 		
 		System.out.println("countOfRow:"+countOfRow);
 		
-		//행이 0개이면 찾을 것 없이 돌려보냄.
-		if(countOfRow==0) return null;	
+		//행이 0이 아니면 list를 찾음 .
+		if(countOfRow!=0) {	
+			//페이지 정보 정하기
+			pagebean.setPage_andRow(currentPage,countOfRow);
 		
-		//페이지 당 줄 개수
-		int rowPerPage = BoardInfo.rowPerPage;
-		
-		//페이지 정보 정하기
-		PageBean page_index = new PageBean(currentPage, rowPerPage,countOfRow);
-		
-		//2.search와 keyword추가
-		page_index.setKeyword(keyword);
-		page_index.setSearch(search);
+			//list구하기
+			List<LectureBean> lectureList= lecturedao.getLectureList(pagebean);
 			
-		
-		//list구하기
-		List<LectureBean> lectureList= lecturedao.getLectureList(page_index);
-		
-		
-		//index 추가
-		boardInfo.put("page_index", page_index);
-		boardInfo.put("lectureList",lectureList);
-		
+			//찾은 lectureList 추가
+			boardInfo.put("lectureList",lectureList);
+		}
+		boardInfo.put("page_index", pagebean);
 		
 		return boardInfo;
 		
@@ -81,6 +67,18 @@ public class BoardService {
 		List<ReplyBean> replyList = lecturedao.getReplyListById(lecture_id);
 		
 		return null;
+	}
+	
+	@Transactional
+	public List<String> getQuestionVersions() {
+		
+		return lecturedao.getQuestionVersions();
+	}
+	
+	@Transactional
+	public List<QuestionBean> getQuestionnaire(String questionVersion) {
+		
+		return lecturedao.getQuestionnaire(questionVersion);
 	}
 	
 

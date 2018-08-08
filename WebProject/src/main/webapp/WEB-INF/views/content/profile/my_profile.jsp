@@ -12,7 +12,7 @@
  $(function (){
 	 $("#btnUpdate").click(function(){
 		 alert(" 회원 정보가 변경 되었습니다.");
-		 document.form1.action = "update.do";
+		 document.form1.action = "fileupload.do";
 		 
 		 document.form1.submit();
 		 
@@ -45,18 +45,24 @@ table, th, td {
 <body>
 
 <table border=1 align=center width=50 class="table">
-<form method="post" name="form1" action="fileupload.do" enctype="multipart/form-data">
+<form method="post" name="form1"  enctype="multipart/form-data">
       <h2 align="center" >내 프로필</h2>
   <tr class="info">
   <td rowspan="5">
   <article align="center">
   <p id="status"></p>
   <!-- <div class="filebox"> -->
-   <!-- <label for="profileImg">프로필 수정</label> --> 
-  <img src="<%=request.getContextPath()%>/images/${dto.profile_img}"  width=200 height="300">
+   <!-- <label for="profileImg">프로필 수정</label> -->
+   
+   <c:if test="${sessionScope.myprofile != null }">
+   	<img src="<%=request.getContextPath()%>/images/${myprofile.profile_img}"  width=200 height="300">
+   </c:if> 
+   <c:if test="${sessionScope.myprofile == null }">
+  	<img src="<%=request.getContextPath()%>/images/${dto.profile_img}"  width=200 height="300">
+  </c:if>
   <input type="file" id="profileImg" name="profileImg">
-  <input type="submit" name="업로드" value="변경">
-
+<!--   <input type="submit" name="업로드" value="변경">
+ -->
 <!-- </div> -->
   <div id="holder"></div> 
    </article> 

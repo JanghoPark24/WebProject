@@ -2,6 +2,7 @@ package thelecture.dao;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -12,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import thelecture.model.LectureBean;
 import thelecture.model.PageBean;
+import thelecture.model.QuestionBean;
 import thelecture.model.ReplyBean;
 
 @Repository
@@ -20,23 +22,12 @@ public class LectureDaoImpl {
 	@Autowired
 	private SqlSession sqlSession;
 	
+	
 	@Transactional
-	public int getRowCount() {
+	public int getRowCount(PageBean pagebean) {
 		try {
-			return sqlSession.selectOne("lectureMap.getRowCount");
-		}catch(Exception e){
-			e.printStackTrace();
-			return 0;
-		}
-	}
-	@Transactional
-	public int getSearchRowCount(String keyword, String search) {
-		try {
-			Map<String, String> keyword_search = new HashMap<>();
-			keyword_search.put("keyword",keyword);
-			keyword_search.put("search",search);
-			
-			return sqlSession.selectOne("lectureMap.getSearchRowCount",keyword_search);
+			//search, keyword 전달
+			return sqlSession.selectOne("lectureMap.getRowCount",pagebean);
 		}catch(Exception e){
 			e.printStackTrace();
 			return 0;
@@ -84,6 +75,28 @@ public class LectureDaoImpl {
 			e.printStackTrace();
 			return null;
 		}
+	}
+
+	public List<QuestionBean> getQuestionnaire(String questionVersion) {
+		try {
+				
+			return sqlSession.selectList("lectureMap.getQuestionnaire",questionVersion);
+			
+		}catch(Exception e){
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	public List<String> getQuestionVersions() {
+		try {
+			
+			return sqlSession.selectList("lectureMap.getQuestionVersions");
+				
+			}catch(Exception e){
+				e.printStackTrace();
+				return null;
+			}
 	}
 	
 	

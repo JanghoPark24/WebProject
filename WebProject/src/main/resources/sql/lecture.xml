@@ -4,22 +4,20 @@
 <mapper namespace="lectureMap">
 
 
-	<select id="getRowCount" resultType="int">
-		select count(*) from lecture
-	</select>
-	<select id="getSearchRowCount" parameterType="java.util.Map" resultType="int">
+	
+	<select id="getRowCount" parameterType="page_index" resultType="int">
 		select count(*) from lecture
 		<where>
 			<!--keyword null아니지만 , search는 null-->
 			<if test="keyword != null and search ==''">
 				lecture_id = -1
 			</if>
-			keyword가 대학
+			<!-- keyword가 대학 -->
 			<if test="keyword == 'univ' and search !=null">
 				lecture_id in
-				(select lecture_id from lecture where univ_name like '%${search}%')
+				(select lecture_id from lecture where univ_name like '%연세%')
 			</if>
-			keyword가 all일 경우
+			<!-- keyword가 all일 경우 -->
 			<if test="keyword == 'all' and search !=null">
 				lecture_id in
 				(select lecture_id from lecture_search 
@@ -30,7 +28,7 @@
 	</select>
 	
 	<!-- <select id="getLectureList" parameterType="java.util.HashMap" resultType="lectureResult"> -->
-	<select id="getLectureList" parameterType="pageIndex" resultType="lectureResult">
+	<select id="getLectureList" parameterType="page_index" resultType="lectureResult">
 		select * from (select a.*,rowNum rnum from (
 			select * from lecture
 		<where>
@@ -47,7 +45,7 @@
 			<if test="keyword == 'all' and search !=null">
 				lecture_id in
 				(select lecture_id from lecture_search 
-				where char_info like '%${search}%')
+				where char_info like '%'||#{search}||'%')
 			</if>
 		</where>		 
 			 order by lecture_id desc) a )
@@ -61,7 +59,16 @@
 		select * from lecture where lecture_id=#{lecture_id}
 	</select>
 	
-	<select id="get"></select>
+	<select id="getQuestionVersions" resultType="String">
+		select question_version from question group by question_version
+	</select>
+	
+	
+	<select id="getQuestionnaire" parameterType="String" resultType="question">
+		select * from question 
+        where question_version= #{question_version,jdbcType=VARCHAR}
+        order by question_id 
+	</select>
 	
 
 
