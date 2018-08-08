@@ -8,9 +8,18 @@
 		#{content},0,sysdate,'n')
 	</insert>	
 	
-	<select id="read" parameterType="int" resultType="writeDTO">
-		select * from community_board where board_num = #{board_num}
+	<select id="count" resultType="int">
+		select count(*) from community_board 
 	</select>
+	
+	<select id="list" resultType="writeDTO">
+		select * from community_board order by board_num desc
+	</select>
+	
+	
+<!-- 	<select id="read" parameterType="int" resultType="writeDTO">
+		select * from community_board where board_num = #{board_num}
+	</select> -->
 	
 
 	

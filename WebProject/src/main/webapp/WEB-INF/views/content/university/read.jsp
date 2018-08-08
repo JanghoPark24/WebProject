@@ -5,29 +5,33 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>고기 먹기 좋은 날~!</title>
 </head>
 <body>
 
 <table align=center width=500 border=1>
 	<caption>상세 페이지</caption>
 	<tr><td>번호</td>
-		<td>${board.num }</td>
+		<td>${WriteBean.board_num }</td>
 	</tr>
-	<tr><td>작성자</td>
-		<td>${board.name }</td>
+	<tr><td>email</td>
+		<td>${WriteBean.email }</td>
 	</tr>
+	<tr><td>
 	<tr><td>제목</td>
-		<td>${board.subject }</td>
+		<td>${WriteBean.subject }</td>
 	</tr>
 	<tr><td>내용</td>
-		<td><pre>${board.content }</pre></td>
+		<td><pre>${WriteBean.content }</pre></td>
+	</tr>
+	<tr><td>조회수</td>
+		<td><pre>${WriteBean.view_count }</pre></td>
 	</tr>
 	<tr><td colspan=2 align=center>
 		<input type=button value="수정" 
-			   onClick="location.href='updateForm.do?num=${board.num}'">
+			   onClick="location.href='writeUpdateForm.do?board_num=${WriteBean.board_num}'">
 		<input type=button value="삭제" 
-			   onClick="location.href='delete.do?num=${board.num}'">
+			   onClick="location.href='writeDelete.do?board_num=${WriteBean.board_num}'">
 		</td>
 	</tr>
 </table>

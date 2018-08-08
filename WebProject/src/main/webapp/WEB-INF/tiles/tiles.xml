@@ -84,12 +84,16 @@
 		<put-attribute name="body" value="/WEB-INF/views/content/lecture/review.jsp" />
 	</definition>
 	
-	<definition name="write_manager" extends="board_detail">
+	<definition name="write_manager" extends="main_tile">
 		<put-attribute name="body" value="/WEB-INF/views/content/university/write_manager.jsp" />
 	</definition>
 	
-	<definition name="writeAction" extends="board_detail">
+	<definition name="writeAction" extends="main_tile">
 		<put-attribute name="body" value="/WEB-INF/views/content/university/writeAction.jsp" />
+	</definition>
+	
+	<definition name="wlist" extends="main_tile">
+		<put-attribute name="body" value="/WEB-INF/views/content/university/wlist.jsp" />
 	</definition>
 	
 	<definition name="login_form" extends="main_tile">
