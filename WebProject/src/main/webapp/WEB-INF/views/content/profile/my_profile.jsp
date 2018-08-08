@@ -11,7 +11,7 @@
  <script>
  $(function (){
 	 $("#btnUpdate").click(function(){
-		 alert(" 회원 정보가 변경 되었습니다. \n 다시 로그인해주세요.");
+		 alert(" 회원 정보가 변경 되었습니다.");
 		 document.form1.action = "update.do";
 		 
 		 document.form1.submit();

@@ -22,12 +22,11 @@ public class MemberDaoImpl {
 	 * @return DB에 해당column에 해당value가 있으면 1을 리턴한다. 그렇지 않으면 0을 리턴한다
 	 */
 	@Transactional
-	public int isDuplication(String column, String value) throws Exception {
-		System.out.println("memberDAO");
-		int authcode = 0; // 중복이 아니면 0
+	public boolean isDuplication(String column, String value) throws Exception {
+		boolean authcode = false; // 중복이 아니면 0
 		MemberBean mb = (MemberBean) sqlSession.selectOne("isdup_" + column, value);
 		if (mb != null)
-			authcode = 1;
+			authcode = true;
 		return authcode;
 	}
 
@@ -40,24 +39,32 @@ public class MemberDaoImpl {
 	}
 
 	/**
+	 * 회원인증
+	 */
+	@Transactional
+	public String getEmail(String reg_key) throws Exception {
+		return sqlSession.selectOne("getEmail", reg_key);
+	}
+
+	/**
 	 * 회원선택
+	 * 
 	 * @param email
 	 * @return MemberBean
 	 */
 	@Transactional
-	public MemberBean select_member(String email)throws Exception {
-		return sqlSession.selectOne("select_member", email);
+	public MemberBean select_member(String email) throws Exception {
+		return sqlSession.selectOne("select_member", email.toLowerCase());
 	}
 
 	/**
-	 * 이메일 인증
-	 * @param email
+	 * 등급 설정
 	 */
-	public void member_auth(String email) {
-		
+	@Transactional
+	public void setGrade_to(String grade, String email) {
+		sqlSession.update("setGrade_to_" + grade, email);
 	}
-	
-	
+
 	// public MemberBean getMemberInfo(String email) {
 	//
 	// return sqlSession.selectOne("get_member", email);
@@ -66,13 +73,18 @@ public class MemberDaoImpl {
 	/*
 	 * 회원정보수정!
 	 */
-	
-	  @Transactional 
-	  public int member_update(MemberBean mb) throws Exception {
-		  System.out.println("3");
-		  return sqlSession.update("memberns.member_update", mb); 
-		 }
-	 
+
+	@Transactional
+	public int member_update(MemberBean mb) throws Exception {
+		System.out.println("3");
+		return sqlSession.update("memberns.member_update", mb);
+	}
+
+	@Transactional
+	public void member_reset_password(MemberBean mb) {
+		System.out.println("rp - service");
+		sqlSession.update("member_reset_password", mb);
+	}
 
 	/*
 	 * 전체회원목록
@@ -92,7 +104,5 @@ public class MemberDaoImpl {
 		System.out.println("dao");
 		return sqlSession.selectOne("viewMember", nickname);
 	}
-
-
 
 }

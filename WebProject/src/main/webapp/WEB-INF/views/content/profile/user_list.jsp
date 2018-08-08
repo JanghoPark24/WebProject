@@ -14,6 +14,7 @@
 <th>이메일</th>
 <th>닉네임</th>
 <th>대학교</th>
+<th>전공</th>
 </tr>
 
 <c:forEach var="row" items="${list}">
@@ -22,6 +23,7 @@
 <td>${row.email}</td>
 <td>${row.nickname}</td>
 <td>${row.univ_name}</td>
+<td>${row.major}</td>
 </tr>
 
 </c:forEach>

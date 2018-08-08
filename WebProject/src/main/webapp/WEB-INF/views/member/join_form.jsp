@@ -9,7 +9,6 @@
 	href="<%=request.getContextPath()%>/css/stylej01.css" />
 <script src="<%=request.getContextPath()%>/js/validation.js"></script>
 
-
 </head>
 <body>
 	<div class="container" id='joinbox'>
