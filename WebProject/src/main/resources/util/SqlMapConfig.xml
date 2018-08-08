@@ -4,6 +4,7 @@
 <configuration>
 
 	<typeAliases>
+		
 		<typeAlias alias="writeDTO" type="thelecture.model.WriteBean"/>
 		<typeAlias alias="member" type="thelecture.model.MemberBean" />		
 		<typeAlias alias="univ" type="thelecture.model.UnivBean" />		

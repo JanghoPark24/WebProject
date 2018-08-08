@@ -1,24 +1,17 @@
+var univ_tags = []
+
 $(function() {
-		var availableTags = [ "ActionScript", "AppleScript", "Asp", "BASIC",
-				"C", "C++", "Clojure", "COBOL", "ColdFusion", "Erlang",
-				"Fortran", "Groovy", "Haskell", "Java", "JavaScript", "Lisp",
-				"Perl", "PHP", "Python", "Ruby", "Scala", "Scheme" ];
-		$("#search").autocomplete({
-			source : availableTags
-	
-		
-		
-		
-		});
+	$.ajax({
+		url : 'autocomplete_univ.do',
+		dataType : "json",
+		success : 
+			function(data, response) {
+			$.each(data, function(index, value) {
+				tags.push(value);
+			});
+		}
+	})
+	$("#search").autocomplete({
+		source : tags
 	});
-
-
-
-
-function( request, response ){$.ajax({
-	url: 'autocomplete.do',
-	dataType:"json",
-	success:function (data){
-		response
-	}
-})}
+});

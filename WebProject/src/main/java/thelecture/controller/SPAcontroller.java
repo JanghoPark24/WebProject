@@ -24,8 +24,6 @@ public class SPAcontroller {
 	@Autowired
 	BoardService boardService;
 	
-	@Autowired
-	LectureDaoImpl lecturedao;
 	
 	
 //	@RequestMapping("reply.do")

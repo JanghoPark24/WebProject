@@ -21,14 +21,13 @@ public class UnivDaoImpl {
 	 */
 	@Transactional
 	public String find_domain(String domain) throws Exception {
-		System.out.println("UD");
 		UnivBean ub = (UnivBean) sqlSession.selectOne("find_domain", domain);
 		return (ub!=null)?ub.getUniv_name():"";
 	}
 	
 	@Transactional
-	public List<UnivBean> univ_list(){
-		return null;
+	public List<String> getUniv_list(){
+		return sqlSession.selectList("getUniv_list");
 	}
 
 }
