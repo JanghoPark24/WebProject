@@ -13,7 +13,7 @@
 	<c:if test="${result > 0 }">
 		<script>
 			alert("글작성 성공");
-			location.href="home.do";
+			location.href="wlist.do";
 		</script>
 	</c:if>
 
