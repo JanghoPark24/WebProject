@@ -30,6 +30,12 @@ public class UnivController {
 		model.addAttribute("result", data_univ_list);
 		return "content/university/data_univ_list";
 	}
+	@RequestMapping("insertNewUniv.do")
+	public String insert_new_univ(UnivBean univ) {
+		
+		
+		return "content/university/data_univ_list";
+	}
 	
 	
 
