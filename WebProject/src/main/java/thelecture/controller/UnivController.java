@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import thelecture.model.UnivBean;
 import thelecture.service.UnivServiceImpl;
@@ -15,7 +16,7 @@ import thelecture.service.UnivServiceImpl;
 public class UnivController {
 
 	@Autowired
-	private UnivServiceImpl UnivService;
+	private UnivServiceImpl univService;
 
 
 	/**
@@ -23,14 +24,20 @@ public class UnivController {
 	 */
 	@RequestMapping("univ_list.do")
 	public String univ_list(@RequestParam("category") String category, Model model) {
-		List<String> data_univ_list= UnivService.getUniv_list();
-		
-		
+		List<String> data_univ_list= univService.getUniv_list();
 		model.addAttribute("result", data_univ_list);
 		return "content/university/data_univ_list";
 	}
 	
-	
+	/**
+	 * 대학 리스트 데이터를 json으로 전달함
+	 */
+	@RequestMapping("autocomplete_univ.do")
+	@ResponseBody
+	public List<String> selectUnivList(){
+		List<String> univ_list= univService.getUniv_list();
+		return univ_list;
+	}
 
 
 }
