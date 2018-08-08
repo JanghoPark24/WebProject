@@ -1,6 +1,10 @@
 package thelecture.model;
 
-
+/**
+ *  특이 사항: adjustEndRow_Page_andIndex()를 하면 
+ *  startRow endrow countOfRow가 입력되면 다른 요소들이 그에 맞춰 조정됨.
+ * 
+ * */
 //현재 페이지 값, 인덱스, 검색값
 public class PageBean {
 
@@ -25,27 +29,18 @@ public class PageBean {
 		
 	}
 	public PageBean(int currentPage ,int rowPerPage, int countOfRow) {
-		this.countOfRow = countOfRow;
+		
 		this.rowPerPage = rowPerPage;
 		this.currentPage = currentPage;
-		
+		this.countOfRow = countOfRow;
 		//row정의
 		
 		//현재 페이지 시작 줄
-		startRow = countOfRow-(rowPerPage*(currentPage-1));
+		startRow = 1+(rowPerPage*(currentPage-1));
 		//현재 페이지 마지막 줄
 		endRow = startRow+rowPerPage-1;
 		if(endRow>countOfRow) endRow =countOfRow;
-		
-		
-		//index 정의
-		totalPage = (int) Math.ceil((double) countOfRow / rowPerPage);
-		firstIndex = currentPage - (currentPage - 1) % rowPerPage;	// 1,  11, 21...
-		lastIndex = firstIndex + indexPerBlk - 1;	// 10, 20, 30...
-		
-		if (lastIndex > totalPage)
-			lastIndex = totalPage;
-		
+		adjustEndRow_Page_andIndex();
 	}
 	
 	public int getStartRow() {
@@ -103,6 +98,9 @@ public class PageBean {
 
 	public void setCountOfRow(int countOfRow) {
 		this.countOfRow = countOfRow;
+		
+		
+		
 	}
 
 	public int getTotalPage() {
@@ -129,7 +127,17 @@ public class PageBean {
 		this.lastIndex = lastIndex;
 	}
 	
-	
+	public void adjustEndRow_Page_andIndex() {
+		
+		
+		//index 정의
+		totalPage = (int) Math.ceil((double) countOfRow / rowPerPage);
+		firstIndex = currentPage - (currentPage - 1) % rowPerPage;	// 1,  11, 21...
+		lastIndex = firstIndex + indexPerBlk - 1;	// 10, 20, 30...
+		
+		if (lastIndex > totalPage)
+			lastIndex = totalPage;
+	}
 }
 	
 	

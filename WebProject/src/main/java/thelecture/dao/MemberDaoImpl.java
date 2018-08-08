@@ -22,11 +22,11 @@ public class MemberDaoImpl {
 	 * @return DB에 해당column에 해당value가 있으면 1을 리턴한다. 그렇지 않으면 0을 리턴한다
 	 */
 	@Transactional
-	public int isDuplication(String column, String value) throws Exception {
-		int authcode = 0; // 중복이 아니면 0
+	public boolean isDuplication(String column, String value) throws Exception {
+		boolean authcode = false; // 중복이 아니면 0
 		MemberBean mb = (MemberBean) sqlSession.selectOne("isdup_" + column, value);
 		if (mb != null)
-			authcode = 1;
+			authcode = true;
 		return authcode;
 	}
 
@@ -54,7 +54,7 @@ public class MemberDaoImpl {
 	 */
 	@Transactional
 	public MemberBean select_member(String email) throws Exception {
-		return sqlSession.selectOne("select_member", email);
+		return sqlSession.selectOne("select_member", email.toLowerCase());
 	}
 
 	/**
@@ -62,7 +62,7 @@ public class MemberDaoImpl {
 	 */
 	@Transactional
 	public void setGrade_to(String grade, String email) {
-		sqlSession.update("setGrade_to_"+grade, email);
+		sqlSession.update("setGrade_to_" + grade, email);
 	}
 
 	// public MemberBean getMemberInfo(String email) {
@@ -78,6 +78,12 @@ public class MemberDaoImpl {
 	public int member_update(MemberBean mb) throws Exception {
 		System.out.println("3");
 		return sqlSession.update("memberns.member_update", mb);
+	}
+
+	@Transactional
+	public void member_reset_password(MemberBean mb) {
+		System.out.println("rp - service");
+		sqlSession.update("member_reset_password", mb);
 	}
 
 	/*

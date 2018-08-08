@@ -23,18 +23,18 @@ table, th, td {
 
   
    <div class="container">
- <div style="background-color:LightCyan;">
+ <div >
  <h2>The Lecture</h2>
    <h4> 청춘의 꽃을 피우는 즐거운 대학생활 The Lecture
            가 함께합니다! </h4>
            </div>   
           
-   <div  align="center" style="background-color:LightCyan;">    
+   <div  align="center">    
  <img src="main/../images/theLecture2.svg"
 			style="height: 200px;"
 			align="bottom">
 		</div>	 
-   <div align="center" style="background-color:LightCyan;">     
+   <div align="center">     
    <p>The Lecture는 여러분의 대학생활을 더욱 더 
    보람차고 유익하게 보낼 수 있도록 다양한 정보를 제공
    하고 있습니다 </p> 

@@ -45,16 +45,19 @@ table, th, td {
 <body>
 
 <table border=1 align=center width=50 class="table">
-<form method="post" name="form1" >
+<form method="post" name="form1" action="fileupload.do" enctype="multipart/form-data">
       <h2 align="center" >내 프로필</h2>
   <tr class="info">
   <td rowspan="5">
   <article align="center">
   <p id="status"></p>
-  <div class="filebox">
-  <label for="profileImg">프로필 수정</label>
-  <input type="file" id="profileImg">
-</div>
+  <!-- <div class="filebox"> -->
+   <!-- <label for="profileImg">프로필 수정</label> --> 
+  <img src="<%=request.getContextPath()%>/images/${dto.profile_img}"  width=200 height="300">
+  <input type="file" id="profileImg" name="profileImg">
+  <input type="submit" name="업로드" value="변경">
+
+<!-- </div> -->
   <div id="holder"></div> 
    </article> 
      </td>
@@ -85,7 +88,7 @@ table, th, td {
  </form>      
 </table>            
 
-<script> 
+<!-- <script> 
 var upload = document.getElementsByTagName('input')[0],
 holder = document.getElementById('holder'),
 state = document.getElementById('status');
@@ -118,6 +121,6 @@ reader.readAsDataURL(file);
 return false;
 };
 </script>
-
+ -->
 </body>
 </html>

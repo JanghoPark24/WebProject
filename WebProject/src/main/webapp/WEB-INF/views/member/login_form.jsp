@@ -37,12 +37,12 @@
 					value="로그인"> <br> <br>
 			</form>
 			<p style="font-size: 1em; font: bold;">
-				<a href="joinForm.do" id="signup"><span
+				<a href="joinForm.do"><span
 					class="glyphicon glyphicon-user"></span> 혹시 아직 회원이 아니신가요? </a>
 			</p>
 
 			<p style="font-size: 1em; font: bold;">
-				<a href="resetPasswd.do" id="signup"><span
+				<a href="findPasswordForm.do"><span
 					class="glyphicon glyphicon-question-sign"></span> 비밀번호 재설정 </a>
 			</p>
 		</div>
