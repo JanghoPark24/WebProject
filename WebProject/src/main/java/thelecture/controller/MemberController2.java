@@ -2,6 +2,8 @@ package thelecture.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,36 +18,38 @@ import thelecture.service.WriteServiceImple;
 public class MemberController2 {
 	@Autowired
 	private WriteServiceImple service;
-	
+
 	@RequestMapping("write_manager.do")
 	public String write_manager() {
 		return "write_manager";
-	
+
 	}
-		
+
 	@RequestMapping("write.do")
-	public String insert(@ModelAttribute WriteBean WriteBean, Model model) {
+	public String insert(@ModelAttribute WriteBean WriteBean, HttpSession session, Model model) {
+		String email = (String) session.getAttribute("email");
+		System.out.println(email);
+		WriteBean.setEmail(email);
 		int result = service.insert(WriteBean);
 		model.addAttribute("result", result);
 		return "writeAction";
 	}
-	
+
 	@RequestMapping("wlist.do")
 	public String list(Model model) {
 		int count = service.count();
 		List<WriteBean> list = service.list();
 		model.addAttribute("count", count);
 		model.addAttribute("list", list);
-		
+
 		return "wlist";
 	}
-	
-	
+
 	@RequestMapping("read.do")
 	public String read(@RequestParam("num") int num, Model model) {
 		WriteBean board = service.read(num);
 		model.addAttribute("board", board);
 		return "read";
-	
+
 	}
 }
