@@ -23,11 +23,16 @@ public class UnivController {
 	 */
 	@RequestMapping("univ_list.do")
 	public String univ_list(@RequestParam("category") String category, Model model) {
-		
-		List<UnivBean> data_univ_list= UnivService.univ_list();
+		List<String> data_univ_list= UnivService.getUniv_list();
 		
 		
 		model.addAttribute("result", data_univ_list);
+		return "content/university/data_univ_list";
+	}
+	@RequestMapping("insertNewUniv.do")
+	public String insert_new_univ(UnivBean univ) {
+		
+		
 		return "content/university/data_univ_list";
 	}
 	

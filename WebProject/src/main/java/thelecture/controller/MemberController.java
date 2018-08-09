@@ -1,5 +1,7 @@
 package thelecture.controller;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
@@ -12,6 +14,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.multipart.support.RequestPartServletServerHttpRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import thelecture.model.MemberBean;
@@ -155,14 +160,14 @@ public class MemberController {
 
 	}
 
-	// 마이 페이지
+	// 유저 페이지
 	@RequestMapping("user_profile.do")
 	public String user1() {
 		return "user_profile";
 
 	}
 
-	// 회원정보 수정!
+	// 회원정보 수정
 	@RequestMapping("update.do")
 	public String update(@ModelAttribute MemberBean mb, HttpSession session) throws Exception {
 		int result = memberService.member_update(mb);
@@ -170,5 +175,38 @@ public class MemberController {
 		session.setAttribute("nickname", mb.getNickname());
 		return "redirect:home.do";
 	}
+// 파일 업로드
+	@RequestMapping("fileupload.do")
+	public String fileupload(@ModelAttribute MemberBean mb,
+			MultipartHttpServletRequest request,
+			HttpSession session) throws Exception{
 
+		
+	   MultipartFile mf = request.getFile("profileImg");
+	   String path =request.getRealPath("images");
+	   System.out.println(path);
+	   String filename = mf.getOriginalFilename();
+	   File uploadFile = new File(path +"//"+ filename);
+	   
+	   try { 
+		   mf.transferTo(uploadFile);
+	    }catch(IllegalStateException e){
+	    	e.printStackTrace();
+	    }catch(IOException e) {
+	    	e.printStackTrace();
+	    }
+	   mb.setProfile_img(filename);
+	/*   mb.setEmail(request.getParameter("email"));
+	   mb.setUniv_name(request.getParameter("univ_name"));
+	   mb.setNickname(request.getParameter("nickname"));
+	   mb.setProfile(request.getParameter("profile"));	 */  
+	   
+	   
+       memberService.member_update(mb);
+	  
+       session.setAttribute("myprofile", mb);
+      /* session.setAttribute("nickname", mb.getNickname());
+       */
+ 	   return "redirect:my_profile.do";
+	}
 }

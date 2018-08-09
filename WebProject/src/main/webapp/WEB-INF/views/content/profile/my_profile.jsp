@@ -45,16 +45,25 @@ table, th, td {
 <body>
 
 <table border=1 align=center width=50 class="table">
-<form method="post" name="form1" >
+<form method="post" name="form1" action="fileupload.do" enctype="multipart/form-data">
       <h2 align="center" >내 프로필</h2>
   <tr class="info">
   <td rowspan="5">
   <article align="center">
   <p id="status"></p>
-  <div class="filebox">
-  <label for="ex_file">프로필 수정</label>
-  <input type="file" id="ex_file">
-</div>
+  <!-- <div class="filebox"> -->
+   <!-- <label for="profileImg">프로필 수정</label> -->
+   
+   <c:if test="${sessionScope.myprofile != null }">
+   	<img src="<%=request.getContextPath()%>/images/${myprofile.profile_img}"  width=200 height="300">
+   </c:if> 
+   <c:if test="${sessionScope.myprofile == null }">
+  	<img src="<%=request.getContextPath()%>/images/${dto.profile_img}"  width=200 height="300">
+  </c:if>
+  <input type="file" id="profileImg" name="profileImg">
+  <input type="submit" name="업로드" value="이미지변경">
+
+<!-- </div> -->
   <div id="holder"></div> 
    </article> 
      </td>
@@ -85,7 +94,39 @@ table, th, td {
  </form>      
 </table>            
 
-<script src="profile.js"> </script>
+<!-- <script> 
+var upload = document.getElementsByTagName('input')[0],
+holder = document.getElementById('holder'),
+state = document.getElementById('status');
 
+if (typeof window.FileReader === 'undefined') {
+state.className = 'fail';
+} else {
+state.className = 'success';
+state.innerHTML = '';
+}
+
+upload.onchange = function (e) {
+e.preventDefault();
+
+var file = upload.files[0],
+  reader = new FileReader();
+reader.onload = function (event) {
+var img = new Image();
+img.src = event.target.result;
+// note: no onload required since we've got the dataurl...I think! :)
+if (img.width < 100000) { // holder width
+  img.width = 95;
+  img.height = 195;
+}
+holder.innerHTML = '';
+holder.appendChild(img);
+};
+reader.readAsDataURL(file);
+
+return false;
+};
+</script>
+ -->
 </body>
 </html>

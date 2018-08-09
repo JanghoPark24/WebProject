@@ -40,6 +40,19 @@
 		
 	</beans:bean>
 	
+  <!-- 이미지 업로드 -->
+ <!--  해당 빈을 통해 multipart타입의 데이터 처리 -->	
+	<beans:bean id="multipartResolver"
+	class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+	<beans:property name="maxUploadSize" value="10485760"></beans:property>
+</beans:bean>
+	
+	<!-- 이미지 파일을 저장할 경로 -->
+	<beans:bean id = "uploadPath" class="java.lang.String">
+	<beans:constructor-arg value="WebProject\src\main\webapp\images">
+
+	</beans:constructor-arg>
+</beans:bean>
 	
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources 
 		in the /WEB-INF/views directory -->

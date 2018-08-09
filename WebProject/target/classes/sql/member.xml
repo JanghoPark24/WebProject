@@ -31,7 +31,7 @@
 	<insert id="member_join" parameterType="member">
 		insert INTO	member values(
 		#{email},#{univ_name},#{nickname},#{password},'n','unknown',
-			0,null,#{reg_key},sysdate,'컴퓨터공학과','unknown.jpg','안넝하세여')
+			0,null,#{reg_key},sysdate,'컴퓨터공학과',unknown.jpg,'안넝하세여')
 	</insert>
 	<!-- 비밀번호 변경 -->
 	<update id="member_reset_password" parameterType="member" >
@@ -54,14 +54,15 @@
 
 	
   
-     <!-- 회원정보수정! -->
+     <!-- 회원정보수정 -->
      <update id="member_update" parameterType="member">
 		update 
 		member
 		set 
 		NICKNAME = #{nickname},	
 		major = #{major},
-		profile = #{profile}
+		profile = #{profile},
+		profile_img = #{profile_img,jdbcType=VARCHAR}
 		where
 		email = #{email}	
 	</update> 
@@ -75,7 +76,8 @@
 		nickname,
 		univ_name,
 		major,
-		profile
+		profile,
+		profile_img
 		from member
 		where nickname = #{nickname}
 
