@@ -82,9 +82,9 @@ table, th, td {
    <c:if test="${sessionScope.myprofile == null }">
   	<img src="<%=request.getContextPath()%>/images/${dto.profile_img}"  width=200 height="300">
   </c:if>
-  <input type="file" id="profileImg" name="profileImg">
+  <input type="file" id="profileImg" name="profileImg" >
 <!--   <input type="submit" name="업로드" value="이미지변경" id="upimg"> -->
-   <input type="submit" name="업로드" value="이미지변경" id="upimg" disabled="disabled">
+   <input type="submit" name="업로드" value="이미지변경" id="upimg" disabled="disabled" class="btn btn-primary">
 
 <!-- </div> -->
   <div id="holder"></div> 
@@ -109,8 +109,8 @@ table, th, td {
       </tr>
       
       <tr class="info"><td colspan=2 align=center>    
-           <input type="button" value="회원정보 수정" id="btnUpdate">
-           <input type="button" value="회원 탈퇴" id="btnUpdate2">
+           <input type="button" value="회원정보 수정" id="btnUpdate" class="btn btn-primary">
+           <input type="button" value="회원 탈퇴" id="btnUpdate2" class="btn btn-primary">
         <!--  <a href="update.do" class="btn btn-info" role="button" id="p">회원정보 수정</a>
          -->  <!--  <a href="profile2.html" class="btn btn-info" role="button" id="p">저장</a>
            --></td>
