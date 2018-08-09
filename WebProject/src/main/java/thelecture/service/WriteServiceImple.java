@@ -24,6 +24,10 @@ public class WriteServiceImple {
 		return dao.list();
 	}
 
+	public WriteBean read(int num) {
+		return dao.read(num);
+	}
+
 
 	
 	
