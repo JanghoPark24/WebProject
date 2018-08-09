@@ -111,8 +111,7 @@ table, th, td {
 					</td>
 				</tr>
 				<tr class="info">
-					<td><input type=text value="${dto.email}" readonly="readonly"
-						size="30" name="email"> <input type=text
+					<td>${dto.email} <input type=text
 						value="${dto.univ_name}" readonly="readonly"></td>
 				</tr>
 				<tr class="success">
