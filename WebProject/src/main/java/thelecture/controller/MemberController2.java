@@ -2,14 +2,12 @@ package thelecture.controller;
 
 import java.util.List;
 
-import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import thelecture.model.WriteBean;
 import thelecture.service.WriteServiceImple;
@@ -42,24 +40,12 @@ public class MemberController2 {
 		return "wlist";
 	}
 	
-/*	@RequestMapping(value="insert.do",method=RequestMethod.POST)
-	public String insert(@ModelAttribute Board DTO,HttpSession session)throws Exception{
-	// session에 저장된 email를 writer에 저장
-	String writer =(String)session.getAttribute("email");
-	//DTO에 writer를 세팅
-	DTO.setWriter(writer);
-	WriteServiceImple.create(DTO);
-	return"redirect:list.do";
-	}
-	*/
 	
-	
-/*	@RequestMapping("read.do")
+	@RequestMapping("read.do")
 	public String read(@RequestParam("num") int num, Model model) {
 		WriteBean board = service.read(num);
 		model.addAttribute("board", board);
-
-		return "read";*/
+		return "read";
 	
-	/*}*/
+	}
 }

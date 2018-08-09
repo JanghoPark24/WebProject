@@ -96,6 +96,10 @@
 		<put-attribute name="body" value="/WEB-INF/views/content/university/wlist.jsp" />
 	</definition>
 	
+	<definition name="read" extends="main_tile">
+		<put-attribute name="body" value="/WEB-INF/views/content/university/read.jsp" />
+	</definition>
+	
 	<definition name="login_form" extends="main_tile">
 		<put-attribute name="body" value="/WEB-INF/views/member/login_form.jsp" />
 	</definition>
