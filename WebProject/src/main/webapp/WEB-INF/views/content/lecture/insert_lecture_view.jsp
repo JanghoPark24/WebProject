@@ -30,35 +30,40 @@
     		width:80px;
     	}
     	
-    	#questions{
+    	/* .questions{
     		margin:0 auto;
     		border:1px solid gray;
-    	}
+    	} */
+    	
     	#question_button > button{
     		
     	}
-    	#questionnaire > * {
-    		float:right;
+    	#lectureInfo td{
+ 	   		vertical-align:top;
     	}
+    	/*font awsome 색깔*/
+    	.x_icon_color {
+		  color: #dddddd;
+		}
+		.x_icon_color:hover {
+			color:red;
+		}
+		    	
     </style>
-    <script>
-   
-    
-    /*initiate the autocomplete function on the "myInput" element, and pass along the countries array as possible autocomplete values:*/
+ 
+	
+	<script>
+	 /*initiate the autocomplete function on the "myInput" element, and pass along the countries array as possible autocomplete values:*/
     function autocomplete(arr){
     	
     }
-    
-
-  
    
-    
-    </script>
-	
-	<!-- 질문 불러오기  -->
-	<script>
 	$(function(){	
 		
+
+		
+		
+		 <!-- 질문 불러오기  -->
 		//질문지 선택
 		function searchFunction(){
 			var selectedVersion = $('#qSelect > option:selected').val();
@@ -70,6 +75,7 @@
 		}
 		/*question에 대한 */
 		function selectQuestionnaire(questionVersion){
+			
 			
 			$.post("selectQuetionnaire.do",{"questionVersion":questionVersion},function(questions){
 				
@@ -91,30 +97,57 @@
 			var nextElement = $( ".questions > .question" ).length+1;
 			//질문 최대 개수
 			if(nextElement<11){
+				//
+				/* $("#questionModal .question[display= none]:eq(0)").show();
+				 $("#questionModal i").addClass("fas fa-times-circle x_icon_color");
+				 */
+				$("#questionModal i").removeClass("fas fa-times-circle x_icon_color");
 				$("#makeQuestion_body > .questions")
-					.append("<div class=\'question\'>"+nextElement+"번: "+
-							"<input type=\'text\' name=\'"+nextElement+"\' value=\'\' placeholder=\'질문"+nextElement+"\'/></div>")
+					.append("<div class='question'>"+nextElement+"번: "+
+							"<input type=\'text\' name=\'"+nextElement+"\' value=\'\' placeholder=\'질문"+nextElement+"\'/> "+
+							"<i class='fas fa-times-circle x_icon_color'></i>"+"</div>"); 
+							
 			}
 		}
+		
+		//질문지 삭제
+		function removeQuestion(){
+			
+			//질문 개수
+			var nextElement = $( ".questions > .question" ).length+1;
+			console.log(nextElement)
+			//질문 최대 개수
+			if(nextElement>5){
+				$("#questionModal .question").eq(nextElement-2)
+					.remove();
+				
+				$("#questionModal .question i").last()
+					.addClass('fas fa-times-circle x_icon_color');
+				
+			}
+		}
+		
 		
 		$("#qSelect").on("change",function(){
 			searchFunction();
 		})
 		
-		
-		$("#addQuestion").on("click",function(){
+		$(document).on("click","#questionModal #addQuestion",function(){
+			
 			addQuestion();
 		})
 		
-		
-		
+		$(document).on("click","#questionModal i",function(){
+			
+			removeQuestion();
+		})
 	})
 		
 	</script>
 </head>
 <body>
     <!-- 평균 점수 ${average}로 불러옴-->
-    
+    	
             <div id="content_header">
                 <h3>강의 평가 만들기</h3>
             </div>
@@ -123,95 +156,99 @@
             </div>
             
             <div id="content_middle">
+               
                 <h4>정보</h4>
                 
-                
-                <div>
-                
-                	<p>학교:</p>
-                	<input id="univ_name" type="text" onkeydown="autocomplete('univ_name')"/>
-                	<a id="add_school" onclick="add_school('univ_name')">학교 추가하기</a>
-                </div>
+                <table id="lectureInfo">
+                <tr>
+					<td>                
+                	  <p>학교:</p>
+                	</td>
+                	<td>
+                	  <input id="univ_name" type="text" onkeydown="autocomplete('univ_name')"/>
+                	</td>
+                	<td>
+                	  <a data-toggle="modal" data-target="#schoolModal">학교 추가하기</a>
+                	</td>
+                </tr>
 	            
             
-                <div>
-               		<p>교수명:</p><input id="professor" type="text" />
-               	</div>
+                <tr>
+                	<td>
+               		 <p>교수명:</p>
+               		</td>
+               		<td>
+               		 <input id="professor" type="text" />
+               		</td>
+               		<td></td>
+               	</tr>
                
                
               
-                <div>
-                	<p>전공:</p><input id="major" type="text" />
-                </div>
+                <tr>
+                	<td><p>전공:</p></td>
+                	<td>
+                	 <input id="major" type="text" />
+                	</td>
+                	<td></td>
+                </tr>
                 
-                <div>
-                	<p>학기:</p><input id="semester" type="text" />
-                </div>
-                <div>
-                	<p>강의코드:</p><input id="lecture_code" type="text" />
-                </div>
+                <tr>
+                	<td>
+                	  <p>학기:</p>
+                	</td>
+                	<td>
+                	  <input id="semester" type="text" />
+                	</td>
+                	<td></td>
+                </tr>
+                <tr>
+                	<td><p>강의코드:</p></td>
+                	<td>
+                	 <input id="lecture_code" type="text" />
+                	</td>
+                	<td></td>
+                </tr>
                 
-                <div>
-                	<p>강의 이름:</p><input id="lecture_name" type="text" />
-                </div>
+                <tr>
+                	<td>
+                	 <p>강의 이름:</p>
+                	</td>
+                	<td>
+                	 <input id="lecture_name" type="text" />
+                	</td>
+                	<td></td>
+                </tr>
                 
                 
-				<div id='questionnaire' >
-					
-					<p>질문지 선택</p>
-					<div>
-					<select id="qSelect"onChange="searchFunction()">
-					  <option>질문지를 선택하세요</option>
-					  <c:if test="${not empty questionVersions }">
-					  	<c:forEach var="questionVersion" items="${questionVersions}">
-						<option value="${questionVersion}" >${questionVersion}</option>
-						</c:forEach>
-					  </c:if>
-					</select>
-					<div id='questions'>
-						
-					</div>
-					</div>
-					<div>				
+				<tr id='questionnaire' >
+					<td>
+					  <p>질문지 선택</p>
+					</td>
+					<td>
+						<select id="qSelect" onChange="searchFunction()">
+						  <option>질문지를 선택하세요</option>
+						  <c:if test="${not empty questionVersions }">
+						  	<c:forEach var="questionVersion" items="${questionVersions}">
+							<option value="${questionVersion}" >${questionVersion}</option>
+							</c:forEach>
+						  </c:if>
+						</select>
+						<div id='questions'>
+							
+						</div>
+					</td>
+					<td>				
 						<a data-toggle="modal" data-target="#questionModal">질문지 추가하기</a>
-					</div>
-				</div>                
+					</td>
+				  </tr> 
+				</table>               
+				
+			 
+             	<!-- 학교 추가 Modal -->
+             	<jsp:include page="school_modal.jsp"></jsp:include>
              	<!-- 질문지 추가 Modal -->
-				  <div class="modal fade" id="questionModal" role="dialog">
-				    <div class="modal-dialog">
-				    
-				      <!-- Modal content-->
-				      <div class="modal-content">
-				        <div class="modal-header">
-				          <button type="button" class="close" data-dismiss="modal">&times;</button>
-				          <h4 class="modal-title">질문지 추가하기</h4>
-				        </div>
-				        <div id="makeQuestion_body" class="modal-body">
-				          <div id="questionTitle">
-				          	<h4>질문 제목: </h4><input type="text" name="m" placeholder="질문지 제목"/>
-				          </div>
-				          
-				          <div class="questions">
-					          <div class="question">1번: <input type="text" name="1" value="" placeholder="질문1"/></div>
-					          <div class="question">2번: <input type="text" name="2" value="" placeholder="질문2"/></div>
-					          <div class="question">3번: <input type="text" name="3" value="" placeholder="질문3"/></div>
-					          <div class="question">4번: <input type="text" name="4" value="" placeholder="질문4"/></div>
-				          </div>
-				          <div id="question_button" >
-				            <button id="addQuestion" class="btn btn-default">질문추가</button>
-				          </div>	
-				        </div>
-				        <div class="modal-footer">
-				          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-				        </div>
-				      </div>
-				      
-				    </div>
-				  </div>
+             	<jsp:include page="question_modal.jsp"></jsp:include>
 			 </div>
-            
-  
-    <script>
-    
-    </script>
+     
 </body>

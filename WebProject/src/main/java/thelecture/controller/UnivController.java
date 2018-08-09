@@ -28,6 +28,12 @@ public class UnivController {
 		model.addAttribute("result", data_univ_list);
 		return "content/university/data_univ_list";
 	}
+	@RequestMapping("insertNewUniv.do")
+	public String insert_new_univ(UnivBean univ) {
+		
+		
+		return "content/university/data_univ_list";
+	}
 	
 	/**
 	 * 대학 리스트 데이터를 json으로 전달함
