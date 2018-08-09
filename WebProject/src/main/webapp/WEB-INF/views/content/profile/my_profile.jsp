@@ -18,6 +18,29 @@
 		 
 	 })
  })
+ 
+  $(function (){
+	 $("#btnUpdate2").click(function(){
+		 document.form1.action = "";
+		 
+		 document.form1.submit();
+		 
+	 })
+ })
+
+  $(function (){
+//	$("form").submit(function(){  
+	 $("#profileImg").click(function(){	
+//		 alert($('#profileImg').val());
+		 
+//		  if ($('#profileImg').val() != "" ){
+		 	$("#upimg").attr("disabled", false);
+//			alert('파일을 선택 하세요');
+//			return false;
+//		  }
+	 });
+ });
+ 
 </script> 
 
 <style>
@@ -61,7 +84,8 @@ table, th, td {
   	<img src="<%=request.getContextPath()%>/images/${dto.profile_img}"  width=200 height="300">
   </c:if>
   <input type="file" id="profileImg" name="profileImg">
-  <input type="submit" name="업로드" value="이미지변경">
+<!--   <input type="submit" name="업로드" value="이미지변경" id="upimg"> -->
+   <input type="submit" name="업로드" value="이미지변경" id="upimg" disabled="disabled">
 
 <!-- </div> -->
   <div id="holder"></div> 
@@ -87,6 +111,7 @@ table, th, td {
       
       <tr class="info"><td colspan=2 align=center>    
            <input type="button" value="회원정보 수정" id="btnUpdate">
+           <input type="button" value="회원 탈퇴" id="btnUpdate2">
         <!--  <a href="update.do" class="btn btn-info" role="button" id="p">회원정보 수정</a>
          -->  <!--  <a href="profile2.html" class="btn btn-info" role="button" id="p">저장</a>
            --></td>
