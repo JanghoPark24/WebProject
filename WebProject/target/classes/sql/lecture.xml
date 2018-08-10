@@ -69,7 +69,12 @@
         where question_version= #{question_version,jdbcType=VARCHAR}
         order by question_id 
 	</select>
-	
+	<insert id="insertLectureQuestionVersion" parameterType="String">
+		insert into question_version values(#{question_version}) 
+	</insert>
+	<insert id="insertLectureQuestion" parameterType="hashMap">
+		insert into question values(seq_question_id.nextval,#{question_version},#{question_content})
+	</insert>
 
 
 </mapper>

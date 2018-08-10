@@ -184,8 +184,6 @@
 			</c:if>
 			<div class="container text-center">
 				
-				
-				
 	            <ul class="pagination">
 	              
 	              <c:if test="${ page_index.currentPage>1}">

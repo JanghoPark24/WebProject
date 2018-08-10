@@ -98,6 +98,57 @@ public class LectureDaoImpl {
 				return null;
 			}
 	}
+
+	public int insertQuestion_content(List<String> questionList) {
+		
+		try {
+			
+			sqlSession.insert("lectureMap.insertQuestions",questionList);
+			
+			return 0;
+			
+		}catch(Exception e){
+			e.printStackTrace();
+			return 1;
+		}
+	}
+
+	public int insertQuestionVersion(String question_version) {
+		try {
+			sqlSession.insert("lectureMap.insertLectureQuestionVersion",question_version);
+			return 0;
+			
+		}catch(Exception e){
+			e.printStackTrace();
+			return 1;
+		}
+		
+	}	
+	/*
+	 * question 입력
+	 * 
+	 * 
+	 * */
+	
+	public int insertQuestion(String question_version, String[] question_contents) {
+		try {
+			int contents_size = question_contents.length;
+			HashMap<String, String> questionMap = new HashMap<>();
+			questionMap.put("question_version", question_version);
+			for(int i =0; i <contents_size; i++){
+				questionMap.put("question_content",question_contents[i]);
+				sqlSession.insert("lectureMap.insertLectureQuestion",questionMap);
+			}
+			return 0;
+			
+		}catch(Exception e){
+			e.printStackTrace();
+			return 1;
+		}
+		
+	}
+	
+	
 	
 	
 }

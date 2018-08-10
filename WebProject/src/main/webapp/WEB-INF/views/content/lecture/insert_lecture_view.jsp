@@ -104,7 +104,7 @@
 				$("#questionModal i").removeClass("fas fa-times-circle x_icon_color");
 				$("#makeQuestion_body > .questions")
 					.append("<div class='question'>"+nextElement+"번: "+
-							"<input type=\'text\' name=\'"+nextElement+"\' value=\'\' placeholder=\'질문"+nextElement+"\'/> "+
+							"<input type=\'text\' name='questions["+(nextElement-1)+"]' value=\'\' placeholder=\'질문"+nextElement+"\'/> "+
 							"<i class='fas fa-times-circle x_icon_color'></i>"+"</div>"); 
 							
 			}

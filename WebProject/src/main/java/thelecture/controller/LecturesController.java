@@ -28,6 +28,7 @@ import thelecture.dao.MemberDaoImpl;
 import thelecture.model.LectureBean;
 import thelecture.model.MemberBean;
 import thelecture.model.PageBean;
+import thelecture.model.QuestionBean;
 import thelecture.service.BoardService;
 
 /**
@@ -134,10 +135,22 @@ public class LecturesController {
 		
 		return "content/lecture/insert_lecture_view";
 	}
+	
 	@RequestMapping(value="insertLecture.do")
 	public String insert_lecture(String id) {
-		
+	
 		return "";
+	}
+	
+	@RequestMapping(value="insertQuestion.do")
+	//충돌을 막기위해 qustion type으로 question버전을 받는다.(questionList안에 question_version이 있기 때문)
+	public String insert_question(@RequestParam("question_type")String question_version, @RequestParam(value="questionContents[]")String []questionContents) {
+		
+		
+		int result =boardService.insertQuestion(question_version, questionContents);
+		
+		//0이 성공 1이 실패  -성공시 view화면으로
+		return result == 0? "redirect:insertLectureView.do":"404error//e";
 	}
 	
 	
