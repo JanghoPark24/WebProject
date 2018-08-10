@@ -60,20 +60,22 @@
 	</select>
 	
 	<select id="getQuestionVersions" resultType="String">
-		select question_version from question group by question_version
+		select question_version from question 
+		where is_deleted = 'n'
+		group by question_version
 	</select>
 	
 	
 	<select id="getQuestionnaire" parameterType="String" resultType="question">
 		select * from question 
-        where question_version= #{question_version,jdbcType=VARCHAR}
+        where question_version= #{question_version,jdbcType=VARCHAR} AND is_deleted='n'
         order by question_id 
 	</select>
 	<insert id="insertLectureQuestionVersion" parameterType="String">
-		insert into question_version values(#{question_version}) 
+		insert into question_version values(#{question_version},'n') 
 	</insert>
 	<insert id="insertLectureQuestion" parameterType="hashMap">
-		insert into question values(seq_question_id.nextval,#{question_version},#{question_content})
+		insert into question values(seq_question_id.nextval,#{question_version},#{question_content},'n')
 	</insert>
 
 
