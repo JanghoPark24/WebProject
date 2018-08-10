@@ -147,6 +147,17 @@ public class LectureDaoImpl {
 		}
 		
 	}
+
+	public int deleteQuestion(String question_version) {
+		try {
+			sqlSession.update("lectureMap.deleteQuestion",question_version);
+			return 0;
+			
+		}catch(Exception e){
+			e.printStackTrace();
+			return 1;
+		}
+	}
 	
 	
 	

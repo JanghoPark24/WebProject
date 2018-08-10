@@ -95,6 +95,12 @@ public class BoardService {
 		return result==0 && result2==0 ? 0: 1;
 	}
 
+	public int deleteQuestion(String question_version) {
+		
+		return lecturedao.deleteQuestion(question_version);
+		
+	}
+
 	
 
 }

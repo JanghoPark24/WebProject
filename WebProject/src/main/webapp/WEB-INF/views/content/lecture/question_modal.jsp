@@ -10,10 +10,10 @@
         <button type="button" class="close" data-dismiss="modal">&times;</button>
         <h4 class="modal-title">질문지 추가하기</h4>
       </div>
-      <form action="insertQuestion.do" method="post">
+      <form name="insertQuestions" action="insertQuestion.do" method="post">
 	      <div id="makeQuestion_body" class="modal-body">
 	        <div id="questionTitle">
-	        	<h4>질문 제목: </h4><input type="text" name="question_type" placeholder="질문지 제목"/>
+	        	<h4>질문 제목: </h4><input type="text" id="question_type" name="question_type" placeholder="질문지 제목"/>
 	        </div>
 	        
 	        <div class="questions">
@@ -25,7 +25,7 @@
 	        
 	        <div id="question_button" >
 	          <button type="button" id="addQuestion" class="btn btn-default">질문+</button>
-	          <button id="insertQuestion" class="btn btn-default">질문추가</button>
+	          <button type="button" id="insertQuestion" onclick="validateQuestions()" class="btn btn-default">질문추가</button>
 	        </div>	
 	      </div>
       </form>

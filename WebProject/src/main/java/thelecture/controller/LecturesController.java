@@ -129,7 +129,7 @@ public class LecturesController {
 		
 		List<String> questionVersions = boardService.getQuestionVersions();
 		
-		
+		System.out.println("questionVersions:"+ questionVersions);
 		model.addAttribute("questionVersions",questionVersions);
 		
 		
@@ -151,6 +151,14 @@ public class LecturesController {
 		
 		//0이 성공 1이 실패  -성공시 view화면으로
 		return result == 0? "redirect:insertLectureView.do":"404error//e";
+	}
+	@RequestMapping(value="deleteQuestion.do")
+	public String delete_question(String question_version,Model model) {
+		System.out.println(question_version);
+		
+		int result = boardService.deleteQuestion(question_version);
+		
+		return result==0?"redirect:insertLectureView.do" : "404error//e";
 	}
 	
 	
