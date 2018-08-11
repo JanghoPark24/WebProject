@@ -115,7 +115,8 @@
  		
  	}
  	
- 	//질문 수정
+ 	
+ 	//질문 수정 체크
  	function check_update(){
  		var selectedQ_val =$("#qSelect > option:selected").val();
 		 if(selectedQ_val=="0"){
@@ -126,6 +127,32 @@
 			selectQuestions_forUpdate(selectedQ_val)
 		}
  	}
+ 	
+ 	//질문 수정
+ 	function updateQuestions(){
+ 		console.log('update')
+ 		var frm = $("[id='lectureInfo_form']");
+	 	var frmVal = frm.serializeArray();
+	 	 
+		console.log(frm);
+	 	
+	 	$.each(frmVal, function(i, field){
+            console.log(field.name + ":" + field.value + " ");
+        });
+	 	
+	 	
+	 	//controller로 넘김
+	 	/* frm.method="post";
+	 	frm.action="updateQuestions.do";
+	 	frm.target = "_self";
+ 		frm.submit(); 
+	 	 */
+	 	
+	 	
+	 	
+	 	
+ 	}
+ 	
  	/*selection에 대한 Questionnaire 불러오기*/
 	function selectQuestions_forUpdate(questionVersion){
 		
@@ -134,16 +161,22 @@
 			
 			var questionId="";
 			var output="";
+			var update_button=
+				"<button type='button' id='updateQuestions' >"+
+				"수정완료"+
+				"</button>";
 			
 			$.each(questions,function(index,item){
-				questionId += "<input type='hidden' value=\'"+item.question_id+"\' />"
+				questionId += "<input type='hidden' name='questionIDs[]' value=\'"+item.question_id+"\' />"
 				output +="<div>"+"<p>"+(index+1)+"번</p>"+
-						 "<input type='text' name='"+item.question_id+"' value='"+item.question_content+"'></div>";
+						 "<input type='text' name='u_questionContents[]' value='"+item.question_content+"'></div>";
 				
 			})
-			$("#questions").html(questionId+output);
+			$("#questions").html(questionId+output+update_button);
 		})
 	}
+ 	
+ 	
  	</script>
 	
 	<script>
@@ -238,6 +271,11 @@
 			
 			removeQuestion();
 		})
+		
+		$(document).on("click","#updateQuestions",function(){
+			
+			updateQuestions();
+		})
 	})
 		
 	</script>
@@ -255,94 +293,96 @@
             <div id="content_middle">
                
                 <h4>정보</h4>
-                
-                <table id="lectureInfo">
-                <tr>
-					<td>                
-                	  <p>학교:</p>
-                	</td>
-                	<td>
-                	  <input id="univ_name" type="text" onkeydown="autocomplete('univ_name')"/>
-                	</td>
-                	<td>
-                	  <a data-toggle="modal" data-target="#schoolModal">학교 추가하기</a>
-                	</td>
-                </tr>
+                <form id="lectureInfo_form">
+	                <table id="lectureInfo">
+	                <tr>
+						<td>                
+	                	  <p>학교:</p>
+	                	</td>
+	                	<td>
+	                	  <input id="univ_name" type="text" onkeydown="autocomplete('univ_name')"/>
+	                	</td>
+	                	<td>
+	                	  <a data-toggle="modal" data-target="#schoolModal">학교 추가하기</a>
+	                	</td>
+	                </tr>
+		            
 	            
-            
-                <tr>
-                	<td>
-               		 <p>교수명:</p>
-               		</td>
-               		<td>
-               		 <input id="professor" type="text" />
-               		</td>
-               		<td></td>
-               	</tr>
-               
-               
-              
-                <tr>
-                	<td><p>전공:</p></td>
-                	<td>
-                	 <input id="major" type="text" />
-                	</td>
-                	<td></td>
-                </tr>
-                
-                <tr>
-                	<td>
-                	  <p>학기:</p>
-                	</td>
-                	<td>
-                	  <input id="semester" type="text" />
-                	</td>
-                	<td></td>
-                </tr>
-                <tr>
-                	<td><p>강의코드:</p></td>
-                	<td>
-                	 <input id="lecture_code" type="text" />
-                	</td>
-                	<td></td>
-                </tr>
-                
-                <tr>
-                	<td>
-                	 <p>강의 이름:</p>
-                	</td>
-                	<td>
-                	 <input id="lecture_name" type="text" />
-                	</td>
-                	<td></td>
-                </tr>
-                
-                
-				<tr id='questionnaire' >
-					<td>
-					  <p>질문지 선택</p>
-					</td>
-					<td>
-						<select id="qSelect" onChange="searchFunction()">
-						  <option value="0">질문지를 선택하세요</option>
-						  <c:if test="${not empty questionVersions }">
-						  	<c:forEach var="questionVersion" items="${questionVersions}">
-							<option value="${questionVersion}" >${questionVersion}</option>
-							</c:forEach>
-						  </c:if>
-						</select>
-						<div id='questions'>
+	                <tr>
+	                	<td>
+	               		 <p>교수명:</p>
+	               		</td>
+	               		<td>
+	               		 <input id="professor" type="text" />
+	               		</td>
+	               		<td></td>
+	               	</tr>
+	               
+	               
+	              
+	                <tr>
+	                	<td><p>전공:</p></td>
+	                	<td>
+	                	 <input id="major" type="text" />
+	                	</td>
+	                	<td></td>
+	                </tr>
+	                
+	                <tr>
+	                	<td>
+	                	  <p>학기:</p>
+	                	</td>
+	                	<td>
+	                	  <input id="semester" type="text" />
+	                	</td>
+	                	<td></td>
+	                </tr>
+	                <tr>
+	                	<td><p>강의코드:</p></td>
+	                	<td>
+	                	 <input id="lecture_code" type="text" />
+	                	</td>
+	                	<td></td>
+	                </tr>
+	                
+	                <tr>
+	                	<td>
+	                	 <p>강의 이름:</p>
+	                	</td>
+	                	<td>
+	                	 <input id="lecture_name" type="text" />
+	                	</td>
+	                	<td></td>
+	                </tr>
+	                
+	                
+					<tr id='questionnaire' >
+						<td>
+						  <p>질문지 선택</p>
+						</td>
+						<td>
+							<select id="qSelect" onChange="searchFunction()">
+							  <option value="0">질문지를 선택하세요</option>
+							  <c:if test="${not empty questionVersions }">
+							  	<c:forEach var="questionVersion" items="${questionVersions}">
+								<option value="${questionVersion}" >${questionVersion}</option>
+								</c:forEach>
+							  </c:if>
+							</select>
 							
-						</div>
-					</td>
-					<td>				
-						<a data-toggle="modal" data-target="#questionModal">질문지 추가</a> | 
-						<a onclick="check_delete()">질문지 삭제</a>|
-						<a onclick="check_update()" data-target="#questionModal">질문지 수정</a>
-					</td>
-				  </tr> 
-				</table>               
-				
+							<div id='questions'>
+								
+							</div>
+							
+						</td>
+						<td>				
+							<a data-toggle="modal" data-target="#questionModal">질문지 추가</a> | 
+							<a onclick="check_delete()">질문지 삭제</a>|
+							<a onclick="check_update()">질문지 수정</a>
+						</td>
+					  </tr> 
+					</table>               
+				</form>
 			 
              	<!-- 학교 추가 Modal -->
              	<jsp:include page="school_modal.jsp"></jsp:include>

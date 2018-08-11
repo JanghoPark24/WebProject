@@ -161,5 +161,18 @@ public class LecturesController {
 		return result==0?"redirect:insertLectureView.do" : "404error//e";
 	}
 	
+	@RequestMapping(value="updateQuestions.do")
+	public String update_question(@RequestParam("questionIDs[]")String []questionIDs,
+									@RequestParam("u_questionContents[]")String[] questionContents) {
+		
+		System.out.println("!!!!!questionIDs"+questionIDs);
+		System.out.println("!!!!!questionContents"+questionContents);
+		
+//		int result = boardService.updateQuestion(question_version);
+		int result =1;
+		
+		return result==0?"redirect:insertLectureView.do" : "404error//e";
+	}
+	
 	
 }
