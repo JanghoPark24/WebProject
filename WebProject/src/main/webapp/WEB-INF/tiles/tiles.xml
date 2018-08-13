@@ -20,12 +20,16 @@
         <put-attribute name="content" value="/WEB-INF/views/{1}/{2}/{3}.jsp" />
     </definition>
      -->
+    <definition name="empty/*" template="/WEB-INF/views/error_check/{1}.jsp">
+		<put-attribute name="content" value="" />
+	</definition>
     <definition name="error_layout" template="/WEB-INF/views/layout/error_layout.jsp">
 		<put-attribute name="body" value="" />
 	</definition>
 	
+	
     <definition name="*//e" extends="error_layout">
-        <put-attribute name="body" value="/WEB-INF/views/error/{1}.jsp" />
+        <put-attribute name="body" value="/WEB-INF/views/error_check/{1}.jsp" />
     </definition>
 	<definition name="home" extends="main_tile">
 		<put-attribute name="title" value="herere" />

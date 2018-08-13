@@ -17,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,6 +27,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import thelecture.dao.LectureDaoImpl;
 import thelecture.dao.MemberDaoImpl;
 import thelecture.model.LectureBean;
+import thelecture.model.QuestionListWrapper;
 import thelecture.model.MemberBean;
 import thelecture.model.PageBean;
 import thelecture.model.QuestionBean;
@@ -162,16 +164,18 @@ public class LecturesController {
 	}
 	
 	@RequestMapping(value="updateQuestions.do")
-	public String update_question(@RequestParam("questionIDs[]")String []questionIDs,
-									@RequestParam("u_questionContents[]")String[] questionContents) {
+	public String update_question(
+			 String [] questionIDs,
+			 String [] u_questionContents,
+			 Model model
+									) {
 		
-		System.out.println("!!!!!questionIDs"+questionIDs);
-		System.out.println("!!!!!questionContents"+questionContents);
 		
-//		int result = boardService.updateQuestion(question_version);
-		int result =1;
-		
-		return result==0?"redirect:insertLectureView.do" : "404error//e";
+		int result = boardService.updateQuestion(questionIDs, u_questionContents);
+
+		model.addAttribute("result",result);
+		return "empty/isUpdated";
+	  
 	}
 	
 	

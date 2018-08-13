@@ -52,8 +52,9 @@ public class BoardService {
 			
 			//찾은 lectureList 추가
 			boardInfo.put("lectureList",lectureList);
+			boardInfo.put("page_index", pagebean);
 		}
-		boardInfo.put("page_index", pagebean);
+		
 		
 		return boardInfo;
 		
@@ -99,6 +100,12 @@ public class BoardService {
 		
 		return lecturedao.deleteQuestion(question_version);
 		
+	}
+
+	public int updateQuestion(String[] questionIDs, String[] questionContents) {
+		
+		
+		return lecturedao.updateQuestion(questionIDs,questionContents);
 	}
 
 	

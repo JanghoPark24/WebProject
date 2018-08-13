@@ -165,7 +165,9 @@
 					</c:if>
 					<tr >
 						<td colspan="100%" style="text-align:right;">
-							${page_index.countOfRow} 개의 결과가 검색 되었습니다.
+							
+							<c:if test="${empty page_index}">0</c:if>
+							<c:if test="${not empty page_index}">${page_index.countOfRow}</c:if> 개의 결과가 검색 되었습니다.
 						</td>
 						
 						
@@ -183,22 +185,26 @@
 			</div>  
 			</c:if>
 			<div class="container text-center">
+				<!-- 페이지 인덱스가 전해져야만 있음. -->
+				<c:if test="${not empty page_index}">
 				
 	            <ul class="pagination">
 	              
 	              <c:if test="${ page_index.currentPage>1}">
-	                <li><a href="lectureList.do?currentPage=${page_index.firstIndex}<c:if test='${not empty page_index.keyword}'>&search=${page_index.search}&keyword=${page_index.keyword}</c:if>">맨처음</a></li>
+	                <li><a href="lectureList.do?currentPage=1<c:if test='${not empty page_index.keyword}'>&search=${page_index.search}&keyword=${page_index.keyword}</c:if>">맨처음</a></li>
+	                <li><a href="lectureList.do?currentPage=${page_index.firstIndex}<c:if test='${not empty page_index.keyword}'>&search=${page_index.search}&keyword=${page_index.keyword}</c:if>">이전</a></li>
 	              </c:if>
 	              <c:forEach varStatus="index" begin="${page_index.firstIndex}" 
 	              	end="${page_index.lastIndex}">
 	                <li><a href="lectureList.do?currentPage=${index.count}<c:if test='${not empty page_index.keyword}'>&search=${page_index.search}&keyword=${page_index.keyword}</c:if>">${index.count}</a></li>
 	              </c:forEach>
 	              <c:if test="${page_index.currentPage < page_index.totalPage}">  
+	                <li><a href="lectureList.do?currentPage=${page_index.lastIndex+1}<c:if test='${not empty page_index.keyword}'>&search=${page_index.search}&keyword=${page_index.keyword}</c:if>">다음</a></li>
 	                <li><a href="lectureList.do?currentPage=${page_index.totalPage}<c:if test='${not empty page_index.keyword}'>&search=${page_index.search}&keyword=${page_index.keyword}</c:if>">맨끝</a></li>
 				  </c:if>
 				  
-				  
 	            </ul>
+				</c:if>
 			</div>
        
      </div>   

@@ -158,6 +158,23 @@ public class LectureDaoImpl {
 			return 1;
 		}
 	}
+
+	public int updateQuestion(String[] questionIDs, String[] questionContents) {
+		try {
+			QuestionBean question = new QuestionBean();
+			
+			for(int i = 0; i<questionIDs.length; i++) {
+				question.setQuestion_id(Integer.parseInt(questionIDs[i]));
+				question.setQuestion_content(questionContents[i]);
+				sqlSession.update("lectureMap.updateQuestion",question);
+			}
+			return 0;
+			
+		}catch(Exception e){
+			e.printStackTrace();
+			return 1;
+		}
+	}
 	
 	
 	
