@@ -47,11 +47,11 @@ function check_delete(){
 }
 
 // 질문 삭제
-function deleteQuestion(questionVersion){
+function deleteQuestion(selectedOption){
 	var request = $.ajax({
 	  url: "deleteQuestion.do",
 	  method: "POST",
-	  data: { question_version:questionVersion},
+	  data: { question_version:selectedOption},
 	  dataType: "text"
 	});
 	request.done(function() {
@@ -74,34 +74,21 @@ function check_update(){
 		return;	
 	}else{
 		console.log(selectedQ_val)
-		selectQuestions_forUpdate(selectedQ_val)
+		selectQuestions(selectedQ_val,"update")
 	}
 }
 
-// 질문 수정
-function updateQuestions(){
-	console.log('update')
+// 수정 완료 버튼 누른 후
+function updateOptions(formID,urlDestination){
+	
 	// var frm = $("form#questions_form");
-	var frm = $("#questions input");
+	var frm = $(formID+' input');
  	var frmVal = frm.serialize();
  	console.log(frmVal)
 	
-	// controller로 넘김
-	/*
-	 * var request = $.ajax({ url: "./updateQuestions.do", method: "POST",
-	 * data:frmVal, dataType: "json" }); request.done(function() {
-	 * alert(frmVal+" 삭제 완료"); });
-	 * 
-	 * request.fail(function( jqXHR, textStatus ) { alert( "Request failed: " +
-	 * textStatus ); });
-	 */
-	var request = $.post("updateQuestions.do",frmVal,function(data){
+	var request = $.post(urlDestination,frmVal,function(data){
 		
-		if(data=='0'){
-			alert("수정 완료");
-		}else{
-			alert('수정 실패');
-		}
+		alert(data=='0'?"수정 완료":"수정실패");
 		location.reload();
 	});
  	
@@ -113,22 +100,30 @@ function updateQuestions(){
 }
 
 
-/* 수정시 , selection에 대한 Questionnaire 불러오기 */
-function selectQuestions_forUpdate(questionVersion){
+/* selection에 대한 Questionnaire 불러오기 */
+function selectQuestions(questionVersion,forWhat){
 	
 	$.post("selectQuetionnaire.do",{"questionVersion":questionVersion},function(questions){
 		
 		var questionId="";
 		var output="";
-		var update_button=
-			"<button type='button' id='updateQuestions' >"+
-			"수정완료"+
-			"</button>";
+		var update_button="";
 		
+		if(forWhat=="update"){
+			update_button +=
+				"<button type='button' id='updateQuestions' >"+
+				"수정완료"+
+				"</button>";
+		}
 		$.each(questions,function(index,item){
 			questionId += "<input type='hidden' name='questionIDs' value=\'"+item.question_id+"\' />"
-			output +="<div>"+"<p>"+(index+1)+"번</p>"+
-					 "<input type='text' name='u_questionContents' value='"+item.question_content+"'></div>";
+			if(forWhat=="update"){
+				output +="<div>"+"<p>"+(index+1)+"번</p>"+
+				"<input type='text' name='u_questionContents' value='"+item.question_content+"'></div>";
+				
+			}else{
+				output +="<div>"+"<p>"+(index+1)+"번</p>"+item.question_content+"</div>";
+			}
 			
 		})
 		$("#questions").html(questionId+output+update_button);
@@ -136,9 +131,8 @@ function selectQuestions_forUpdate(questionVersion){
 	}
  	
 
-	
-   
- <!-- 질문 불러오기  -->
+
+// 질문 불러오기 
 // 질문지 선택
 function searchFunction(){
 	var selectedVersion = $('#qSelect > option:selected').val();
@@ -147,25 +141,9 @@ function searchFunction(){
 		return;
 	}
 	
-	selectQuestionnaire(selectedVersion);
+	selectQuestions(selectedVersion,'default');
 }
 
-/* selection에 대한 Questionnaire 불러오기 */
-function selectQuestionnaire(questionVersion){
-	
-	
-	$.post("selectQuetionnaire.do",{"questionVersion":questionVersion},function(questions){
-		
-		var questionId="";
-		var output="";
-		
-		$.each(questions,function(index,item){
-			questionId += "<input type='hidden' value=\'"+item.question_id+"\' />"
-			output +="<div>"+"<p>"+(index+1)+"번</p>"+item.question_content+"</div>";
-		})
-		$("#questions").html(questionId+output);
-	})
-}
 
 // 질문지 추가하기
 function addQuestion(){
