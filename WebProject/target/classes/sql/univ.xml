@@ -12,6 +12,10 @@
 		select univ_name from univ
 	</select>
 	
+	<!-- univ입력 -->
+	<insert id="insertUniv" parameterType="univ">
+		insert into univ values(#{univ_name},#{univ_url},#{univ_domain},#{univ_logo, jdbcType=CHAR})
+	</insert>	
 
 
 
