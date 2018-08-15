@@ -13,15 +13,16 @@
       </div>
       <div id="makeUniv_body" class="modal-body">
         
-        <form id="updateUniversity" action="addUniversity.do">
+        <form id="updateUniv" method="post" action="updateUniv.do">
 	        <div class="univ_info">
-	         <div class="univ_name_wrapper"><label for="univ_name_d" width=15em>학교명</label>: <input type="text" id="univ_name_d" name="univ_name_d" value="" placeholder="예: 서울 대학교"/> </div>
-	         <div class="univ_url_wrapper"><label for="univ_url_d">학교 url</label>: <input type="text"  id="univ_url_d" name="univ_url_d" value="" placeholder="예: snu"/> </div>
-	         <div class="univ_domain_wrapper"><label for="univ_domain_d">학교 이메일 도메인</label>: <input type="text" id="univ_domain_d" name="univ_domain_d" value="" placeholder="snu.co.kr"/> </div>
-	         <div class="univ_logo_wrapper"><label for="univ_logo_d">학교 로고</label>: <input type="file" id="univ_logo_d" name="univ_logo_d" value="" placeholder="logo image"/> </div>
+	         <div class="univ_name_wrapper"><label for="u_univ_name_d" width=15em>학교명</label>: <input type="text" id="u_univ_name_d" name="univ_name" value="" placeholder="예: 서울 대학교"/> </div>
+	         <div class="univ_url_wrapper"><label for="u_univ_url_d">학교 url</label>: <input type="text"  id="u_univ_url_d" name="univ_url" value="" placeholder="예: snu"/> </div>
+	         <div class="univ_domain_wrapper"><label for="u_univ_domain">학교 이메일 도메인</label>: <input type="text" id="u_univ_domain_d" name="univ_domain" value="" placeholder="snu.co.kr"/> </div>
+	         <div class="univ_logo_wrapper"><label for="u_univ_logo_d">학교 로고</label>: <input type="file" id="univ_logo_d" name="u_univ_logo_d" value="" placeholder="logo image"/> </div>
 	        </div>
-	        <div id="question_button" >
-	          <button type="button" id="addUniv" class="btn btn-default" >학교 추가</button>
+	        <div id="u_univ_buttons" >
+	          <button type="button" id="updateUnivButton" class="btn btn-default"  >학교 수정</button>
+	          <button type="reset" id="u_removeUnivInfo" class="btn btn-default" >수정 취소</button>
 	        </div>
         </form>	
       </div>

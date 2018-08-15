@@ -15,7 +15,7 @@ import thelecture.service.UnivServiceImpl;
 public class UnivController {
 
 	@Autowired
-	private UnivServiceImpl UnivService;
+	private UnivServiceImpl univService;
 
 
 	/**
@@ -23,7 +23,7 @@ public class UnivController {
 	 */
 	@RequestMapping("univ_list.do")
 	public String univ_list(@RequestParam("category") String category, Model model) {
-		List<String> data_univ_list= UnivService.getUniv_list();
+		List<String> data_univ_list= univService.getUniv_list();
 		
 		
 		model.addAttribute("result", data_univ_list);
@@ -35,6 +35,19 @@ public class UnivController {
 		
 		return "content/university/data_univ_list";
 	}
+	
+	//새로운 대학교 입력 
+	@RequestMapping(value="insertUniv.do")
+	public String insertUniv(UnivBean university) {
+		System.out.println(university.getUniv_domain());
+		System.out.println(university.getUniv_logo());
+		System.out.println(university.getUniv_url());
+		System.out.println(university.getUniv_domain());
+		int result =univService.insertUniv(university);
+		//0이 성공 1이 실패  -성공시 view화면으로
+		return result == 0? "redirect:insertLectureView.do":"404error//e";
+	}
+
 	
 	
 
