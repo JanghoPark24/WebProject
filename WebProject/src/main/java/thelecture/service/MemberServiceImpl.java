@@ -38,6 +38,12 @@ public class MemberServiceImpl {
 	}
 
 	// 회원 정보 상세 조회
+	public MemberBean getMember(String email) {
+		System.out.println("Service");
+		return memberDao.getMember(email);
+	}
+
+	// 회원 정보 상세 조회
 	public MemberBean viewMember(String nickname) {
 		System.out.println("Service");
 		return memberDao.viewMember(nickname);
@@ -252,8 +258,6 @@ public class MemberServiceImpl {
 		return new ModelAndView("member/login_form");
 	}
 
-	
-	
 	public MemberBean select_member(String email) throws Exception {
 		return memberDao.select_member(email);
 	}

@@ -12,7 +12,7 @@
 
 <c:if test="${result > 0 }">
 	<script>
-		alert("삭제 성공");
+		alert("삭제 실패");
 		location.href="wlist.do";
 	</script>
 	

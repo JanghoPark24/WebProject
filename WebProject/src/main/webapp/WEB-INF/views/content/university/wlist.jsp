@@ -37,7 +37,6 @@
 		</tr>	
 		</c:forEach>
 					<tr>
-					
 						
 					</tr>
 				</tobody>

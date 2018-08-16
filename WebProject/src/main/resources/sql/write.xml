@@ -17,19 +17,14 @@
 		order by board_num desc 
 	</select>
 	
-	<!-- <select id=listAll" resultType="writeDTO">
-	 SELECT board_num, subject, content, b.email, sysdate, email AS email
-    	FROM community_board b, member m
-
-	</select> -->
-	
-	
 	
 	<select id="read" parameterType="int" resultType="writeDTO">
 		select * from community_board where board_num = #{board_num}
 	</select> 
 	
-
+<delete id="delete" parameterType="int">
+		delete from community_board where board_num=#{board_num}
+	</delete>
 	
 	
 	

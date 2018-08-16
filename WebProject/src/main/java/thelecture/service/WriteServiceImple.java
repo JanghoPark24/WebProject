@@ -28,6 +28,10 @@ public class WriteServiceImple {
 		return dao.read(num);
 	}
 
+	public int delete(int num) {
+		return dao.delete(num);
+	}
+
 
 	
 	

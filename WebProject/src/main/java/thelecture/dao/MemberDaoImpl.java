@@ -95,6 +95,13 @@ public class MemberDaoImpl {
 		return sqlSession.selectList("memberList");
 	}
 
+	// 회원 정보 상세 조회
+	@Transactional
+	public MemberBean getMember(String email) {
+		System.out.println("dao");
+		return sqlSession.selectOne("getMember",email);
+	}
+
 	/*
 	 * 회원상세정보
 	 */

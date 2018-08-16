@@ -68,6 +68,14 @@
 	</update> 
 
 <!-- 회원정보 상세조회 -->
+	 <select id="getMember" 
+	 		 parameterType="String"
+	 		 resultType="thelecture.model.MemberBean">
+		select * from member where email = #{email}
+	</select>
+
+
+<!-- 회원정보 상세조회 -->
 	 <select id="viewMember" 
 	 parameterType="String"
 	 resultType="thelecture.model.MemberBean">
