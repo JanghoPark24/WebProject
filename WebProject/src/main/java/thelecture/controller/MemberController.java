@@ -33,7 +33,7 @@ public class MemberController {
 	 */
 	@RequestMapping("joinForm.do")
 	public String joinForm(Model model) {
-		return "join_form";
+		return "member/joinForm";
 	}
 
 	/**
@@ -53,7 +53,7 @@ public class MemberController {
 		if (session.getAttribute("grade") != null) {// 이미 로그인한 유저가 다시 이 주소로 왔을 경우
 			return "redirect:home.do";
 		}
-		return "login_form";
+		return "member/loginForm";
 	}
 
 	/**
@@ -72,7 +72,7 @@ public class MemberController {
 	 */
 	@RequestMapping("findPasswordForm.do")
 	public String findPasswordForm() {
-		return "member/find_password_form";
+		return "member/find_passwordForm";
 	}
 
 	/**
@@ -88,16 +88,16 @@ public class MemberController {
 	 */
 	@RequestMapping(value = "passwordForm.do", method = RequestMethod.GET)
 	public String passwordForm(String key, Model model) throws Exception {
-		model.addAttribute("reg_key",key);
-		return "member/password_form";
+		model.addAttribute("reg_key", key);
+		return "member/passwordForm";
 	}
 
 	/**
 	 * 비밀번호 변경
 	 */
 	@RequestMapping(value = "reset_password.do", method = RequestMethod.POST)
-	public String reset_password(@RequestParam("authenticity_token") String authenticity_token,@RequestParam("password") String password, Model model)
-			throws Exception {
+	public String reset_password(@RequestParam("authenticity_token") String authenticity_token,
+			@RequestParam("password") String password, Model model) throws Exception {
 		return memberService.reset_password(authenticity_token, password, model);
 	}
 
@@ -130,8 +130,13 @@ public class MemberController {
 	/**
 	 * 탈퇴 신청 (미구현)
 	 */
-	@RequestMapping("sign_out.do")
+	@RequestMapping(value = "drop_out.do", method = RequestMethod.POST)
 	public String request(HttpSession session) {
+		String grade = (String) session.getAttribute("grade");
+		if (grade.equals("master")){//마스터 등급이면 누구든 삭제가능
+			
+		}
+
 		session.invalidate();
 		return "content/home";
 	}
@@ -175,38 +180,39 @@ public class MemberController {
 		session.setAttribute("nickname", mb.getNickname());
 		return "redirect:home.do";
 	}
-// 파일 업로드
-	@RequestMapping("fileupload.do")
-	public String fileupload(@ModelAttribute MemberBean mb,
-			MultipartHttpServletRequest request,
-			HttpSession session) throws Exception{
 
-		
-	   MultipartFile mf = request.getFile("profileImg");
-	   String path =request.getRealPath("images");
-	   System.out.println(path);
-	   String filename = mf.getOriginalFilename();
-	   File uploadFile = new File(path +"//"+ filename);
-	   
-	   try { 
-		   mf.transferTo(uploadFile);
-	    }catch(IllegalStateException e){
-	    	e.printStackTrace();
-	    }catch(IOException e) {
-	    	e.printStackTrace();
-	    }
-	   mb.setProfile_img(filename);
-	/*   mb.setEmail(request.getParameter("email"));
-	   mb.setUniv_name(request.getParameter("univ_name"));
-	   mb.setNickname(request.getParameter("nickname"));
-	   mb.setProfile(request.getParameter("profile"));	 */  
-	   
-	   
-       memberService.member_update(mb);
-	  
-       session.setAttribute("myprofile", mb);
-      /* session.setAttribute("nickname", mb.getNickname());
-       */
- 	   return "redirect:my_profile.do";
+	// 파일 업로드
+	@RequestMapping("fileupload.do")
+	public String fileupload(@ModelAttribute MemberBean mb, MultipartHttpServletRequest request, HttpSession session)
+			throws Exception {
+
+		MultipartFile mf = request.getFile("profileImg");
+		String path = request.getRealPath("images");
+		System.out.println(path);
+		String filename = mf.getOriginalFilename();
+		File uploadFile = new File(path + "//" + filename);
+
+		try {
+			mf.transferTo(uploadFile);
+		} catch (IllegalStateException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		mb.setProfile_img(filename);
+		/*
+		 * mb.setEmail(request.getParameter("email"));
+		 * mb.setUniv_name(request.getParameter("univ_name"));
+		 * mb.setNickname(request.getParameter("nickname"));
+		 * mb.setProfile(request.getParameter("profile"));
+		 */
+
+		memberService.member_update(mb);
+
+		session.setAttribute("myprofile", mb);
+		/*
+		 * session.setAttribute("nickname", mb.getNickname());
+		 */
+		return "redirect:my_profile.do";
 	}
 }

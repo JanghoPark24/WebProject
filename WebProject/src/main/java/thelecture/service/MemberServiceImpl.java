@@ -156,7 +156,7 @@ public class MemberServiceImpl {
 				model.addAttribute("dupemail", dupemail);
 			if (dupnickname)
 				model.addAttribute("dupnickname", dupnickname);
-			return "join_form";
+			return "member/joinForm";
 
 		}
 		return "redirect:reg_info.do";
@@ -199,7 +199,7 @@ public class MemberServiceImpl {
 		}
 		System.out.println("메일전송실패");
 		model.addAttribute("err_msg", "유효하지 않은 이메일");
-		return "member/find_password_form";
+		return "member/find_passwordForm";
 
 	}
 
@@ -255,7 +255,7 @@ public class MemberServiceImpl {
 		}
 		model.addAttribute("err_msg", "로그인 실패");
 		// 로그인 실패
-		return new ModelAndView("member/login_form");
+		return new ModelAndView("member/loginForm");
 	}
 
 	public MemberBean select_member(String email) throws Exception {

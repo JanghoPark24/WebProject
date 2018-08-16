@@ -3,6 +3,9 @@
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.when;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -23,6 +26,7 @@ import thelecture.controller.LecturesController;
 import thelecture.dao.LectureDaoImpl;
 import thelecture.model.LectureBean;
 import thelecture.model.MemberBean;
+import thelecture.model.QuestionBean;
 import thelecture.service.BoardService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -34,6 +38,7 @@ public class LecturesControllerTest {
 	
 	@Inject
 	private LecturesController lecturesController;
+	
 	@Mock
 	HttpSession session;
 	@Mock
@@ -47,11 +52,15 @@ public class LecturesControllerTest {
 	
 
 	@Test
-	public void testLecture() {
+	public void testInsert_question() {
+		QuestionBean questionBean = new QuestionBean();
+		questionBean.setQuestion_version("good");
 		
+//		lecturesController.insert_question(questionBean);
 	 
 //		lecturesController.review(6,session,request,member);
 		
+		System.out.println("questionVersion:"+questionBean.getQuestion_version());
 		
 	}
 

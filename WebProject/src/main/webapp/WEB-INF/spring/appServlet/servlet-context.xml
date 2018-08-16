@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans:beans xmlns="http://www.springframework.org/schema/mvc"
+<beans:beans
+	xmlns="http://www.springframework.org/schema/mvc"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:beans="http://www.springframework.org/schema/beans"
 	xmlns:context="http://www.springframework.org/schema/context"
@@ -10,11 +11,11 @@
 		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.1.xsd">
 
 	<!-- AOP autoProxy 생성 -->
-	<aop:aspectj-autoproxy/>
-	
+	<aop:aspectj-autoproxy />
+
 	<!-- DispatcherServlet Context: defines this servlet's request-processing 
 		infrastructure -->
-	
+
 
 	<!-- Enables the Spring MVC @Controller programming model -->
 	<annotation-driven />
@@ -24,36 +25,39 @@
 	<resources mapping="/resources/**" location="/resources/" />
 
 
+	
+
 	<!-- 타일즈 View Resolver 빈 추가 -->
 	<beans:bean id="tilesviewResolver"
-		class="org.springframework.web.servlet.view.tiles3.TilesViewResolver" >
-		<beans:property  value="0" name="order"  />	
+		class="org.springframework.web.servlet.view.tiles3.TilesViewResolver">
+		<beans:property value="0" name="order" />
 	</beans:bean>
 	<beans:bean id="tilesConfigurer"
 		class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">
 		<beans:property name="definitions">
 			<beans:list>
 				<beans:value>/WEB-INF/tiles/tiles.xml</beans:value>
-				
+
 			</beans:list>
 		</beans:property>
-		
-	</beans:bean>
-	
-  <!-- 이미지 업로드 -->
- <!--  해당 빈을 통해 multipart타입의 데이터 처리 -->	
-	<beans:bean id="multipartResolver"
-	class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
-	<beans:property name="maxUploadSize" value="10485760"></beans:property>
-</beans:bean>
-	
-	<!-- 이미지 파일을 저장할 경로 -->
-	<beans:bean id = "uploadPath" class="java.lang.String">
-	<beans:constructor-arg value="WebProject\src\main\webapp\images">
 
-	</beans:constructor-arg>
-</beans:bean>
-	
+	</beans:bean>
+
+	<!-- 이미지 업로드 -->
+	<!-- 해당 빈을 통해 multipart타입의 데이터 처리 -->
+	<beans:bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<beans:property name="maxUploadSize" value="10485760"></beans:property>
+	</beans:bean>
+
+	<!-- 이미지 파일을 저장할 경로 -->
+	<beans:bean id="uploadPath" class="java.lang.String">
+		<beans:constructor-arg
+			value="WebProject\src\main\webapp\images">
+
+		</beans:constructor-arg>
+	</beans:bean>
+
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources 
 		in the /WEB-INF/views directory -->
 
@@ -63,22 +67,29 @@
 		<beans:property name="suffix" value=".jsp" />
 		<beans:property name="order" value="1"></beans:property>
 	</beans:bean>
- 
-	<beans:bean id="LogAspect" class="thelecture.aop.LoggingAspect"/>
-    <aop:config>
-        <aop:aspect id="aop" ref="LogAspect">
-             <aop:pointcut id="controllers" expression="within(thelecture.controller.*)"/>
-             <aop:pointcut id="service" expression="within(thelecture.service.*)"/>
-             <aop:pointcut id="dao" expression="within(thelecture.dao.*)"/>
-             <aop:around pointcut-ref="controllers" method="mainAdvice"/>
-             <aop:around pointcut-ref="service" method="mainAdvice"/>
-             <aop:around pointcut-ref="dao" method="mainAdvice"/>
-        </aop:aspect>
-     </aop:config>
-     
-     
-       
-	<context:component-scan base-package="thelecture.*" />
-	<context:component-scan base-package="org.mockito.*" />
+
+	<beans:bean id="LogAspect"
+		class="thelecture.aop.LoggingAspect" />
+	<aop:config>
+		<aop:aspect id="aop" ref="LogAspect">
+			<aop:pointcut id="controllers"
+				expression="within(thelecture.controller.*)" />
+			<aop:pointcut id="service"
+				expression="within(thelecture.service.*)" />
+			<aop:pointcut id="dao"
+				expression="within(thelecture.dao.*)" />
+			<aop:around pointcut-ref="controllers" method="mainAdvice" />
+			<aop:around pointcut-ref="service" method="mainAdvice" />
+			<aop:around pointcut-ref="dao" method="mainAdvice" />
+
+		</aop:aspect>
+	</aop:config>
+
+
+
+	<context:component-scan
+		base-package="thelecture.*" />
+	<context:component-scan
+		base-package="org.mockito.*" />
 
 </beans:beans>

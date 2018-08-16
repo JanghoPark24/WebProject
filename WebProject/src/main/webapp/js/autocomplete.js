@@ -1,4 +1,4 @@
-var univ_tags = []
+var tags = []
 
 $(function() {
 	$.ajax({

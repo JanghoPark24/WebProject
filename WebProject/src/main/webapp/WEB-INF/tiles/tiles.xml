@@ -1,0 +1,110 @@
+<!DOCTYPE tiles-definitions PUBLIC
+"-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
+"http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+
+<!-- 타일즈 layout 설정 -->
+<tiles-definitions>
+	<definition name="main_tile" template="/WEB-INF/views/layout/layout.jsp">
+		<put-attribute name="title" value="" />
+		<put-attribute name="header" value="/WEB-INF/views/common/header.jsp" />
+		<put-attribute name="navbar" value="/WEB-INF/views/common/navbar.jsp" />
+		<put-attribute name="body" value="" />
+		<put-attribute name="footer" value="/WEB-INF/views/common/footer.jsp" />
+	</definition>
+<!-- 	<definition name="*/*" extends="classic">
+        <put-attribute name="content" value="/WEB-INF/views/{1}/{2}.jsp" />
+    </definition>
+    
+    <definition name="*/*/*" extends="classic">
+        <put-attribute name="content" value="/WEB-INF/views/{1}/{2}/{3}.jsp" />
+    </definition>
+     -->
+    <definition name="empty/*" template="/WEB-INF/views/error_check/{1}.jsp">
+		<put-attribute name="content" value="" />
+	</definition>
+    <definition name="error_layout" template="/WEB-INF/views/layout/error_layout.jsp">
+		<put-attribute name="body" value="" />
+	</definition>
+	
+	
+    <definition name="*//e" extends="error_layout">
+        <put-attribute name="body" value="/WEB-INF/views/error_check/{1}.jsp" />
+    </definition>
+
+	<!-- <definition name="join_form" extends="main_tile">
+		<put-attribute name="body" value="/WEB-INF/views/member/join_form.jsp" />
+	</definition> -->
+	
+	<definition name="lectureList" extends="main_tile">
+		<put-attribute name="body" value="/WEB-INF/views/lecture/lectureList.jsp" />
+	</definition>
+	
+	<definition name="service_profile" extends="main_tile">
+		<put-attribute name="body" value="/WEB-INF/views/content/service_profile.jsp" />
+	</definition>
+	
+	<definition name="board_detail" template="/WEB-INF/views/layout/layout_board.jsp">
+		<put-attribute name="title" value="" />
+		<put-attribute name="header" value="/WEB-INF/views/common/header.jsp" />
+		<put-attribute name="navbar" value="/WEB-INF/views/common/navbar.jsp" />
+		<put-attribute name="body" value="" />
+		<put-attribute name="comment" value="/WEB-INF/views/common/comment.jsp" />
+		<put-attribute name="footer" value="/WEB-INF/views/common/footer.jsp" />
+	</definition>
+	<definition name="my_profile" extends="main_tile">
+		<put-attribute name="body" value="/WEB-INF/views/content/profile/my_profile.jsp" />
+	</definition>
+	<definition name="user_profile" extends="main_tile">
+		<put-attribute name="body" value="/WEB-INF/views/content/profile/user_profile.jsp" />
+	</definition>
+	<definition name="profilelist" extends="main_tile">
+		<put-attribute name="body" value="/WEB-INF/views/content/profile/profilelist.jsp" />
+	</definition>
+	
+	<definition name="review_manager" extends="board_detail">
+		<put-attribute name="body" value="/WEB-INF/views/content/lecture/review_manager.jsp" />
+	</definition>
+	
+	<definition name="review" extends="board_detail">
+		<put-attribute name="body" value="/WEB-INF/views/content/lecture/review.jsp" />
+	</definition>
+	
+	<definition name="write_manager" extends="main_tile">
+		<put-attribute name="body" value="/WEB-INF/views/content/university/write_manager.jsp" />
+	</definition>
+	
+	<definition name="writeAction" extends="main_tile">
+		<put-attribute name="body" value="/WEB-INF/views/content/university/writeAction.jsp" />
+	</definition>
+	
+	<definition name="wlist" extends="main_tile">
+		<put-attribute name="body" value="/WEB-INF/views/content/university/wlist.jsp" />
+	</definition>
+	
+	<definition name="read" extends="main_tile">
+		<put-attribute name="body" value="/WEB-INF/views/content/university/read.jsp" />
+	</definition>
+	
+	<definition name="*/*" extends="main_tile">
+        <put-attribute name="body" value="/WEB-INF/views/{1}/{2}.jsp" />
+    </definition>
+    
+    <definition name="*/*/d" extends="board_detail">
+        <put-attribute name="body" value="/WEB-INF/views/content/{1}/{2}.jsp" />
+    </definition>
+    <definition name="*/*/*" extends="main_tile">
+        <put-attribute name="body" value="/WEB-INF/views/{1}/{2}/{3}.jsp" />
+    </definition>
+    <definition name="board_detail" template="/WEB-INF/views/layout/layout_board.jsp">
+		<put-attribute name="title" value="" />
+		<put-attribute name="header" value="/WEB-INF/views/common/header.jsp" />
+		<put-attribute name="navbar" value="/WEB-INF/views/common/navbar.jsp" />
+		<put-attribute name="body" value="" />
+		<put-attribute name="comment" value="/WEB-INF/views/common/comment.jsp" />
+		<put-attribute name="footer" value="/WEB-INF/views/common/footer.jsp" />
+	</definition>
+	
+
+
+	
+</tiles-definitions>

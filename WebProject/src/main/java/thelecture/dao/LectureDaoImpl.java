@@ -15,6 +15,7 @@ import thelecture.model.LectureBean;
 import thelecture.model.PageBean;
 import thelecture.model.QuestionBean;
 import thelecture.model.ReplyBean;
+import thelecture.model.UnivBean;
 
 @Repository
 public class LectureDaoImpl {
@@ -98,6 +99,85 @@ public class LectureDaoImpl {
 				return null;
 			}
 	}
+
+	public int insertQuestion_content(List<String> questionList) {
+		
+		try {
+			
+			sqlSession.insert("lectureMap.insertQuestions",questionList);
+			
+			return 0;
+			
+		}catch(Exception e){
+			e.printStackTrace();
+			return 1;
+		}
+	}
+
+	public int insertQuestionVersion(String question_version) {
+		try {
+			sqlSession.insert("lectureMap.insertLectureQuestionVersion",question_version);
+			return 0;
+			
+		}catch(Exception e){
+			e.printStackTrace();
+			return 1;
+		}
+		
+	}	
+	/*
+	 * question 입력
+	 * 
+	 * 
+	 * */
+	
+	public int insertQuestion(String question_version, String[] question_contents) {
+		try {
+			int contents_size = question_contents.length;
+			HashMap<String, String> questionMap = new HashMap<>();
+			questionMap.put("question_version", question_version);
+			for(int i =0; i <contents_size; i++){
+				questionMap.put("question_content",question_contents[i]);
+				sqlSession.insert("lectureMap.insertLectureQuestion",questionMap);
+			}
+			return 0;
+			
+		}catch(Exception e){
+			e.printStackTrace();
+			return 1;
+		}
+		
+	}
+
+	public int deleteQuestion(String question_version) {
+		try {
+			sqlSession.update("lectureMap.deleteQuestion",question_version);
+			return 0;
+			
+		}catch(Exception e){
+			e.printStackTrace();
+			return 1;
+		}
+	}
+
+	public int updateQuestion(String[] questionIDs, String[] questionContents) {
+		try {
+			QuestionBean question = new QuestionBean();
+			
+			for(int i = 0; i<questionIDs.length; i++) {
+				question.setQuestion_id(Integer.parseInt(questionIDs[i]));
+				question.setQuestion_content(questionContents[i]);
+				sqlSession.update("lectureMap.updateQuestion",question);
+			}
+			return 0;
+			
+		}catch(Exception e){
+			e.printStackTrace();
+			return 1;
+		}
+	}
+	
+	
 	
 	
 }

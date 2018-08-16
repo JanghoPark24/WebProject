@@ -3,69 +3,70 @@
 
 <mapper namespace="memberns">
 	<!-- email 중복검사 -->
-	<select id="isdup_email" parameterType="String"	resultType="member">
+	<select id="isdup_email" parameterType="String"
+		resultType="member">
 		select * from member where Lower(email)= #{value}
 	</select>
 	<!-- nickname 중복검사 -->
-	<select id="isdup_nickname" parameterType="String" resultType="member">
+	<select id="isdup_nickname" parameterType="String"
+		resultType="member">
 		select * from member where Lower(nickname)= #{value}
 	</select>
 	<!-- reg_key 중복검사 -->
-	<select id="isdup_reg_key" parameterType="String" resultType="member">
+	<select id="isdup_reg_key" parameterType="String"
+		resultType="member">
 		select * from member where Lower(reg_key)= #{value}
 	</select>
 	<!-- 회원선택 -->
-	<select id="select_member" parameterType="String" resultType="member">
+	<select id="select_member" parameterType="String"
+		resultType="member">
 		select * from member where Lower(email)= #{email}
 	</select>
 	<!-- 회원선택 -->
 	<select id="getEmail" parameterType="String" resultType="String">
-		select email from member where reg_key= #{reg_key}
+		select
+		email from member where reg_key= #{reg_key}
 	</select>
 	<!-- 등급변환 -->
-	<update id="setGrade_to_member"  parameterType="String">
-		update member set grade ='member' where email =#{email}
+	<update id="setGrade_to_member" parameterType="String">
+		update member set
+		grade ='member' where email =#{email}
 	</update>
-	
+
 	<!-- 회원저장 -->
 	<insert id="member_join" parameterType="member">
-		insert INTO	member values(
-		#{email},#{univ_name},#{nickname},#{password},'n','unknown',
-			0,null,#{reg_key},sysdate,'컴퓨터공학과',unknown.jpg,'안넝하세여')
+		insert INTO member values(
+		#{email}, #{univ_name}, #{nickname}, #{password}, 'n', 'unknown', 0, null,
+		#{reg_key}, sysdate, '', '','')
 	</insert>
 	<!-- 비밀번호 변경 -->
-	<update id="member_reset_password" parameterType="member" >
+	<update id="member_reset_password" parameterType="member">
 		update member set password=#{password} where email=#{email}
 	</update>
-	
-	
+
+
 
 	<!-- 회원 목록 -->
 	<select id="memberList" resultType="thelecture.model.MemberBean">
-		select
-		email as email,
-		nickname as nickname,
-		univ_name as univ_name,
-		major as major
-		from member
-		order by email
-
+		select * from member
 	</select>
 
-	
-  
-     <!-- 회원정보수정 -->
-     <update id="member_update" parameterType="member">
-		update 
+
+
+	<!-- 회원정보수정 -->
+	<update id="member_update" parameterType="member">
+		update
 		member
-		set 
-		NICKNAME = #{nickname},	
+		set
+		NICKNAME = #{nickname},
 		major = #{major},
 		profile = #{profile},
-		profile_img = #{profile_img,jdbcType=VARCHAR}
+		profile_img =
+		#{profile_img,jdbcType=VARCHAR}
 		where
-		email = #{email}	
-	</update> 
+		email = #{email}
+	</update>
+
 
 <!-- 회원정보 상세조회 -->
 	 <select id="getMember" 
@@ -75,10 +76,10 @@
 	</select>
 
 
-<!-- 회원정보 상세조회 -->
-	 <select id="viewMember" 
-	 parameterType="String"
-	 resultType="thelecture.model.MemberBean">
+
+	<!-- 회원정보 상세조회 -->
+	<select id="viewMember" parameterType="String"
+		resultType="thelecture.model.MemberBean">
 		select
 		email,
 		nickname,

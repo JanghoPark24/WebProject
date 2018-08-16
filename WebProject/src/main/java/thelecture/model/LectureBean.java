@@ -6,7 +6,7 @@ public class LectureBean {
 	private int lecture_id;
 	private String univ_name;
 	private String major;
-	private int grade;
+	private int grade; //학년
 	private int semester;
 	private String lecture_code;
 	private String lecture_name;
