@@ -1,6 +1,6 @@
 package thelecture.model;
 
-public class UnivBean {
+public class UnivBean{
 	private String univ_name;
 	private String univ_url;
 	private String univ_domain;

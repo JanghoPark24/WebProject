@@ -1,6 +1,6 @@
 package thelecture.model;
 
-public class LectureBean {
+public class LectureBean{
 	
 	
 	private int lecture_id;
