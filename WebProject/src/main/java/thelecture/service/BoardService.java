@@ -61,16 +61,6 @@ public class BoardService {
 		
 	}
 	
-	@Transactional
-	public List<LectureBean> getReviewDetail (int lecture_id){
-		//강의 정보
-		LectureBean lectureInfo = lecturedao.getLectureListById(lecture_id);
-		
-		//
-		List<ReplyBean> replyList = lecturedao.getReplyListById(lecture_id);
-		
-		return null;
-	}
 	
 	@Transactional
 	public List<String> getQuestionVersions() {

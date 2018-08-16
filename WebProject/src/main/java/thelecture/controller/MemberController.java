@@ -33,7 +33,7 @@ public class MemberController {
 	 */
 	@RequestMapping("joinForm.do")
 	public String joinForm(Model model) {
-		return "join_form";
+		return "member/joinForm";
 	}
 
 	/**
@@ -53,7 +53,7 @@ public class MemberController {
 		if (session.getAttribute("grade") != null) {// 이미 로그인한 유저가 다시 이 주소로 왔을 경우
 			return "redirect:home.do";
 		}
-		return "login_form";
+		return "member/loginForm";
 	}
 
 	/**
@@ -72,7 +72,7 @@ public class MemberController {
 	 */
 	@RequestMapping("findPasswordForm.do")
 	public String findPasswordForm() {
-		return "member/find_password_form";
+		return "member/find_passwordForm";
 	}
 
 	/**
@@ -89,7 +89,7 @@ public class MemberController {
 	@RequestMapping(value = "passwordForm.do", method = RequestMethod.GET)
 	public String passwordForm(String key, Model model) throws Exception {
 		model.addAttribute("reg_key", key);
-		return "member/password_form";
+		return "member/passwordForm";
 	}
 
 	/**
