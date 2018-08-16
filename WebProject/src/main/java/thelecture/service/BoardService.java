@@ -8,6 +8,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import thelecture.dao.LectureDaoImpl;
 
@@ -15,6 +16,7 @@ import thelecture.model.LectureBean;
 import thelecture.model.PageBean;
 import thelecture.model.QuestionBean;
 import thelecture.model.ReplyBean;
+import thelecture.model.UnivBean;
 
 @Service
 public class BoardService {
@@ -51,8 +53,9 @@ public class BoardService {
 			
 			//찾은 lectureList 추가
 			boardInfo.put("lectureList",lectureList);
+			boardInfo.put("page_index", pagebean);
 		}
-		boardInfo.put("page_index", pagebean);
+		
 		
 		return boardInfo;
 		
@@ -80,6 +83,33 @@ public class BoardService {
 		
 		return lecturedao.getQuestionnaire(questionVersion);
 	}
+
+	@Transactional
+	public int insertQuestion( String question_version, String[] question_contents) {
+		
+		//question Version 입력
+		int result = lecturedao.insertQuestionVersion(question_version);
+		
+		//questionContent 입력
+		int result2 = lecturedao.insertQuestion(question_version,question_contents);
+		
+		//둘 모두가 성공 --> 성공 , 둘 중 하나가 실패 --> 실패
+		return result==0 && result2==0 ? 0: 1;
+	}
+
+	public int deleteQuestion(String question_version) {
+		
+		return lecturedao.deleteQuestion(question_version);
+		
+	}
+
+	public int updateQuestion(String[] questionIDs, String[] questionContents) {
+		
+		
+		return lecturedao.updateQuestion(questionIDs,questionContents);
+	}
+
+
 	
 
 }

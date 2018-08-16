@@ -17,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,8 +27,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import thelecture.dao.LectureDaoImpl;
 import thelecture.dao.MemberDaoImpl;
 import thelecture.model.LectureBean;
+import thelecture.model.QuestionListWrapper;
+import thelecture.model.UnivBean;
 import thelecture.model.MemberBean;
 import thelecture.model.PageBean;
+import thelecture.model.QuestionBean;
 import thelecture.service.BoardService;
 
 /**
@@ -122,23 +126,58 @@ public class LecturesController {
 	}
 	
 	@RequestMapping(value="insertLectureView.do")
-	public String insert_lecture_view(HttpSession session,Model model) {
+	public String insertLectureview(HttpSession session,Model model) {
 		
 		if(!session.getAttribute("grade").equals("master")) return "isNotMaster//e";
 		
 		List<String> questionVersions = boardService.getQuestionVersions();
 		
-		
+		System.out.println("questionVersions:"+ questionVersions);
 		model.addAttribute("questionVersions",questionVersions);
 		
 		
 		return "content/lecture/insert_lecture_view";
 	}
+	
 	@RequestMapping(value="insertLecture.do")
-	public String insert_lecture(String id) {
-		
+	public String insertLecture(String id) {
+	
 		return "";
 	}
 	
+	@RequestMapping(value="insertQuestion.do")
+	//충돌을 막기위해 qustion type으로 question버전을 받는다.(questionList안에 question_version이 있기 때문)
+	public String insertQuestion(@RequestParam("question_type")String question_version, @RequestParam(value="questionContents[]")String []questionContents) {
+		
+		
+		int result =boardService.insertQuestion(question_version, questionContents);
+		
+		//0이 성공 1이 실패  -성공시 view화면으로
+		return result == 0? "redirect:insertLectureView.do":"404error//e";
+	}
+	@RequestMapping(value="deleteQuestion.do")
+	public String deleteQuestion(String question_version,Model model) {
+		System.out.println(question_version);
+		
+		int result = boardService.deleteQuestion(question_version);
+		
+		return result==0?"redirect:insertLectureView.do" : "404error//e";
+	}
+	
+	@RequestMapping(value="updateQuestions.do")
+	public String updateQuestion(
+			 String [] questionIDs,
+			 String [] u_questionContents,
+			 Model model
+									) {
+		
+		
+		int result = boardService.updateQuestion(questionIDs, u_questionContents);
+
+		model.addAttribute("result",result);
+		return "empty/isUpdated";
+	  
+	}
+
 	
 }

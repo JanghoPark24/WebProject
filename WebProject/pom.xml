@@ -14,13 +14,22 @@
 			<id>codelds</id>
 			<url>https://code.lds.org/nexus/content/groups/main-repo</url>
 		</repository>
+		
+	     <repository>
+	                <id>oracle</id>
+	                <name>ORACLE JDBC Repository</name>
+	                <url>https://maven.oracle.com</url>
+	                
+	     </repository>
+
 	</repositories>
 	<properties>
 
 		<java-version>1.8</java-version>
 		<org.springframework-version>4.1.7.RELEASE</org.springframework-version>
 		<!-- <org.aspectj-version>1.6.10</org.aspectj-version> -->
-		<org.slf4j-version>1.6.6</org.slf4j-version>
+		<!-- 로깅 최신버전 -->
+		<org.slf4j-version>1.7.25</org.slf4j-version>
 		<tiles.version>3.0.1</tiles.version>
 		<mockito.version>1.10.19</mockito.version>
 		<cglib.version>2.2.2</cglib.version>
@@ -105,7 +114,13 @@
 			</exclusions>
 			<scope>runtime</scope>
 		</dependency>
-
+		<!-- log4jdbc -->
+		<dependency>
+		    <groupId>org.bgee.log4jdbc-log4j2</groupId>
+		    <artifactId>log4jdbc-log4j2-jdbc4.1</artifactId>
+		    <version>1.16</version>
+		</dependency>    
+			
 		<!-- @Inject -->
 		<dependency>
 			<groupId>javax.inject</groupId>
@@ -132,7 +147,12 @@
 			<version>1.2</version>
 		</dependency>
 
-
+		<!-- 컨넥션 풀을 위한 라이브러리 -->
+		<dependency>
+		    <groupId>commons-dbcp</groupId>
+		    <artifactId>commons-dbcp</artifactId>
+		    <version>1.4</version>
+		</dependency>
 
 
 		<!-- EMail -->
