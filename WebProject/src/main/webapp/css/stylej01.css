@@ -32,7 +32,7 @@ a:active, a:hover {
 	border-radius: 0 ! important;
 	background-position: center;
 	background-size: 100%;
-	/* 	style=text-shadow: 3px 2px 3px black; */
+	magin-bottom: 0px;
 }
 
 #homebox h1 {

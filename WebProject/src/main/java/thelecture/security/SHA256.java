@@ -34,4 +34,6 @@ public enum SHA256 {
 		}
 		return SHA;
 	}
+	
+	
 }

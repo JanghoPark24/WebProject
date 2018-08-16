@@ -48,14 +48,7 @@
 
 	<!-- 회원 목록 -->
 	<select id="memberList" resultType="thelecture.model.MemberBean">
-		select
-		email as email,
-		nickname as nickname,
-		univ_name as univ_name,
-		major as major
-		from member
-		order by email
-
+		select * from member
 	</select>
 
 
