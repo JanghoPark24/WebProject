@@ -2,7 +2,7 @@ package thelecture.model;
 
 import java.sql.Date;
 
-public class MemberBean {
+public class MemberBean{
 	private String email;
 	private String nickname;
 	private String univ_name;
