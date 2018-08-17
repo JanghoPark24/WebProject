@@ -13,6 +13,7 @@ public class WriteDaoImpl{
 	
 	@Autowired
 	private SqlSession session;
+	
 
 	public int insert(WriteBean writeBean) {
 		return session.insert("insert", writeBean);		
@@ -27,7 +28,14 @@ public class WriteDaoImpl{
 		return session.selectList("list");
 	}
 
-	
+	public WriteBean read(int num){
+		return session.selectOne("read", num);
+	}
 
+
+	public int delete(int num) {
+		return session.delete("delete", num);
+	}
+	
 }
 

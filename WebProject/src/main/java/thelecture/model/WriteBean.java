@@ -12,6 +12,7 @@ public class WriteBean {
 	private int view_count;		//조회수
 	private Date reg_date;		//날짜
 	private String is_deleted;	//삭제여부
+	private String nickname;
 	
 	public int getBoard_num() {
 		return board_num;
@@ -60,6 +61,12 @@ public class WriteBean {
 	}
 	public void setIs_deleted(String is_deleted) {
 		this.is_deleted = is_deleted;
+	}
+	public String getNickname() {
+		return nickname;
+	}
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
 	}
 
 }

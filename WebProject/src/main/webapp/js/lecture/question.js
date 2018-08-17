@@ -114,10 +114,13 @@ function selectQuestions(questionVersion,forWhat){
 				"<button type='button' id='updateQuestions' >"+
 				"수정완료"+
 				"</button>";
+			$("#questions").attr("class", "q_updating");
+			
+		
 		}
 		$.each(questions,function(index,item){
-			questionId += "<input type='hidden' name='questionIDs' value=\'"+item.question_id+"\' />"
 			if(forWhat=="update"){
+				questionId += "<input type='hidden' name='questionIDs' value=\'"+item.question_id+"\' />"
 				output +="<div>"+"<p>"+(index+1)+"번</p>"+
 				"<input type='text' name='u_questionContents' value='"+item.question_content+"'></div>";
 				

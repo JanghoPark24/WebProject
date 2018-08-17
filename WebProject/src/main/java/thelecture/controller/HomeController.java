@@ -27,19 +27,19 @@ public class HomeController {
 
 		model.addAttribute("serverTime", formattedDate);
 
-		return "home";
+		return "content/home";
 	}
 
 	@RequestMapping("privacy.do")
 	public String privacy() {
 
-		return "privacy";
+		return "content/privacy";
 	}
 
 	@RequestMapping("tos.do")
 	public String tos() {
 
-		return "tos";
+		return "content/tos";
 	}
 
 }

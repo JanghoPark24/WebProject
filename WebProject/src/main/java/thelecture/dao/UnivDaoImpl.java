@@ -29,5 +29,19 @@ public class UnivDaoImpl {
 	public List<String> getUniv_list(){
 		return sqlSession.selectList("getUniv_list");
 	}
+	
+
+	public int insertUniv(UnivBean university) {
+		try {
+			
+			sqlSession.insert("univns.insertUniv",university);
+			return 0;
+			
+		}catch(Exception e){
+			e.printStackTrace();
+			return 1;
+		}
+	}
+
 
 }

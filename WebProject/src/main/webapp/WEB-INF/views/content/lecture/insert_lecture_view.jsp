@@ -66,6 +66,7 @@
     
     }
    
+    //자동완성 기능
     function makeAutoComplete(input_id){
     	var tags = []
     	$.ajax({
@@ -90,14 +91,15 @@
     function validate(form_id){
     	
     	var frm = $(form_id);
+    	var toURL ="";
     	var inputs = $(form_id+' input')
     	var iSize = inputs.size();
+    	
     	
     	for(var i = 0; i< iSize; i++){
     		
     		var iV = inputs.eq(i)
     		// type이 file인 것을 제외하고 input값을 모두 비교
-    		
     		if(iV.val()=="" && iV.attr('type')!='file'){
     			var labelFor = iV.attr('id')
     			var labelVal = $("label[for='"+labelFor+"']").text();
@@ -151,9 +153,13 @@
 			$("#addUniv_outer").on('click',function(){
 				$('#univ_name_d').val($('#univ_name').val())
 			})
-			$("#addUniv").on('click',function(){
+			$("#insertUnivButton").on('click',function(){
 				
-				validate('#addUniversity');
+				validate('#insertUniv');
+			})
+			$("#updateUnivButton").on('click',function(){
+				
+				validate('#updateUniv');
 			})
 			
 			

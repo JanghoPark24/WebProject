@@ -16,6 +16,7 @@ import thelecture.model.LectureBean;
 import thelecture.model.PageBean;
 import thelecture.model.QuestionBean;
 import thelecture.model.ReplyBean;
+import thelecture.model.UnivBean;
 
 @Service
 public class BoardService {
@@ -60,16 +61,6 @@ public class BoardService {
 		
 	}
 	
-	@Transactional
-	public List<LectureBean> getReviewDetail (int lecture_id){
-		//강의 정보
-		LectureBean lectureInfo = lecturedao.getLectureListById(lecture_id);
-		
-		//
-		List<ReplyBean> replyList = lecturedao.getReplyListById(lecture_id);
-		
-		return null;
-	}
 	
 	@Transactional
 	public List<String> getQuestionVersions() {
@@ -107,6 +98,7 @@ public class BoardService {
 		
 		return lecturedao.updateQuestion(questionIDs,questionContents);
 	}
+
 
 	
 

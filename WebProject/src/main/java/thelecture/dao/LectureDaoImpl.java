@@ -15,6 +15,7 @@ import thelecture.model.LectureBean;
 import thelecture.model.PageBean;
 import thelecture.model.QuestionBean;
 import thelecture.model.ReplyBean;
+import thelecture.model.UnivBean;
 
 @Repository
 public class LectureDaoImpl {

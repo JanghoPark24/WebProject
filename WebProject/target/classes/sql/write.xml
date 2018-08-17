@@ -13,15 +13,18 @@
 	</select>
 	
 	<select id="list" resultType="writeDTO">
-		select * from community_board order by board_num desc
+		select c.*, nickname  from community_board c, member m where c.email=m.email  
+		order by board_num desc 
 	</select>
 	
 	
-<!-- 	<select id="read" parameterType="int" resultType="writeDTO">
+	<select id="read" parameterType="int" resultType="writeDTO">
 		select * from community_board where board_num = #{board_num}
-	</select> -->
+	</select> 
 	
-
+<delete id="delete" parameterType="int">
+		delete from community_board where board_num=#{board_num}
+	</delete>
 	
 	
 	

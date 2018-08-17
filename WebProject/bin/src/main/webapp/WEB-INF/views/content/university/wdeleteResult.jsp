@@ -15,7 +15,6 @@
 		alert("삭제 성공");
 		location.href="wlist.do";
 	</script>
-	
 </c:if>
 
 

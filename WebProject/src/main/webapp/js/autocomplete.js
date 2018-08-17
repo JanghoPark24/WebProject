@@ -1,5 +1,5 @@
 var tags = []
-         
+
 $(function() {
 	$.ajax({
 		url : 'autocomplete_univ.do',
