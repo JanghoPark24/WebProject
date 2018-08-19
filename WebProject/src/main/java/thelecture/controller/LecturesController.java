@@ -24,6 +24,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.amazonaws.services.s3.model.AmazonS3Exception;
+
 import thelecture.dao.LectureDaoImpl;
 import thelecture.dao.MemberDaoImpl;
 import thelecture.model.LectureBean;
@@ -33,6 +35,7 @@ import thelecture.model.MemberBean;
 import thelecture.model.PageBean;
 import thelecture.model.QuestionBean;
 import thelecture.service.BoardService;
+import thelecture.util.S3Util;
 
 /**
  * Handles requests for the application home page.
@@ -153,5 +156,17 @@ public class LecturesController {
 		return "empty/isUpdated";
 
 	}
-
+	
+	@RequestMapping(value="testing.do")
+	public String testing() {
+		S3Util s3 = new S3Util();
+		try {
+			s3.createBucket("lecture02");
+		}catch(AmazonS3Exception e) {
+			e.printStackTrace();
+		}
+		
+		return "empty/testing";
+	}
+	
 }
