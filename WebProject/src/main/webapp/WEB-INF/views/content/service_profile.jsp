@@ -6,13 +6,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>서비스 소개</title>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
- 
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
 <style>
 
-/* Add a dark background color to the footer */
 
 table, th, td {
     border: 1px solid black;
@@ -24,22 +20,20 @@ table, th, td {
 </head>
 <body>
 
-<header align="center">헤더</header>
-
-    
+  
    <div class="container">
- <div style="background-color:LightCyan;">
+ <div >
  <h2>The Lecture</h2>
    <h4> 청춘의 꽃을 피우는 즐거운 대학생활 The Lecture
            가 함께합니다! </h4>
            </div>   
           
-   <div  align="center" style="background-color:LightCyan;">    
- <img src="../images/theLecture.png"
+   <div  align="center">    
+ <img src="main/../images/theLecture2.svg"
 			style="height: 200px;"
 			align="bottom">
 		</div>	 
-   <div align="center" style="background-color:LightCyan;">     
+   <div align="center">     
    <p>The Lecture는 여러분의 대학생활을 더욱 더 
    보람차고 유익하게 보낼 수 있도록 다양한 정보를 제공
    하고 있습니다 </p> 
@@ -85,8 +79,6 @@ table, th, td {
 </div>
       
 
-                
-    <footer align="center" border=1  > footer</footer>
-
+             
 </body>
 </html>

@@ -3,5 +3,4 @@
 
 <%
 	response.sendRedirect("home.do");
-
-%>  
+%>

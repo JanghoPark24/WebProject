@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<meta name="viewport" content="width=device-width", initial-scale="1"> <!-- 반응형 메타 태그 -->
+<meta name="viewport" content="width=device-width", initial-scale="1"><!-- 반응형 메타 태그 -->
 <link rel="stylesheet" href="css/bootstrap.css">
 <title>JSP 게시판 웹서비스</title>
 </head>
@@ -14,7 +14,7 @@
 
 	<div class="container">
 		<div class="row">
-			<form method="post" action="write_managerAction.do">
+			<form method="post" action="write.do">
 				<table class="table table-striped" style="text-align: center; border: 1px solid #dddddd">
 				<thead>
 					<tr>
@@ -23,10 +23,10 @@
 				</thead>
 				<tbody>
 					<tr>
-						<td><input type="text" class="form-control" placeholder="글 제목" name="bbsTitle" maxlength="50"></td>
+						<td><input type="text" class="form-control" placeholder="글 제목" name="subject" maxlength="50"></td>
 					</tr>
 					<tr>
-						<td><textarea class="form-control" placeholder="글 내용" name="bbscontent" maxlength="2048" style="height: 350px;"></textarea></textarea></td>
+						<td><textarea class="form-control" placeholder="글 내용" name="content" maxlength="2048" style="height: 350px;"></textarea></td>
 					</tr>
 					</tbody>
 				</table>

@@ -13,7 +13,7 @@ function getChart(){
     var jsonfile = {
         "jsonarray": [{
            "standard": "지표1",
-           "grade": 5
+           "grade": 2
         }, {
             "standard": "지표2",
             "grade": 3
@@ -22,10 +22,13 @@ function getChart(){
             "grade": 2
         }, {
             "standard": "지표4",
-            "grade": 3
+            "grade": 1.3
         }, {
-            "standard": "지표5",
-            "grade": 4
+        	"standard": "지표5",
+        	"grade": 3.4
+        }, {
+            "standard": "지표6",
+            "grade": 1
         }]
      };
      var labels = jsonfile.jsonarray.map(function(e) {
@@ -37,7 +40,7 @@ function getChart(){
      
      
      var config = {
-        type:'horizontalBar', // bar, horizontalBar, pie,line , doughnut
+        type:'bar', // bar, horizontalBar, pie, line , doughnut
         data:{
             labels:labels,
             datasets:[{
@@ -80,12 +83,14 @@ function getChart(){
                 enabled:true
             },
             scales: {
-                xAxes: [{
+                yAxes: [{
                     display: true,
                     ticks: {
-                        suggestedMin: 0,    // minimum will be 0, unless there is a lower value.
-                        // OR //
-                        beginAtZero: true   // minimum value will be 0.
+//                        suggestedMin: 0,    // minimum will be 0, unless there is a lower value.
+//                        // OR //
+                        beginAtZero: true,   // minimum value will be 0.
+                        
+                        max:6
                     }
                 }]
             }

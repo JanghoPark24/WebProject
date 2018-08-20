@@ -2,6 +2,13 @@
 
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -13,18 +20,18 @@ import org.springframework.ui.Model;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import thelecture.controller.LecturesController;
-import thelecture.model.BoardBean;
+import thelecture.dao.LectureDaoImpl;
+import thelecture.model.LectureBean;
 import thelecture.model.MemberBean;
+import thelecture.model.QuestionBean;
+import thelecture.service.BoardService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @EnableWebMvc
 @ContextConfiguration(locations = 
-	{"classpath*:spring/appServlet/servlet-context.xml",
-	 "classpath*:spring/root-context.xml"})
+	{"classpath*:spring/root-context.xml"})
 public class LecturesControllerTest {
 		
-	@Autowired
-	private MockMvc mvc;
 	
 //	@Mock
 //	private LecturesController lecturesController;
@@ -57,5 +64,6 @@ public class LecturesControllerTest {
 //		
 //		
 //	}
+
 
 }

@@ -1,10 +1,98 @@
 <?xml version="1.0" encoding="UTF-8" ?>
  <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="memberns">
+<mapper namespace="lectureMap">
+
+
+	
+	<select id="getRowCount" parameterType="page_index" resultType="int">
+		select count(*) from lecture
+		<where>
+			<!--keyword null아니지만 , search는 null-->
+			<if test="keyword != null and search ==''">
+				lecture_id = -1
+			</if>
+			<!-- keyword가 대학 -->
+			<if test="keyword == 'univ' and search !=null">
+				lecture_id in
+				(select lecture_id from lecture where univ_name like '%연세%')
+			</if>
+			<!-- keyword가 all일 경우 -->
+			<if test="keyword == 'all' and search !=null">
+				lecture_id in
+				(select lecture_id from lecture_search 
+				where char_info like '%${search}%')
+			</if>
+		</where>	
+		
+	</select>
+	
+	<!-- <select id="getLectureList" parameterType="java.util.HashMap" resultType="lectureResult"> -->
+	<select id="getLectureList" parameterType="page_index" resultType="lectureResult">
+		select * from (select a.*,rowNum rnum from (
+			select * from lecture
+		<where>
+			<!--keyword null아니지만 , search는 null-->
+			<if test="keyword != null and search ==''">
+				lecture_id = -1
+			</if>
+			<!--keyword가 대학-->
+			<if test="keyword == 'univ' and search !=null">
+				lecture_id in
+				(select lecture_id from lecture where univ_name like '%${search}%')
+			</if>
+			<!--keyword가 all일 경우-->
+			<if test="keyword == 'all' and search !=null">
+				lecture_id in
+				(select lecture_id from lecture_search 
+				where char_info like '%'||#{search}||'%')
+			</if>
+		</where>		 
+			 order by lecture_id desc) a )
+			where rnum between #{startRow,jdbcType=INTEGER} and #{endRow,jdbcType=INTEGER}
+		
+	</select>
 	<!-- 중복검사 -->
-
-
+	
+	<!-- id에 따라 강의 하나 구하기-->
+	<select id="getLectureListById" parameterType="int" resultType="lectureResult">
+		select * from lecture where lecture_id=#{lecture_id}
+	</select>
+	
+	<!--순서대로 구하기-->
+	<select id="getQuestionVersions" resultType="String">
+		select question_version from(
+		
+		    select sum(question_id) sum_id, question_version
+		    from question
+		    where is_deleted = 'n'
+		    group by question_version
+		    order by sum_id
+		)
+	</select>
+	
+	
+	<select id="getQuestionnaire" parameterType="String" resultType="question">
+		select * from question 
+        where question_version= #{question_version,jdbcType=VARCHAR} AND is_deleted='n'
+        order by question_id 
+	</select>
+	<insert id="insertLectureQuestionVersion" parameterType="String">
+		insert into question_version values(#{question_version},'n') 
+	</insert>
+	<insert id="insertLectureQuestion" parameterType="hashMap">
+		insert into question values(seq_question_id.nextval,#{question_version},#{question_content},'n')
+	</insert>
+	<update id="deleteQuestion" parameterType="String">
+		update question
+		set is_deleted ='y'
+		where question_version =#{question_version}
+	</update>
+	<update id="updateQuestion" parameterType="question">
+		update question
+		set question_content =#{question_content}
+		where question_id= #{question_id}
+	</update>
 
 </mapper>
 

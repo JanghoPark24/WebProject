@@ -30,14 +30,17 @@ a:active, a:hover {
 /* "홈 박스" */
 #homebox {
 	border-radius: 0 ! important;
-	color: #101b2d;
 	background-position: center;
 	background-size: 100%;
-	/* 	style=text-shadow: 3px 2px 3px black; */
+	magin-bottom: 0px;
 }
 
-#homebox p {
-	color: black;
+#homebox h1 {
+	color: #101b2d;
+}
+
+#homebox h3 {
+	color: #112;
 }
 
 @media screen and (max-width:650px) {
@@ -90,7 +93,6 @@ input[type=checkbox] {
 /* 검색창-입력  */
 .searchform input {
 	border-radius: 0px;
-	
 }
 /* 검색창-버튼  */
 .searchform button {

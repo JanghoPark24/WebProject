@@ -2,7 +2,7 @@ package thelecture.model;
 
 import java.sql.Date;
 
-public class MemberBean {
+public class MemberBean{
 	private String email;
 	private String nickname;
 	private String univ_name;
@@ -94,5 +94,11 @@ public class MemberBean {
 	public void setProfile(String profile) {
 		this.profile = profile;
 	}
+	@Override
+	public String toString() {
+		return "MemberBean[email="+email+",nickname="+nickname+",univ_name="+univ_name+",major="+major+"]";
+	}
+	
+	
 	
 }
