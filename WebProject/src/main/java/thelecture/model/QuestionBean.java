@@ -1,6 +1,8 @@
 package thelecture.model;
 
-public class QuestionBean {
+import java.util.List;
+
+public class QuestionBean{
 	private Integer question_id;
 	private String question_version;
 	private String question_content;

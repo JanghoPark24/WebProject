@@ -1,5 +1,6 @@
 package thelecture.service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.StringTokenizer;
 
@@ -40,8 +41,19 @@ public class MemberServiceImpl {
 	}
 
 	// 회원 정보 상세 조회
-	public MemberBean viewMember(String nickname) {
+	public MemberBean getMember(String email) {
 		System.out.println("Service");
+		return memberDao.getMember(email);
+	}
+
+	// 회원 정보 상세 조회
+/*	public MemberBean viewMember(String nickname) {
+		System.out.println("Service");
+		return memberDao.viewMember(nickname);
+	}
+*/	public MemberBean viewMember(String nickname) {
+		System.out.println("Service");
+		 
 		return memberDao.viewMember(nickname);
 	}
 
@@ -222,12 +234,24 @@ public class MemberServiceImpl {
 		return memberDao.select_member(email);
 	}
 
+	@Transactional
 	// 회원정보수정
 	public int member_update(MemberBean mb) throws Exception {
-		System.out.println("2");
+		
 		return memberDao.member_update(mb);
 
 	}
+	@Transactional
+	// 회원정보수정
+	public boolean member_update_profile(MemberBean mb) throws Exception {
+		boolean profileUpdateSuccess = memberDao.member_update_profile(mb);
+		boolean imageInsertSuccess = memberDao.insertProfile(mb);
+		
+		return profileUpdateSuccess && imageInsertSuccess;
+
+	}
+	
+	
 
 	public String email_confirm(String reg_key) throws Exception {
 		String email = memberDao.getEmail(reg_key);
@@ -236,6 +260,11 @@ public class MemberServiceImpl {
 			return "redirect:home.do";
 		}
 		return "redirect:home.do";// 유효하지 않음
+	}
+
+	public MemberBean getMemberByNickName(String nickname) {
+		
+		return memberDao.getMemberByNickName(nickname);
 	}
 
 }

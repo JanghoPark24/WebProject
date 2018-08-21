@@ -1,3 +1,5 @@
 eclipse.preferences.version=1
-encoding//src/main/webapp/WEB-INF/views/content/lecture/question_modal.jsp=UTF-8
-encoding//src/main/webapp/WEB-INF/views/error_check/isUpdated.jsp=UTF-8
+encoding//src/main/webapp/WEB-INF/views/content/lecture/lectureList.jsp=UTF-8
+encoding//src/main/webapp/WEB-INF/views/content/university/school_board_master.jsp=UTF-8
+encoding//src/main/webapp/WEB-INF/views/content/university/write_view.jsp=UTF-8
+encoding//src/main/webapp/WEB-INF/views/member/reset_mail.jsp=UTF-8

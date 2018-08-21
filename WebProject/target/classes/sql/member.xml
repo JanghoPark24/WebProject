@@ -43,7 +43,7 @@
 	<update id="member_reset_password" parameterType="member">
 		update member set password=#{password} where email=#{email}
 	</update>
-
+	
 
 
 	<!-- 회원 목록 -->
@@ -66,22 +66,55 @@
 		where
 		email = #{email}
 	</update>
+	
+	<!-- 회원프로파일 수정 -->
+	<update id="member_update_profile_img" parameterType="member">
+		update
+		member
+		set
+		profile_img =
+		#{profile_img,jdbcType=VARCHAR}
+		where
+		email = #{email}
+	</update>
+
+
+<!-- 회원정보 상세조회 -->
+	 <select id="getMember" 
+	 		 parameterType="String"
+	 		 resultType="thelecture.model.MemberBean">
+		select * from member where email = #{email}
+	</select>
+
+
 
 	<!-- 회원정보 상세조회 -->
-	<select id="viewMember" parameterType="String"
-		resultType="thelecture.model.MemberBean">
+	<select id="getMemberByNickName" parameterType="String"
+		resultType="member">
 		select
 		email,
 		nickname,
 		univ_name,
 		major,
 		profile,
-		profile_img
+		profile_img,
+		uploadedfile
+		from memberView
+		where nickname = #{nickname}
+
+	</select>
+	<select id="getMember_noImage" parameterType="String"
+		resultType="member">
+		select *
 		from member
 		where nickname = #{nickname}
 
 	</select>
 
+	<insert id="insertImage" parameterType="member">
+		insert into file_storage 
+		values(#{email},#{directory},#{profile_img},#{uploadedFile},'n',sysdate)
+	</insert>
 
 
 </mapper>

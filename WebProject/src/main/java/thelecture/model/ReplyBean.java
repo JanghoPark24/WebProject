@@ -7,7 +7,7 @@ import java.util.Date;
  * community_board_reply
  * 
  * */
-public class ReplyBean {
+public class ReplyBean{
 	
 	private int reply_num;
 	private int semester;

@@ -32,6 +32,10 @@ public class WriteDaoImpl{
 		return session.selectOne("read", num);
 	}
 
+
+	public int delete(int num) {
+		return session.delete("delete", num);
+	}
 	
 }
 

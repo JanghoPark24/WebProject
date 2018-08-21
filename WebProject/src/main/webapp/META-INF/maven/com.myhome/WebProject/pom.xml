@@ -208,7 +208,16 @@
 			<artifactId>tiles-core</artifactId>
 			<version>${tiles.version}</version>
 		</dependency>
+		
+		<!-- aws-java-sdk -->
+		<dependency>
+		    <groupId>com.amazonaws</groupId>
+		    <artifactId>aws-java-sdk</artifactId>
+		    <version>1.11.66</version>
+		</dependency>
 
+
+		
 
 <!-- 이미지 업로드 -->
 <dependency>

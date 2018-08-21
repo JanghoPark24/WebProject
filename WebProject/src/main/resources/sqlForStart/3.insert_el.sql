@@ -1,6 +1,8 @@
 SELECT * FROM tab;
 SELECT * FROM member;
 SELECT * FROM univ;
+SELECT * FROM file_storage;
+
 
 delete from member;
 delete from univ;
@@ -84,7 +86,8 @@ sysdate,'무역학과','image.jpg','탈퇴하려는 회원입니다.'
  * lecture List 새로 추가
  * 
  * */
-
+select * from member;
+select * from memberView;
 
 commit;
 DROP table lecture  CASCADE CONSTRAINTS;
@@ -120,3 +123,18 @@ as select
     major||univ_name || lecture_code ||lecture_name || credit || professor char_info,
     grade ||' , '||semester number_info --검색시 사용하는 정보
 from lecture;
+
+
+
+
+--멤버 뷰 생성(마지막에 생성된것 하나만)
+create or replace view memberView
+as
+select mb.email email, univ_name, 
+nickname, password,is_mail_open, 
+profile, grade, reg_date, major, profile_img, uploadedfile, isdeleted
+from member mb, file_storage fs
+where mb.email = fs.email and  --조인
+profile_img = filename and  -- 
+savedTime in (select max(savedTime) from file_storage group by email)  -- 
+;

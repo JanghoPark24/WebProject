@@ -1,5 +1,6 @@
 package thelecture.dao;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
@@ -71,7 +72,7 @@ public class MemberDaoImpl {
 
 	@Transactional
 	public int member_update(MemberBean mb) throws Exception {
-		System.out.println("3");
+		
 		return sqlSession.update("memberns.member_update", mb);
 	}
 
@@ -89,6 +90,13 @@ public class MemberDaoImpl {
 		return sqlSession.selectList("memberList");
 	}
 
+	// 회원 정보 상세 조회
+	@Transactional
+	public MemberBean getMember(String email) {
+		System.out.println("dao");
+		return sqlSession.selectOne("getMember",email);
+	}
+
 	/*
 	 * 회원상세정보
 	 */
@@ -98,5 +106,34 @@ public class MemberDaoImpl {
 		System.out.println("dao");
 		return sqlSession.selectOne("viewMember", nickname);
 	}
+
+	
+	
+	public boolean insertProfile(MemberBean mb) {
+		
+		int insertedRowCount = sqlSession.insert("insertImage",mb);
+		System.out.println(insertedRowCount);
+		return (insertedRowCount==1)?true:false;
+	}
+	
+	public boolean member_update_profile(MemberBean mb) {
+		
+		int affectedRow = sqlSession.update("memberns.member_update_profile_img", mb);
+		
+		return (affectedRow==1)? true:false; 
+	}
+
+	public MemberBean getMemberByNickName(String nickname) {
+		MemberBean memberInfo = sqlSession.selectOne("getMemberByNickName", nickname);
+		if (memberInfo==null) {
+			memberInfo = sqlSession.selectOne("getMember_noImage", nickname);
+		}
+		return memberInfo;
+	}
+	
+//	public String getProfileURL(MemberBean mb) {
+//		
+//		return sqlSession.selectOne("selectProfileURL",mb);
+//	}
 
 }

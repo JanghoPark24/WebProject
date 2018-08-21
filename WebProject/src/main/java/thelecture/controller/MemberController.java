@@ -2,12 +2,15 @@ package thelecture.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -21,6 +24,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import thelecture.model.MemberBean;
 import thelecture.service.MemberServiceImpl;
+import thelecture.util.S3Util;
+import thelecture.util.UploadFileUtils;
 
 @Controller
 public class MemberController {
@@ -156,12 +161,12 @@ public class MemberController {
 	@RequestMapping("my_profile.do")
 	public String memberView(HttpSession session, Model model) {
 		String nickname = (String) session.getAttribute("nickname");
-		System.out.println(nickname);
+		System.out.println("nickname:"+nickname);
 
-		MemberBean dto = memberService.viewMember(nickname);
+		MemberBean dto = memberService.getMemberByNickName(nickname);
 		model.addAttribute("dto", dto);
 
-		return "my_profile";
+		return "content/profile/my_profile";
 
 	}
 
@@ -175,10 +180,14 @@ public class MemberController {
 	// 회원정보 수정
 	@RequestMapping("update.do")
 	public String update(@ModelAttribute MemberBean mb, HttpSession session) throws Exception {
+		
+		//이메일 저장 -- null값을 막기 위함
+		mb.setEmail((String)session.getAttribute("email"));
+		
 		int result = memberService.member_update(mb);
 		System.out.println("result:" + result);
-		session.setAttribute("nickname", mb.getNickname());
-		return "redirect:home.do";
+		session.setAttribute("dto", mb);
+		return "redirect:my_profile.do";
 	}
 
 	// 파일 업로드
@@ -192,6 +201,7 @@ public class MemberController {
 		String filename = mf.getOriginalFilename();
 		File uploadFile = new File(path + "//" + filename);
 
+		System.out.println(filename);
 		try {
 			mf.transferTo(uploadFile);
 		} catch (IllegalStateException e) {
@@ -200,6 +210,7 @@ public class MemberController {
 			e.printStackTrace();
 		}
 		mb.setProfile_img(filename);
+		mb.setEmail(session.getAttribute("email").toString());
 		/*
 		 * mb.setEmail(request.getParameter("email"));
 		 * mb.setUniv_name(request.getParameter("univ_name"));
@@ -207,12 +218,45 @@ public class MemberController {
 		 * mb.setProfile(request.getParameter("profile"));
 		 */
 
+		
 		memberService.member_update(mb);
-
+		
+		
 		session.setAttribute("myprofile", mb);
 		/*
 		 * session.setAttribute("nickname", mb.getNickname());
 		 */
 		return "redirect:my_profile.do";
+	}
+	@RequestMapping("fileupload2.do")
+	public String fileupload2(@ModelAttribute MemberBean mb, @RequestParam("profileImg")MultipartFile mf, HttpSession session, Model model)
+			throws Exception {
+
+		String directory = "profileImage";
+		System.out.println(directory);
+		String filename = mf.getOriginalFilename();
+		String current_email = (String) session.getAttribute("email");
+		
+
+		System.out.println(filename);
+		ResponseEntity<String> img_path = new ResponseEntity<>(
+				UploadFileUtils.uploadFile(directory, filename, mf.getBytes()),
+				HttpStatus.CREATED);
+		String uploadedFile = img_path.getBody();
+		
+		mb.setProfile_img(filename);
+		mb.setEmail(current_email);
+		mb.setUploadedFile(uploadedFile);
+		mb.setDirectory(directory);
+		
+
+		//member에 profile, file_storage에 이미지와 경로 저장
+		boolean updateProfileSuccess =memberService.member_update_profile(mb);
+		
+		
+		model.addAttribute("dto", mb);
+//		session.setAttribute("userImage", current_email+filename);
+		
+		return (updateProfileSuccess)? "redirect:my_profile.do":"updateFail//e";
 	}
 }
