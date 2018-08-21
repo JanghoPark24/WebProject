@@ -1,7 +1,5 @@
 package thelecture.model;
 
-import java.util.List;
-
 public class QuestionBean {
 	private Integer question_id;
 	private String question_version;

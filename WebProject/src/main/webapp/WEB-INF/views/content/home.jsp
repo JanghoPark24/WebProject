@@ -75,9 +75,9 @@ h2 {
 		<div class="col-sm-4">
 			<h2>강의 평가 서비스</h2>
 		</div>
-		<div class="col-sm-8" >
+		<div class="col-sm-8">
 			<p style="font-size: 1em;">
-				The Lecture는 대학생 여러분들의 강의평가 정보들을 다양한 지표를 통해 수집, 제공하는 사이트입니다.<br><br>
+				The Lecture는 대학생 여러분들의 강의평가 정보들을 수집, 제공하는 사이트입니다.<br> <br>
 				또한 대학생 여러분들이 대학생활에 관련하여 서로 간의 연결해주기 위한 온라인 공간입니다.
 			</p>
 		</div>

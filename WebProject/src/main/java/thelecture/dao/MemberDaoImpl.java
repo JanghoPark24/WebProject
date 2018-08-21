@@ -64,12 +64,7 @@ public class MemberDaoImpl {
 	public void setGrade_to(String grade, String email) {
 		sqlSession.update("setGrade_to_" + grade, email);
 	}
-
-	// public MemberBean getMemberInfo(String email) {
-	//
-	// return sqlSession.selectOne("get_member", email);
-	// }
-
+	
 	/*
 	 * 회원정보수정!
 	 */
@@ -82,7 +77,6 @@ public class MemberDaoImpl {
 
 	@Transactional
 	public void member_reset_password(MemberBean mb) {
-		System.out.println("rp - service");
 		sqlSession.update("member_reset_password", mb);
 	}
 

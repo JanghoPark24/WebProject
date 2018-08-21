@@ -4,7 +4,6 @@ function getChart(){
     let myChart = document.getElementById('myChart').getContext('2d');
         
     //Global Options
-   
     Chart.defaultFontSize=18;
     Chart.defaultFontColor='#777';
         
@@ -12,14 +11,14 @@ function getChart(){
     //표 성질
     var jsonfile = {
         "jsonarray": [{
-           "standard": "지표1",
+           "standard": "•강의 계획서에 따라 수업이 진행되었나요?",
            "grade": 2
         }, {
             "standard": "지표2",
             "grade": 3
         }, {
             "standard": "지표3",
-            "grade": 2
+            "grade": 5
         }, {
             "standard": "지표4",
             "grade": 1.3
@@ -28,7 +27,10 @@ function getChart(){
         	"grade": 3.4
         }, {
             "standard": "지표6",
-            "grade": 1
+            "grade": 5
+        }, {
+            "standard": "지표6",
+            "grade": 5
         }]
      };
      var labels = jsonfile.jsonarray.map(function(e) {
@@ -40,7 +42,7 @@ function getChart(){
      
      
      var config = {
-        type:'bar', // bar, horizontalBar, pie, line , doughnut
+        type:'horizontalBar', // bar, horizontalBar, pie, line , doughnut
         data:{
             labels:labels,
             datasets:[{
