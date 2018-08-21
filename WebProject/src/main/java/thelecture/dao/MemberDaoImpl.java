@@ -115,9 +115,26 @@ public class MemberDaoImpl {
 
 	
 	
-	public int insertProfile(MemberBean mb) {
+	public boolean insertProfile(MemberBean mb) {
 		
-		return sqlSession.insert("insertImage",mb);
+		int insertedRowCount = sqlSession.insert("insertImage",mb);
+		System.out.println(insertedRowCount);
+		return (insertedRowCount==1)?true:false;
+	}
+	
+	public boolean member_update_profile(MemberBean mb) {
+		
+		int affectedRow = sqlSession.update("memberns.member_update_profile_img", mb);
+		
+		return (affectedRow==1)? true:false; 
+	}
+
+	public MemberBean getMemberByNickName(String nickname) {
+		MemberBean memberInfo = sqlSession.selectOne("getMemberByNickName", nickname);
+		if (memberInfo==null) {
+			memberInfo = sqlSession.selectOne("getMember_noImage", nickname);
+		}
+		return memberInfo;
 	}
 	
 //	public String getProfileURL(MemberBean mb) {

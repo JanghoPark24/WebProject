@@ -275,10 +275,17 @@ public class MemberServiceImpl {
 		return memberDao.member_update(mb);
 
 	}
-	public int insertProfile(MemberBean mb) throws Exception{
-		return memberDao.insertProfile(mb);
+	@Transactional
+	// 회원정보수정
+	public boolean member_update_profile(MemberBean mb) throws Exception {
+		boolean profileUpdateSuccess = memberDao.member_update_profile(mb);
+		boolean imageInsertSuccess = memberDao.insertProfile(mb);
 		
+		return profileUpdateSuccess && imageInsertSuccess;
+
 	}
+	
+	
 
 	public String email_confirm(String reg_key) throws Exception {
 		String email = memberDao.getEmail(reg_key);
@@ -287,6 +294,11 @@ public class MemberServiceImpl {
 			return "redirect:home.do";
 		}
 		return "redirect:home.do";// 유효하지 않음
+	}
+
+	public MemberBean getMemberByNickName(String nickname) {
+		
+		return memberDao.getMemberByNickName(nickname);
 	}
 
 }

@@ -161,12 +161,12 @@ public class MemberController {
 	@RequestMapping("my_profile.do")
 	public String memberView(HttpSession session, Model model) {
 		String nickname = (String) session.getAttribute("nickname");
-		System.out.println(nickname);
+		System.out.println("nickname:"+nickname);
 
-		MemberBean dto = memberService.viewMember(nickname);
+		MemberBean dto = memberService.getMemberByNickName(nickname);
 		model.addAttribute("dto", dto);
 
-		return "my_profile";
+		return "content/profile/my_profile";
 
 	}
 
@@ -180,10 +180,14 @@ public class MemberController {
 	// 회원정보 수정
 	@RequestMapping("update.do")
 	public String update(@ModelAttribute MemberBean mb, HttpSession session) throws Exception {
+		
+		//이메일 저장 -- null값을 막기 위함
+		mb.setEmail((String)session.getAttribute("email"));
+		
 		int result = memberService.member_update(mb);
 		System.out.println("result:" + result);
-		session.setAttribute("nickname", mb.getNickname());
-		return "redirect:home.do";
+		session.setAttribute("dto", mb);
+		return "redirect:my_profile.do";
 	}
 
 	// 파일 업로드
@@ -217,7 +221,7 @@ public class MemberController {
 		
 		memberService.member_update(mb);
 		
-
+		
 		session.setAttribute("myprofile", mb);
 		/*
 		 * session.setAttribute("nickname", mb.getNickname());
@@ -225,7 +229,7 @@ public class MemberController {
 		return "redirect:my_profile.do";
 	}
 	@RequestMapping("fileupload2.do")
-	public String fileupload2(@ModelAttribute MemberBean mb, @RequestParam("profileImg")MultipartFile mf, HttpSession session)
+	public String fileupload2(@ModelAttribute MemberBean mb, @RequestParam("profileImg")MultipartFile mf, HttpSession session, Model model)
 			throws Exception {
 
 		String directory = "profileImage";
@@ -246,16 +250,13 @@ public class MemberController {
 		mb.setDirectory(directory);
 		
 
-
-		//member에 저장
-		memberService.member_update(mb);
-		//따로 경로 저장
-		memberService.insertProfile(mb);
+		//member에 profile, file_storage에 이미지와 경로 저장
+		boolean updateProfileSuccess =memberService.member_update_profile(mb);
 		
 		
-		session.setAttribute("myprofile", mb);
+		model.addAttribute("dto", mb);
 //		session.setAttribute("userImage", current_email+filename);
 		
-		return "redirect:my_profile.do";
+		return (updateProfileSuccess)? "redirect:my_profile.do":"updateFail//e";
 	}
 }

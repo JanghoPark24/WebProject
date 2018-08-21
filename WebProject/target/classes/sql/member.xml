@@ -66,6 +66,17 @@
 		where
 		email = #{email}
 	</update>
+	
+	<!-- 회원프로파일 수정 -->
+	<update id="member_update_profile_img" parameterType="member">
+		update
+		member
+		set
+		profile_img =
+		#{profile_img,jdbcType=VARCHAR}
+		where
+		email = #{email}
+	</update>
 
 
 <!-- 회원정보 상세조회 -->
@@ -78,8 +89,8 @@
 
 
 	<!-- 회원정보 상세조회 -->
-	<select id="viewMember" parameterType="String"
-		resultType="thelecture.model.MemberBean">
+	<select id="getMemberByNickName" parameterType="String"
+		resultType="member">
 		select
 		email,
 		nickname,
@@ -89,6 +100,13 @@
 		profile_img,
 		uploadedfile
 		from memberView
+		where nickname = #{nickname}
+
+	</select>
+	<select id="getMember_noImage" parameterType="String"
+		resultType="member">
+		select *
+		from member
 		where nickname = #{nickname}
 
 	</select>

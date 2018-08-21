@@ -93,20 +93,20 @@ table, th, td {
 							<!-- <div class="filebox"> -->
 							<!-- <label for="profileImg">프로필 수정</label> -->
 
-							<c:if test="${sessionScope.myprofile != null }">
+							<c:if test="${not empty dto}">
 								<%-- <img
 									src="<%=request.getContextPath()%>/images/${myprofile.profile_img}"
 									width=200 height="300"> --%>
 								<img
-								src="https://s3.ap-northeast-2.amazonaws.com/thelecture/profileImage${myprofile.uploadedFile}"
+								src="https://s3.ap-northeast-2.amazonaws.com/thelecture/profileImage${dto.uploadedFile}"
 								width=200 height="300">
 							</c:if>
-							<c:if test="${sessionScope.myprofile == null }">
+							<c:if test="${empty dto}">
 								<%-- <img
 									src="<%=request.getContextPath()%>/images/${dto.profile_img}"
 									width=200 height="300"> --%>
 								<img
-									src="https://s3.ap-northeast-2.amazonaws.com/thelecture/${dto.uploadedFile}"
+									src="https://via.placeholder.com/200x300"
 									width=200 height="300">
 							</c:if>
 							<input type="file" id="profileImg" name="profileImg">
