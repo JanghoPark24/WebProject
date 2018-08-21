@@ -27,6 +27,7 @@ public class S3Util {
 		ClientConfiguration clientConfig = new ClientConfiguration();
 		clientConfig.setProtocol(Protocol.HTTP);
 		this.conn = new AmazonS3Client(credentials, clientConfig);
+	
 		conn.setEndpoint("s3.ap-northeast-2.amazonaws.com"); // 엔드포인트 설정 [ 아시아 태평양 서울 ]
 	}
 

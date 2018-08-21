@@ -73,7 +73,7 @@ public class LoggingAspect {
 						System.out.print(attribute + "=");
 						System.out.print(((HttpSession) arguments[i]).getValue(attribute) + ",");
 					}
-					System.out.print("/");
+					System.out.println();
 
 					// Model일 경우 필드 값
 				}/* else if (arguments[i] instanceof PageBean || arguments[i] instanceof LectureBean
@@ -114,10 +114,10 @@ public class LoggingAspect {
 					for (int j = 0; i < slist.length; j++) {
 						System.out.print(slist[j] + ",");
 					}
-					System.out.print("/");
+					System.out.println();
 				} else {
 					System.out.print(arguments[i]);
-					System.out.print("/");
+					System.out.println();
 				}
 				
 

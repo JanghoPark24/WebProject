@@ -1,5 +1,6 @@
 package thelecture.service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.StringTokenizer;
 
@@ -44,8 +45,13 @@ public class MemberServiceImpl {
 	}
 
 	// 회원 정보 상세 조회
-	public MemberBean viewMember(String nickname) {
+/*	public MemberBean viewMember(String nickname) {
 		System.out.println("Service");
+		return memberDao.viewMember(nickname);
+	}
+*/	public MemberBean viewMember(String nickname) {
+		System.out.println("Service");
+		 
 		return memberDao.viewMember(nickname);
 	}
 
@@ -262,11 +268,16 @@ public class MemberServiceImpl {
 		return memberDao.select_member(email);
 	}
 
+	@Transactional
 	// 회원정보수정
 	public int member_update(MemberBean mb) throws Exception {
-		System.out.println("2");
+		
 		return memberDao.member_update(mb);
 
+	}
+	public int insertProfile(MemberBean mb) throws Exception{
+		return memberDao.insertProfile(mb);
+		
 	}
 
 	public String email_confirm(String reg_key) throws Exception {

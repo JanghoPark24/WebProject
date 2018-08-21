@@ -1,5 +1,6 @@
 package thelecture.dao;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
@@ -76,7 +77,7 @@ public class MemberDaoImpl {
 
 	@Transactional
 	public int member_update(MemberBean mb) throws Exception {
-		System.out.println("3");
+		
 		return sqlSession.update("memberns.member_update", mb);
 	}
 
@@ -111,5 +112,17 @@ public class MemberDaoImpl {
 		System.out.println("dao");
 		return sqlSession.selectOne("viewMember", nickname);
 	}
+
+	
+	
+	public int insertProfile(MemberBean mb) {
+		
+		return sqlSession.insert("insertImage",mb);
+	}
+	
+//	public String getProfileURL(MemberBean mb) {
+//		
+//		return sqlSession.selectOne("selectProfileURL",mb);
+//	}
 
 }

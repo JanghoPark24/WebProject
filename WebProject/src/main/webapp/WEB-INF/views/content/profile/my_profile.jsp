@@ -80,7 +80,10 @@ table, th, td {
 	<div class="container">
 
 		<table border=1 align=center width=50 class="table">
-			<form method="post" name="form1" action="fileupload.do"
+			
+			
+        
+			<form method="post" name="form1" action="fileupload2.do"
 				enctype="multipart/form-data">
 				<h2 align="center">내 프로필</h2>
 				<tr class="info">
@@ -91,13 +94,19 @@ table, th, td {
 							<!-- <label for="profileImg">프로필 수정</label> -->
 
 							<c:if test="${sessionScope.myprofile != null }">
-								<img
+								<%-- <img
 									src="<%=request.getContextPath()%>/images/${myprofile.profile_img}"
-									width=200 height="300">
+									width=200 height="300"> --%>
+								<img
+								src="https://s3.ap-northeast-2.amazonaws.com/thelecture/profileImage${myprofile.uploadedFile}"
+								width=200 height="300">
 							</c:if>
 							<c:if test="${sessionScope.myprofile == null }">
-								<img
+								<%-- <img
 									src="<%=request.getContextPath()%>/images/${dto.profile_img}"
+									width=200 height="300"> --%>
+								<img
+									src="https://s3.ap-northeast-2.amazonaws.com/thelecture/${dto.uploadedFile}"
 									width=200 height="300">
 							</c:if>
 							<input type="file" id="profileImg" name="profileImg">

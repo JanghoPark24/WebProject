@@ -16,6 +16,9 @@ public class MemberBean{
 	private String major;
 	private String profile_img;
 	private String profile;
+	private String uploadedFile; //프로필 사진 저장 경로 
+	private String directory; // 저장한 디렉토리
+	
 	public String getEmail() {
 		return email;
 	}
@@ -98,6 +101,21 @@ public class MemberBean{
 	public String toString() {
 		return "MemberBean[email="+email+",nickname="+nickname+",univ_name="+univ_name+",major="+major+"]";
 	}
+	
+	
+	public String getUploadedFile() {
+		return uploadedFile;
+	}
+	public void setUploadedFile(String uploadedFile) {
+		this.uploadedFile = uploadedFile;
+	}
+	public String getDirectory() {
+		return directory;
+	}
+	public void setDirectory(String directory) {
+		this.directory = directory;
+	}
+	
 	
 	
 	

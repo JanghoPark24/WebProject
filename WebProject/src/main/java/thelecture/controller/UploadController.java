@@ -105,22 +105,22 @@ public class UploadController {
 		logger.info(user_imgPath);
 		return user_imgPath;
 	}
-
+*/
 
 	//프로필 이미지
 	@SuppressWarnings("resource")
 	@ResponseBody
 	@RequestMapping("/displayFile")
-	public ResponseEntity<byte[]> displayFile(String fileName, String directory) throws Exception {
+	public ResponseEntity<byte[]> displayFile(String fileName, String directory,HttpSession session) throws Exception {
 		logger.info(directory);
+//		String current_email = session.getAttribute("email").toString(); //이메일 마다 이미지 구해오기
 		InputStream in = null;
 		ResponseEntity<byte[]> entity = null;
 		HttpURLConnection uCon = null;
 		logger.info("FILE NAME: " + fileName);
-
 		String inputDirectory = null;
 		if(directory.equals("profile")) {
-			inputDirectory = "almom/profileImage";
+			inputDirectory = "profileImage";
 		}
 		else if(directory.equals("certificate")) {
 			inputDirectory = "almom/certificate";
@@ -134,7 +134,7 @@ public class UploadController {
 			HttpHeaders headers = new HttpHeaders();
 			URL url;
 			try {
-				url = new URL(s3.getFileURL(bucketName, inputDirectory+fileName));
+				url = new URL(s3.getFileURL(bucketName, inputDirectory+fileName)); // 이미지
 				uCon = (HttpURLConnection) url.openConnection();
 				in = uCon.getInputStream(); // 이미지를 불러옴
 			} catch (Exception e) {
@@ -152,7 +152,7 @@ public class UploadController {
 		}
 		return entity;
 	}
-
+	/*
 	@ResponseBody
 	@RequestMapping(value = "/deleteFile", method = RequestMethod.POST)
 	public ResponseEntity<String> deleteFile(String fileName, String directory)throws Exception {
@@ -182,6 +182,7 @@ public class UploadController {
 
 		return new ResponseEntity<String>("deleted", HttpStatus.OK);
 	}
+	
 	@ResponseBody
 	@RequestMapping(value = "/deleteFileDB", method = RequestMethod.POST)
 	public ResponseEntity<String> deleteFileDB(String fileName, String directory)throws Exception {
@@ -210,7 +211,7 @@ public class UploadController {
 		new File(inputDirectory + fileName.replace('/', File.separatorChar)).delete();
 
 		return new ResponseEntity<String>("deleted", HttpStatus.OK);
-	}*/
-
+	}
+*/
 
 }

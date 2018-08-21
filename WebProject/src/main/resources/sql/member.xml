@@ -43,7 +43,7 @@
 	<update id="member_reset_password" parameterType="member">
 		update member set password=#{password} where email=#{email}
 	</update>
-
+	
 
 
 	<!-- 회원 목록 -->
@@ -86,12 +86,17 @@
 		univ_name,
 		major,
 		profile,
-		profile_img
-		from member
+		profile_img,
+		uploadedfile
+		from memberView
 		where nickname = #{nickname}
 
 	</select>
 
+	<insert id="insertImage" parameterType="member">
+		insert into file_storage 
+		values(#{email},#{directory},#{profile_img},#{uploadedFile},'n',sysdate)
+	</insert>
 
 
 </mapper>
