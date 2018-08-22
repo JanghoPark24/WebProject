@@ -62,7 +62,7 @@
 			</ul>
 
 			<!-- 로그인 안했을때 -->
-			<c:if test="${sessionScope.grade == null }">
+			<c:if test="${empty sessionScope.grade }">
 				<ul class="nav navbar-nav navbar-right">
 					<li><a href="joinForm.do"><span
 							class="glyphicon glyphicon-user"></span> Register</a></li>
@@ -72,7 +72,7 @@
 			</c:if>
 
 			<!-- 로그인 했을때 -->
-			<c:if test="${sessionScope.grade != null }">
+			<c:if test="${not empty sessionScope.grade }">
 				<ul class="nav navbar-nav navbar-right">
 					<li class="dropdown"><a class="dropdown-toggle"
 						data-toggle="dropdown" href="#">${sessionScope.nickname}</a>
