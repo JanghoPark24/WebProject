@@ -1,20 +1,30 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+	<script>
+		function reply(){
+			
+		}
+		$(function(){
+			$(".button_block").on("click",function(){
+				
+			})
+		})
+	</script>
 
 
-
-
+	<div id="comment_section">
              <!--댓글로-->
-         <form id="top-reply">
+         <form id="top-reply" action="insertReply" class="col-sm-10">
              <div class="form-group">
-                 <textarea class="form-control" rows="5" class="comment" width="100%" placeholder="공개 댓글 추가"></textarea>
+             	 <input type="hidden" name="reply_text" value="" >
+                 <textarea name="reply_text" class="form-control" rows="5" class="comment" width="100%" placeholder="공개 댓글 추가"></textarea>
                  <div class="reply-button-container">
                      <button type="reset" class="button_block">취소</button>
                      <button class="button_block">댓글 작성</button>
                  </div>
              </div>
          </form>
-         <div class="reply-container">     
+         <div class="reply-container" class="col-sm-8">     
        
                  <div class="reply-cotainer-header">
                      	댓글
@@ -141,6 +151,5 @@
                  </div>    
                  
          </div>
-         
-
+	</div>
    

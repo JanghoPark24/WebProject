@@ -50,8 +50,8 @@
 			<h3>[00000]</h3>${d}
 		</div>
 		<div id="content_top"></div>
-		<div id="content_middle">
-			<div class="col-sm-6">
+		<div id="content_middle" >
+			<div >
 				<canvas id="myChart"></canvas>
 			</div>
 			<div class="col-sm-2">
@@ -64,12 +64,12 @@
 				<!-- 평가 -->
 			</div>
 			<div class="col-sm-4" id="lecture_info">
-				<div class="col-sm-6">
+				<div class="col-sm-8">
 					<strong>학년</strong> : 1, 2
 				</div>
-				<div class="col-sm-6">학기 : 2학기</div>
-				<div class="col-sm-6">학점 : 3학점</div>
-				<div class="col-sm-6">교수 : ㅇㅇㅇ교수</div>
+				<div class="col-sm-8">학기 : 2학기</div>
+				<div class="col-sm-8">학점 : 3학점</div>
+				<div class="col-sm-8">교수 : ㅇㅇㅇ교수</div>
 			</div>
 			<!-- 로그인된 아이디가 이 학교 아이디이면  나타남.-->
 			<c:if test="${checked== true}">
@@ -84,5 +84,6 @@
 
 			getChart();
 		</script>
+		
 	</div>
 </body>

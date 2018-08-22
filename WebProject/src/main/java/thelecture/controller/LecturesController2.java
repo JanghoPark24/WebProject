@@ -44,7 +44,7 @@ public class LecturesController2 {
 		model.addAttribute("checked", true);
 		model.addAttribute("lectureBean", lb);
 
-		return "lecture/review";
+		return "review";
 
 	}
 
