@@ -184,10 +184,10 @@ public class MemberController {
 	// 회원정보 수정
 	@RequestMapping("update.do")
 	public String update(@ModelAttribute MemberBean mb, HttpSession session) throws Exception {
-
-		// 이메일 저장 -- null값을 막기 위함
-		mb.setEmail((String) session.getAttribute("email"));
-
+		
+		//이메일 저장 -- null값을 막기 위함
+		mb.setEmail((String)session.getAttribute("email"));
+		mb.setUniv_name((String)session.getAttribute("univ_name"));
 		int result = memberService.member_update(mb);
 		System.out.println("result:" + result);
 		session.setAttribute("dto", mb);
