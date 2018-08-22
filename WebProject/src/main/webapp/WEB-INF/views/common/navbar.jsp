@@ -79,7 +79,7 @@
 						<ul class="dropdown-menu">
 							<li><a href="my_profile.do"><span
 									class="glyphicon glyphicon-user"></span> My profile</a></li>
-							<c:if test="${sessionScope.grade.equals('master') }">
+							<c:if test="${sessionScope.grade=='master'}">
 								<li><a href="user_list.do"><span
 										class="glyphicon glyphicon-user"></span> Member List</a></li>
 							</c:if>

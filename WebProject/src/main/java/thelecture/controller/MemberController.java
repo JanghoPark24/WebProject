@@ -128,26 +128,13 @@ public class MemberController {
 	 */
 	@RequestMapping("logout.do")
 	public String logout(HttpSession session) {
-		session.setAttribute("email", null);
-		session.setAttribute("univ_name", null);
-		session.setAttribute("nickname", null);
-		session.setAttribute("grade", null);
-
-		return "redirect:home.do";
-	}
-
-	/**
-	 * 탈퇴 신청 (미구현)
-	 */
-	@RequestMapping(value = "drop_out.do", method = RequestMethod.POST)
-	public String request(HttpSession session) {
-		String grade = (String) session.getAttribute("grade");
-		if (grade.equals("master")) {// 마스터 등급이면 누구든 삭제가능
-
+		if (session.getAttribute("email") != null) {
+			session.removeAttribute("email");
+			session.removeAttribute("univ_name");
+			session.removeAttribute("nickname");
+			session.removeAttribute("grade");
 		}
-
-		session.invalidate();
-		return "content/home";
+		return "redirect:home.do";
 	}
 
 	// 회원목록 조회
@@ -184,10 +171,10 @@ public class MemberController {
 	// 회원정보 수정
 	@RequestMapping("update.do")
 	public String update(@ModelAttribute MemberBean mb, HttpSession session) throws Exception {
-		
-		//이메일 저장 -- null값을 막기 위함
-		mb.setEmail((String)session.getAttribute("email"));
-		mb.setUniv_name((String)session.getAttribute("univ_name"));
+
+		// 이메일 저장 -- null값을 막기 위함
+		mb.setEmail((String) session.getAttribute("email"));
+		mb.setUniv_name((String) session.getAttribute("univ_name"));
 		int result = memberService.member_update(mb);
 		System.out.println("result:" + result);
 		session.setAttribute("dto", mb);
