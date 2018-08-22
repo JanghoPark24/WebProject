@@ -41,8 +41,6 @@ $(function(){
             $re_container.show();
         }
     })
-
     //취소 누를 시에 댓글창 닫기
-    
 })
 

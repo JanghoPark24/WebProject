@@ -1,5 +1,7 @@
 package thelecture.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,15 +36,16 @@ public class LecturesController2 {
 	 * 
 	 * @param 설명
 	 * @return
+	 * @throws Exception 
 	 */
 	@RequestMapping(value = "review.do", method = RequestMethod.GET)
 	public String review(@RequestParam("lecture_id") int lecture_id, HttpSession session, Model model) {
 
 		// password가 맞으면
 		System.out.println("L id: " + lecture_id);
-		LectureBean lb = etcService.getReviewDetail(lecture_id);
+		LectureBean lb = etcService.getReviewDetail(lecture_id, model);
 		model.addAttribute("checked", true);
-		model.addAttribute("lectureBean", lb);
+		model.addAttribute("lb", lb);//LectureBean 객체
 
 		return "review";
 

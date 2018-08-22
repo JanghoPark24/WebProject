@@ -65,25 +65,21 @@ public class MemberDaoImpl {
 	public void setGrade_to(String grade, String email) {
 		sqlSession.update("setGrade_to_" + grade, email);
 	}
-
-	// public MemberBean getMemberInfo(String email) {
-	//
-	// return sqlSession.selectOne("get_member", email);
-	// }
-
+	
 	/*
 	 * 회원정보수정!
 	 */
 
 	@Transactional
-	public int member_update(MemberBean mb) throws Exception {
+	public boolean member_update(MemberBean mb) throws Exception {
 		
-		return sqlSession.update("memberns.member_update", mb);
+		int updatedRowCount =sqlSession.update("memberns.member_update", mb);
+		
+		return (updatedRowCount==1)? true:false;
 	}
 
 	@Transactional
 	public void member_reset_password(MemberBean mb) {
-		System.out.println("rp - service");
 		sqlSession.update("member_reset_password", mb);
 	}
 
@@ -129,10 +125,10 @@ public class MemberDaoImpl {
 		return (affectedRow==1)? true:false; 
 	}
 
-	public MemberBean getMemberByNickName(String nickname) {
-		MemberBean memberInfo = sqlSession.selectOne("getMemberByNickName", nickname);
+	public MemberBean getMemberByEmail(String email) {
+		MemberBean memberInfo = sqlSession.selectOne("getMemberByEmail", email);
 		if (memberInfo==null) {
-			memberInfo = sqlSession.selectOne("getMember_noImage", nickname);
+			memberInfo = sqlSession.selectOne("getMemberByEmail_noImage", email);
 		}
 		return memberInfo;
 	}

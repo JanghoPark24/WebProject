@@ -4,10 +4,10 @@
 <configuration>
 
 	<typeAliases>
-		<typeAlias alias="member" type="thelecture.model.MemberBean" />		
-		<typeAlias alias="univ" type="thelecture.model.UnivBean" />		
-	<!-- 	<typeAlias alias="lecture" type="thelecture.model.LectureBean" />		
-		<typeAlias alias="replies" type="thelecture.model.ReplyBean" />		 -->
+		<typeAlias alias="member" type="thelecture.model.MemberBean" />
+		<typeAlias alias="univ" type="thelecture.model.UnivBean" />
+		<!-- <typeAlias alias="lecture" type="thelecture.model.LectureBean" /> 
+			<typeAlias alias="replies" type="thelecture.model.ReplyBean" /> -->
 	</typeAliases>
 
 

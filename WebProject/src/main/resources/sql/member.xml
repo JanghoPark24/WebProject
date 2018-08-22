@@ -60,9 +60,14 @@
 		set
 		NICKNAME = #{nickname},
 		major = #{major},
-		profile = #{profile},
-		profile_img =
-		#{profile_img,jdbcType=VARCHAR}
+		profile = #{profile}
+		
+		<if test="profile_img!=null">
+			,
+			profile_img =
+			#{profile_img,jdbcType=VARCHAR}
+		</if>
+		
 		where
 		email = #{email}
 	</update>
@@ -89,7 +94,7 @@
 
 
 	<!-- 회원정보 상세조회 -->
-	<select id="getMemberByNickName" parameterType="String"
+	<select id="getMemberByEmail" parameterType="String"
 		resultType="member">
 		select
 		email,
@@ -100,14 +105,14 @@
 		profile_img,
 		uploadedfile
 		from memberView
-		where nickname = #{nickname}
+		where email = #{email}
 
 	</select>
-	<select id="getMember_noImage" parameterType="String"
+	<select id="getMemberByEmail_noImage" parameterType="String"
 		resultType="member">
 		select *
 		from member
-		where nickname = #{nickname}
+		where email = #{email}
 
 	</select>
 

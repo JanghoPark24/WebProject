@@ -30,7 +30,9 @@ public class MemberServiceImpl {
 	private UnivDaoImpl univDao;
 	@Inject
 	private JavaMailSender mailSender;
-
+	/**
+	 * 추후 서비스할 IP 주소 필히 입력해야 함.
+	 */
 	private String hostAddress = "localhost";
 
 	// 전체 회원 목록 조희
@@ -81,7 +83,6 @@ public class MemberServiceImpl {
 
 	public String find_domain(String domain) throws Exception {
 		return univDao.find_domain(domain);
-
 	}
 
 	/**
@@ -106,9 +107,6 @@ public class MemberServiceImpl {
 		if (!dupemail && !dupnickname// DB(member)안에 중복 이메일, 중복 닉네임이 없으면,
 				&& (!univ_name.equals("")) /* DB(univ)안에 도메인이 있으면, */ ) {
 
-			// 서버 아이피
-			/* InetAddress ip = InetAddress.getLocalHost(); */
-
 			// 인증용 랜덤키 생성
 			TempKey keyGenerator = TempKey.Instance;
 			boolean dupkey = false;
@@ -121,23 +119,7 @@ public class MemberServiceImpl {
 			// 이메일 전송
 			MailHandler sendMail = new MailHandler(mailSender);
 			sendMail.setSubject("[TheLecture]회원가입 인증메일입니다.");
-			sendMail.setText(new StringBuffer().append(
-					"<div class='container' style='padding: 20px;background: #eeeeee;font-size:16px;border: 1px solid #999999;'>")//
-					.append("<div class='jumbotron' style='margin: 20px;background: #eeeeee;'>")//
-					.append("<h2>회원가입 메일 인증</h2>" + "<span style='font-size: 18px; font-weight: 500;'>안녕하세요.  ")//
-					.append(nickname)// 닉네임
-					.append(" 님,</span><br><br>TheLecture 가입을 환영합니다.<br>시작하기 전에, 본인 확인을 위해 이메일 인증이 필요합니다.<br>")//
-					.append("아래의 이메일 인증 주소를 클릭해주세요:<br><br><a class='btn' href='")//
-					.append("http://localhost/WebProject/email_confirm.do?key=")// 가입 인증 url주소
-					.append(reg_key)// 인증키값
-					.append("' style='color:white;text-decoration:none;font-size:14px;border-radius:3px;background-color:#337ab7;padding:8px 12px;border:none'>이메일 인증</a>")//
-					.append("<br><p style='font-size:12px;color:#444444'><br><a href='http://").append(hostAddress)//
-					.append("/WebProject/home.do'style='text-decoration: none; color: #333;'target='_blank';>TheLecture</a> / <a href='http://")
-					.append(hostAddress)//
-					.append("/WebProject/tos.do'style='text-decoration: none; color: #333;'target='_blank';>이용약관</a> / <a href='http://")
-					.append(hostAddress)//
-					.append("/WebProject/privacy.do'style='text-decoration: none; color: #333;'target='_blank';>개인정보 처리방침</a> / <br></p></div></div>")
-					.toString());//
+			sendMail.setText_joinAuthMail(nickname, reg_key, hostAddress);
 			sendMail.setFrom("TheLectue.corp@gmail.com", "TheLectue.corp");//
 			sendMail.setTo(email);
 			sendMail.send();// 메일 전송
@@ -180,23 +162,7 @@ public class MemberServiceImpl {
 			MemberBean mb = memberDao.select_member(email);
 			MailHandler sendMail = new MailHandler(mailSender);
 			sendMail.setSubject("[TheLecture]비밀번호 재설정 메일입니다.");
-			sendMail.setText(new StringBuffer().append(
-					"<div class='container' style='padding: 20px;background: #eeeeee;font-size:16px;border: 1px solid #999999;'>")//
-					.append("<div class='jumbotron' style='margin: 20px;background: #eeeeee;'>")//
-					.append("<h2>비밀번호 재설정</h2>" + "<span style='font-size: 18px; font-weight: 500;'>안녕하세요.  ")//
-					.append(mb.getNickname())// 닉네임
-					.append(" 님,</span><br><br>비밀번호 재설정을 하기 위해서 아래의 주소를 클릭해주세요<br>")//
-					.append("본인이 요청한 메일이 아닌 경우, 개인정보 보호를 위해 비밀번호를 다시 설정하시길 바랍니다.:<br><br><a class='btn' href='")//
-					.append("http://localhost/WebProject/passwordForm.do?key=")// 가입 인증 url주소
-					.append(mb.getReg_key())// 인증키값
-					.append("' style='color:white;text-decoration:none;font-size:14px;border-radius:3px;background-color:#337ab7;padding:8px 12px;border:none'>비밀번호 재설정</a>")//
-					.append("<br><p style='font-size:12px;color:#444444'><br><a href='http://").append(hostAddress)//
-					.append("/WebProject/home.do'style='text-decoration: none; color: #333;'target='_blank';>TheLecture</a> / <a href='http://")
-					.append(hostAddress)//
-					.append("/WebProject/tos.do'style='text-decoration: none; color: #333;'target='_blank';>이용약관</a> / <a href='http://")
-					.append(hostAddress)//
-					.append("/WebProject/privacy.do'style='text-decoration: none; color: #333;'target='_blank';>개인정보 처리방침</a> / <br></p></div></div>")
-					.toString());//
+			sendMail.setText_resetPawdMail(mb.getNickname(), mb.getReg_key(), hostAddress);
 			sendMail.setFrom("TheLectue.corp@gmail.com", "TheLectue.corp");//
 			sendMail.setTo(email);
 			sendMail.send();// 메일 전송
@@ -270,9 +236,14 @@ public class MemberServiceImpl {
 
 	@Transactional
 	// 회원정보수정
-	public int member_update(MemberBean mb) throws Exception {
+	public boolean member_update(MemberBean mb) throws Exception {
+		boolean memberUpdateSuccess = memberDao.member_update(mb);
+		boolean imageInsertSuccess=true;
+		//profile 이미지가 있을 경우만 dao 설정
 		
-		return memberDao.member_update(mb);
+		if(mb.getUploadedFile()!=null )
+			imageInsertSuccess = memberDao.insertProfile(mb);
+		return memberUpdateSuccess && imageInsertSuccess;
 
 	}
 	@Transactional
@@ -296,9 +267,9 @@ public class MemberServiceImpl {
 		return "redirect:home.do";// 유효하지 않음
 	}
 
-	public MemberBean getMemberByNickName(String nickname) {
+	public MemberBean getMemberByEmail(String email) {
 		
-		return memberDao.getMemberByNickName(nickname);
+		return memberDao.getMemberByEmail(email);
 	}
 
 }
