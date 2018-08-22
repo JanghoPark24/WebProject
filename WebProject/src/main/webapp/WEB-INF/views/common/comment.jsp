@@ -1,5 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+
+    pageEncoding="UTF-8"%>
+	<script>
+		function reply(){
+			
+		}
+		$(function(){
+			$(".button_block").on("click",function(){
+				
+			})
+		})
+	</script>
+
+
 
 
 
@@ -32,6 +45,7 @@
 						class="glyphicon glyphicon-thumbs-down" href="#"></a> &nbsp; <a
 						class="re-reply" href="javascript:;"> 답글달기 </a>
 
+
 						<form class="re-reply-form">
 							<!--collapse뒤의 아이디는 jsp에서 불러옴-->
 							<div class="form-group collapse" id="collapse1">
@@ -51,6 +65,7 @@
 			<!--답글 : 답글이 있으면 개수 fetch해서 불러옴-->
 			<div class="re-reply">
 				<!--답글 보기, 숨기기: 답글이 있으면 답글 보기 있음. 답글 보기 누르면 답글 보여짐-->
+
 
 				&nbsp;<a class="show-hide-replies" href="javascript:;">답글 보기</a> <br />
 				<br />

@@ -151,10 +151,10 @@ public class MemberController {
 
 	@RequestMapping("my_profile.do")
 	public String memberView(HttpSession session, Model model) {
-		String nickname = (String) session.getAttribute("nickname");
-		System.out.println("nickname:" + nickname);
+		String email = (String) session.getAttribute("email");
+		System.out.println("email:" + email);
 
-		MemberBean dto = memberService.getMemberByNickName(nickname);
+		MemberBean dto = memberService.getMemberByEmail(email);
 		model.addAttribute("dto", dto);
 
 		return "content/profile/my_profile";
@@ -169,73 +169,37 @@ public class MemberController {
 	}
 
 	// 회원정보 수정
-	@RequestMapping("update.do")
-	public String update(@ModelAttribute MemberBean mb, HttpSession session) throws Exception {
+	@RequestMapping("memberUpdate.do")
+	public String memberUpdate(@ModelAttribute MemberBean mb, @RequestParam("profileImg") MultipartFile profileImg,
+			Model model, HttpSession session) throws Exception {
 
 		// 이메일 저장 -- null값을 막기 위함
 		mb.setEmail((String) session.getAttribute("email"));
 		mb.setUniv_name((String) session.getAttribute("univ_name"));
-		int result = memberService.member_update(mb);
-		System.out.println("result:" + result);
+
+		// 전송된 파일이 있는 경우만 profile 디렉토리에 아마존에 업로드 후 디렉토리,프로파일명, 프로파일경로 가져오기
+		System.out.println(profileImg);
+		System.out.println("profileName:" + profileImg.getOriginalFilename());
+		if (profileImg.getOriginalFilename() != "")
+			mb = uploadAndSetProfileImg(mb, profileImg);
+
+		boolean updateSuccess = memberService.member_update(mb);
+
 		session.setAttribute("dto", mb);
-		return "redirect:my_profile.do";
+
+		return (updateSuccess == true) ? "redirect:my_profile.do" : "updateFail//e";
 	}
 
-	// 파일 업로드
-	@RequestMapping("fileupload.do")
-	public String fileupload(@ModelAttribute MemberBean mb, MultipartHttpServletRequest request, HttpSession session)
-			throws Exception {
-
-		MultipartFile mf = request.getFile("profileImg");
-		String path = request.getRealPath("images");
-		System.out.println(path);
-		String filename = mf.getOriginalFilename();
-		File uploadFile = new File(path + "//" + filename);
-
-		System.out.println(filename);
-		try {
-			mf.transferTo(uploadFile);
-		} catch (IllegalStateException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		mb.setProfile_img(filename);
-		mb.setEmail(session.getAttribute("email").toString());
-		/*
-		 * mb.setEmail(request.getParameter("email"));
-		 * mb.setUniv_name(request.getParameter("univ_name"));
-		 * mb.setNickname(request.getParameter("nickname"));
-		 * mb.setProfile(request.getParameter("profile"));
-		 */
-
-		memberService.member_update(mb);
-
-		session.setAttribute("myprofile", mb);
-		/*
-		 * session.setAttribute("nickname", mb.getNickname());
-		 */
-		return "redirect:my_profile.do";
-	}
-
-	@RequestMapping("fileupload2.do")
+	@RequestMapping("profileUpload.do")
 	public String fileupload2(@ModelAttribute MemberBean mb, @RequestParam("profileImg") MultipartFile mf,
 			HttpSession session, Model model) throws Exception {
 
-		String directory = "profileImage";
-		System.out.println(directory);
-		String filename = mf.getOriginalFilename();
 		String current_email = (String) session.getAttribute("email");
-
-		System.out.println(filename);
-		ResponseEntity<String> img_path = new ResponseEntity<>(
-				UploadFileUtils.uploadFile(directory, filename, mf.getBytes()), HttpStatus.CREATED);
-		String uploadedFile = img_path.getBody();
-
-		mb.setProfile_img(filename);
 		mb.setEmail(current_email);
-		mb.setUploadedFile(uploadedFile);
-		mb.setDirectory(directory);
+
+		// 파일이 있을 경우만 아마존에 업로드 후 mb 가져오기
+		if (mf.getOriginalFilename() != "")
+			mb = uploadAndSetProfileImg(mb, mf);
 
 		// member에 profile, file_storage에 이미지와 경로 저장
 		boolean updateProfileSuccess = memberService.member_update_profile(mb);
@@ -244,5 +208,26 @@ public class MemberController {
 		// session.setAttribute("userImage", current_email+filename);
 
 		return (updateProfileSuccess) ? "redirect:my_profile.do" : "updateFail//e";
+	}
+
+	/**
+	 * @throws IOException,
+	 *             Exception
+	 * @return filename,uploadedFile, directory를 저장한 MemberBean return
+	 *
+	 *
+	 */
+	public MemberBean uploadAndSetProfileImg(MemberBean mb, MultipartFile mf) throws IOException, Exception {
+		String directory = "profileImage";
+		String filename = mf.getOriginalFilename();
+
+		// 아마존에 업로드
+		String uploadedFile = UploadFileUtils.uploadFile(directory, filename, mf.getBytes());
+
+		mb.setProfile_img(filename);
+		mb.setUploadedFile(uploadedFile);
+		mb.setDirectory(directory);
+
+		return mb;
 	}
 }

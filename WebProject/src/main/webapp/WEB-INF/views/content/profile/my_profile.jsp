@@ -12,7 +12,7 @@
 	$(function() {
 		$("#btnUpdate").click(function() {
 			alert(" 회원 정보가 변경 되었습니다.");
-			document.form1.action = "update.do";
+			document.form1.action = "memberUpdate.do";
 
 			document.form1.submit();
 
@@ -83,7 +83,7 @@ table, th, td {
 			
 			
         
-			<form method="post" name="form1" action="fileupload2.do"
+			<form method="post" name="form1" action="profileUpload.do"
 				enctype="multipart/form-data">
 				<h2 align="center">내 프로필</h2>
 				<tr class="info">

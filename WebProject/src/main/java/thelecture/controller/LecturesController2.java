@@ -13,8 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import thelecture.dao.MemberDaoImpl;
 import thelecture.model.LectureBean;
-import thelecture.model.Lecture_ratingBean;
-import thelecture.model.QuestionBean;
+import thelecture.service.BoardService;
 import thelecture.service.EtcService;
 
 /**
@@ -25,6 +24,9 @@ public class LecturesController2 {
 
 	@Autowired
 	MemberDaoImpl memberdao;
+
+	@Autowired
+	BoardService boardService;
 
 	@Autowired
 	EtcService etcService;
@@ -45,7 +47,7 @@ public class LecturesController2 {
 		model.addAttribute("checked", true);
 		model.addAttribute("lb", lb);//LectureBean 객체
 
-		return "lecture/review/d";
+		return "review";
 
 	}
 

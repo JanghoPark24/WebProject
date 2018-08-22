@@ -71,9 +71,11 @@ public class MemberDaoImpl {
 	 */
 
 	@Transactional
-	public int member_update(MemberBean mb) throws Exception {
+	public boolean member_update(MemberBean mb) throws Exception {
 		
-		return sqlSession.update("memberns.member_update", mb);
+		int updatedRowCount =sqlSession.update("memberns.member_update", mb);
+		
+		return (updatedRowCount==1)? true:false;
 	}
 
 	@Transactional
@@ -123,10 +125,10 @@ public class MemberDaoImpl {
 		return (affectedRow==1)? true:false; 
 	}
 
-	public MemberBean getMemberByNickName(String nickname) {
-		MemberBean memberInfo = sqlSession.selectOne("getMemberByNickName", nickname);
+	public MemberBean getMemberByEmail(String email) {
+		MemberBean memberInfo = sqlSession.selectOne("getMemberByEmail", email);
 		if (memberInfo==null) {
-			memberInfo = sqlSession.selectOne("getMember_noImage", nickname);
+			memberInfo = sqlSession.selectOne("getMemberByEmail_noImage", email);
 		}
 		return memberInfo;
 	}
