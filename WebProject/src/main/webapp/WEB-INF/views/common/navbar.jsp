@@ -57,7 +57,7 @@
 						<li><a href="wlist.do">학교별 게시판</a></li>
 						<li><a href="wlist.do">자유게시판</a></li>
 					</ul></li>
-				<li><a href="#"><span class="glyphicon glyphicon-phone-alt"></span>
+				<li><a href="qna_list.do"><span class="glyphicon glyphicon-phone-alt"></span>
 						문 의</a></li>
 			</ul>
 

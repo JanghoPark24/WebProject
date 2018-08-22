@@ -183,6 +183,7 @@ public class MemberController {
 		
 		//이메일 저장 -- null값을 막기 위함
 		mb.setEmail((String)session.getAttribute("email"));
+		mb.setUniv_name((String)session.getAttribute("univ_name"));
 		
 		int result = memberService.member_update(mb);
 		System.out.println("result:" + result);
