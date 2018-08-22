@@ -89,14 +89,9 @@
 				<c:forEach var="qb" items="${qb_list}">
 					<div class="col-sm-6 col-md-4 pade">
 						<div>${qb.question_content}</div>
-						<%-- <div class="bar-container">
+						<div class="bar-container">
 							<div class="bar" style="width: ${2.35*20.0}%"></div>
-						</div> --%>
-						<div data-productid="313" class="rateit text-center"
-							data-rateit-mode="font"
-							data-rateit-value="${Math.round((3.24125*100))/100}"
-							data-rateit-readonly="true" style="width: 100%; font-size: 1em">
-							${Math.round((1.6373464612*100))/100} </div>
+						</div>
 					</div>
 				</c:forEach>
 			</div>
@@ -109,6 +104,6 @@
 			<%@include file="rating_sheet.jsp"%>
 		</div>
 	</c:if> --%>
-	
-	
+
+
 </body>

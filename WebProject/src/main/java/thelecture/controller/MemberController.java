@@ -128,7 +128,11 @@ public class MemberController {
 	 */
 	@RequestMapping("logout.do")
 	public String logout(HttpSession session) {
-		session.invalidate();
+		session.setAttribute("email", null);
+		session.setAttribute("univ_name", null);
+		session.setAttribute("nickname", null);
+		session.setAttribute("grade", null);
+
 		return "redirect:home.do";
 	}
 
@@ -138,8 +142,8 @@ public class MemberController {
 	@RequestMapping(value = "drop_out.do", method = RequestMethod.POST)
 	public String request(HttpSession session) {
 		String grade = (String) session.getAttribute("grade");
-		if (grade.equals("master")){//마스터 등급이면 누구든 삭제가능
-			
+		if (grade.equals("master")) {// 마스터 등급이면 누구든 삭제가능
+
 		}
 
 		session.invalidate();
@@ -161,7 +165,7 @@ public class MemberController {
 	@RequestMapping("my_profile.do")
 	public String memberView(HttpSession session, Model model) {
 		String nickname = (String) session.getAttribute("nickname");
-		System.out.println("nickname:"+nickname);
+		System.out.println("nickname:" + nickname);
 
 		MemberBean dto = memberService.getMemberByNickName(nickname);
 		model.addAttribute("dto", dto);
@@ -180,10 +184,10 @@ public class MemberController {
 	// 회원정보 수정
 	@RequestMapping("update.do")
 	public String update(@ModelAttribute MemberBean mb, HttpSession session) throws Exception {
-		
-		//이메일 저장 -- null값을 막기 위함
-		mb.setEmail((String)session.getAttribute("email"));
-		
+
+		// 이메일 저장 -- null값을 막기 위함
+		mb.setEmail((String) session.getAttribute("email"));
+
 		int result = memberService.member_update(mb);
 		System.out.println("result:" + result);
 		session.setAttribute("dto", mb);
@@ -218,45 +222,40 @@ public class MemberController {
 		 * mb.setProfile(request.getParameter("profile"));
 		 */
 
-		
 		memberService.member_update(mb);
-		
-		
+
 		session.setAttribute("myprofile", mb);
 		/*
 		 * session.setAttribute("nickname", mb.getNickname());
 		 */
 		return "redirect:my_profile.do";
 	}
+
 	@RequestMapping("fileupload2.do")
-	public String fileupload2(@ModelAttribute MemberBean mb, @RequestParam("profileImg")MultipartFile mf, HttpSession session, Model model)
-			throws Exception {
+	public String fileupload2(@ModelAttribute MemberBean mb, @RequestParam("profileImg") MultipartFile mf,
+			HttpSession session, Model model) throws Exception {
 
 		String directory = "profileImage";
 		System.out.println(directory);
 		String filename = mf.getOriginalFilename();
 		String current_email = (String) session.getAttribute("email");
-		
 
 		System.out.println(filename);
 		ResponseEntity<String> img_path = new ResponseEntity<>(
-				UploadFileUtils.uploadFile(directory, filename, mf.getBytes()),
-				HttpStatus.CREATED);
+				UploadFileUtils.uploadFile(directory, filename, mf.getBytes()), HttpStatus.CREATED);
 		String uploadedFile = img_path.getBody();
-		
+
 		mb.setProfile_img(filename);
 		mb.setEmail(current_email);
 		mb.setUploadedFile(uploadedFile);
 		mb.setDirectory(directory);
-		
 
-		//member에 profile, file_storage에 이미지와 경로 저장
-		boolean updateProfileSuccess =memberService.member_update_profile(mb);
-		
-		
+		// member에 profile, file_storage에 이미지와 경로 저장
+		boolean updateProfileSuccess = memberService.member_update_profile(mb);
+
 		model.addAttribute("dto", mb);
-//		session.setAttribute("userImage", current_email+filename);
-		
-		return (updateProfileSuccess)? "redirect:my_profile.do":"updateFail//e";
+		// session.setAttribute("userImage", current_email+filename);
+
+		return (updateProfileSuccess) ? "redirect:my_profile.do" : "updateFail//e";
 	}
 }

@@ -28,13 +28,12 @@
 						<div class="col-sm-4 col-xs-6">${row.email}</div>
 						<div class="col-sm-2 col-xs-6">${row.nickname}</div>
 						<div class="col-sm-2 col-xs-6">${row.univ_name}</div>
-						<div class="col-sm-3 col-xs-6">${row.grade}</div> <c:if
-							test="${row.grade!='master'}">
-							<div class="col-sm-1 col-xs-12">
-								<a href="" type="post"> <span style="color: #a68"
-									class="glyphicon glyphicon-remove"></span></a>
-							</div>
-						</c:if>
+						<div class="col-sm-3 col-xs-6">${row.grade}</div>
+						<div class="col-sm-1 col-xs-12">
+							<c:if test="${row.grade!='master'}">
+								<button type="button" class="btn btn-info btn-xs">수정</button>
+							</c:if>
+						</div>
 					</td>
 				</tr>
 			</c:forEach>
