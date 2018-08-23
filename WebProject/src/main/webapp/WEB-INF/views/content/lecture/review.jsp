@@ -59,12 +59,7 @@
 		<div id="title">
 			<h3>[${lb.lecture_code}] ${lb.lecture_name}</h3>
 		</div>
-<<<<<<< HEAD
-		<div id="content_top"></div>
-		<div id="content_middle" >
-			<div >
-				<canvas id="myChart"></canvas>
-=======
+
 		<div class="container" id="content_middle">
 			<%-- lb.total_avg_score+ --%>
 			<h1>${Math.round((1.6373464612*100))/100}</h1>
@@ -81,50 +76,15 @@
 				<div class="col-xs-12 col-sm-6 col-md-4 ">학점 : ${lb.credit}</div>
 				<div class="col-xs-12 col-sm-6 col-md-4 ">교수 : ${lb.professor}</div>
 				<div class="col-xs-12 col-sm-6 col-md-4 ">전공 : ${lb.major}</div>
->>>>>>> branch 'test' of https://github.com/JanghoPark24/WebProject
 			</div>
-<<<<<<< HEAD
-			<div class="col-sm-2">
-				<h5>
-					평균 평점 :<span> <%-- ${average} --%></span>
-				</h5>
-				<div data-productid="313" class="rateit" data-rateit-mode="font"
-					data-rateit-value="4.2" data-rateit-readonly="true"
-					style="color: lime; width: 100%;"></div>
-				<!-- 평가 -->
-			</div>
-			<div class="col-sm-4" id="lecture_info">
-				<div class="col-sm-8">
-					<strong>학년</strong> : 1, 2
-				</div>
-				<div class="col-sm-8">학기 : 2학기</div>
-				<div class="col-sm-8">학점 : 3학점</div>
-				<div class="col-sm-8">교수 : ㅇㅇㅇ교수</div>
-			</div>
-			<!-- 로그인된 아이디가 이 학교 아이디이면  나타남.-->
-			<c:if test="${checked== true}">
-				<div id="write_review_wrapper">
-					<button>평가하기</button>
-					<%@include file="rating_sheet.jsp"%>
-				</div>
-			</c:if>
-=======
+
 			<%-- rb=강의평가빈 --%>
 			<%-- 	<c:forEach var="rb" items="${rb_list}">
 					<p>${rb.question_id }</p>
 					<p>${rb.avg_score }</p>				
 			</c:forEach> --%>
->>>>>>> branch 'test' of https://github.com/JanghoPark24/WebProject
 		</div>
-<<<<<<< HEAD
-		<script>
-			//차트 만드는 것 -- 후에 파라미터에 json array
 
-			getChart();
-		</script>
-		
-=======
->>>>>>> branch 'test' of https://github.com/JanghoPark24/WebProject
 	</div>
 	<div class="container">
 		<div class="row">

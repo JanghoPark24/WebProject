@@ -18,8 +18,9 @@
 
 
 <!--댓글로-->
-<form id="top-reply container">
+<form id="top-reply container" class="">
 	<div class="form-group">
+		<input type="hidden" value="${lecture.lecture_id}"/>
 		<textarea class="form-control" rows="5" class="comment" width="100%"
 			placeholder="공개 댓글 추가"></textarea>
 		<div class="reply-button-container">
