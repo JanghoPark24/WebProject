@@ -40,7 +40,7 @@ public class UploadController {
 //	@Inject
 //	private UserService userService;
 
-	//자격증 & 신분증 이미지 업로드
+/*	//자격증 & 신분증 이미지 업로드
 	@ResponseBody
 	@RequestMapping(value = "/uploadAjaxCert", method = RequestMethod.POST, produces = "text/plain;charset=UTF-8")
 	public String uploadAjaxCertificate(MultipartFile file) throws Exception {
@@ -56,7 +56,7 @@ public class UploadController {
 
 		return certificatePath;
 	}
-
+*/
 	/*//커버이미지 업로드
 	@ResponseBody
 	@RequestMapping(value = "/uploadAjaxCover", method = RequestMethod.POST, produces = "text/plain;charset=UTF-8")

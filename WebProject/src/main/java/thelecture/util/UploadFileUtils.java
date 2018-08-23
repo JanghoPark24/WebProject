@@ -22,7 +22,6 @@ public class UploadFileUtils {
 		//savedName : 570d570a-7af1-4afe-8ed5-391d660084b7_g.JPG 같은 형식으로 만들어준다.
 		String savedName = "/"+uid.toString() + "_" + originalName;
 
-		logger.info("업로드 경로 : "+uploadPath);
 		//\2017\12\27 같은 형태로 저장해준다.
 		String savedPath = calcPath(uploadPath);
 
@@ -33,13 +32,32 @@ public class UploadFileUtils {
 		s3.fileUpload(bucketName, uploadPath+uploadedFileName, byteData);
 
 
-		logger.info(uploadedFileName);
 //	s3.fileUpload(bucketName, new File(fileName))
 		System.out.println("uploadedFileName:"+uploadedFileName);
 		return uploadedFileName;
 
 	}
 
+/*public static String uploadFile(String uploadPath, String originalName, File file) throws Exception {
+	S3Util s3 = new S3Util();
+	String bucketName = "thelecture";
+	//랜덤의 uid 를 만들어준다.
+
+	//\2017\12\27 같은 형태로 저장해준다.
+	String savedPath = calcPath(uploadPath);
+
+	String uploadedPath = null;
+
+	uploadedPath = (savedPath+"/").replace(File.separatorChar, '/');
+	//S3Util 의 fileUpload 메서드로 파일을 업로드한다.
+	s3.fileUpload(bucketName, uploadedPath, file);
+
+
+//s3.fileUpload(bucketName, new File(fileName))
+	System.out.println("uploadedFileName:"+uploadedPath+file.getName());
+	return uploadedPath+file.getName();
+
+}*/
 	private static String calcPath(String uploadPath) {
 
 		Calendar cal = Calendar.getInstance();
