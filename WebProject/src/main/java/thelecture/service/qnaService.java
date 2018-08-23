@@ -1,5 +1,7 @@
 package thelecture.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,7 +16,14 @@ public class qnaService {
 	
 	public int insert(qnaBean qna) {
 		System.out.println("b");
-		return dao.insert(qna);
-		
+		return dao.insert(qna);		
 	}
+    
+	public List<qnaBean> list() throws Exception {
+		return dao.list();
+	}
+
 }
+
+
+

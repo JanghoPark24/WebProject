@@ -1,10 +1,9 @@
 package thelecture.controller;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
-import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -40,30 +39,22 @@ public class qnaboard {
 	@RequestMapping(value = "/qna_insert.do", method = RequestMethod.POST)
 	public String board_write_ok(@ModelAttribute qnaBean qna, HttpSession session,Model model)
 			 {
-		String email = (String) session.getAttribute("email");
+		qna.setEmail(session.getAttribute("email").toString());
+		qna.setUniv_name(session.getAttribute("univ_name").toString());
 		System.out.println("a");
 		qnaService.insert(qna);// 저장 메서드 호출
        
 		// response.sendRedirect("board_list.nhn");
 		// 게시물 목록으로 이동
 
-		return "qna_list";
+		return "redirect:qna_list.do";
 	}
 
 	/* 게시판 목록 */
 	@RequestMapping(value = "qna_list.do")
-	public String list(HttpServletRequest request,
-					   HttpServletResponse response,
-					   Model model) throws Exception {
-/*
-		Map<String, Object> boardlist = boardService.board_list(request,
-				response);
-
-//		ModelAndView boardListM = new ModelAndView("board/board_list");
-//		boardListM.addAllObjects(boardlist);
-		
-		model.addAllAttributes(boardlist);
-*/
+	public String list( Model model) throws Exception {
+     List<qnaBean> list = qnaService.list();
+     model.addAttribute("list", list);
 		return "content/qna/qna_list";
 	}
 

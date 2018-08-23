@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="qna_board">
+
+<insert id="qna_insert"  parameterType="qna">
+	insert into qna_board values
+	(qna_board_seq.nextval,#{univ_name,jdbcType=VARCHAR},
+	#{email,jdbcType=VARCHAR},#{subject},
+	#{content},0,sysdate,'n')
+</insert>
+
+<select id="qna_list" resultType="qna">
+ SELECT  c.board_num,c.univ_name, c.subject,
+        c.REG_DATE, c.VIEW_COUNT, r.nickname
+         FROM    qna_board c, member r
+         WHERE   c.email = r.email
+
+</select>
+
+</mapper>
