@@ -16,7 +16,7 @@
         <form id="insertUniv" method="post" action="insertUniv.do">
 	        <div class="univ_info">
 	         <div class="univ_name_wrapper"><label for="i_univ_name_d" width=15em>학교명</label>: <input type="text" id="i_univ_name_d" name="univ_name" value="" placeholder="예: 서울 대학교"/> </div>
-	         <div class="univ_url_wrapper"><label for="i_univ_url_d">학교 url</label>: <input type="text"  id="i_univ_url_d" name="univ_url" value="" placeholder="예: snu"/> </div>
+	         <!-- <div class="univ_url_wrapper"><label for="i_univ_url_d">학교 url</label>: <input type="text"  id="i_univ_url_d" name="univ_url" value="" placeholder="예: snu"/> </div> -->
 	         <div class="univ_domain_wrapper"><label for="i_univ_domain_d">학교 이메일 도메인</label>: <input type="text" id="i_univ_domain_d" name="univ_domain" value="" placeholder="snu.co.kr"/> </div>
 	         <div class="univ_logo_wrapper"><label for="i_univ_logo_d">학교 로고</label>: <input type="file" id="i_univ_logo_d" name="univ_logo" value="" placeholder="logo image"/> </div>
 	        </div>

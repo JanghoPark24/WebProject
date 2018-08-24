@@ -33,7 +33,8 @@ public class UnivDaoImpl {
 
 	public int insertUniv(UnivBean university) {
 		try {
-			
+			System.out.println(
+					university.getUniv_name());
 			sqlSession.insert("univns.insertUniv",university);
 			return 0;
 			

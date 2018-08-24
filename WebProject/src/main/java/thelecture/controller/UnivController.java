@@ -48,9 +48,9 @@ public class UnivController {
 	@RequestMapping(value = "insertUniv.do")
 	public String insertUniv(UnivBean university) {
 		System.out.println(university.getUniv_domain());
-		System.out.println(university.getUniv_logo());
 		System.out.println(university.getUniv_url());
 		System.out.println(university.getUniv_domain());
+		System.out.println(university.getUniv_logo());
 		int result = univService.insertUniv(university);
 		// 0이 성공 1이 실패 -성공시 view화면으로
 		return result == 0 ? "redirect:insertLectureView.do" : "404error//e";

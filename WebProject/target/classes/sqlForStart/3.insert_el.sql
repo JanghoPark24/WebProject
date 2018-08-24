@@ -131,7 +131,7 @@ from lecture;
 create or replace view memberView
 as
 select mb.email email, univ_name, 
-nickname, password,is_mail_open, 
+nickname, password,is_mail_open,
 profile, grade, reg_date, major, profile_img, uploadedfile, isdeleted
 from member mb, file_storage fs
 where mb.email = fs.email and  --조인

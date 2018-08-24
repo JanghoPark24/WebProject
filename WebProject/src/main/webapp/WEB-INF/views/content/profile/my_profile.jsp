@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -97,10 +97,14 @@ table, th, td {
 								<%-- <img
 									src="<%=request.getContextPath()%>/images/${myprofile.profile_img}"
 									width=200 height="300"> --%>
+								
 								<img
+								src="<%=request.getContextPath()%>/displayFile.do?fileName=${dto.uploadedFile}&directory=profile"
+								width=200 height="300">
+<%-- 								<img
 								src="https://s3.ap-northeast-2.amazonaws.com/thelecture/profileImage${dto.uploadedFile}"
 								width=200 height="300">
-							</c:if>
+ --%>							</c:if>
 							<c:if test="${empty dto}">
 								<%-- <img
 									src="<%=request.getContextPath()%>/images/${dto.profile_img}"
