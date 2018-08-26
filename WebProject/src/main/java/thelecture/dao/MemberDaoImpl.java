@@ -132,6 +132,18 @@ public class MemberDaoImpl {
 		}
 		return memberInfo;
 	}
+
+	public boolean checkByGetProfileImgByemail(String email) {
+		try {
+			MemberBean mb = (MemberBean)sqlSession.selectOne("getProfileImgByEmail",email);
+			
+			return (mb.equals(null))? false:true;
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
 	
 //	public String getProfileURL(MemberBean mb) {
 //		

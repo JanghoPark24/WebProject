@@ -108,6 +108,15 @@
 		where email = #{email}
 
 	</select>
+	<select id="getProfileImgByEmail" parameterType="String"
+		resultType="member">
+		select
+		profile_img,
+		uploadedfile
+		from memberView
+		where email = #{email}
+
+	</select>
 	<select id="getMemberByEmail_noImage" parameterType="String"
 		resultType="member">
 		select *
@@ -120,6 +129,6 @@
 		insert into file_storage 
 		values(#{email},#{directory},#{profile_img},#{uploadedFile},'n',sysdate)
 	</insert>
-
+	
 
 </mapper>

@@ -30,7 +30,7 @@ public class UnivController {
 
 	@RequestMapping("insertNewUniv.do")
 	public String insert_new_univ(UnivBean univ) {
-
+		
 		return "content/university/data_univ_list";
 	}
 
@@ -43,7 +43,7 @@ public class UnivController {
 		List<String> univ_list = univService.getUniv_list();
 		return univ_list;
 	}
-
+	
 	// 새로운 대학교 입력
 	@RequestMapping(value = "insertUniv.do")
 	public String insertUniv(UnivBean university) {

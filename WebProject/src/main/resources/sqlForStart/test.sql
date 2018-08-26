@@ -30,3 +30,10 @@ insert into lecture_reply
 					where lecture_id=6)+1,0)
 				
 		);
+		
+
+		    select sum(question_id) sum_id, question_version
+		    from question
+		    where is_deleted = 'n'
+		    group by question_version
+		    order by sum_id		

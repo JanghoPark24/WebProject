@@ -179,15 +179,18 @@ public class LectureDaoImpl {
 
 	public boolean addLectureComment(ReplyBean comment) {
 		int affectedRow;
-		
-		if(comment.getDepth()==0) {
+		try {
+			if(comment.getDepth()==0) {
+				
+				affectedRow=sqlSession.insert("lectureMap.addNewComment",comment);
+			}else {
+				affectedRow = sqlSession.update("lectureMap.updateBeforeAddReply",comment);
+				affectedRow +=sqlSession.update("lectureMap.addReplyTOComment",comment);
+			}
+		}catch(Exception e) {
+			affectedRow =0;
 			
-			affectedRow=sqlSession.insert("lectureMap.addNewComment",comment);
-		}else {
-			affectedRow = sqlSession.update("lectureMap.updateBeforeAddReply",comment);
-			affectedRow +=sqlSession.update("lectureMap.addReplyTOComment",comment);
 		}
-	
 		return (affectedRow!=0)? true:false;
 	}
 

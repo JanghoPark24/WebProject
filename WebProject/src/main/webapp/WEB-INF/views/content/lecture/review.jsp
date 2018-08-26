@@ -57,7 +57,7 @@
 	<div class="container text-center">
 		<!-- 평균 점수 ${average}로 불러옴-->
 		<div id="title">
-			<h3>[${lb.lecture_code}] ${lb.lecture_name}</h3>
+			<h3>[${lb.lecture_id}] ${lb.lecture_name}</h3>
 		</div>
 
 		<div class="container" id="content_middle">

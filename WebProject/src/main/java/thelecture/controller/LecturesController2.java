@@ -42,10 +42,10 @@ public class LecturesController2 {
 	public String review(@RequestParam("lecture_id") int lecture_id, HttpSession session, Model model) {
 
 		// password가 맞으면
-		System.out.println("L id: " + lecture_id);
+		System.out.println("L_id: " + lecture_id);
 		LectureBean lb = etcService.getReviewDetail(lecture_id, model);
 		model.addAttribute("checked", true);
-		model.addAttribute("lb", lb);//LectureBean 객체
+		model.addAttribute("lecture", lb);//LectureBean 객체
 
 		return "review";
 

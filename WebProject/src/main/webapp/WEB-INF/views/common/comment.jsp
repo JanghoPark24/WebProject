@@ -42,7 +42,6 @@ pageEncoding="UTF-8"%>
 
 
 <!--댓글로-->
-	
 	<div class="form-group">
 		<form id="submit_comment_form" name="submit_comment_form" action="addLectureComment">
 			

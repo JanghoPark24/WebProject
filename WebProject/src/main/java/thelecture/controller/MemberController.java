@@ -167,6 +167,8 @@ public class MemberController {
 		return "user_profile";
 
 	}
+	
+	
 
 	// 회원정보 수정
 	@RequestMapping("memberUpdate.do")

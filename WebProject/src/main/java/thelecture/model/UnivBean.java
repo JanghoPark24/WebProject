@@ -1,14 +1,12 @@
 package thelecture.model;
 
-import lombok.Getter;
-import lombok.Setter;
-
-@Getter @Setter 
 public class UnivBean{
 	private String univ_name;
 	private String univ_url;
 	private String univ_domain;
 	private String univ_logo;
+	private String uploadedfile; // univ -->업로드 이미지 파일
+	
 	public String getUniv_name() {
 		return univ_name;
 	}
@@ -33,7 +31,12 @@ public class UnivBean{
 	public void setUniv_logo(String univ_logo) {
 		this.univ_logo = univ_logo;
 	}
-	
+	public String getUploadedfile() {
+		return uploadedfile;
+	}
+	public void setUploadedfile(String uploadedfile) {
+		this.uploadedfile = uploadedfile;
+	}
 
 	
 }
