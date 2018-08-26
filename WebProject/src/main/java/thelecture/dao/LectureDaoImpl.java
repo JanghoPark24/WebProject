@@ -176,6 +176,25 @@ public class LectureDaoImpl {
 			return 1;
 		}
 	}
+
+	public boolean addLectureComment(ReplyBean comment) {
+		int affectedRow;
+		
+		if(comment.getDepth()==0) {
+			
+			affectedRow=sqlSession.insert("lectureMap.addNewComment",comment);
+		}else {
+			affectedRow = sqlSession.update("lectureMap.updateBeforeAddReply",comment);
+			affectedRow +=sqlSession.update("lectureMap.addReplyTOComment",comment);
+		}
+	
+		return (affectedRow!=0)? true:false;
+	}
+
+	public ReplyBean getLectureCommentByReplyNum(int reply_num) {
+		
+		return sqlSession.selectOne("lectureMap.getLectureCommentByReplyNum",reply_num);
+	}
 	
 	
 	

@@ -1,5 +1,9 @@
 package thelecture.model;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter @Setter 
 public class UnivBean{
 	private String univ_name;
 	private String univ_url;
@@ -29,6 +33,7 @@ public class UnivBean{
 	public void setUniv_logo(String univ_logo) {
 		this.univ_logo = univ_logo;
 	}
+	
 
 	
 }
