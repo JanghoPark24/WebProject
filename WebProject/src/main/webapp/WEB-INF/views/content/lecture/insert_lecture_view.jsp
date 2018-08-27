@@ -17,6 +17,8 @@
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script src="${path}/js/lecture/question.js"></script>
+    <script src="${path}/js/validate_functions.js"></script>
+    
    	
     <title>강의 평가</title>
     <style>
@@ -51,12 +53,12 @@
 		
 		    	
     </style>
-    <!-- 자동 완성 기능 -->
+    <!-- 자동 완성 기능, 유효성 검사 -->
     <script>
     /**
      * 
      */
-
+	
     
     //id값에 대한 url값 찾기
     function findURLForAutoComplete(input_id){
@@ -87,37 +89,87 @@
     	
     }
     
-    // form id에 대한 유효성 검사 확인하기
-    function validate(form_id){
-    	
-    	var frm = $(form_id);
-    	var toURL ="";
-    	var inputs = $(form_id+' input')
-    	var iSize = inputs.size();
-    	
-    	
-    	for(var i = 0; i< iSize; i++){
-    		
-    		var iV = inputs.eq(i)
-    		// type이 file인 것을 제외하고 input값을 모두 비교
-    		if(iV.val()=="" && iV.attr('type')!='file'){
-    			var labelFor = iV.attr('id')
-    			var labelVal = $("label[for='"+labelFor+"']").text();
-    			
-    			alert(labelVal+"을 입력해야 합니다.")
-    			return;
-    		}
-    	}
-    	frm.submit();
-    	
-    	
+ // form id에 대한 유효성 검사 확인하기
+    function validateWithLabel(frm){
+       
+        var form_id = frm.id;
+   //     var inputs = $('#'+form_id+' input')
+        var inputs = frm.getElementsByTagName('input')
+         
+        var iSize = inputs.length;
+        
+        alert(iSize)
+
+        
+        for(var i = 0;i<inputs.length; i++){
+        	console.log(i)
+            //input 
+            let inputE = inputs[i]
+            
+        	let inputVal = inputE.value;
+            
+            //label Value for input id
+            //let labelVal = $("label[for='"+inputE.id+"']").text();
+            let labelVal = document.querySelector("label[for=" + (inputE.id)+ "]").innerText;
+            
+            //전송되는 name
+            let iName = inputE.name;
+            console.log(iName)
+            
+            // type이 file인 것을 제외하고 input값을 모두 비교
+            // 값이 없을 경우 리턴
+            if(inputVal==""){
+                alert(labelVal+"을 입력해야 합니다.")
+                break;
+            
+            }//이메일일 경우
+            else if(iName=="univ_domain"){
+                
+                if(isValidEmailDomain(inputVal)==false) 
+                    alert("이메일 형식이 올바르지 않습니다.")
+                break;
+            }
+            /* else if(validateLectureFile(form_id)==0){
+                alert('파일을 입력하세요')
+                break;
+            }else if(validateLectureFile(form_id)==1){
+                alert('이미지만 사용가능합니다.')
+                break;
+            } */
+            break;
+            
+            
+        }
+      	if(i==4){
+        	frm.submit();
+      	}
+        	
+        
+        
     }
+
+    function validateLectureFile(form_id){
+       
+        var inputFileVal;
+        //form에 따른 value
+        switch(form_id){
+            case "insertUniv":
+                inputFileVal=$("#i_univ_logo_d").val();
+                break;
+        }    
+            
+        
+        if(inputFileVal==""){
+            return 0;
+        }
+        else if(isValidImg(inputFileVal)==false){ 
+            return 1;
+        }
+        
+    }
+
     
-    
-    $(function() {
-    	
-    	
-    });
+   
 
     </script>
 
@@ -154,18 +206,19 @@
 				$('#univ_name_d').val($('#univ_name').val())
 			})
 			$("#insertUnivButton").on('click',function(){
-				
-				validate('#insertUniv');
+				let insertFrm = document.getElementById('insertUniv');
+				validateWithLabel(insertFrm);
 			})
 			$("#updateUnivButton").on('click',function(){
-				
-				validate('#updateUniv');
+				let insertFrm  = document.getElementById('#updateUniv')
+				validateWithLabel(insertFrm );
 			})
 			
 			
 			
 		})
-	
+		
+		
 	</script>
 </head>
 <body>

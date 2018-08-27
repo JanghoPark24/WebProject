@@ -3,6 +3,8 @@ package thelecture.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -42,6 +44,21 @@ public class SPAcontroller {
 		
 		return questionnaire;
 	}
+	
+	@RequestMapping(value="addandGetLectureComment.do")
+	public ReplyBean addLectureComment(ReplyBean comment, HttpSession session) {
+		String email = session.getAttribute("email")+"";
+		if(email.equals("")) {
+			return comment;
+		}
+		comment.setEmail(email);
+		comment= boardService.addAndGetLectureComment(comment);
+		
+			
+		
+		return comment;
+	}
+
 	
 	
 }

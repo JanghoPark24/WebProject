@@ -157,16 +157,5 @@ public class LecturesController {
 
 	}
 	
-	@RequestMapping(value="testing.do")
-	public String testing() {
-		S3Util s3 = new S3Util();
-		try {
-			s3.createBucket("lecture02");
-		}catch(AmazonS3Exception e) {
-			e.printStackTrace();
-		}
-		
-		return "empty/testing";
-	}
 	
 }
