@@ -28,17 +28,29 @@ $(function(){
 
 	<div class="container">
 		<div class="row">
-			<form method="post" action="qna_insert.do">
+			<form method="post" action="qna_insert.do" id="fm" name="fm">
+			<table class="table table-striped" style="text-align: center; border: 1px solid #dddddd">
 				
-	<textarea name="ir1" id="ir1" rows="10" cols="100">에디터에 기본으로 삽입할 글(수정 모드)이 없다면 이 value 값을 지정하지 않으시면 됩니다.</textarea>
-				</form>
-				</div>
-			
+			<tr>
+				<th style=" text-align: center;">문의 게시판</th>
+			</tr>
+			<tr>
+						<td><input type="text" class="form-control" placeholder="글 제목" 
+						name="subject" id="subject" maxlength="50" required="required"></td>
+					</tr>
+			<tr>	
+			<td>	
+	<textarea name="content" id="content" rows="12" cols="132" required="required">^ㅡ^</textarea>
+				</td>
+				</tr>
+			</table>
 				<div align="center">
-				<input type="submit" class="btn btn-primary" value="글쓰기">
+				<input type="submit" class="btn btn-primary" id="insert" value="글쓰기">
 				<input type="button" class="btn btn-primary" value="취소"
 				id="btn2">
-			
+				</div>
+				</form>
+				
 		</div>
 	</div>
 
@@ -52,7 +64,7 @@ nhn.husky.EZCreator.createInIFrame({
 
     oAppRef: oEditors,
 
-    elPlaceHolder: "ir1",
+    elPlaceHolder: "content",
 
     sSkinURI: "<c:url value="/resources/se2/SmartEditor2Skin.html" />",
 
@@ -61,4 +73,12 @@ nhn.husky.EZCreator.createInIFrame({
 });
 
 </script>
+ <script>
+ $("#insert").click(function(){ 
+	 if ($('#subject').val() & $('#content').val() != ""){
+	 oEditors.getById["content"].exec("UPDATE_CONTENTS_FIELD", []); $("#fm").submit(); 
+	 }
+	 })
+
+    </script> 
 </html>

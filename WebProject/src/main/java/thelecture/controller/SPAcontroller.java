@@ -1,7 +1,11 @@
 package thelecture.controller;
 
+import static org.junit.Assume.assumeNoException;
+
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -42,6 +46,20 @@ public class SPAcontroller {
 		
 		return questionnaire;
 	}
+	
+	@RequestMapping(value="addandGetLectureComment.do")
+	public ReplyBean addLectureComment(ReplyBean comment, HttpSession session) throws Exception {
+		String email = session.getAttribute("email")+"";
+		if(email.equals("")) {
+			throw new Exception("login이 필요합니다.");
+		}
+		comment.setEmail(email);
+		comment= boardService.addAndGetLectureComment(comment);
+		
+		
+		return comment;
+	}
+
 	
 	
 }

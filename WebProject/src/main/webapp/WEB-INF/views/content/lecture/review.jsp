@@ -57,7 +57,7 @@
 	<div class="container text-center">
 		<!-- 평균 점수 ${average}로 불러옴-->
 		<div id="title">
-			<h3>[${lb.lecture_code}] ${lb.lecture_name}</h3>
+			<h3>[${lb.lecture_id}] ${lb.lecture_name}</h3>
 		</div>
 
 		<div class="container" id="content_middle">
@@ -77,14 +77,12 @@
 				<div class="col-xs-12 col-sm-6 col-md-4 ">교수 : ${lb.professor}</div>
 				<div class="col-xs-12 col-sm-6 col-md-4 ">전공 : ${lb.major}</div>
 			</div>
-
 			<%-- rb=강의평가빈 --%>
 			<%-- 	<c:forEach var="rb" items="${rb_list}">
 					<p>${rb.question_id }</p>
 					<p>${rb.avg_score }</p>				
 			</c:forEach> --%>
 		</div>
-
 	</div>
 	<div class="container">
 		<div class="row">

@@ -17,7 +17,7 @@ public class LectureBean{
 	private String is_deleted; // y: 삭제됨 n:삭제되지않음(default)
  	private int total_avg_score;
  	private int rnum; // 검색된 총량
- 	
+	private String question_id; // 종속된 질문
  	
 	public int getSemester() {
 		return semester;
@@ -102,6 +102,12 @@ public class LectureBean{
 	}
 	public void setRnum(int rnum) {
 		this.rnum = rnum;
+	}
+	public String getQuestion_id() {
+		return question_id;
+	}
+	public void setQuestion_id(String question_id) {
+		this.question_id = question_id;
 	}
 	
 	

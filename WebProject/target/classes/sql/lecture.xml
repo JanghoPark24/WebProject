@@ -70,8 +70,18 @@
 		    order by sum_id
 		)
 	</select>
+<!-- 	<select id="getQuestionVersions" resultType="hashMap">
+		select question_version from(
+		
+		    select sum(question_id) sum_id, question_version
+		    from question
+		    where is_deleted = 'n'
+		    group by question_version
+		    order by sum_id
+		)
+	</select>
 	
-	
+	 -->	
 	<select id="getQuestionnaire" parameterType="String" resultType="question">
 		select * from question 
         where question_version= #{question_version,jdbcType=VARCHAR} AND is_deleted='n'
@@ -83,10 +93,45 @@
 	<insert id="insertLectureQuestion" parameterType="hashMap">
 		insert into question values(seq_question_id.nextval,#{question_version},#{question_content},'n')
 	</insert>
+	<insert id="addNewComment" parameterType="replies">
+		insert into lecture_reply
+		values(seq_board1_re_no.nextval,
+				#{lecture_id},
+				#{email},
+				seq_board1_re_no.currval,0,
+				#{content},sysdate,'n',
+				nvl((select max(reply_order)
+					from lecture_reply
+					where lecture_id=#{lecture_id})+1,0)
+				
+		) 
+	</insert>
+	<insert id="addReplyToComment" parameterType="replies">
+		
+	    insert into lecture_comment
+		values(seq_board1_re_no.nextval,
+				#{lecture_id},
+				#{email},
+				#{ref},
+				1,
+				#{content},sysdate,'n', #{reply_order}
+				
+		);
+	      
+	</insert>
+	<update id="updateBeforeAddReply" parameterType="replies">
+        update lecture_comment
+        set reply_order = reply_order+1
+        where lecture_id = #{lecture_id}
+        and reply_order &gt;= #{reply_order}
+           
+	</update>
+
 	<update id="deleteQuestion" parameterType="String">
 		update question
 		set is_deleted ='y'
 		where question_version =#{question_version}
+
 	</update>
 	<update id="updateQuestion" parameterType="question">
 		update question

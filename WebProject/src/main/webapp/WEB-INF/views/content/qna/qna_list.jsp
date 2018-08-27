@@ -49,10 +49,24 @@ table, th, td {
 					<div align="center">조회수</div>
 				</td>
 			</tr>
+
+<c:forEach var="b" items="${list }">
+		<tr><td>${b.board_num }</td>
+		<td><a href="read.do?num=${b.board_num }"> ${b.subject } </a></td>
+			<td>${b.nickname }</td>
+			<td>${b.reg_date }</td>
+			<td>${b.view_count }</td>
+			
+		</tr>	
+		</c:forEach>
 </table>
+
+
+<c:if test="${sessionScope.email != null }">
         <div align="right">
         <input type="submit" class="btn btn-primary pull-right" value="글쓰기" >
         </div>
+        </c:if>
 </form>
 	</div>
 	

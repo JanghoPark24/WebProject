@@ -2,20 +2,48 @@
  <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="univns">
+	<!-- name으로 대학정보 찾아오기 -->
+	<select id="getUnivByName" parameterType="String"
+		resultType="univ">
+		select * from univ
+		where univ_name= #{univ_name}
+		and is_deleted='n'
+	</select>
+	
+	
+	<!-- 모든 대학이름 찾아오기 -->
 	<!-- domain으로 대학명 찾아오기 -->
 	<select id="find_domain" parameterType="String"
 		resultType="univ">
-		select univ_name from univ where Lower(univ_domain)= #{domain}
+		select univ_name from univ
+		where Lower(univ_domain)= #{domain}
+		and is_deleted='n'
 	</select>
 	<!-- 모든 대학이름 찾아오기 -->
 	<select id="getUniv_list" resultType="String">
 		select univ_name from univ
+		where is_deleted='n'
 	</select>
 	
 	<!-- univ입력 -->
 	<insert id="insertUniv" parameterType="univ">
-		insert into univ values(#{univ_name},#{univ_url},#{univ_domain},#{univ_logo, jdbcType=CHAR})
+		insert into univ values(#{univ_name},#{univ_url},#{univ_domain},#{univ_logo, jdbcType=CHAR},'n')
 	</insert>	
+	<!-- univ입력 -->
+	<update id="updateUniv" parameterType="univ">
+		update univ
+		set 
+		univ_url = #{univ_url},
+		univ_domain = #{univ_domain},
+		univ_logo = #{univ_logo, jdbcType=CHAR}
+		where univ_name = #{univ_name}
+	</update>	
+	<!-- univ삭제 -->
+	<update id="deleteUniv" parameterType="String">
+		update univ
+		set is_deleted ='y'
+		where univ_name = #{univ_name}
+	</update>	
 
 
 
