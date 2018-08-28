@@ -2,7 +2,6 @@
 	pageEncoding="UTF-8"%>
 <style>
 footer {
-	box-shadow: 0px -3px 10px 1px black;
 	position: absolute;
 	bottom: -10em;
 	right: 0%;

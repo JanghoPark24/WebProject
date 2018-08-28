@@ -199,7 +199,9 @@ public class LectureDaoImpl {
 		return sqlSession.selectOne("lectureMap.getLectureCommentByReplyNum",reply_num);
 	}
 	
-	
+	public List<String> getLec_list(){
+		return sqlSession.selectList("getLec_list");
+	}
 	
 	
 }

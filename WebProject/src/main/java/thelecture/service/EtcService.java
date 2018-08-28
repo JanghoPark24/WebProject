@@ -53,5 +53,11 @@ public class EtcService {
 		List<QuestionBean> result = ratingdao.getQBList(lecture_id);
 		return result;
 	}
+	
+	@Transactional
+	public List<String> getLec_list(){
+		return lecturedao.getLec_list();
 
+	}
+	
 }

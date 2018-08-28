@@ -11,6 +11,10 @@
 	<select id="getUniv_list" resultType="String">
 		select univ_name from univ
 	</select>
+	<!-- 모든 대학이름 찾아오기 -->
+	<select id="getLec_list" resultType="String">
+		select lecture_name from lecture
+	</select>
 	
 	<!-- univ입력 -->
 	<insert id="insertUniv" parameterType="univ">
