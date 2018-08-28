@@ -1,7 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<c:set var="path" value="<%=request.getContextPath() %>"></c:set>
 	<script>
+		
 		function addComment(selectedId){
 //			var comment_info = $("#submit_comment_form").serialize();
 			
@@ -13,10 +15,21 @@ pageEncoding="UTF-8"%>
 			  $.ajax({
 	    		url : "addandGetLectureComment.do",
 	    		dataType : "text",
-	    		data : {"comment_info":comment_info},
+	    		data : {"comment":comment_info},
+	    		type:'GET',
 	    		success : 
     			function(data, response) {
-	    			alert(data);	
+					
+	    			alert(data);
+	    			data = JSON.parse(data);
+	    			if(data.email ==null) {
+	    				alert('댓글을 작성하려면 로그인이 필요합니다.')
+	    				return;
+	    				
+	    			}/* else if(data.){
+	    				
+	    			}
+ */	    			
 	    			
 	    		}
 	    	})  
@@ -43,13 +56,16 @@ pageEncoding="UTF-8"%>
 
 <!--댓글로-->
 	<div class="form-group">
-		<form id="submit_comment_form" name="submit_comment_form" action="addLectureComment">
+		<form id="submit_comment_form" name="submit_comment_form">
 			
 			<input type="hidden" name="lecture_id" value='${lb.lecture_id}'>
 			<textarea name="content" id="comment_area" class="comment_area form-control" rows="5" class="comment" width="100%"
 				placeholder="공개 댓글 추가"></textarea>
 			<div class="reply-button-container">
 				
+				<c:if test="${sessionScope.email == null}">
+					<button id="login_for_comment" type="button"  class="button_block" onclick="location.href='${path}/loginForm.do'">로그인</button>
+				</c:if>
 				<button type="reset" class="button_block">취소</button>
 				<button id="submit_comment" type="button" class="submit_comment button_block">댓글 작성</button>
 			</div>

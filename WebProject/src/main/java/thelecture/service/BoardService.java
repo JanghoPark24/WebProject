@@ -100,10 +100,10 @@ public class BoardService {
 	}
 
 	@Transactional
-	public ReplyBean addAndGetLectureComment(ReplyBean comment) {
-		boolean commentSuccess = lecturedao.addLectureComment(comment);
-		if(commentSuccess==true) comment = lecturedao.getLectureCommentByReplyNum(comment.getReply_num());
-		return  comment;
+	public ReplyBean addAndGetLectureComment(ReplyBean comment_info) {
+		boolean commentSuccess = lecturedao.addLectureComment(comment_info);
+		if(commentSuccess==true) comment_info = lecturedao.getLectureCommentByReplyNum(comment_info.getReply_num());
+		return  comment_info;
 	}
 
 

@@ -2,7 +2,7 @@
 SELECT * FROM file_storage;
 
 select * from member;
-
+select * from lecture_reply;
 
 ALTER TABLE lecture_reply
   ADD reply_order NUMBER;

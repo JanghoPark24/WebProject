@@ -46,13 +46,14 @@ public class SPAcontroller {
 	}
 	
 	@RequestMapping(value="addandGetLectureComment.do")
-	public ReplyBean addLectureComment(ReplyBean comment, HttpSession session) {
+	public ReplyBean addandGetLectureLectureComment(ReplyBean comment, HttpSession session) {
 		String email = session.getAttribute("email")+"";
 		if(email.equals("")) {
-			return comment;
+			return null;
 		}
 		comment.setEmail(email);
-		comment= boardService.addAndGetLectureComment(comment);
+		System.out.println("content:"+comment.getContent());
+		//comment= boardService.addAndGetLectureComment(comment);
 		
 			
 		

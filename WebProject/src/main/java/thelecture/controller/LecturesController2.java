@@ -45,7 +45,7 @@ public class LecturesController2 {
 		System.out.println("L_id: " + lecture_id);
 		LectureBean lb = etcService.getReviewDetail(lecture_id, model);
 		model.addAttribute("checked", true);
-		model.addAttribute("lecture", lb);//LectureBean 객체
+		model.addAttribute("lb", lb);//LectureBean 객체
 
 		return "review";
 
