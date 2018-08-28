@@ -31,18 +31,17 @@ public class S3Util {
 
 	public S3Util() {
 		AWSCredentials credentials = new BasicAWSCredentials(accessKey, secretKey);
-//		ClientConfiguration clientConfig = new ClientConfiguration();
-//		clientConfig.setProtocol(Protocol.HTTP);
-//		this.conn = new AmazonS3Client(credentials, clientConfig);
-	
-//		conn.setEndpoint("s3.ap-northeast-2.amazonaws.com"); // 엔드포인트 설정 [ 아시아 태평양 서울 ]
-	
+		// ClientConfiguration clientConfig = new ClientConfiguration();
+		// clientConfig.setProtocol(Protocol.HTTP);
+		// this.conn = new AmazonS3Client(credentials, clientConfig);
+
+		// conn.setEndpoint("s3.ap-northeast-2.amazonaws.com"); // 엔드포인트 설정 [ 아시아 태평양 서울
+		// ]
+
 		AWSCredentials creds = new BasicAWSCredentials(accessKey, secretKey);
-		conn = 
-				AmazonS3ClientBuilder.standard()
-					.withCredentials(new AWSStaticCredentialsProvider(credentials))
-					.withRegion(Regions.AP_NORTHEAST_2)       // region
-					.build();
+		conn = AmazonS3ClientBuilder.standard().withCredentials(new AWSStaticCredentialsProvider(credentials))
+				.withRegion(Regions.AP_NORTHEAST_2) // region
+				.build();
 	}
 
 	// 버킷 리스트를 가져오는 메서드이다.
@@ -61,44 +60,49 @@ public class S3Util {
 	}
 
 	// 파일 업로드
-	public void fileUpload(String bucketName, String fileName, byte[] fileData) throws FileNotFoundException {
+	public void fileUpload(String bucketName, String fileName, byte[] fileData) {
 
-		String filePath = (fileName).replace(File.separatorChar, '/'); // 파일 구별자를 `/`로 설정(\->/) 이게 기존에 / 였어도 넘어오면서 \로 바뀌는 거같다.
+		String filePath = (fileName).replace(File.separatorChar, '/'); // 파일 구별자를 `/`로 설정(\->/) 이게 기존에 / 였어도 넘어오면서 \로
+																		// 바뀌는 거같다.
 		ObjectMetadata metaData = new ObjectMetadata();
-		
-		metaData.setContentLength(fileData.length);   //메타데이터 설정 -->원래는 128kB까지 업로드 가능했으나 파일크기만큼 버퍼를 설정시켰다.
-	    ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(fileData); //파일 넣음
 
-		conn.putObject(bucketName, filePath, byteArrayInputStream, metaData);
-		
-		
-		
+		metaData.setContentLength(fileData.length); // 메타데이터 설정 -->원래는 128kB까지 업로드 가능했으나 파일크기만큼 버퍼를 설정시켰다.
+		ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(fileData); // 파일 넣음
+
+		try {
+			conn.putObject(bucketName, filePath, byteArrayInputStream, metaData);
+		} catch (AmazonServiceException e) {
+			e.printStackTrace();
+			
+		} finally {
+			conn = null;
+		}
+
 	}
-	public void fileUpload(String bucketName, String uploadedPath, File file) throws FileNotFoundException {
-		
-	
+
+	public void fileUpload(String bucketName, String uploadedPath, File file) {
+
 		/*
 		 * File을 이용한 처리
 		 */
-		if ( conn != null ) {
+		if (conn != null) {
 			try {
-				PutObjectRequest putObjectRequest =
-						new PutObjectRequest(bucketName, uploadedPath, file);
-				
+				PutObjectRequest putObjectRequest = new PutObjectRequest(bucketName, uploadedPath, file);
+
 				// file permission
 				putObjectRequest.setCannedAcl(CannedAccessControlList.PublicRead);
 
 				// upload file
-				PutObjectResult ret =  conn.putObject(putObjectRequest);
-				System.out.println( "ret: " + ret.getETag() );
+				PutObjectResult ret = conn.putObject(putObjectRequest);
+				System.out.println("ret: " + ret.getETag());
 
-			} catch ( AmazonServiceException ase) {
+			} catch (AmazonServiceException ase) {
 				ase.printStackTrace();
 			} finally {
 				conn = null;
 			}
 		}
-		
+
 	}
 
 	// 파일 삭제
@@ -110,7 +114,7 @@ public class S3Util {
 
 	// 파일 URL
 	public String getFileURL(String bucketName, String fileName) {
-		System.out.println("넘어오는 파일명 : "+fileName);
+		System.out.println("넘어오는 파일명 : " + fileName);
 		String imgName = (fileName).replace(File.separatorChar, '/');
 		return conn.generatePresignedUrl(new GeneratePresignedUrlRequest(bucketName, imgName)).toString();
 	}

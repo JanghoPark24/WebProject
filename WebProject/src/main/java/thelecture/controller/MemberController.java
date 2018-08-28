@@ -167,6 +167,8 @@ public class MemberController {
 		return "user_profile";
 
 	}
+	
+	
 
 	// 회원정보 수정
 	@RequestMapping("memberUpdate.do")
@@ -285,17 +287,20 @@ public class MemberController {
 		
 		//파일 이름이 없으면 리턴
 		if(filename=="") return mb;
-		try {
+		
 		// 아마존에 업로드
 		
-			String uploadedFile = UploadFileUtils.uploadFile(directory, filename, file.getBytes());
-			mb.setProfile_img(filename);
-			mb.setUploadedFile(uploadedFile);
-			mb.setDirectory(directory);
+			String uploadedFile;
+			try {
+				uploadedFile = UploadFileUtils.uploadFile(directory, filename, file.getBytes());
+				mb.setProfile_img(filename);
+				mb.setUploadedFile(uploadedFile);
+				mb.setDirectory(directory);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 
-		}catch(Exception e) {
-			e.printStackTrace();
-		}
+		
 
 		return mb;
 	}

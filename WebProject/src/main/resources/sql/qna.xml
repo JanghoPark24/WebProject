@@ -18,4 +18,8 @@
 
 </select>
 
+<select id="qna_read">
+    select * from qna_board where board_num = #{board_num} 
+</select>
+
 </mapper>

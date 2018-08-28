@@ -22,4 +22,8 @@ public class qnaDaoImpl {
 	public List<qnaBean> list(){
 		return session.selectList("qna_list");
 	}
+	
+	public qnaBean qna_read(int qna_num) {
+		return session.selectOne("qna_read", qna_num);
+	}
 }

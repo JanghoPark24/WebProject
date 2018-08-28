@@ -14,7 +14,7 @@
 	 	<typeAlias alias="List" type="java.util.List" />	
 	 	<typeAlias alias="question" type="thelecture.model.QuestionBean" />	
 	 	<typeAlias alias="qna" type="thelecture.model.qnaBean" />	
-		<!-- <typeAlias alias="replies" type="thelecture.model.ReplyBean" />		 -->
+		<typeAlias alias="replies" type="thelecture.model.ReplyBean" />		
 	</typeAliases>
 
 

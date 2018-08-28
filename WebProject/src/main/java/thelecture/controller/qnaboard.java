@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import thelecture.model.qnaBean;
 import thelecture.service.qnaService;
@@ -58,6 +59,14 @@ public class qnaboard {
 		return "content/qna/qna_list";
 	}
 
+	
+	@RequestMapping(value = "qna_read.do")
+	public String qna_read(@RequestParam("qna_num") int qna_num,Model model) {
+		qnaBean board = qnaService.qna_read(qna_num); 
+		model.addAttribute("board", board);
+		return "content/qna/qna_read";
+	}
+	
 	
 /*	 게시판 내용보기,삭제폼,수정폼,답변글폼 
 	@RequestMapping(value = "/board_cont.nhn")

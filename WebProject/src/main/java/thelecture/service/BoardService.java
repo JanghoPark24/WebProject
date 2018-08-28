@@ -99,6 +99,13 @@ public class BoardService {
 		return lecturedao.updateQuestion(questionIDs,questionContents);
 	}
 
+	@Transactional
+	public ReplyBean addAndGetLectureComment(ReplyBean comment) {
+		boolean commentSuccess = lecturedao.addLectureComment(comment);
+		if(commentSuccess==true) comment = lecturedao.getLectureCommentByReplyNum(comment.getReply_num());
+		return  comment;
+	}
+
 
 	
 

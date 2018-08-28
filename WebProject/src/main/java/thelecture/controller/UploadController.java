@@ -108,21 +108,19 @@ public class UploadController {
 */
 
 	//프로필 이미지
-	@SuppressWarnings("resource")
+//	@SuppressWarnings("resource")
 	@ResponseBody
-	@RequestMapping("/displayFile")
+	@RequestMapping("displayFile.do")
 	public ResponseEntity<byte[]> displayFile(String fileName, String directory,HttpSession session) throws Exception {
-		logger.info(directory);
-//		String current_email = session.getAttribute("email").toString(); //이메일 마다 이미지 구해오기
+		System.out.println("here");
 		InputStream in = null;
 		ResponseEntity<byte[]> entity = null;
 		HttpURLConnection uCon = null;
-		logger.info("FILE NAME: " + fileName);
+
 		String inputDirectory = null;
 		if(directory.equals("profile")) {
 			inputDirectory = "profileImage";
-		}
-		else if(directory.equals("certificate")) {
+		}else if(directory.equals("certificate")) {
 			inputDirectory = "almom/certificate";
 		}else {
 			inputDirectory = "almom/coverImage";

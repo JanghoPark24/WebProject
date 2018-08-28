@@ -23,6 +23,10 @@ public class qnaService {
 		return dao.list();
 	}
 
+	public qnaBean qna_read(int qna_num) {
+		return dao.qna_read(qna_num);
+	}
+	
 }
 
 

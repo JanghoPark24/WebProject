@@ -237,10 +237,12 @@ public class MemberServiceImpl {
 	@Transactional
 	// 회원정보수정
 	public boolean member_update(MemberBean mb) throws Exception {
-		boolean memberUpdateSuccess = memberDao.member_update(mb);
-		boolean imageInsertSuccess=true;
-		//profile 이미지가 있을 경우만 dao 설정
 		
+		boolean memberUpdateSuccess=memberDao.member_update(mb);
+		
+		boolean imageInsertSuccess=true;
+		
+		//profile 이미지가 있을 경우만 dao 설정
 		if(mb.getUploadedFile()!=null )
 			imageInsertSuccess = memberDao.insertProfile(mb);
 		return memberUpdateSuccess && imageInsertSuccess;

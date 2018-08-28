@@ -3,6 +3,8 @@ SELECT * FROM member;
 SELECT * FROM univ;
 SELECT * FROM file_storage;
 
+select * from LECTURE_REPLY;
+
 
 delete from member;
 delete from univ;
@@ -13,10 +15,9 @@ purge;
 create SEQUENCE seq_question_id START WITH 1 INCREMENT BY 1;--질문 시퀀스
 CREATE SEQUENCE seq_board1_no START WITH 1 INCREMENT BY 1;--커뮤니티 게시판 시퀀스
 CREATE SEQUENCE seq_board1_re_no START WITH 1 INCREMENT BY 1;--커뮤니티 게시판 리플 시퀀스
-CREATE SEQUENCE seq_lecture_no START WITH 1 INCREMENT BY 1;--강의 리플 시퀀스
+CREATE SEQUENCE seq_lecture_no START WITH 1 INCREMENT BY 1;--강의 시퀀스
 CREATE SEQUENCE seq_lecture_re_no START WITH 1 INCREMENT BY 1;--강의 리플 시퀀스
 create SEQUENCE seq_qestion_version START WITH 1 INCREMENT BY 1;--강의 리플 시퀀스
-
 ALTER TABLE univ
 ADD CONSTRAINT uk_univ_url  UNIQUE (univ_url); 
 
@@ -131,7 +132,7 @@ from lecture;
 create or replace view memberView
 as
 select mb.email email, univ_name, 
-nickname, password,is_mail_open, 
+nickname, password,is_mail_open,
 profile, grade, reg_date, major, profile_img, uploadedfile, isdeleted
 from member mb, file_storage fs
 where mb.email = fs.email and  --조인

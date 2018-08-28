@@ -13,7 +13,7 @@ public class UploadFileUtils {
 	private static final Logger logger = LoggerFactory.getLogger(UploadFileUtils.class);
 
 
-	public static String uploadFile(String uploadPath, String originalName, byte[] byteData) throws Exception {
+	public static String uploadFile(String uploadPath, String originalName, byte[] byteData) {
 		S3Util s3 = new S3Util();
 		String bucketName = "thelecture";
 		//랜덤의 uid 를 만들어준다.
@@ -38,7 +38,7 @@ public class UploadFileUtils {
 
 	}
 
-/*public static String uploadFile(String uploadPath, String originalName, File file) throws Exception {
+/*public static String uploadFile(String uploadPath, String originalName, File file) {
 	S3Util s3 = new S3Util();
 	String bucketName = "thelecture";
 	//랜덤의 uid 를 만들어준다.
