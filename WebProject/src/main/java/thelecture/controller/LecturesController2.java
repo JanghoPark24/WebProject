@@ -46,7 +46,7 @@ public class LecturesController2 {
 		LectureBean lb = etcService.getReviewDetail(lecture_id, model);
 		model.addAttribute("checked", true);
 		model.addAttribute("lb", lb);//LectureBean 객체
-
+		
 		return "review";
 
 	}

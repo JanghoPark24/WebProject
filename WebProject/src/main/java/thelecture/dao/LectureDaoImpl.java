@@ -210,6 +210,11 @@ public class LectureDaoImpl {
 		
 		return  sqlSession.selectOne("lectureMap.getReplyNumOfLastComment",reply);
 	}
+
+	public List<ReplyBean> getAllCommentsByLectureId(int lecture_id) {
+		
+		return sqlSession.selectList("lectureMap.getAllCommentsByLectureId",lecture_id);
+	}
 	
 	
 	

@@ -12,6 +12,7 @@ import thelecture.dao.RatingDaoImpl;
 import thelecture.model.LectureBean;
 import thelecture.model.Lecture_ratingBean;
 import thelecture.model.QuestionBean;
+import thelecture.model.ReplyBean;
 
 /**
  * 충돌방지를 위해서 임시로 만든 class <br>
@@ -32,13 +33,16 @@ public class EtcService {
 
 	@Transactional
 	public LectureBean getReviewDetail(int lecture_id, Model model) {
+		
 		LectureBean lb = lecturedao.getLectureListById(lecture_id);
 		List<QuestionBean> qb_list = ratingdao.getQBList(lecture_id);
 		List<Lecture_ratingBean> rb_list = ratingdao.getRBList(lecture_id);
+		List<ReplyBean> comment_list = lecturedao.getAllCommentsByLectureId(lecture_id); 
 		System.out.println(rb_list);
 		model.addAttribute("rb_list", rb_list);// List<Lecture_ratingBean>
 		model.addAttribute("qb_list", qb_list);// List<QuestionBean>
-
+		model.addAttribute("comment_list", comment_list);// List<QuestionBean>
+		model.addAttribute("countOfComment",comment_list.size());
 		return lb;
 	}
 

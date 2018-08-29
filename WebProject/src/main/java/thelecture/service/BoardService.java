@@ -118,6 +118,14 @@ public class BoardService {
 	}
 
 
+	public List<ReplyBean> getAllCommentsByLectureId(int lecture_id) {
+		
+		return lecturedao.getAllCommentsByLectureId(lecture_id);
+	}
+
+
+
+
 	
 
 }

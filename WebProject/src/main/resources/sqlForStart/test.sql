@@ -8,7 +8,33 @@ select * from memberView;
 ALTER TABLE lecture_reply
   ADD reply_order NUMBER;
   
+  select * from memberView;
   
+  select * from memberView;
+
+SELECT 
+  		FROM
+  		lecture_reply lr
+  		FULL OUTER JOIN (SELECT email, UPLOADEDFILE from memberView where isdeleted ='n') m
+		ON lr.email = m.email;
+
+
+		select * from community_board;
+		select c.email from community_board c, member m
+		where c.email = m.email and
+		univ_name IS NOT NULL
+  		select * from community_board;
+		
+		select cm.*, uploadedFile from
+		(select * from community_board c, member m
+		where c.email = m.email and
+		is_deleted='n') cm
+		full outer join memberView mv
+		on cm.email = mv.email
+		
+		order by board_num desc
+  
+		
 ALTER TABLE member
   DROP column reply_order;
   
