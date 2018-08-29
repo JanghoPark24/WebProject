@@ -1,4 +1,4 @@
-var cate = $("select[name=category]").val();
+var cate = $("select[name=keyword]").val();
 var tags_all = []
 var tags_univ = []
 var tags_lec = []
@@ -25,7 +25,7 @@ $.ajax({
 	}
 })
 function change_cate() {
-	cate = $("select[name=category]").val();
+	cate = $("select[name=keyword]").val();
 	console.log(cate);
 	if (cate == 'univ') {
 		tags = tags_univ;

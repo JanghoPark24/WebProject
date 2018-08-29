@@ -55,7 +55,7 @@ h2 {
 				action="lectureList.do">
 				<table class="searchform" style="margin: auto;">
 					<tr>
-						<td><select name="category" class="form-control"
+						<td><select name="keyword" class="form-control"
 							style="height: 34px;" onchange="change_cate()">
 								<option value="all">전체</option>
 								<option value="univ">대학</option>
