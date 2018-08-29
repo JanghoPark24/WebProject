@@ -1,6 +1,5 @@
 package thelecture.controller;
 
-import static org.junit.Assume.assumeNoException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,12 +47,16 @@ public class SPAcontroller {
 	}
 	
 	@RequestMapping(value="addandGetLectureComment.do")
-	public ReplyBean addLectureComment(ReplyBean comment, HttpSession session) throws Exception {
+	public ReplyBean addandGetLectureLectureComment(ReplyBean comment, HttpSession session) {
+
 		String email = session.getAttribute("email")+"";
-		if(email.equals("")) {
-			throw new Exception("login이 필요합니다.");
+		System.out.println("email:"+email);
+		if(email.equals(null)) {
+
+			return null;
 		}
 		comment.setEmail(email);
+		
 		comment= boardService.addAndGetLectureComment(comment);
 		
 		

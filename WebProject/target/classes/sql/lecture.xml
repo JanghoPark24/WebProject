@@ -2,7 +2,18 @@
  <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="lectureMap">
-
+	<select id="getReplyNumOfLastComment" parameterType="lecture" resultType="int">
+		SELECT max(reply_num) from lecture_reply
+		WHERE
+		lecture_id =#{lecture_id}
+		
+	</select>
+	<select id="getLectureCommentByReplyNum" parameterType="int" resultType="reply">
+		SELECT * from lecture_reply
+		WHERE
+		reply_num =#{reply_num}
+		
+	</select>
 
 	
 	<select id="getRowCount" parameterType="page_index" resultType="int">
@@ -111,7 +122,7 @@
 	<insert id="insertLectureQuestion" parameterType="hashMap">
 		insert into question values(seq_question_id.nextval,#{question_version},#{question_content},'n')
 	</insert>
-	<insert id="addNewComment" parameterType="replies">
+	<insert id="addNewComment" parameterType="reply">
 		insert into lecture_reply
 		values(seq_board1_re_no.nextval,
 				#{lecture_id},
@@ -124,7 +135,7 @@
 				
 		) 
 	</insert>
-	<insert id="addReplyToComment" parameterType="replies">
+	<insert id="addReplyToComment" parameterType="reply">
 		
 	    insert into lecture_comment
 		values(seq_board1_re_no.nextval,
@@ -137,7 +148,8 @@
 		);
 	      
 	</insert>
-	<update id="updateBeforeAddReply" parameterType="replies">
+	
+	<update id="updateBeforeAddReply" parameterType="reply">
         update lecture_comment
         set reply_order = reply_order+1
         where lecture_id = #{lecture_id}

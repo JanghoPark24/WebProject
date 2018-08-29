@@ -205,6 +205,11 @@ public class LectureDaoImpl {
 		
 		return insertedRow==1? true: false;
 	}
+
+	public int getReplyNumOfLastComment(ReplyBean reply) {
+		
+		return  sqlSession.selectOne("lectureMap.getReplyNumOfLastComment",reply);
+	}
 	
 	
 	

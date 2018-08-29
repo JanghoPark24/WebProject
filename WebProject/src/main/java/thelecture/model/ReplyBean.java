@@ -11,7 +11,7 @@ public class ReplyBean{
 	
 	private int reply_num;
 	private int semester;
-	private String lecture_id; //lecture_reply 
+	private Integer lecture_id; //lecture_reply 
 	private String email;
 	private int ref;
 	private int depth;
@@ -68,13 +68,11 @@ public class ReplyBean{
 	public void setIs_deleted(String is_deleted) {
 		this.is_deleted = is_deleted;
 	}
-	public String getLecture_id() {
+	public Integer getLecture_id() {
 		return lecture_id;
 	}
-	public void setLecture_id(String lecture_id) {
+	public void setLecture_id(Integer lecture_id) {
 		this.lecture_id = lecture_id;
 	}
-	
-	
 	
 }
