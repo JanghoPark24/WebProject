@@ -198,6 +198,18 @@ public class LectureDaoImpl {
 		
 		return sqlSession.selectOne("lectureMap.getLectureCommentByReplyNum",reply_num);
 	}
+
+	public boolean insertLecture(LectureBean lecture) {
+		
+		int insertedRow = sqlSession.insert("lectureMap.insertLecture", lecture);
+		
+		return insertedRow==1? true: false;
+	}
+
+	public int getReplyNumOfLastComment(ReplyBean reply) {
+		
+		return  sqlSession.selectOne("lectureMap.getReplyNumOfLastComment",reply);
+	}
 	
 	public List<String> getLec_list(){
 		return sqlSession.selectList("getLec_list");

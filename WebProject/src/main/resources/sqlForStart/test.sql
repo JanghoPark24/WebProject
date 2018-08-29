@@ -2,8 +2,9 @@
 SELECT * FROM file_storage;
 
 select * from member;
+select * from lecture_reply;
 
-
+select * from memberView;
 ALTER TABLE lecture_reply
   ADD reply_order NUMBER;
   

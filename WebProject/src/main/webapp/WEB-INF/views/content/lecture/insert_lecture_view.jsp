@@ -90,86 +90,165 @@
     }
     
  // form id에 대한 유효성 검사 확인하기
-    function validateWithLabel(frm){
+    function validateEmptinessWithLabel(frm){
        
         var form_id = frm.id;
-   //     var inputs = $('#'+form_id+' input')
         var inputs = frm.getElementsByTagName('input')
-         
+       
         var iSize = inputs.length;
         
-        alert(iSize)
 
-        
-        for(var i = 0;i<inputs.length; i++){
-        	console.log(i)
+        for(var i = 0;i<iSize; i++){
+        	
             //input 
             let inputE = inputs[i]
             
-        	let inputVal = inputE.value;
-            
+    		
+        	let inputVal = inputE.value.trim();
+           
             //label Value for input id
             //let labelVal = $("label[for='"+inputE.id+"']").text();
             let labelVal = document.querySelector("label[for=" + (inputE.id)+ "]").innerText;
             
-            //전송되는 name
-            let iName = inputE.name;
-            console.log(iName)
-            
-            // type이 file인 것을 제외하고 input값을 모두 비교
             // 값이 없을 경우 리턴
             if(inputVal==""){
                 alert(labelVal+"을 입력해야 합니다.")
-                break;
-            
-            }//이메일일 경우
-            else if(iName=="univ_domain"){
-                
-                if(isValidEmailDomain(inputVal)==false) 
-                    alert("이메일 형식이 올바르지 않습니다.")
-                break;
+                return false;
             }
-            /* else if(validateLectureFile(form_id)==0){
-                alert('파일을 입력하세요')
-                break;
-            }else if(validateLectureFile(form_id)==1){
-                alert('이미지만 사용가능합니다.')
-                break;
-            } */
-            break;
-            
             
         }
-      	if(i==4){
-        	frm.submit();
-      	}
+        return true;
+        
+        
+    }
+    function validateSelectWithLabel(frm){
+    	 var sel = frm.getElementsByClassName('select_class');
+    	 
+    	 let labelVal = document.querySelector("label[for=" + (sel[0].id)+ "]").innerText;
+         
+         // 값이 없을 경우 리턴
+         if(sel[0].value==""){
+             alert(labelVal+"을 해야 합니다.")
+             return false;
+         }
+         return true;
+    }
+ 
+ 
+    function validateGeneralRules(frm){
+        
+        var form_id = "#"+frm.id;
+        var inputs = frm.getElementsByTagName('input')
+        
+        var iSize = inputs.length;
+        
+        for(var i = 0;i<iSize; i++){
         	
-        
-        
-    }
-
-    function validateLectureFile(form_id){
-       
-        var inputFileVal;
-        //form에 따른 value
-        switch(form_id){
-            case "insertUniv":
-                inputFileVal=$("#i_univ_logo_d").val();
-                break;
-        }    
+            //input 
+            let inputE = inputs[i]
+        	let inputVal = inputE.value;
+            let labelVal = document.querySelector("label[for=" + (inputE.id)+ "]").innerText;
             
-        
-        if(inputFileVal==""){
-            return 0;
+            //전송되는 name
+            let iName = inputE.name;
+            let className = inputE.className;
+            
+			console.log(inputE.id);            
+            //이메일일 경우
+			
+            if(className =="email_domain" &&
+            	isValidEmailDomain(inputVal)==false	){
+                
+                alert("이메일 형식이 올바르지 않습니다.");
+               	return;
+            
+            //이미지 파일인지 확인
+            }else if(className =="image_file" &&
+            	isValidImg(inputVal)==false){
+            	
+            	alert("첨부한 파일이 이미지가 아닙니다.")
+            	return;
+            }
         }
-        else if(isValidImg(inputFileVal)==false){ 
-            return 1;
-        }
         
+        frm.submit();
+      	
     }
-
-    
-   
+ 	
+	function getAndSetUniv(){
+		var univ_name = document.getElementById("o_univ_name").value;
+		
+		$.ajax({
+    		url : "getUnivByName.do" ,
+    		dataType : "json",
+    		data:{"name": univ_name},
+    		success : 
+    			function(data, response) {
+    				
+    				$("#u_univ_name_d").val(data.univ_name);
+    				$("#u_univ_url_d").val(data.univ_url);
+    				$("#u_univ_domain_d").val(data.univ_domain);
+    			
+    			}
+    	})
+	}
+	
+	function deleteUniv(univ_name){
+		var request = $.ajax({
+		  url: "deleteUniv.do",
+		  method: "POST",
+		  data: {"name":univ_name},
+		  dataType: "text"
+		});
+		request.done(function() {
+		  alert(univ_name+" 삭제 완료");
+		  location.reload();
+		});
+		 
+		request.fail(function( jqXHR, textStatus ) {
+		  alert( "Request failed: " + textStatus );
+		});
+	}
+	
+	function validateUnivInfo(univ_name){
+		
+		 $.ajax({
+    		url : "getUnivByName.do",
+    		dataType : "text",
+    		data:{name:univ_name},
+    		success : 
+    		function(data, response) {
+    			
+    			if(data==""){
+    				alert("기존에 없는 대학교입니다. 대학교 추가한 후 입력하세요");
+    				return false;
+    			}
+    		}
+    	})
+    	return true;
+		
+	}
+	
+   function validateSemester(semester){
+	 	//학기는 1~5학기만
+	 	console.log(semester)
+		if( (1<=semester) && (semester <=5) ){
+			return true;
+		}else{
+			alert("1~5학기만 입력가능합니다.");			
+			return false;
+		}
+   }
+   function validateGrade(grade){
+	 	
+	 	console.log(grade)
+		if( (1<=grade) && (grade <=4) ){
+			return true;
+		}else{
+			alert("1~4학년만 입력가능합니다.");			
+			return false;
+		}
+   }
 
     </script>
 
@@ -178,11 +257,15 @@
 	<script>
 		$(function(){
 			
-			//질문 선택지 
+			//질문 선택지 선택시 변경
 			$("#qSelect").on("change",function(){
 				searchFunction();
 			})
 			
+			//대학교 수정 클릭
+			$("#updateUniv_outer").on("click",function(){
+				getAndSetUniv();
+			})
 			
 			$(document).on("click","#questionModal #addQuestion",function(){
 				
@@ -194,26 +277,83 @@
 				removeQuestion();
 			})
 			
+			//질문 업데이트
 			$(document).on("click","#updateQuestions",function(){
 				
 				updateOptions("#questions","updateQuestions.do");
 			})
+			
+			//
 			$('#univ_name').on('keydown',function(){
 				makeAutoComplete(this);
 			})
-			
+			//대학교 수정
 			$("#addUniv_outer").on('click',function(){
 				$('#univ_name_d').val($('#univ_name').val())
 			})
-			$("#insertUnivButton").on('click',function(){
-				let insertFrm = document.getElementById('insertUniv');
-				validateWithLabel(insertFrm);
-			})
+			
+			//대학교 수정완료
 			$("#updateUnivButton").on('click',function(){
-				let insertFrm  = document.getElementById('#updateUniv')
-				validateWithLabel(insertFrm );
+				let insertFrm  = document.getElementById('updateUniv');
+				
+				validateEmptinessWithLabel(insertFrm);
+				validateGeneralRules(insertFrm);
+			})
+			//대학교 삭제
+			$("#deleteUniv_outer").on('click',function(){
+				
+				let univ_name  = document.getElementById('o_univ_name').value;
+				let willDelete = confirm("이 대학교를 삭제하시겠습니까?")
+				alert(univ_name)
+				if(willDelete==true) deleteUniv(univ_name);
 			})
 			
+			$("#insertUnivButton").on('click',function(){
+				let insertFrm = document.getElementById('insertUniv');
+				validateEmptinessWithLabel(insertFrm);
+				validateGeneralRules(insertFrm);
+			})
+			
+			
+			
+			// 강의 넣기 submit
+			$("#lectureInfo_submit").on('click',function(){
+				
+				let insertFrm= document.getElementById("lectureInfo_form");
+				let univ_name = document.getElementById("o_univ_name");
+				let semester = document.getElementById("semester").value;
+				let grade = document.getElementById("grade").value;
+				
+
+				//selectEditing?
+				var selectEditing = 
+					(document.querySelectorAll(".select_editing").length==1)? true:false;
+				if(selectEditing==true) searchFunction();
+				
+				//빈것이 있는지 체크
+				var success1 = validateEmptinessWithLabel(insertFrm);
+				if(success1==false) return;
+				
+				var success2 = validateSelectWithLabel(insertFrm);
+				if(success2==false) return;
+				
+				
+				//대학교 ;
+				var success3 = validateUnivInfo(univ_name.value);
+				if(success3==false) return;
+				
+				//학기
+				var success4 = validateSemester(semester);
+				if(success4==false) return;
+				//학년
+				var success5 = validateGrade(grade);
+				if(success5==false) return;
+				//submit
+				insertFrm.action = "insertLecture.do";
+				insertFrm.submit();
+				
+				
+			})
 			
 			
 		})
@@ -237,14 +377,15 @@
             <div id="content_middle">
                
                 <h4>정보</h4>
-                <form id="lectureInfo_form" method="post" accept-charset="utf-8">
+                <form id="lectureInfo_form" method="post"
+                 accept-charset="utf-8">
 	                <table id="lectureInfo" >
 	                <tr>
 						<td>                
-	                	  <p>학교:</p>
+	                	  <p><label for="o_univ_name">학교</label>:</p>
 	                	</td>
 	                	<td>
-	                	  <input id="univ_name" name='univ_name' type="text" class="form-control ui-autocomplete-input"  />
+	                	  <input id="o_univ_name" name='univ_name' type="text" class="form-control ui-autocomplete-input"  />
 	                	</td>
 	                	<td>
 	                	  <a id="addUniv_outer" data-toggle="modal" data-target="#insertUnivModal">학교 추가</a> | 
@@ -257,10 +398,10 @@
 	            
 	                <tr>
 	                	<td>
-	               		 <p>교수명:</p>
+	               		 <p><label for="professor">교수명</label>:</p>
 	               		</td>
 	               		<td>
-	               		 <input id="professor" type="text" />
+	               		 <input id="professor" name="professor" type="text" />
 	               		</td>
 	               		<td></td>
 	               	</tr>
@@ -268,36 +409,53 @@
 	               
 	              
 	                <tr>
-	                	<td><p>전공:</p></td>
+	                	<td><p><label for="major">전공</label>:</p></td>
 	                	<td>
-	                	 <input id="major" type="text" />
+	                	 <input id="major" name="major" type="text" />
+	                	</td>
+	                	<td></td>
+	                </tr>
+	                <tr>
+	                	<td>
+	                	  <p><label for="grade">학년</label>:</p>
+	                	</td>
+	                	<td>
+	                	  <input id="grade" name="grade" type="text" />
+	                	</td>
+	                	<td></td>
+	                </tr>
+	                <tr>
+	                	<td>
+	                	  <p><label for="semester">학기</label>:</p>
+	                	</td>
+	                	<td>
+	                	  <input id="semester" name="semester" type="text" />
+	                	</td>
+	                	<td></td>
+	                </tr>
+	                <tr>
+	                	<td>
+	                	  <p><label for="credit">학점</label>:</p>
+	                	</td>
+	                	<td>
+	                	  <input id="credit" name="credit" type="text" />
+	                	</td>
+	                	<td></td>
+	                </tr>
+	                <tr>
+	                	<td><p><label for="lecture_code">강의코드</label>:</p></td>
+	                	<td>
+	                	 <input id="lecture_code" name="lecture_code" type="text" />
 	                	</td>
 	                	<td></td>
 	                </tr>
 	                
 	                <tr>
 	                	<td>
-	                	  <p>학기:</p>
+	                	 <p><label for="lecture_name">강의 이름</label>:</p>
 	                	</td>
 	                	<td>
-	                	  <input id="semester" type="text" />
-	                	</td>
-	                	<td></td>
-	                </tr>
-	                <tr>
-	                	<td><p>강의코드:</p></td>
-	                	<td>
-	                	 <input id="lecture_code" type="text" />
-	                	</td>
-	                	<td></td>
-	                </tr>
-	                
-	                <tr>
-	                	<td>
-	                	 <p>강의 이름:</p>
-	                	</td>
-	                	<td>
-	                	 <input id="lecture_name" type="text" />
+	                	 <input id="lecture_name" name="lecture_name" type="text" />
 	                	</td>
 	                	<td></td>
 	                </tr>
@@ -305,12 +463,12 @@
 	                
 					<tr id='questionnaire' >
 						<td>
-						  <p>질문지 선택</p>
+						  <p><label for="qSelect">질문지 선택</label></p>
 						</td>
 						<td>
-							<select id="qSelect">
-							  <option value="0">질문지를 선택하세요</option>
-							  <c:if test="${not empty questionVersions }">
+							<select id="qSelect" class="select_class" name="question_id">
+							  <option value="">질문지를 선택하세요</option>
+							  <c:if test="${not empty questionVersions}">
 							  	<c:forEach var="questionVersion" items="${questionVersions}">
 								<option value="${questionVersion}" >${questionVersion}</option>
 								</c:forEach>
@@ -329,7 +487,11 @@
 							<a onclick="check_update()">질문지 수정</a>
 						</td>
 					  </tr> 
-					</table>               
+					</table>
+					<div>
+						<button type="button" id="lectureInfo_submit">제출</button>
+						<button type="reset">취소</button>
+					</div>               
 				</form>
 			 
              	<!-- 학교 추가 Modal -->

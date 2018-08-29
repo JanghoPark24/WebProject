@@ -12,10 +12,10 @@ public class UploadFileUtils {
 
 	private static final Logger logger = LoggerFactory.getLogger(UploadFileUtils.class);
 
-
+	private static String bucketName = "thelecture";
 	public static String uploadFile(String uploadPath, String originalName, byte[] byteData) {
 		S3Util s3 = new S3Util();
-		String bucketName = "thelecture";
+		
 		//랜덤의 uid 를 만들어준다.
 		UUID uid = UUID.randomUUID();
 
@@ -36,6 +36,12 @@ public class UploadFileUtils {
 		System.out.println("uploadedFileName:"+uploadedFileName);
 		return uploadedFileName;
 
+	}
+
+	public static void deleteFile(String directory, String uploadedPath) {
+		S3Util s3 = new S3Util();
+		
+		s3.fileDelete(bucketName, directory+uploadedPath);
 	}
 
 /*public static String uploadFile(String uploadPath, String originalName, File file) {

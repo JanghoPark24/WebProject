@@ -2,7 +2,18 @@
  <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="lectureMap">
-
+	<select id="getReplyNumOfLastComment" parameterType="lecture" resultType="int">
+		SELECT max(reply_num) from lecture_reply
+		WHERE
+		lecture_id =#{lecture_id}
+		
+	</select>
+	<select id="getLectureCommentByReplyNum" parameterType="int" resultType="reply">
+		SELECT * from lecture_reply
+		WHERE
+		reply_num =#{reply_num}
+		
+	</select>
 
 	
 	<select id="getRowCount" parameterType="page_index" resultType="int">
@@ -27,8 +38,8 @@
 		
 	</select>
 	
-	<!-- <select id="getLectureList" parameterType="java.util.HashMap" resultType="lectureResult"> -->
-	<select id="getLectureList" parameterType="page_index" resultType="lectureResult">
+	<!-- <select id="getLectureList" parameterType="java.util.HashMap" resultType="lecture"> -->
+	<select id="getLectureList" parameterType="page_index" resultType="lecture">
 		select * from (select a.*,rowNum rnum from (
 			select * from lecture
 		<where>
@@ -55,12 +66,22 @@
 	<!-- 중복검사 -->
 	
 	<!-- id에 따라 강의 하나 구하기-->
-	<select id="getLectureListById" parameterType="int" resultType="lectureResult">
+	<select id="getLectureListById" parameterType="int" resultType="lecture">
 		select * from lecture where lecture_id=#{lecture_id}
 	</select>
 	
 	<!--순서대로 구하기-->
-	<select id="getQuestionVersions" resultType="hashMap">
+	<select id="getQuestionVersions" resultType="String">
+		select question_version from(
+		
+		    select sum(question_id) sum_id, question_version
+		    from question
+		    where is_deleted = 'n'
+		    group by question_version
+		    order by sum_id
+		)
+	</select>
+<!-- 	<select id="getQuestionVersions" resultType="hashMap">
 		select question_version from(
 		
 		    select sum(question_id) sum_id, question_version
@@ -71,19 +92,37 @@
 		)
 	</select>
 	
-	
+	 -->	
 	<select id="getQuestionnaire" parameterType="String" resultType="question">
 		select * from question 
         where question_version= #{question_version,jdbcType=VARCHAR} AND is_deleted='n'
         order by question_id 
 	</select>
+	
+	<insert id="insertLecture" parameterType="lecture">
+		insert into question_version 
+		values(seq_board1_no.nextval,
+		#{univ_name},
+		#{major},
+		#{grade},
+		#{semester},
+		#{lecture_code},
+		#{lecture_name},
+		#{professor},
+		#{credit},
+		'n',
+		0) 
+	</insert>
+	
+	
+	
 	<insert id="insertLectureQuestionVersion" parameterType="String">
 		insert into question_version values(#{question_version},'n') 
 	</insert>
 	<insert id="insertLectureQuestion" parameterType="hashMap">
 		insert into question values(seq_question_id.nextval,#{question_version},#{question_content},'n')
 	</insert>
-	<insert id="addNewComment" parameterType="replies">
+	<insert id="addNewComment" parameterType="reply">
 		insert into lecture_reply
 		values(seq_board1_re_no.nextval,
 				#{lecture_id},
@@ -96,7 +135,7 @@
 				
 		) 
 	</insert>
-	<insert id="addReplyToComment" parameterType="replies">
+	<insert id="addReplyToComment" parameterType="reply">
 		
 	    insert into lecture_comment
 		values(seq_board1_re_no.nextval,
@@ -109,7 +148,8 @@
 		);
 	      
 	</insert>
-	<update id="updateBeforeAddReply" parameterType="replies">
+	
+	<update id="updateBeforeAddReply" parameterType="reply">
         update lecture_comment
         set reply_order = reply_order+1
         where lecture_id = #{lecture_id}
