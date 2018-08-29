@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import thelecture.dao.MemberDaoImpl;
 import thelecture.model.LectureBean;
@@ -49,6 +50,16 @@ public class LecturesController2 {
 		
 		return "review";
 
+	}
+	
+	/**
+	 * 대학 리스트 데이터를 json으로 전달함
+	 */
+	@RequestMapping("autocomplete_lec.do")
+	@ResponseBody
+	public List<String> selectLecList() {
+		List<String> lec_list = etcService.getLec_list();
+		return lec_list;
 	}
 
 }
