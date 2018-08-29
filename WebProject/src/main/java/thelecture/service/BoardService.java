@@ -105,7 +105,6 @@ public class BoardService {
 		if(commentSuccess==true) {
 			int replynumOfLastComment=lecturedao.getReplyNumOfLastComment(comment_info);
 			
-			
 			comment_info = lecturedao.getLectureCommentByReplyNum(replynumOfLastComment);
 		}
 		return comment_info;

@@ -20,6 +20,7 @@ public class ReplyBean{
 	private Date reg_date;
 	private String is_deleted; // y: 삭제됨 , n:삭제되지 않음(default)
 	private String uploadedFile; // 프로필 이미지명
+	private String reply_order; // 순서
 	
 	public int getReply_num() {
 		return reply_num;
@@ -87,6 +88,12 @@ public class ReplyBean{
 	}
 	public void setUploadedFile(String uploadedFile) {
 		this.uploadedFile = uploadedFile;
+	}
+	public String getReply_order() {
+		return reply_order;
+	}
+	public void setReply_order(String reply_order) {
+		this.reply_order = reply_order;
 	}
 	
 }

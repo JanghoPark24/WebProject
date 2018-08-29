@@ -179,15 +179,18 @@ public class LectureDaoImpl {
 
 	public boolean addLectureComment(ReplyBean comment) {
 		int affectedRow;
+		
 		try {
 			if(comment.getDepth()==0) {
 				
 				affectedRow=sqlSession.insert("lectureMap.addNewComment",comment);
 			}else {
+				System.out.println("여기까지 오는가?");
 				affectedRow = sqlSession.update("lectureMap.updateBeforeAddReply",comment);
 				affectedRow +=sqlSession.update("lectureMap.addReplyTOComment",comment);
 			}
 		}catch(Exception e) {
+			e.printStackTrace();
 			affectedRow =0;
 			
 		}
@@ -214,6 +217,10 @@ public class LectureDaoImpl {
 	public List<ReplyBean> getAllCommentsByLectureId(int lecture_id) {
 		
 		return sqlSession.selectList("lectureMap.getAllCommentsByLectureId",lecture_id);
+	}
+	public List<ReplyBean> getRepliesOfCommentsByLectureId(int lecture_id) {
+		
+		return sqlSession.selectList("lectureMap.getRepliesOfCommentsByLectureId",lecture_id);
 	}
 	
 	

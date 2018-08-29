@@ -33,7 +33,11 @@ SELECT
 		on cm.email = mv.email
 		
 		order by board_num desc
-  
+		
+ select * from lecture_reply;
+ delete from lecture_reply
+ where reply_num in (26,25,2);
+ 
 		
 ALTER TABLE member
   DROP column reply_order;
@@ -57,10 +61,10 @@ insert into lecture_reply
 					where lecture_id=6)+1,0)
 				
 		);
-		
 
-		    select sum(question_id) sum_id, question_version
-		    from question
-		    where is_deleted = 'n'
-		    group by question_version
-		    order by sum_id		
+
+    
+select * from lecture_reply;
+        
+        
+        

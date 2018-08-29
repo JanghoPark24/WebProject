@@ -114,7 +114,7 @@ insert into question values(seq_question_id.nextval,
                             '강의평가1',
                             '과제');
 
-
+           
 
 --검색하기 위한 view 생성
 create or replace view lecture_search 

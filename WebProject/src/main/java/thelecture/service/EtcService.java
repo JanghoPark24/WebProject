@@ -38,10 +38,12 @@ public class EtcService {
 		List<QuestionBean> qb_list = ratingdao.getQBList(lecture_id);
 		List<Lecture_ratingBean> rb_list = ratingdao.getRBList(lecture_id);
 		List<ReplyBean> comment_list = lecturedao.getAllCommentsByLectureId(lecture_id); 
+		List<ReplyBean> re_reply_list = lecturedao.getRepliesOfCommentsByLectureId(lecture_id);
 		System.out.println(rb_list);
 		model.addAttribute("rb_list", rb_list);// List<Lecture_ratingBean>
 		model.addAttribute("qb_list", qb_list);// List<QuestionBean>
 		model.addAttribute("comment_list", comment_list);// List<QuestionBean>
+		model.addAttribute("re_reply_list",re_reply_list);
 		model.addAttribute("countOfComment",comment_list.size());
 		return lb;
 	}
