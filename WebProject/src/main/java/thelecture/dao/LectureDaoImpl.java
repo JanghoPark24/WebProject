@@ -198,6 +198,13 @@ public class LectureDaoImpl {
 		
 		return sqlSession.selectOne("lectureMap.getLectureCommentByReplyNum",reply_num);
 	}
+
+	public boolean insertLecture(LectureBean lecture) {
+		
+		int insertedRow = sqlSession.insert("lectureMap.insertLecture", lecture);
+		
+		return insertedRow==1? true: false;
+	}
 	
 	
 	

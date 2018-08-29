@@ -122,8 +122,8 @@ public class LecturesController {
 
 	@RequestMapping(value = "insertLecture.do")
 	public String insertLecture(LectureBean lecture) {
-		System.out.println(lecture.getUniv_name());
-		return "";
+		boolean insertSuccess= boardService.insertLecture(lecture);
+		return insertSuccess==true? "redirect:lectureList.do":"404error//e";
 	}
 
 	@RequestMapping(value = "insertQuestion.do")

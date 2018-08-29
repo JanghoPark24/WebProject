@@ -27,8 +27,8 @@
 		
 	</select>
 	
-	<!-- <select id="getLectureList" parameterType="java.util.HashMap" resultType="lectureResult"> -->
-	<select id="getLectureList" parameterType="page_index" resultType="lectureResult">
+	<!-- <select id="getLectureList" parameterType="java.util.HashMap" resultType="lecture"> -->
+	<select id="getLectureList" parameterType="page_index" resultType="lecture">
 		select * from (select a.*,rowNum rnum from (
 			select * from lecture
 		<where>
@@ -55,7 +55,7 @@
 	<!-- 중복검사 -->
 	
 	<!-- id에 따라 강의 하나 구하기-->
-	<select id="getLectureListById" parameterType="int" resultType="lectureResult">
+	<select id="getLectureListById" parameterType="int" resultType="lecture">
 		select * from lecture where lecture_id=#{lecture_id}
 	</select>
 	
@@ -87,6 +87,24 @@
         where question_version= #{question_version,jdbcType=VARCHAR} AND is_deleted='n'
         order by question_id 
 	</select>
+	
+	<insert id="insertLecture" parameterType="lecture">
+		insert into question_version 
+		values(seq_board1_no.nextval,
+		#{univ_name},
+		#{major},
+		#{grade},
+		#{semester},
+		#{lecture_code},
+		#{lecture_name},
+		#{professor},
+		#{credit},
+		'n',
+		0) 
+	</insert>
+	
+	
+	
 	<insert id="insertLectureQuestionVersion" parameterType="String">
 		insert into question_version values(#{question_version},'n') 
 	</insert>

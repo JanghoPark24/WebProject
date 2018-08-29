@@ -107,6 +107,12 @@ public class BoardService {
 	}
 
 
+	public boolean insertLecture(LectureBean lecture) {
+		// TODO Auto-generated method stub
+		return lecturedao.insertLecture(lecture);
+	}
+
+
 	
 
 }

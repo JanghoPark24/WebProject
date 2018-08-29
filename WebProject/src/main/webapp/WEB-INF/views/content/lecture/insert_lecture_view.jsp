@@ -227,19 +227,25 @@
     	})
     	return true;
 		
-		
 	}
+	
    function validateSemester(semester){
 	 	//학기는 1~5학기만
-	 	var _semester = parseInt(semester.value);
-		console.log(typeof(_semester))
-		console.log((1<=_semester))
-		console.log((_semester <=5))
-		
-		if( (1<=_semester) && (_semester <=5) ){
+	 	console.log(semester)
+		if( (1<=semester) && (semester <=5) ){
 			return true;
 		}else{
 			alert("1~5학기만 입력가능합니다.");			
+			return false;
+		}
+   }
+   function validateGrade(grade){
+	 	
+	 	console.log(grade)
+		if( (1<=grade) && (grade <=4) ){
+			return true;
+		}else{
+			alert("1~4학년만 입력가능합니다.");			
 			return false;
 		}
    }
@@ -315,14 +321,19 @@
 				
 				let insertFrm= document.getElementById("lectureInfo_form");
 				let univ_name = document.getElementById("o_univ_name");
-				let semester = document.getElementById("semester");
+				let semester = document.getElementById("semester").value;
+				let grade = document.getElementById("grade").value;
 				
+
+				//selectEditing?
+				var selectEditing = 
+					(document.querySelectorAll(".select_editing").length==1)? true:false;
+				if(selectEditing==true) searchFunction();
 				
 				//빈것이 있는지 체크
-				
 				var success1 = validateEmptinessWithLabel(insertFrm);
 				if(success1==false) return;
-				alert("here")
+				
 				var success2 = validateSelectWithLabel(insertFrm);
 				if(success2==false) return;
 				
@@ -334,9 +345,12 @@
 				//학기
 				var success4 = validateSemester(semester);
 				if(success4==false) return;
-				
-				//insertFrm.submit();
-				alert(1)
+				//학년
+				var success5 = validateGrade(grade);
+				if(success5==false) return;
+				//submit
+				insertFrm.action = "insertLecture.do";
+				insertFrm.submit();
 				
 				
 			})
@@ -363,7 +377,7 @@
             <div id="content_middle">
                
                 <h4>정보</h4>
-                <form id="lectureInfo_form" method="post" action="insertLecture.do"
+                <form id="lectureInfo_form" method="post"
                  accept-charset="utf-8">
 	                <table id="lectureInfo" >
 	                <tr>
@@ -387,7 +401,7 @@
 	               		 <p><label for="professor">교수명</label>:</p>
 	               		</td>
 	               		<td>
-	               		 <input id="professor" type="text" />
+	               		 <input id="professor" name="professor" type="text" />
 	               		</td>
 	               		<td></td>
 	               	</tr>
@@ -397,24 +411,41 @@
 	                <tr>
 	                	<td><p><label for="major">전공</label>:</p></td>
 	                	<td>
-	                	 <input id="major" type="text" />
+	                	 <input id="major" name="major" type="text" />
 	                	</td>
 	                	<td></td>
 	                </tr>
-	                
+	                <tr>
+	                	<td>
+	                	  <p><label for="grade">학년</label>:</p>
+	                	</td>
+	                	<td>
+	                	  <input id="grade" name="grade" type="text" />
+	                	</td>
+	                	<td></td>
+	                </tr>
 	                <tr>
 	                	<td>
 	                	  <p><label for="semester">학기</label>:</p>
 	                	</td>
 	                	<td>
-	                	  <input id="semester" type="text" />
+	                	  <input id="semester" name="semester" type="text" />
+	                	</td>
+	                	<td></td>
+	                </tr>
+	                <tr>
+	                	<td>
+	                	  <p><label for="credit">학점</label>:</p>
+	                	</td>
+	                	<td>
+	                	  <input id="credit" name="credit" type="text" />
 	                	</td>
 	                	<td></td>
 	                </tr>
 	                <tr>
 	                	<td><p><label for="lecture_code">강의코드</label>:</p></td>
 	                	<td>
-	                	 <input id="lecture_code" type="text" />
+	                	 <input id="lecture_code" name="lecture_code" type="text" />
 	                	</td>
 	                	<td></td>
 	                </tr>
@@ -424,7 +455,7 @@
 	                	 <p><label for="lecture_name">강의 이름</label>:</p>
 	                	</td>
 	                	<td>
-	                	 <input id="lecture_name" type="text" />
+	                	 <input id="lecture_name" name="lecture_name" type="text" />
 	                	</td>
 	                	<td></td>
 	                </tr>
@@ -435,7 +466,7 @@
 						  <p><label for="qSelect">질문지 선택</label></p>
 						</td>
 						<td>
-							<select id="qSelect" class="select_class">
+							<select id="qSelect" class="select_class" name="question_id">
 							  <option value="">질문지를 선택하세요</option>
 							  <c:if test="${not empty questionVersions}">
 							  	<c:forEach var="questionVersion" items="${questionVersions}">
