@@ -102,9 +102,28 @@ public class BoardService {
 	@Transactional
 	public ReplyBean addAndGetLectureComment(ReplyBean comment_info) {
 		boolean commentSuccess = lecturedao.addLectureComment(comment_info);
-		if(commentSuccess==true) comment_info = lecturedao.getLectureCommentByReplyNum(comment_info.getReply_num());
-		return  comment_info;
+		if(commentSuccess==true) {
+			//마지막 Reply Num을 가져옴
+			int lastReplyNum=lecturedao.getReplyNumOfLastComment(comment_info);
+			
+			comment_info = lecturedao.getLectureCommentByReplyNum(lastReplyNum);
+		}
+		return comment_info;
 	}
+
+
+	public boolean insertLecture(LectureBean lecture) {
+		// TODO Auto-generated method stub
+		return lecturedao.insertLecture(lecture);
+	}
+
+
+	public List<ReplyBean> getAllCommentsByLectureId(int lecture_id) {
+		
+		return lecturedao.getAllCommentsByLectureId(lecture_id);
+	}
+
+
 
 
 	

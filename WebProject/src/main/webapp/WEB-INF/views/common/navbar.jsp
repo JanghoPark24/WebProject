@@ -6,7 +6,6 @@
 	border-radius: 0px;
 	border-color: #182842;
 	background-color: #182842;
-	box-shadow: 0px 3px 10px 1px black;
 }
 
 .navbar-inverse .navbar-nav>.open>a, .navbar-inverse .navbar-nav>.open>a:focus,
@@ -46,8 +45,6 @@
 					data-toggle="dropdown" href="#">The Lecture<span class="caret"></span></a>
 					<ul class="dropdown-menu">
 						<li><a href="service_profile.do">서비스 소개</a></li>
-						<li><a href="#">개발정보</a></li>
-						<li><a href="#">연락처</a></li>
 					</ul></li>
 				<li><a href="lectureList.do">평가 게시판</a></li>
 

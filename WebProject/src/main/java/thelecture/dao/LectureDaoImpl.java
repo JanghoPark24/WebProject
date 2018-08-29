@@ -34,6 +34,16 @@ public class LectureDaoImpl {
 			return 0;
 		}
 	}
+	@Transactional
+	public int getReplyCountByLectureId(int lecture_id) {
+		try {
+			//search, keyword 전달
+			return sqlSession.selectOne("lectureMap.getReplyCountByLectureId",lecture_id);
+		}catch(Exception e){
+			e.printStackTrace();
+			return 0;
+		}
+	}
 	
 	@Transactional
 	public List<LectureBean> getAllLectureList() {
@@ -179,15 +189,18 @@ public class LectureDaoImpl {
 
 	public boolean addLectureComment(ReplyBean comment) {
 		int affectedRow;
+		
 		try {
 			if(comment.getDepth()==0) {
 				
 				affectedRow=sqlSession.insert("lectureMap.addNewComment",comment);
 			}else {
+				System.out.println("content:"+comment.getContent());
 				affectedRow = sqlSession.update("lectureMap.updateBeforeAddReply",comment);
-				affectedRow +=sqlSession.update("lectureMap.addReplyTOComment",comment);
+				affectedRow +=sqlSession.update("lectureMap.addReplyToComment",comment);
 			}
 		}catch(Exception e) {
+			e.printStackTrace();
 			affectedRow =0;
 			
 		}
@@ -198,8 +211,31 @@ public class LectureDaoImpl {
 		
 		return sqlSession.selectOne("lectureMap.getLectureCommentByReplyNum",reply_num);
 	}
+
+	public boolean insertLecture(LectureBean lecture) {
+		
+		int insertedRow = sqlSession.insert("lectureMap.insertLecture", lecture);
+		
+		return insertedRow==1? true: false;
+	}
+
+	public int getReplyNumOfLastComment(ReplyBean reply) {
+		
+		return  sqlSession.selectOne("lectureMap.getReplyNumOfLastComment",reply);
+	}
+
+	public List<ReplyBean> getAllCommentsByLectureId(int lecture_id) {
+		
+		return sqlSession.selectList("lectureMap.getAllCommentsByLectureId",lecture_id);
+	}
+	public List<ReplyBean> getRepliesOfCommentsByLectureId(int lecture_id) {
+		
+		return sqlSession.selectList("lectureMap.getRepliesOfCommentsByLectureId",lecture_id);
+	}
 	
-	
+	public List<String> getLec_list(){
+		return sqlSession.selectList("getLec_list");
+	}
 	
 	
 }

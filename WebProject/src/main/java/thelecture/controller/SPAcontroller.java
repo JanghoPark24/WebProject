@@ -1,5 +1,6 @@
 package thelecture.controller;
 
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -47,15 +48,17 @@ public class SPAcontroller {
 	
 	@RequestMapping(value="addandGetLectureComment.do")
 	public ReplyBean addandGetLectureLectureComment(ReplyBean comment, HttpSession session) {
+
 		String email = session.getAttribute("email")+"";
-		if(email.equals("")) {
+		System.out.println("email:"+email);
+		if(email.equals(null)) {
+
 			return null;
 		}
 		comment.setEmail(email);
-		System.out.println("content:"+comment.getContent());
-		//comment= boardService.addAndGetLectureComment(comment);
 		
-			
+		comment= boardService.addAndGetLectureComment(comment);
+		
 		
 		return comment;
 	}

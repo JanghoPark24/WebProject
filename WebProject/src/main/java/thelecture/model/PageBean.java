@@ -6,7 +6,7 @@ package thelecture.model;
  * 
  * */
 //현재 페이지 값, 인덱스, 검색값
-public class PageBean{
+public class PageBean extends VOBean{
 
 	// page
 	private int currentPage; //현재 페이지
