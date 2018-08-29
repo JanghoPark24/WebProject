@@ -13,7 +13,6 @@
 
 <link rel="stylesheet"
 	href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-<link rel="stylesheet" href="/resources/demos/style.css">
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <link rel="stylesheet" type="text/css"
@@ -52,14 +51,14 @@ h2 {
 				style="font-family: 'Nanum Barun Gothic'; font-weight: 900; color:">The
 				Lecture</h1>
 			<br>
-			<form class="form-group" style="text-align: center;">
+			<form class="form-group" style="text-align: center;"
+				action="lectureList.do">
 				<table class="searchform" style="margin: auto;">
 					<tr>
 						<td><select name="category" class="form-control"
 							style="height: 34px;" onchange="change_cate()">
 								<option value="all">전체</option>
 								<option value="univ">대학</option>
-								<option value="lec">강의</option>
 						</select></td>
 						<td><input type="text" class="form-control" placeholder="검색"
 							name="search" size="100%" style="height: 34px;"></td>
