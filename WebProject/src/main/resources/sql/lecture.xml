@@ -9,19 +9,19 @@
 		SELECT *
   		FROM
   		lecture_reply lr
-  		FULL OUTER JOIN (SELECT email, UPLOADEDFILE from memberView where isdeleted ='n') m
+  		LEFT OUTER JOIN (SELECT nickname,isdeleted, email, UPLOADEDFILE from memberView) m
 		ON lr.email = m.email
   		WHERE
 		lecture_id =#{lecture_id} and
 		depth= 0
-		order by reply_order desc
+		order by reply_order desc  
 		
 	</select>
 	<select id="getRepliesOfCommentsByLectureId" parameterType="int" resultType="reply">
 		SELECT *
   		FROM
   		lecture_reply lr
-  		FULL OUTER JOIN (SELECT email, UPLOADEDFILE from memberView where isdeleted ='n') m
+  		LEFT OUTER JOIN (SELECT nickname,isdeleted, email, UPLOADEDFILE from memberView) m
 		ON lr.email = m.email
   		WHERE
 		lecture_id =#{lecture_id} and
@@ -134,7 +134,7 @@
 	</select>
 	
 	<insert id="insertLecture" parameterType="lecture">
-		insert into question_version 
+		insert into lecture
 		values(seq_lecture_no.nextval,
 		#{univ_name},
 		#{major},
@@ -143,9 +143,10 @@
 		#{lecture_code},
 		#{lecture_name},
 		#{professor},
+		0,   
 		#{credit},
-		'n',
-		0) 
+		0,
+		'n',0,#{question_version}) 
 	</insert>
 	
 	

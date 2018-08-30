@@ -71,9 +71,25 @@ insert into lecture_reply
 				
 		);
 
-
+select * from memberView;
     
+SELECT nickname, email, UPLOADEDFILE from memberView
+
 select * from lecture_reply;
+        SELECT *
+  		FROM
+  		lecture_reply lr
+  		FULL OUTER JOIN (SELECT nickname, email, UPLOADEDFILE from memberView where is_deleted='n') m
+		ON lr.email = m.email
+  		WHERE
+		lecture_id =6 and
+		depth= 0
+		order by reply_order desc
         
-        
-        
+  select * from lecture_reply;
+        SELECT *
+  		FROM
+  		lecture_reply lr
+  		LEFT OUTER JOIN (SELECT nickname,isdeleted, email, UPLOADEDFILE from memberView) m
+		ON lr.email = m.email
+  		  

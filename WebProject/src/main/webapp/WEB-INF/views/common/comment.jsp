@@ -1,7 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
+
 <c:set var="path" value="<%=request.getContextPath()%>"></c:set>
+<c:set var = "now" value = "<%= new java.util.Date() %>" />
+<fmt:formatDate value="${now}" pattern="yyyy-MM-dd" var="today_date" />
 
 <link rel="stylesheet" href="${path}/css/comment.css">
 <script>
@@ -125,8 +130,56 @@
 					<div class="reply-body">
 						<div class="reply">
 							<ul class="list-group">
-								<li class="list-group-item"><a href="">${comment.nickname}</a>
-									댓글 coment ${comment.content}</li>
+								<li class="list-group-item">
+								<div class="comment_content">
+									<a href="">${comment.nickname}</a> 
+									${comment.content}
+								</div>
+								<div class="comment_date">
+								
+									<!-- 오늘과 작성일자의 며칠 차이인지 구함 -->
+									<fmt:parseNumber
+								    value="${(now.time - comment.reg_date.time) / (1000*60*60*24) }"
+								    integerOnly="true" var="date_difference"/>
+								    
+								    
+									작성일자 
+									<fmt:formatDate value="${comment.reg_date}" pattern="yyyy-MM-dd" var="commented_date" />
+									
+									<!-- 작성일자에 따른 -->
+									<c:choose>
+										<c:when test="${today_date ==commented_date }">
+											<fmt:parseNumber value="${(now.time - comment.reg_date.time) }"
+											 integerOnly="true" var="passed_seconds"/>
+											 
+											 <c:choose>
+											 	<c:when test="${(passed_seconds/60) <60 }">
+											 		${(passed_seconds/60)}분 전
+											 	</c:when>
+											 	<c:when test="${(passed_seconds/(60*24)) <12 }">
+											 		${(passed_seconds/60/24)}시간 전
+											 	</c:when>
+											 	<c:otherwise>
+													<fmt:formatDate value="${comment.reg_date}" pattern="오늘 aa HH:mm"  />
+											 	</c:otherwise>
+											 </c:choose>
+											 
+										</c:when>
+										
+								
+										<c:when test="${(date_difference <2)}">
+											어제
+										</c:when>
+										<c:when test="${(date_difference <10)}">
+											${date_difference}일 전
+										</c:when>
+										
+										<c:otherwise>
+											<fmt:formatDate value="${comment.reg_date}" pattern="yyyy년 MM월 dd일"  />
+										</c:otherwise>
+									</c:choose>
+								</div>
+								</li>
 								<li class="list-group-item"><a
 									class="glyphicon glyphicon-thumbs-up" href="#">${num}</a> <a
 									class="glyphicon glyphicon-thumbs-down" href="#"></a> &nbsp; <a
@@ -180,18 +233,15 @@
 											<div class="reply-container-content">
 												<div class="author-thumbnail">
 													<div class="author-picture">
-														<!--후에 백엔드에서 뽑아서 들어갈 예정-->
-														<a href="#"> <c:if
-																test="${not empty re_reply.uploadedFile }">
-																<img
-																	src="<%=request.getContextPath()%>/displayFile.do?fileName=${re_reply.uploadedFile}&directory=profile"
+														<a href="#"> 
+															<c:if test="${not empty re_reply.uploadedFile }">
+																<img src="<%=request.getContextPath()%>/displayFile.do?fileName=${re_reply.uploadedFile}&directory=profile"
 																	width='100%' height="auto">
 															</c:if> <c:if test="${empty re_reply.uploadedFile}">
 																<img src="https://via.placeholder.com/30x30"
 																	width='100%' height="auto">
 															</c:if>
 														</a>
-														<div id="author-name">${re_reply.nickname}</div>
 													</div>
 
 												</div>
@@ -200,8 +250,43 @@
 													<div class="reply">
 
 														<ul class="list-group">
-															<li class="list-group-item"><a href="">작성자명</a>
-																${re_reply.content}</li>
+															<li class="list-group-item">
+																
+																<div class="comment_content">
+																	<a href="">${re_reply.nickname}</a>
+																	${re_reply.content}
+																</div>
+																<div class="comment_date">
+																
+																	<!-- 오늘과 작성일자의 며칠 차이인지 구함 -->
+																	<fmt:parseNumber
+																    value="${(now.time - comment.reg_date.time) / (1000*60*60*24) }"
+																    integerOnly="true" var="date_difference"/>
+																    
+																    
+																	작성일자 
+																	<fmt:formatDate value="${comment.reg_date}" pattern="yyyy-MM-dd" var="commented_date" />
+																	
+																	<!-- 작성일자에 따른 -->
+																	<c:choose>
+																		<c:when test="${today_date ==commented_date }">
+																			<fmt:formatDate value="${comment.reg_date}" pattern="오늘 HH:mm"  />
+																		</c:when>
+																		
+																		<c:when test="${(0< date_difference)  and (date_difference <10)}">
+																			${date_difference}일 전
+																		</c:when>
+																		
+																		<c:otherwise>
+																			<fmt:formatDate value="${comment.reg_date}" pattern="yyyy년 MM월 dd일"  />
+																		</c:otherwise>
+																	</c:choose>
+																</div>
+								
+																
+															</li>
+																
+																
 															<li class="list-group-item"><a
 																class="glyphicon glyphicon-thumbs-up" href="#">${num}</a>
 																<a class="glyphicon glyphicon-thumbs-down" href="#"></a>
@@ -233,9 +318,6 @@
 													<!--답글 : 답글이 있으면 개수 fetch해서 불러옴-->
 													<div class="re-reply">
 														<!--답글 보기, 숨기기: 답글이 있으면 답글 보기 있음. 답글 보기 누르면 답글 보여짐-->
-
-
-
 
 													</div>
 												</div>
