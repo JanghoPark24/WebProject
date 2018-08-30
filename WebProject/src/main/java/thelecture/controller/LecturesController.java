@@ -14,6 +14,7 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -38,6 +39,7 @@ import thelecture.model.MemberBean;
 import thelecture.model.PageBean;
 import thelecture.model.QuestionBean;
 import thelecture.service.BoardService;
+import thelecture.service.ReplyService;
 import thelecture.util.S3Util;
 
 /**
@@ -52,6 +54,8 @@ public class LecturesController {
 	@Autowired
 	BoardService boardService;
 
+	@Autowired
+	ReplyService replyService;
 	private static final Logger logger = LoggerFactory.getLogger(LecturesController.class);
 
 	/**
@@ -103,11 +107,7 @@ public class LecturesController {
 
 	
 
-	@RequestMapping(value = "write_review.do")
-	public String write_review(String id) {
 
-		return "";
-	}
 
 	@RequestMapping(value = "insertLectureView.do")
 	public String insertLectureview(HttpSession session, Model model) {
@@ -164,11 +164,19 @@ public class LecturesController {
 	@RequestMapping(value = "getAllCommentsByLectureId.do")
 	public List<ReplyBean> getAllCommentsByLectureId(int l_id, Model model) {
 
-		List<ReplyBean> comments = boardService.getAllCommentsByLectureId(l_id);
-
+		List<ReplyBean> comments = replyService.getAllCommentsByLectureId(l_id);
+		
 		return comments;
 
 	}
-	
-	
+	@RequestMapping(value = "updateLectureView.do")
+	public String updateLectureView(int lecture_id, HttpSession session) {
+		if(session.getAttribute("grade")=="master") {
+			return "isNotMaster//e";
+		}else {
+			LectureBean lecture= boardService.getLectureById(lecture_id);
+			return "";
+		}
+		
+	} 
 }

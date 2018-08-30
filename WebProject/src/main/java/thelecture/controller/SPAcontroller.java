@@ -15,6 +15,7 @@ import thelecture.model.LectureBean;
 import thelecture.model.QuestionBean;
 import thelecture.model.ReplyBean;
 import thelecture.service.BoardService;
+import thelecture.service.ReplyService;
 
 
 
@@ -27,6 +28,8 @@ public class SPAcontroller {
 	@Autowired
 	BoardService boardService;
 	
+	@Autowired
+	ReplyService replyService;
 	
 	
 //	@RequestMapping("reply.do")
@@ -57,7 +60,7 @@ public class SPAcontroller {
 		}
 		comment.setEmail(email);
 		
-		comment= boardService.addAndGetLectureComment(comment);
+		comment= replyService.addAndGetLectureComment(comment);
 		
 		
 		return comment;

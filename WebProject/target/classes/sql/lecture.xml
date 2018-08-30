@@ -4,24 +4,24 @@
 <mapper namespace="lectureMap">
 	
 	<!--lecture_reply테이블고 upload파일 부분에서 가져옴 comment 정보와 image 불러옴-->
-	
+	<!-- 
 	<select id="getAllCommentsByLectureId" parameterType="int" resultType="reply">
 		SELECT *
   		FROM
   		lecture_reply lr
-  		FULL OUTER JOIN (SELECT email, UPLOADEDFILE from memberView where isdeleted ='n') m
+  		LEFT OUTER JOIN (SELECT nickname,isdeleted, email, UPLOADEDFILE from memberView) m
 		ON lr.email = m.email
   		WHERE
 		lecture_id =#{lecture_id} and
 		depth= 0
-		order by reply_order desc
+		order by reply_order desc  
 		
 	</select>
 	<select id="getRepliesOfCommentsByLectureId" parameterType="int" resultType="reply">
 		SELECT *
   		FROM
   		lecture_reply lr
-  		FULL OUTER JOIN (SELECT email, UPLOADEDFILE from memberView where isdeleted ='n') m
+  		LEFT OUTER JOIN (SELECT nickname,isdeleted, email, UPLOADEDFILE from memberView) m
 		ON lr.email = m.email
   		WHERE
 		lecture_id =#{lecture_id} and
@@ -50,7 +50,7 @@
 	</select>
 
 	
-	<select id="getRowCount" parameterType="page_index" resultType="int">
+ -->	<select id="getRowCount" parameterType="page_index" resultType="int">
 		select count(*) from lecture
 		<where>
 			<!--keyword null아니지만 , search는 null-->
@@ -100,7 +100,7 @@
 	<!-- 중복검사 -->
 	
 	<!-- id에 따라 강의 하나 구하기-->
-	<select id="getLectureListById" parameterType="int" resultType="lecture">
+	<select id="getLectureById" parameterType="int" resultType="lecture">
 		select * from lecture where lecture_id=#{lecture_id}
 	</select>
 	
@@ -134,7 +134,7 @@
 	</select>
 	
 	<insert id="insertLecture" parameterType="lecture">
-		insert into question_version 
+		insert into lecture
 		values(seq_lecture_no.nextval,
 		#{univ_name},
 		#{major},
@@ -143,9 +143,10 @@
 		#{lecture_code},
 		#{lecture_name},
 		#{professor},
+		0,   
 		#{credit},
-		'n',
-		0) 
+		0,
+		'n',0,#{question_version}) 
 	</insert>
 	
 	
@@ -160,7 +161,7 @@
 	<!--새로운 댓글 입력
 		
 	-->
-	<insert id="addNewComment" parameterType="reply">
+	<!-- <insert id="addNewComment" parameterType="reply">
 		insert into lecture_reply
 		values(seq_lecture_re_no.nextval,
 				#{lecture_id},
@@ -185,13 +186,20 @@
 				
 		)
 	      
-	</insert>
+	</insert> -->
 	<!--order가 넘어온 order보다 높을 때 수정-->
-	<update id="updateBeforeAddReply" parameterType="reply">
+	<!-- <update id="updateBeforeAddReply" parameterType="reply">
         update lecture_reply
         set reply_order = reply_order+1
         where lecture_id = #{lecture_id}
         and reply_order &gt; #{reply_order}
+           
+	</update> -->
+	<!--order가 넘어온 order보다 높을 때 수정-->
+	<update id="updateLecture" parameterType="reply">
+        update lecture
+        set reply_order = reply_order+1
+        where lecture_id = #{lecture_id}
            
 	</update>
 
