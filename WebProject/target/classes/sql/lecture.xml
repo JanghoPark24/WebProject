@@ -123,6 +123,7 @@
 		where question_version =#{question_version}
 
 	</update>
+	
 	<update id="updateQuestion" parameterType="question">
 		update question
 		set question_content =#{question_content}

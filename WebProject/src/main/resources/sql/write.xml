@@ -12,19 +12,44 @@
 		select count(*) from community_board 
 	</select>
 	
-	<select id="list" resultType="writeDTO">
-		select c.*, nickname  from community_board c, member m where c.email=m.email  
+	 <select id="list" resultType="writeDTO">
+		select c.*, nickname
+		from community_board c, member m
+		where c.email=m.email and IS_DELETED = 'n'
 		order by board_num desc 
-	</select>
-	
+	</select> 
+ 
+	<!--  <select id="list" resultType="writeDTO">
+		select c.*, nickname  from
+		community_board c
+		full outer join memberView m
+		 where c.email=m.email  
+		order by board_num desc 
+	</select> 
+	 -->
 	
 	<select id="read" parameterType="int" resultType="writeDTO">
 		select * from community_board where board_num = #{board_num}
 	</select> 
 	
-<delete id="delete" parameterType="int">
+<!-- <delete id="delete" parameterType="int">
 		delete from community_board where board_num=#{board_num}
-	</delete>
+	</delete> -->
+	
+	
+	
+	
+	
+	
+<update id="wdelete" parameterType="writeDTO">
+		update community_board
+		set is_deleted ='y'
+		where board_num = #{board_num}
+	</update>	
+	
+	<update id="wupdate" parameterType="writeDTO">
+		update community_board set subject = #{subject}, content = #{content} where board_num = #{board_num}
+	</update>
 	
 	
 	
