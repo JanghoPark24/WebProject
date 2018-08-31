@@ -1,7 +1,10 @@
 package thelecture.controller;
 
 import java.util.List;
+import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import thelecture.model.qnaBean;
 import thelecture.service.qnaService;
@@ -52,12 +56,21 @@ public class qnaboard {
 
 	/* 게시판 목록 */
 	@RequestMapping(value = "qna_list.do")
-	public String list( Model model) throws Exception {
-     List<qnaBean> list = qnaService.list();
-     model.addAttribute("list", list);
-		return "content/qna/qna_list";
+	public String list(HttpServletRequest request, HttpServletResponse respone ,Model model) throws Exception {
+	//List<qnaBean> list = qnaService.list();
+	Map<String, Object> list = qnaService.list(request,respone);		
+		model.addAllAttributes(list);
+    return "content/qna/qna_list";
 	}
 
+	
+	@RequestMapping(value = "qna_read.do")
+	public String qna_read(@RequestParam("qna_num") int qna_num,Model model) {
+		qnaBean qna_board = qnaService.qna_read(qna_num); 
+		model.addAttribute("qboard", qna_board);
+		return "content/qna/qna_read";
+	}
+	
 	
 /*	 게시판 내용보기,삭제폼,수정폼,답변글폼 
 	@RequestMapping(value = "/board_cont.nhn")

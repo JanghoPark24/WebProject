@@ -39,9 +39,9 @@ table, th, td {
 				<td style="font-family: Tahoma; font-size: 11pt;" width="47%">
 					<div align="center">제목</div>
 				</td>
-				<td style="font-family: Tahoma; font-size: 11pt;" width="14%">
+				<!-- <td style="font-family: Tahoma; font-size: 11pt;" width="14%">
 					<div align="center">작성자</div>
-				</td>
+				</td> -->
 				<td style="font-family: Tahoma; font-size: 11pt;" width="17%">
 					<div align="center">날짜</div>
 				</td>
@@ -50,10 +50,19 @@ table, th, td {
 				</td>
 			</tr>
 
+ <c:set var="num" value="${listcount-(page-1)*10}"/>
+
 <c:forEach var="b" items="${list }">
-		<tr><td>${b.board_num }</td>
-		<td><a href="read.do?num=${b.board_num }"> ${b.subject } </a></td>
-			<td>${b.nickname }</td>
+		<tr>
+		<td>					
+ 			<!-- 번호 출력 부분 -->	
+ 			<c:out value="${num}"/>			
+			<c:set var="num" value="${num-1}"/>	 
+		</td>
+				
+		<td><a href="qna_read.do?qna_num=${b.board_num }&page=${page}&state=read">
+		 ${b.subject } </a></td>
+			<%-- <td>${b.nickname }</td> --%>
 			<td>${b.reg_date }</td>
 			<td>${b.view_count }</td>
 			
@@ -61,6 +70,33 @@ table, th, td {
 		</c:forEach>
 </table>
 
+
+<div id="bbslist_paging">			
+			<c:if test="${page <=1 }">
+				[이전]&nbsp;
+			</c:if>
+			
+			<c:if test="${page > 1 }">
+				<a href="qna_list.do?page=${page-1}">[이전]</a>&nbsp;
+			</c:if>			
+
+			<c:forEach var="a" begin="${startpage}" end="${endpage}">
+				<c:if test="${a == page }">
+					[${a}]
+				</c:if>
+				<c:if test="${a != page }">
+					<a href="qna_list.do?page=${a}">[${a}]</a>&nbsp;
+				</c:if>
+			</c:forEach>			
+			
+			<c:if test="${page >= maxpage }">
+				[다음] 
+			</c:if>
+			<c:if test="${page < maxpage }">
+				<a href="qna_list.do?page=${page+1}">[다음]</a>
+			</c:if>			
+			
+		</div>
 
 <c:if test="${sessionScope.email != null }">
         <div align="right">
