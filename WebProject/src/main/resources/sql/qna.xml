@@ -10,15 +10,24 @@
 	#{content},0,sysdate,'n')
 </insert>
 
-<select id="qna_list" resultType="qna">
- SELECT  c.board_num,c.univ_name, c.subject,
-        c.REG_DATE, c.VIEW_COUNT, r.nickname
-         FROM    qna_board c, member r
-         WHERE   c.email = r.email
-
+<select id="qna_count" resultType="int"> <!-- resultType=int여야함 -->
+  select count(board_num) from qna_board
 </select>
 
-<select id="qna_read">
+
+<select id="qna_list" resultType="qna">
+ <![CDATA[
+ SELECT * from
+ (select rownum rnum, board_num,univ_name, subject,
+        REG_DATE, VIEW_COUNT
+         FROM qna_board ) 
+        where rnum >= ((#{page}-1) * 10+1)  and rnum <= (#{page} * 10)
+	]]>
+<!--          WHERE   c.email = r.email
+ -->
+</select>
+
+<select id="qna_read" resultType="qna"> <!-- resultType필요 -->
     select * from qna_board where board_num = #{board_num} 
 </select>
 

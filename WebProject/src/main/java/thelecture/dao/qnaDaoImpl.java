@@ -19,8 +19,14 @@ public class qnaDaoImpl {
 		return session.insert("qna_insert",qna);
 	}
 	
-	public List<qnaBean> list(){
-		return session.selectList("qna_list");
+	public int count() throws Exception{
+		int count = 0;	
+		count = ((Integer) session.selectOne("qna_count")).intValue();
+		return count;
+	}
+	
+	public List<qnaBean> list(int page) throws Exception{
+		return session.selectList("qna_list", page);
 	}
 	
 	public qnaBean qna_read(int qna_num) {
