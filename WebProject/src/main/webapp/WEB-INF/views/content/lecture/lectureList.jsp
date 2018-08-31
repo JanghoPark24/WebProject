@@ -123,9 +123,9 @@
 							</td>
 							<c:if test="${sessionScope.grade=='master'}">
 								<td>
-									<form>
-										<input type="hidden" value="">
-										<button onclick="updateLecture.do?lecture_id=${lecture.lecture_id }">update</button>
+									<form id="form_up_del">
+										<input type="hidden" name="lecture_id" value="${lecture.lecture_id}">
+										<button onclick="updateLectureView.do?lecture_id=${lecture.lecture_id}">update</button>
 										<button onclick="deleteLecture.do?lecture_id=${lecture.lecture_id}">delete</button>
 									</form>
 								</td>
