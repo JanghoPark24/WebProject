@@ -61,19 +61,11 @@ public class LecturesController {
 	/**
 	 * Simply selects the home view to render by returning its name.
 	 */
-	@RequestMapping(value = "home2.do", method = RequestMethod.GET)
-	public String home2(Locale locale, Model model) {
-		logger.info("Welcome home! The client locale is {}.", locale);
-
-		Date date = new Date();
-		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
-
-		String formattedDate = dateFormat.format(date);
-
-		model.addAttribute("serverTime", formattedDate);
-		return "home2";
+	
+	public boolean isMaster(HttpSession session) {
+		return (session.getAttribute("grade").equals("master"))? true:false;
 	}
-
+	
 	/**
 	 * 
 	 * 하는 일 : 1.lectureList정보 불러오기 (1) 페이징 기능, 리스트 정보 2.detail로 들어가는 기능 3.검색기능
@@ -170,12 +162,30 @@ public class LecturesController {
 
 	}
 	@RequestMapping(value = "updateLectureView.do")
-	public String updateLectureView(int lecture_id, HttpSession session) {
-		if(session.getAttribute("grade")=="master") {
+	public String updateLectureView(int lecture_id, HttpSession session,Model model) {
+		if(isMaster(session)==false) {
+			System.out.println(isMaster(session));
 			return "isNotMaster//e";
 		}else {
 			LectureBean lecture= boardService.getLectureById(lecture_id);
-			return "";
+			List<String> questionVersions = boardService.getQuestionVersions();
+
+			model.addAttribute("questionVersions", questionVersions);
+			model.addAttribute("lecture",lecture);
+			model.addAttribute("state","update");
+			return "content/lecture/insert_lecture_view";
+		}
+		
+	} 
+	@RequestMapping(value = "updateLecture.do")
+	public String updateLectureView(LectureBean lecture, HttpSession session,Model model) {
+		if(isMaster(session)==false) {
+			System.out.println(isMaster(session));
+			return "isNotMaster//e";
+		}else {
+			boolean updateSuccess = boardService.updateLecture(lecture);
+			
+			return updateSuccess==true?"redirect:lectureList.do":"updateFail//e";
 		}
 		
 	} 

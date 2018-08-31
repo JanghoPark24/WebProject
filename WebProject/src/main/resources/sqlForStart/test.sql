@@ -19,6 +19,8 @@ lecture_reply lr,
 (select email, nickname from member) m 
 where lr.email = m.email;
 
+select * from lecture;
+
 right outer join lecture_reply_like lrl
 on lr.
 SELECT 
