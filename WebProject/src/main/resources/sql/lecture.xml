@@ -196,12 +196,14 @@
            
 	</update>
 
+
 	<update id="deleteQuestion" parameterType="String">
 		update question
 		set is_deleted ='y'
 		where question_version =#{question_version}
 
 	</update>
+	
 	<update id="updateQuestion" parameterType="question">
 		update question
 		set question_content =#{question_content}
