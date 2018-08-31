@@ -114,7 +114,7 @@ insert into question values(seq_question_id.nextval,
                             '강의평가1',
                             '과제');
 
-
+           
 
 --검색하기 위한 view 생성
 create or replace view lecture_search 
@@ -134,8 +134,12 @@ as
 select mb.email email, univ_name, 
 nickname, password,is_mail_open,
 profile, grade, reg_date, major, profile_img, uploadedfile, isdeleted
-from member mb, file_storage fs
-where mb.email = fs.email and  --조인
-profile_img = filename and  -- 
+from member mb
+full outer join file_storage fs --outer join 
+ON mb.email = fs.email and  --조인
+profile_img = filename and  --파일 이름이 같은 곳
 savedTime in (select max(savedTime) from file_storage group by email)  -- 
+WHERE mb.email is not null -- email이 없는 곳 제외
 ;
+
+

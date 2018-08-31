@@ -23,13 +23,16 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.amazonaws.services.s3.model.AmazonS3Exception;
+import com.amazonaws.services.simpledb.model.ReplaceableAttribute;
 
 import thelecture.dao.LectureDaoImpl;
 import thelecture.dao.MemberDaoImpl;
 import thelecture.model.LectureBean;
 import thelecture.model.QuestionListWrapper;
+import thelecture.model.ReplyBean;
 import thelecture.model.UnivBean;
 import thelecture.model.MemberBean;
 import thelecture.model.PageBean;
@@ -121,9 +124,9 @@ public class LecturesController {
 	}
 
 	@RequestMapping(value = "insertLecture.do")
-	public String insertLecture(String id) {
-
-		return "";
+	public String insertLecture(LectureBean lecture) {
+		boolean insertSuccess= boardService.insertLecture(lecture);
+		return insertSuccess==true? "redirect:lectureList.do":"404error//e";
 	}
 
 	@RequestMapping(value = "insertQuestion.do")
@@ -154,6 +157,16 @@ public class LecturesController {
 
 		model.addAttribute("result", result);
 		return "empty/isUpdated";
+
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "getAllCommentsByLectureId.do")
+	public List<ReplyBean> getAllCommentsByLectureId(int l_id, Model model) {
+
+		List<ReplyBean> comments = boardService.getAllCommentsByLectureId(l_id);
+
+		return comments;
 
 	}
 	

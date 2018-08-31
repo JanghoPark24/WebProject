@@ -1,6 +1,9 @@
 package thelecture.controller;
 
+import java.io.IOException;
 import java.util.List;
+
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -8,9 +11,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import thelecture.model.UnivBean;
 import thelecture.service.UnivServiceImpl;
+import thelecture.util.UploadFileUtils;
 
 @Controller
 public class UnivController {
@@ -44,14 +49,46 @@ public class UnivController {
 		return univ_list;
 	}
 	
+	@RequestMapping("getUnivByName.do")
+	@ResponseBody
+	public UnivBean getUnivByName(String name) {
+		UnivBean univInfo = univService.getUnivByName(name);
+		
+		return univInfo;
+	}
+	
+	
+	
+	
 	// 새로운 대학교 입력
 	@RequestMapping(value = "insertUniv.do")
-	public String insertUniv(UnivBean university) {
-//		System.out.println(university.getUniv_domain());
-//		System.out.println(university.getUniv_url());
-//		System.out.println(university.getUniv_domain());
-//		System.out.println(university.getUniv_logo());
-		int result = univService.insertUniv(university);
+	public String insertUniv(UnivBean university, MultipartFile univ_logo_d) {
+		System.out.println(university.getUniv_domain());
+		System.out.println(university.getUniv_name());
+		System.out.println(university.getUniv_url());
+		int result = univService.insertUniv(university,univ_logo_d);
+		
+		
+		// 0이 성공 1이 실패 -성공시 view화면으로
+		return result == 0 ? "redirect:insertLectureView.do" : "404error//e";
+	}
+	//  대학교 수정
+	@RequestMapping(value = "updateUniv.do")
+	public String updateUniv(UnivBean university, MultipartFile univ_logo_d) {
+		
+		int result = univService.updateUniv(university,univ_logo_d);
+		
+		
+		// 0이 성공 1이 실패 -성공시 view화면으로
+		return result == 0 ? "redirect:insertLectureView.do" : "404error//e";
+	}
+	// 새로운 대학교 입력
+	@RequestMapping(value = "deleteUniv.do")
+	public String deleteUniv(String name) {
+		
+		int result = univService.deleteUniv(name);
+		
+		
 		// 0이 성공 1이 실패 -성공시 view화면으로
 		return result == 0 ? "redirect:insertLectureView.do" : "404error//e";
 	}

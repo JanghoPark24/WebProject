@@ -18,6 +18,7 @@ import thelecture.model.PageBean;
 import thelecture.model.QuestionBean;
 import thelecture.model.ReplyBean;
 import thelecture.model.UnivBean;
+import thelecture.model.VOBean;
 
 @Aspect
 public class LoggingAspect {
@@ -40,7 +41,7 @@ public class LoggingAspect {
 		return true;
 	}
 
-	public Object mainAdvice(ProceedingJoinPoint joinpoint) throws Throwable {
+	public static Object mainAdvice(ProceedingJoinPoint joinpoint) throws Throwable {
 		CodeSignature codeSignature = (CodeSignature) joinpoint.getSignature();
 		long st = System.currentTimeMillis();
 
@@ -52,6 +53,7 @@ public class LoggingAspect {
 			System.out.println(codeSignature.toShortString() + " 경과시간 : " + (et - st));
 			
 			//argument 불러오기
+			
 			Object[] arguments = joinpoint.getArgs();
 
 			// 메소드 argument출력
@@ -76,13 +78,13 @@ public class LoggingAspect {
 					System.out.println();
 
 					// Model일 경우 필드 값
-				}/* else if (arguments[i] instanceof PageBean || arguments[i] instanceof LectureBean
+				} /*else if (arguments[i] instanceof PageBean || arguments[i] instanceof LectureBean
 						|| arguments[i] instanceof MemberBean || arguments[i] instanceof QuestionBean
 						|| arguments[i] instanceof ReplyBean || arguments[i] instanceof UnivBean
 
 				) {
-					
-					Method[] methods = arguments[i].Methods();
+					Class VO = arguments[i].getClass();
+					Method[] methods = VO.getMethods();
 
 					for (int k=0; k <methods.length; k++) {
 						if (isGetter(methods[k])) {
@@ -94,10 +96,10 @@ public class LoggingAspect {
 							// 이름으로 필드 불러오기
 							try {
 
-								Field field = vo.getDeclaredField(new String(c));
+								Field field = VO.getDeclaredField(new String(c));
 								field.setAccessible(true);
 
-								if (field.get(this) !=null) {
+								if (field.get(arguments[i]).equals(null)) {
 									
 									Object value = field.get(arguments[i]);
 
@@ -109,7 +111,7 @@ public class LoggingAspect {
 							}
 						}
 					}
-				}*/ else if (arguments[i] instanceof String[]) {
+				} */else if (arguments[i] instanceof String[]) {
 					String[] slist = (String[]) arguments[i];
 					for (int j = 0; i < slist.length; j++) {
 						System.out.print(slist[j] + ",");

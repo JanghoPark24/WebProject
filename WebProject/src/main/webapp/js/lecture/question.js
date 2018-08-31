@@ -109,6 +109,26 @@ function selectQuestions(questionVersion,forWhat){
 		var output="";
 		var update_button="";
 		
+		
+		$.each(questions,function(index,item){
+			if(forWhat=="update"){
+				//add Class
+				$(".select_class").addClass("select_editing");
+				
+				//add Question
+				questionId += "<input type='hidden' name='questionIDs' value=\'"+item.question_id+"\' />"
+				output +="<div>"+"<p>"+(index+1)+"번</p>"+
+				"<input type='text' name='u_questionContents' value='"+item.question_content+"'></div>";
+				
+			}else if(forWhat="default"){
+				
+				$(".select_class").removeClass("select_editing");
+				output +="<div>"+"<p>"+(index+1)+"번</p>"+item.question_content+"</div>";
+			}
+			
+		})
+		
+		//버튼추가
 		if(forWhat=="update"){
 			update_button +=
 				"<button type='button' id='updateQuestions' >"+
@@ -116,19 +136,8 @@ function selectQuestions(questionVersion,forWhat){
 				"</button>";
 			$("#questions").attr("class", "q_updating");
 			
-		
 		}
-		$.each(questions,function(index,item){
-			if(forWhat=="update"){
-				questionId += "<input type='hidden' name='questionIDs' value=\'"+item.question_id+"\' />"
-				output +="<div>"+"<p>"+(index+1)+"번</p>"+
-				"<input type='text' name='u_questionContents' value='"+item.question_content+"'></div>";
-				
-			}else{
-				output +="<div>"+"<p>"+(index+1)+"번</p>"+item.question_content+"</div>";
-			}
-			
-		})
+
 		$("#questions").html(questionId+output+update_button);
 		})
 	}
@@ -143,6 +152,7 @@ function searchFunction(){
 		selectedVersion='';
 		return;
 	}
+	
 	
 	selectQuestions(selectedVersion,'default');
 }

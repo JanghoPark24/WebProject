@@ -36,7 +36,7 @@
 	href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
 <!--별점-->
 <link rel="stylesheet" href="./css/rating/rateit.css">
-<link rel="stylesheet" href="./css/review.css">
+
 <link rel="stylesheet"
 	media="screen and (min-device-width: 320px) and (max-device-width: 1100px)"
 	href="./css/review_responsive.css">
