@@ -112,7 +112,7 @@
             
             // 값이 없을 경우 리턴
             if(inputVal==""){
-                alert(labelVal+"을 입력해야 합니다.")
+                alert(labelVal+"을/를 입력해야 합니다.")
                 return false;
             }
             
@@ -192,6 +192,27 @@
     			}
     	})
 	}
+	function checkUniv(){
+		var univ_name = document.getElementById("o_univ_name").value;
+		console.log()
+		$.ajax({
+    		url : "getUnivByName.do" ,
+    		dataType : "json",
+    		data:{"name": univ_name},
+    		success : 
+    			function(data, response) {
+	    			
+    				console.log(data.univ_name)
+    				$("#is_univ_exist").text(univ_name+"는 있는 대학입니다").css("color",'black')
+    				$("#is_univ_okay").val(true);
+    			},
+    		error:
+    			function(){
+	    			$("#is_univ_exist").text(univ_name+"는 존재하지 않는 대학입니다. 새로 추가해주십시오.").css("color",'red')
+	    			$("#is_univ_okay").val(false);
+    			}
+    	})
+	}
 	
 	function deleteUniv(univ_name){
 		var request = $.ajax({
@@ -210,23 +231,15 @@
 		});
 	}
 	
-	function validateUnivInfo(univ_name){
+	function validateUnivInfo(){
 		
-		 $.ajax({
-    		url : "getUnivByName.do",
-    		dataType : "text",
-    		data:{name:univ_name},
-    		success : 
-    		function(data, response) {
-    			
-    			if(data==""){
-    				alert("기존에 없는 대학교입니다. 대학교 추가한 후 입력하세요");
-    				return false;
-    			}
-    		}
-    	})
-    	return true;
-		
+		if($("#is_univ_okay").val() =='false'){
+			alert("대학교를 추가한 후 입력하세요");
+			return false;
+		}else{
+			return true;
+		}
+    		
 	}
 	
    function validateSemester(semester){
@@ -314,7 +327,10 @@
 				validateGeneralRules(insertFrm);
 			})
 			
-			
+			$("#o_univ_name").on('blur',function(){
+				
+				checkUniv();
+			})
 			
 			// 강의 넣기 submit
 			$("#lectureInfo_submit").on('click',function(){
@@ -335,11 +351,13 @@
 				if(success1==false) return;
 				
 				var success2 = validateSelectWithLabel(insertFrm);
+				
 				if(success2==false) return;
 				
 				
 				//대학교 ;
-				var success3 = validateUnivInfo(univ_name.value);
+				var success3 = validateUnivInfo();
+				alert(success3)
 				if(success3==false) return;
 				
 				//학기
@@ -362,7 +380,7 @@
 	</script>
 </head>
 <body>
-    	
+    <input type=hidden id="is_univ_okay" value='false'>	
     <!-- 평균 점수 ${average}로 불러옴-->
     	
     		<form id="updateQuestionsForm">
@@ -383,14 +401,17 @@
 	                <tr>
 						<td>                
 	                	  <p><label for="o_univ_name">학교</label>:</p>
+	                	  
 	                	</td>
 	                	<td>
 	                	  <input id="o_univ_name" name='univ_name' type="text" class="form-control ui-autocomplete-input"  />
-	                	</td>
-	                	<td>
 	                	  <a id="addUniv_outer" data-toggle="modal" data-target="#insertUnivModal">학교 추가</a> | 
 	                	  <a id="updateUniv_outer" data-toggle="modal" data-target="#updateUnivModal">학교 수정</a> | 
 	                	  <a id="deleteUniv_outer" data-toggle="modal" data-target="#schoolModal">학교 삭제</a>
+	                	  
+	                	</td>
+	                	<td>
+	                	  <p id="is_univ_exist"></p>
 	                	  
 	                	</td>
 	                </tr>
@@ -466,7 +487,7 @@
 						  <p><label for="qSelect">질문지 선택</label></p>
 						</td>
 						<td>
-							<select id="qSelect" class="select_class" name="question_id">
+							<select id="qSelect" class="select_class" name="question_version">
 							  <option value="">질문지를 선택하세요</option>
 							  <c:if test="${not empty questionVersions}">
 							  	<c:forEach var="questionVersion" items="${questionVersions}">
@@ -474,7 +495,11 @@
 								</c:forEach>
 							  </c:if>
 							</select>
-							
+							<div>
+								<a data-toggle="modal" data-target="#questionModal">질문지 추가</a> | 
+								<a onclick="check_delete()">질문지 삭제</a>|
+								<a onclick="check_update()">질문지 수정</a>
+							</div>
 							<div id='questions'>
 								
 							</div>
@@ -482,9 +507,7 @@
 							
 						</td>
 						<td>				
-							<a data-toggle="modal" data-target="#questionModal">질문지 추가</a> | 
-							<a onclick="check_delete()">질문지 삭제</a>|
-							<a onclick="check_update()">질문지 수정</a>
+							
 						</td>
 					  </tr> 
 					</table>

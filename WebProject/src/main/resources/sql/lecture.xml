@@ -2,6 +2,34 @@
  <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="lectureMap">
+	
+	<!--lecture_reply테이블고 upload파일 부분에서 가져옴 comment 정보와 image 불러옴-->
+	
+	<select id="getAllCommentsByLectureId" parameterType="int" resultType="reply">
+		SELECT *
+  		FROM
+  		lecture_reply lr
+  		LEFT OUTER JOIN (SELECT nickname,isdeleted, email, UPLOADEDFILE from memberView) m
+		ON lr.email = m.email
+  		WHERE
+		lecture_id =#{lecture_id} and
+		depth= 0
+		order by reply_order desc  
+		
+	</select>
+	<select id="getRepliesOfCommentsByLectureId" parameterType="int" resultType="reply">
+		SELECT *
+  		FROM
+  		lecture_reply lr
+  		LEFT OUTER JOIN (SELECT nickname,isdeleted, email, UPLOADEDFILE from memberView) m
+		ON lr.email = m.email
+  		WHERE
+		lecture_id =#{lecture_id} and
+		depth &gt; 0
+		order by reply_order desc
+		
+	</select>
+	
 	<select id="getReplyNumOfLastComment" parameterType="lecture" resultType="int">
 		SELECT max(reply_num) from lecture_reply
 		WHERE
@@ -12,6 +40,12 @@
 		SELECT * from lecture_reply
 		WHERE
 		reply_num =#{reply_num}
+		
+	</select>
+	<select id="getReplyCountByLectureId" parameterType="int" resultType="int">
+		SELECT count(reply_num) from lecture_reply
+		WHERE
+		lecture_id =#{lecture_id}
 		
 	</select>
 
@@ -100,8 +134,8 @@
 	</select>
 	
 	<insert id="insertLecture" parameterType="lecture">
-		insert into question_version 
-		values(seq_board1_no.nextval,
+		insert into lecture
+		values(seq_lecture_no.nextval,
 		#{univ_name},
 		#{major},
 		#{grade},
@@ -109,9 +143,10 @@
 		#{lecture_code},
 		#{lecture_name},
 		#{professor},
+		0,   
 		#{credit},
-		'n',
-		0) 
+		0,
+		'n',0,#{question_version}) 
 	</insert>
 	
 	
@@ -122,38 +157,42 @@
 	<insert id="insertLectureQuestion" parameterType="hashMap">
 		insert into question values(seq_question_id.nextval,#{question_version},#{question_content},'n')
 	</insert>
+	
+	<!--새로운 댓글 입력
+		
+	-->
 	<insert id="addNewComment" parameterType="reply">
 		insert into lecture_reply
-		values(seq_board1_re_no.nextval,
+		values(seq_lecture_re_no.nextval,
 				#{lecture_id},
 				#{email},
-				seq_board1_re_no.currval,0,
+				seq_lecture_re_no.currval,0,
 				#{content},sysdate,'n',
 				nvl((select max(reply_order)
 					from lecture_reply
-					where lecture_id=#{lecture_id})+1,0)
+					where lecture_id=#{lecture_id})+1,0) 
 				
 		) 
 	</insert>
 	<insert id="addReplyToComment" parameterType="reply">
 		
-	    insert into lecture_comment
-		values(seq_board1_re_no.nextval,
+	    insert into lecture_reply
+		values(seq_lecture_re_no.nextval,
 				#{lecture_id},
 				#{email},
 				#{ref},
 				1,
-				#{content},sysdate,'n', #{reply_order}
+				#{content},sysdate,'n', #{reply_order}+1
 				
-		);
+		)
 	      
 	</insert>
-	
+	<!--order가 넘어온 order보다 높을 때 수정-->
 	<update id="updateBeforeAddReply" parameterType="reply">
-        update lecture_comment
+        update lecture_reply
         set reply_order = reply_order+1
         where lecture_id = #{lecture_id}
-        and reply_order &gt;= #{reply_order}
+        and reply_order &gt; #{reply_order}
            
 	</update>
 
