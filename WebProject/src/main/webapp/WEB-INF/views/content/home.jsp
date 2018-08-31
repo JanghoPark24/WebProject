@@ -20,6 +20,7 @@
 <script src="<%=request.getContextPath()%>/js/autocomplete.js"></script>
 
 
+
 <style>
 /* 타이틀이미지 */
 @media screen and (min-width:600px) {
@@ -37,7 +38,6 @@ h2 {
 
 <title>The Lecture :: 대학 강의 길라잡이</title>
 </head>
-
 <body onload="change_cate()">
 	<div class="container text-center" style="padding-top: 40px;">
 		<div class="jumbotron" id="homebox"
@@ -81,6 +81,7 @@ h2 {
 				또한 대학생 여러분들이 대학생활에 관련하여 서로 간의 연결해주기 위한 온라인 공간입니다.
 			</p>
 		</div>
+		
 	</div>
 
 
