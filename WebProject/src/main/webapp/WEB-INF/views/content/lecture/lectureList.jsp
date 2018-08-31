@@ -121,6 +121,15 @@
 								<div style="color: grey; font-size: 0.8em;">
 									(${lecture.rating_count}명이 평가함)</div>
 							</td>
+							<c:if test="${sessionScope.grade=='master'}">
+								<td>
+									<form>
+										<input type="hidden" value="">
+										<button onclick="updateLecture.do?lecture_id=${lecture.lecture_id }">update</button>
+										<button onclick="deleteLecture.do?lecture_id=${lecture.lecture_id}">delete</button>
+									</form>
+								</td>
+							</c:if>
 
 						</tr>
 
