@@ -149,11 +149,24 @@
            
 	</update> -->
 	<!--order가 넘어온 order보다 높을 때 수정-->
-	<update id="updateLecture" parameterType="reply">
-        update lecture
-        set 
+	<update id="updateLecture" parameterType="lecture">
+        UPDATE lecture
+        SET
+        univ_name=#{univ_name},
+		major = #{major},
+		grade = #{grade},
+		semester = #{semester},
+		lecture_code = #{lecture_code},
+		lecture_name = #{lecture_name},
+		professor = #{professor},   
+		credit = #{credit},
+		question_version =#{question_version}
         where lecture_id = #{lecture_id}
            
+	</update>
+	<update id="deleteLecture" parameterType="int">
+        DELETE lecture
+        where lecture_id = #{lecture_id}
 	</update>
 
 

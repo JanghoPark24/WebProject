@@ -308,7 +308,7 @@
 			<c:if test="${state=='update'}">
 			$("#lectureInfo_update").on("click",function(){
 				let frm =this.form;
-				frm.action ="updateLecture.do?${lecture.lecture_id}"
+				frm.action ="updateLecture.do?lecture_id=${lecture.lecture_id}"
 				frm.submit();
 			})
 			

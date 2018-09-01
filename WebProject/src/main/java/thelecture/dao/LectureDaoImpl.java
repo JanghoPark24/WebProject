@@ -181,10 +181,44 @@ public class LectureDaoImpl {
 	public List<String> getLec_list(){
 		return sqlSession.selectList("getLec_list");
 	}
+	
 	public int updateLecture(LectureBean lecture) {
+		int result;
+		try {
+			result = sqlSession.update("lectureMap.updateLecture",lecture);
+		}catch(Exception e){
+			e.printStackTrace();
+			result=0;
+		}
+		return result;
 		
-		return sqlSession.update("lectureMap.updateLecture",lecture);
-		
+	}
+
+
+	public int deleteLecture(int lecture_id) {
+		int result;
+		try {
+			result = sqlSession.update("lectureMap.deleteLecture",lecture_id);
+		}catch(Exception e){
+			e.printStackTrace();
+			result=0;
+		}
+		return result;
+	}
+
+
+	public boolean checkIsAlreadyAnsweredByThisEmail(int lecture_id, String email) {
+		HashMap <String, Object> answerInfo = new HashMap<>();
+		int affectedRows;
+		try {
+			answerInfo.put("lecture_id", lecture_id);
+			answerInfo.put("email", email);
+			affectedRows = sqlSession.selectOne("lectureMap.checkIsAlreadyAnsweredByThisEmail",answerInfo);
+		}catch(Exception e){
+			e.printStackTrace();
+			affectedRows=0;
+		}
+		return affectedRows==1? true:false;
 	}
 	
 	

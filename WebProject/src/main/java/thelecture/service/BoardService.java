@@ -85,7 +85,7 @@ public class BoardService {
 		return lecturedao.deleteQuestion(question_version);
 
 	}
-	
+
 	public int updateQuestion(String[] questionIDs, String[] questionContents) {
 
 		return lecturedao.updateQuestion(questionIDs, questionContents);
@@ -96,7 +96,6 @@ public class BoardService {
 		return lecturedao.insertLecture(lecture);
 	}
 
-
 	public boolean updateLecture(LectureBean lecture) {
 		int updatedRow = lecturedao.updateLecture(lecture);
 		return (updatedRow == 1) ? true : false;
@@ -105,6 +104,16 @@ public class BoardService {
 	public LectureBean getLectureById(int lecture_id) {
 
 		return lecturedao.getLectureById(lecture_id);
+	}
+
+	public boolean deleteLecture(int lecture_id) {
+		int deletedRow = lecturedao.deleteLecture(lecture_id);
+		return (deletedRow == 1) ? true : false;
+	}
+
+	public boolean answerQuesetion(int lecture_id, String email, String[] questionContent, int[] question_value) {
+		boolean alreadyAnswered = lecturedao.checkIsAlreadyAnsweredByThisEmail(lecture_id,email); 
+		return false;
 	}
 
 }

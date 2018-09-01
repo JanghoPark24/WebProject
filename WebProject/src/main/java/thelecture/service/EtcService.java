@@ -1,5 +1,6 @@
 package thelecture.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,18 +38,50 @@ public class EtcService {
 	@Transactional
 	public LectureBean getReviewDetail(int lecture_id, Model model) {
 		
+		
 		LectureBean lb = lecturedao.getLectureById(lecture_id);
 		List<QuestionBean> qb_list = ratingdao.getQBList(lecture_id);
 		List<Lecture_ratingBean> rb_list = ratingdao.getRBList(lecture_id);
-		List<ReplyBean> comment_list = replydao.getAllCommentsByLectureId(lecture_id); 
-		List<ReplyBean> re_reply_list = replydao.getRepliesOfCommentsByLectureId(lecture_id);
+		
+		//댓글 속성
 		int countOfComment = replydao.getReplyCountByLectureId(lecture_id);
-		System.out.println(rb_list);
+		if(countOfComment!=0) {
+			List<ReplyBean> comment_list = replydao.getAllCommentsByLectureId(lecture_id); 
+			List<ReplyBean> re_reply_list = replydao.getRepliesOfCommentsByLectureId(lecture_id);
+			model.addAttribute("comment_list", comment_list);// List<QuestionBean>
+			model.addAttribute("re_reply_list",re_reply_list);
+			
+		}
 		model.addAttribute("rb_list", rb_list);// List<Lecture_ratingBean>
 		model.addAttribute("qb_list", qb_list);// List<QuestionBean>
-		model.addAttribute("comment_list", comment_list);// List<QuestionBean>
-		model.addAttribute("re_reply_list",re_reply_list);
 		model.addAttribute("countOfComment",countOfComment);
+		
+		
+		return lb;
+	}
+	
+	@Transactional
+	public LectureBean getReviewDetail_t(int lecture_id, Model model) {
+		
+		
+		LectureBean lb = lecturedao.getLectureById(lecture_id);
+		List<QuestionBean> qb_list = ratingdao.getQBList(lecture_id);
+		List<Lecture_ratingBean> rb_list = ratingdao.getRBList(lecture_id);
+		
+		//댓글 속성
+		int countOfComment = replydao.getReplyCountByLectureId(lecture_id);
+		if(countOfComment!=0) {
+			List<ReplyBean> comment_list = replydao.getAllCommentsByLectureId(lecture_id); 
+			List<ReplyBean> re_reply_list = replydao.getRepliesOfCommentsByLectureId(lecture_id);
+			model.addAttribute("comment_list", comment_list);// List<QuestionBean>
+			model.addAttribute("re_reply_list",re_reply_list);
+			
+		}
+		model.addAttribute("rb_list", rb_list);// List<Lecture_ratingBean>
+		model.addAttribute("qb_list", qb_list);// List<QuestionBean>
+		model.addAttribute("countOfComment",countOfComment);
+		
+		
 		return lb;
 	}
 
