@@ -44,7 +44,7 @@
 					</tr>
 					<tr>
 						<td><textarea name="content" id="content" rows="12"
-								cols="132" >^ㅡ^</textarea></td>
+								cols="132">^ㅡ^</textarea></td>
 					</tr>
 				</table>
 				<div align="center">

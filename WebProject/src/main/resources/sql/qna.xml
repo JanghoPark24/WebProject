@@ -20,8 +20,8 @@
  SELECT * from
  (select rownum rnum, board_num,univ_name, subject,
         REG_DATE, VIEW_COUNT
-         FROM qna_board ) 
-        where rnum >= ((#{page}-1) * 10+1)  and rnum <= (#{page} * 10)
+         FROM qna_board where IS_DELETED = 'n') 
+        where rnum >= ((#{page}-1) * 10+1)  and rnum <= (#{page} * 10) 
 	]]>
 <!--          WHERE   c.email = r.email
  -->
@@ -30,5 +30,11 @@
 <select id="qna_read" resultType="qna"> <!-- resultType필요 -->
     select * from qna_board where board_num = #{board_num} 
 </select>
+
+<update id="qna_delete" parameterType="qna">
+	update qna_board
+		set is_deleted ='y'
+		where board_num = #{board_num}
+	</update>
 
 </mapper>

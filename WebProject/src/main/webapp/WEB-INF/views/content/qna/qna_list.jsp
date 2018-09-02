@@ -70,8 +70,8 @@ table, th, td {
 		</c:forEach>
 </table>
 
-
-<div id="bbslist_paging">			
+<br><br><br><br>
+<div id="bbslist_paging" align="center">			
 			<c:if test="${page <=1 }">
 				[이전]&nbsp;
 			</c:if>
