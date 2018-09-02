@@ -1,8 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
+<c:set var="path" value="<%=request.getContextPath()%>"></c:set>
 <meta charset="utf-8">
+<head>
 
 	<div>
 		<div>당신은 ${lb.univ_name}의 학생입니다</div>
@@ -15,15 +16,10 @@
 					
 			<br>	
 			<div class="" style="padding-top: 20px;">
-				질문  ${loop.index+1}) ${qb.question_content}</div>
-				<!-- <div data-productid="313" class="rateit text-center"
-					data-rateit-mode="font"
-					data-rateit-min="1" 
-					data-rateit-max="6" 
-					style="width: 100%; font-size: 2em"></div>
-				<br> -->
+				질문  ${loop.index+1}) <label for="question_value${loop.index}">${qb.question_content}</label></div>
 				<input name="question_content" id="question_content${loop.index}" type="hidden" value="${qb.question_content}"/>
 				<input name="question_value" id="question_value${loop.index}" type="hidden" value=""/>
+				
 				<div id="rating_${loop.index}"
 				style="width: 100%; font-size: 2em"
 				data-rateit-min="0" data-rateit-max="6"
@@ -33,9 +29,9 @@
 				
 			</c:forEach>
 			
-			<div id="button">
+			<div id="button_block">
 				<div align="center">
-					<button class="btn btn-primary" id="">완료</button>
+					<button type="button" class="btn btn-primary" id="answerQuestion">완료</button>
 				</div>
 			</div>
 		</form>

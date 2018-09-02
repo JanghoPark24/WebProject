@@ -47,10 +47,32 @@
 <!--별점-->
 <script src="./js/rating/jquery.rateit.js"></script>
 <script src="./js/review.js" charset="utf-8"></script>
+<!-- validating -->
+<script src="./js/validate_functions.js" charset="utf-8"></script>
 <%-- <link rel="stylesheet" type="text/css"
 	href="<%=request.getContextPath()%>/css/lecture/review.css" /> --%>
-
 <title>My Chart.js Chart</title>
+
+
+<script>
+function answerQuestion(){
+	var frm = $("#question_form");
+	frm.submit();
+}	
+
+</script>
+<script>
+
+$(function(){
+	$("#answerQuestion").on("click",function(){
+		var frm = document.getElementById("question_form");
+		var rateSuccess=validateEmptinessWithLabel(frm,'rate');
+		if(rateSuccess==true) frm.submit();
+	})
+
+})
+
+</script>
 
 </head>
 <body onload="starting_function()">
