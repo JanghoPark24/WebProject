@@ -213,7 +213,7 @@ public class LectureDaoImpl {
 		try {
 			answerInfo.put("lecture_id", lecture_id);
 			answerInfo.put("email", email);
-			affectedRows = sqlSession.selectOne("lectureMap.checkIsAlreadyAnsweredByThisEmail",answerInfo);
+			affectedRows = sqlSession.selectOne("lectureRatings.checkIsAlreadyAnsweredByThisEmail",answerInfo);
 		}catch(Exception e){
 			e.printStackTrace();
 			affectedRows=0;

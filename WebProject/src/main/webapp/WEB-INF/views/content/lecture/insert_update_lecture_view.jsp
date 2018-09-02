@@ -124,7 +124,7 @@
     	
     }
     
- // form id에 대한 유효성 검사 확인하기
+/*  // form id에 대한 유효성 검사 확인하기
     function validateEmptinessWithLabel(frm){
        
         var form_id = frm.id;
@@ -155,7 +155,7 @@
         return true;
         
         
-    }
+    } */
     function validateSelectWithLabel(frm){
     	 var sel = frm.getElementsByClassName('select_class');
     	 
@@ -353,7 +353,7 @@
 			$("#updateUnivButton").on('click',function(){
 				let insertFrm  = document.getElementById('updateUniv');
 				
-				validateEmptinessWithLabel(insertFrm);
+				validateEmptinessWithLabel(insertFrm,'default');
 				validateGeneralRules(insertFrm);
 			})
 			//대학교 삭제
@@ -367,7 +367,7 @@
 			
 			$("#insertUnivButton").on('click',function(){
 				let insertFrm = document.getElementById('insertUniv');
-				validateEmptinessWithLabel(insertFrm);
+				validateEmptinessWithLabel(insertFrm,'default');
 				validateGeneralRules(insertFrm);
 			})
 			
@@ -391,7 +391,7 @@
 				if(selectEditing==true) searchFunction();
 				
 				//빈것이 있는지 체크
-				var success1 = validateEmptinessWithLabel(insertFrm);
+				var success1 = validateEmptinessWithLabel(insertFrm,'default');
 				if(success1==false) return;
 				
 				var success2 = validateSelectWithLabel(insertFrm);

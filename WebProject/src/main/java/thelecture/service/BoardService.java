@@ -113,6 +113,7 @@ public class BoardService {
 
 	public boolean answerQuesetion(int lecture_id, String email, String[] questionContent, int[] question_value) {
 		boolean alreadyAnswered = lecturedao.checkIsAlreadyAnsweredByThisEmail(lecture_id,email); 
+		System.out.println(alreadyAnswered);
 		return false;
 	}
 
