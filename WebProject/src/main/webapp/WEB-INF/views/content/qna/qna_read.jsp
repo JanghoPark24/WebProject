@@ -6,6 +6,13 @@
 <head>
 <meta charset="UTF-8">
 <title></title>
+<script>
+    $(function() {
+	    $("#back").click(function() {
+		    history.go(-1);
+	    })
+    })
+</script>
 </head>
 <body>
 <div id="boardcont_wrap">
@@ -38,6 +45,7 @@
 		<div align="center">
 			<input type="submit" class="btn btn-primary" value="삭제">
 			</div>
+			<input type="button" class="btn btn-primary pull-right" id=back value="이전페이지">
 	</form>
 </div>
 </body>
