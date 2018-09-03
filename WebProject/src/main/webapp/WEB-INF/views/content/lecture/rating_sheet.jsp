@@ -24,7 +24,7 @@
 			type="hidden" name="question_version" value="${lb.question_version}" />
 
 		<input type="hidden" name="lecture_id" value="${lb.lecture_id}" />
-		<c:forEach var="qb" items="${rb_list}" varStatus="loop">
+		<c:forEach var="qb" items="${qb_list}" varStatus="loop">
 
 			<br>
 			<div class="" style="padding-top: 20px;">
@@ -50,7 +50,7 @@
 </div>
 <script type="text/javascript">
 		$(function() {
-			<c:forEach var="qb" items="${rb_list}" varStatus="loop">
+			<c:forEach var="qb" items="${qb_list}" varStatus="loop">
 	
 			$('#rating_${loop.index}').rateit({
 				step : 1,

@@ -67,7 +67,7 @@ public class EtcService {
 		
 		
 		LectureBean lb = lecturedao.getLectureById(lecture_id);
-		
+		List<QuestionBean> qb_list = ratingdao.getQBList(lecture_id);
 		//rating 항목, 점수 등 가져오기
 		List<Lecture_ratingBean> rb_list = 
 				ratingdao.getRBList(lecture_id, 
@@ -101,6 +101,7 @@ public class EtcService {
 		
 		
 		model.addAttribute("rb_list", rb_list);// List<Lecture_ratingBean>
+		model.addAttribute("qb_list", qb_list);// List<Lecture_ratingBean>
 		model.addAttribute("countOfComment",countOfComment);
 		model.addAttribute("total_avg_score",avg_score);
 		model.addAttribute("rating_count",ratedUsers);

@@ -98,7 +98,19 @@ insert into lecture_reply
 select * from memberView;
     
 SELECT nickname, email, UPLOADEDFILE from memberView
-
+SELECT * from questionInfoOfLecture
+		WHERE lecture_id =61 and
+		question_version='강의평가1'
+		
+select * from lecture_reply;
+SELECT nvl(trunc(avg(avg_score)*5/6, 2),0)
+		FROM questionInfoOfLecture
+		WHERE lecture_id=61 and
+		question_version = 
+		(select question_version
+		from lecture
+		where lecture_id=61) 
+		
 select * from lecture_reply;
         SELECT *
   		FROM
@@ -116,4 +128,17 @@ select * from lecture_reply;
   		lecture_reply lr
   		LEFT OUTER JOIN (SELECT nickname,isdeleted, email, UPLOADEDFILE from memberView) m
 		ON lr.email = m.email
-  		  
+ SELECT * FROM LECTURE;
+ SELECT * FROM MY_RATING;
+ 
+ select * from questionInfoOfLecture;
+SELECT * 
+from 
+lecture l
+RIGHT OUTER JOIN
+(SELECT *
+FROM my_rating) r
+ON r.question_version = l.question_version
+order by question_id;
+
+
