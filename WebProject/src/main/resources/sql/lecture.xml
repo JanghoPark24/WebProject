@@ -57,6 +57,12 @@
 		select * from lecture where lecture_id=#{lecture_id}
 	</select>
 	
+	<!-- id에 따라 강의 하나 구하기-->
+	<select id="getQuestionVersionById" parameterType="int" resultType="String">
+		select question_version from lecture
+		where lecture_id=#{lecture_id}
+	</select>
+	
 	<!--순서대로 구하기-->
 	<select id="getQuestionVersions" resultType="String">
 		select question_version from(

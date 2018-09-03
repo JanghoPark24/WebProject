@@ -3,11 +3,31 @@
 
 <mapper namespace="lectureRatings">
 	<!--  get List<강의 평가> -->
-	<select id="getLRBList" parameterType="String"
+<!-- 	<select id="getLRBList" parameterType="String"
 		resultType="thelecture.model.Lecture_ratingBean">
 		select * from lecture_rating 
 		where lecture_id= #{lecture_id} 
 		 and question_id=(select question_id from question where question_id=(select max(question_id) from question))
+	</select> -->
+	<!---->
+	
+	<select id="getRatedUsersPerLecture_byQuestionVersion" parameterType="hashMap"
+		resultType="int">
+		select count(*) from
+		(select email from 
+		my_rating
+		where lecture_id =#{lecture_id} and
+		question_version = #{question_version}
+		group by email)
+	</select>
+	
+	<!-- 문항마다 평균 점수 불러옴-->
+	<select id="getLRBList" parameterType="String"
+		resultType="thelecture.model.Lecture_ratingBean">
+		SELECT * 
+		from questionInfoOfLecture
+		WHERE lecture_id =#{lecture_id} and
+		question_version=#{question_version}
 	</select>
 	
 	<!--  get List<질문> -->
@@ -32,14 +52,41 @@
 		ORDER BY question_id
 	</select>
 	
-	<!--question Count 출력-->
+	<!--question Count 출력 없을 경우 0-->
 	 <select id="checkIsAlreadyAnsweredByThisEmail" parameterType="hashMap"
 		resultType="int">
 		SELECT count(*) from my_rating
 		WHERE 
 		lecture_id=#{lecture_id} and
-		email = #{email}
+		email = #{email} and
+		question_version = #{question_version}
 	</select>
+	
+	
+	<insert id="insertAnswers" parameterType="question" >
+		INSERT INTO MY_RATING
+		VALUES(
+			#{email},
+			#{lecture_id},
+			#{question_version},
+			#{question_id},
+			#{question_value},
+			sysdate
+		)
+	</insert>
+	
+	<update id="updateAnswers" parameterType="question">
+		UPDATE MY_RATING
+		SET
+		score=	#{question_value},
+		rate_date=	sysdate
+		WHERE
+		email=#{email} and
+		lecture_id=	#{lecture_id} and
+		question_version=	#{question_version} and
+		question_id=	#{question_id}
+	</update>
+	
 	 
 
 </mapper>

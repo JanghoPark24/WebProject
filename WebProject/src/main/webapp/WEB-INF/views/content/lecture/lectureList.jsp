@@ -19,7 +19,6 @@
 <script src="${contextPath}/js/rating/jquery.rateit.js"></script>
 <script src="${contextPath}/js/review.js" charset="utf-8"></script>
 
-
 <body>
 
 

@@ -11,7 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import thelecture.dao.LectureDaoImpl;
-
+import thelecture.dao.RatingDaoImpl;
 import thelecture.model.LectureBean;
 import thelecture.model.PageBean;
 import thelecture.model.QuestionBean;
@@ -24,7 +24,9 @@ public class BoardService {
 
 	@Autowired
 	LectureDaoImpl lecturedao;
-
+	
+	@Autowired
+	RatingDaoImpl ratingdao;
 	/**
 	 * service 하는 일 1. 현재 페이지에 따라 리스트 불러옴 2. 검색어, 키워드에 따라 바뀜
 	 * 
@@ -48,7 +50,7 @@ public class BoardService {
 
 			// list구하기
 			List<LectureBean> lectureList = lecturedao.getLectureList(pagebean);
-
+			
 			// 찾은 lectureList 추가
 			boardInfo.put("lectureList", lectureList);
 			boardInfo.put("page_index", pagebean);
@@ -111,10 +113,18 @@ public class BoardService {
 		return (deletedRow == 1) ? true : false;
 	}
 
-	public boolean answerQuesetion(int lecture_id, String email, String[] questionContent, int[] question_value) {
-		boolean alreadyAnswered = lecturedao.checkIsAlreadyAnsweredByThisEmail(lecture_id,email); 
-		System.out.println(alreadyAnswered);
-		return false;
+	public boolean answerQuestion(int lecture_id, String question_version,
+								String email, int[] question_id,
+								int[] question_value) {
+		boolean alreadyAnswered = ratingdao.checkIsAlreadyAnsweredByThisEmail(lecture_id,email, question_version); 
+		boolean answerSucceed;
+		//아직 이 이메일로 평가 x
+		if(alreadyAnswered==false) {
+			answerSucceed=ratingdao.insertAnswer(lecture_id, email, question_version, question_id, question_value);
+		}else {
+			answerSucceed=ratingdao.updateAnswer(lecture_id, email, question_version,question_id, question_value);
+		}
+		return answerSucceed;
 	}
 
 }

@@ -3,6 +3,8 @@ package thelecture.service;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -41,7 +43,7 @@ public class EtcService {
 		
 		LectureBean lb = lecturedao.getLectureById(lecture_id);
 		List<QuestionBean> qb_list = ratingdao.getQBList(lecture_id);
-		List<Lecture_ratingBean> rb_list = ratingdao.getRBList(lecture_id);
+//		List<Lecture_ratingBean> rb_list = ratingdao.getRBList(lecture_id);
 		
 		//댓글 속성
 		int countOfComment = replydao.getReplyCountByLectureId(lecture_id);
@@ -52,7 +54,7 @@ public class EtcService {
 			model.addAttribute("re_reply_list",re_reply_list);
 			
 		}
-		model.addAttribute("rb_list", rb_list);// List<Lecture_ratingBean>
+//		model.addAttribute("rb_list", rb_list);// List<Lecture_ratingBean>
 		model.addAttribute("qb_list", qb_list);// List<QuestionBean>
 		model.addAttribute("countOfComment",countOfComment);
 		
@@ -61,12 +63,15 @@ public class EtcService {
 	}
 	
 	@Transactional
-	public LectureBean getReviewDetail_t(int lecture_id, Model model) {
+	public LectureBean getReviewDetail_t(int lecture_id, HttpSession session, Model model) {
 		
 		
 		LectureBean lb = lecturedao.getLectureById(lecture_id);
-		List<QuestionBean> qb_list = ratingdao.getQBList(lecture_id);
-		List<Lecture_ratingBean> rb_list = ratingdao.getRBList(lecture_id);
+		
+		//rating 항목, 점수 등 가져오기
+		List<Lecture_ratingBean> rb_list = 
+				getRBList(lecture_id, 
+						  lecturedao.getQuestionVersionById(lecture_id));
 		
 		//댓글 속성
 		int countOfComment = replydao.getReplyCountByLectureId(lecture_id);
@@ -77,8 +82,20 @@ public class EtcService {
 			model.addAttribute("re_reply_list",re_reply_list);
 			
 		}
+		
+		//로그인 된 이메일에 대해 answer 했는지 여부 찾기
+		String email= session.getAttribute("email")+"";
+		if(!email.equals(null)) {
+			
+			boolean isAlreadyAnswered = ratingdao.checkIsAlreadyAnsweredByThisEmail(lecture_id, session.getAttribute("email")+"", lb.getQuestion_version());
+			//응답 됐으면
+			if(isAlreadyAnswered==true) {
+				
+				model.addAttribute("isAlreadyAnswered", isAlreadyAnswered);// List<QuestionBean>
+			}
+		}
+		
 		model.addAttribute("rb_list", rb_list);// List<Lecture_ratingBean>
-		model.addAttribute("qb_list", qb_list);// List<QuestionBean>
 		model.addAttribute("countOfComment",countOfComment);
 		
 		
@@ -86,8 +103,10 @@ public class EtcService {
 	}
 
 	@Transactional
-	public List<Lecture_ratingBean> getRBList(int lecture_id) {
-		List<Lecture_ratingBean> result = ratingdao.getRBList(lecture_id);
+	public List<Lecture_ratingBean> getRBList(int lecture_id, String question_version) {
+		//List<Lecture_ratingBean> result = ratingdao.getRBList(lecture_id);
+		List<Lecture_ratingBean> result = ratingdao.getRBList(lecture_id, question_version);
+		
 		return result;
 	}
 

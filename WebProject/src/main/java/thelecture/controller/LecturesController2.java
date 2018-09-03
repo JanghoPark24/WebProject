@@ -46,7 +46,8 @@ public class LecturesController2 {
 		// password가 맞으면
 		System.out.println("L_id: " + lecture_id);
 //		LectureBean lb = etcService.getReviewDetail(lecture_id, model);
-		LectureBean lb = etcService.getReviewDetail_t(lecture_id, model);
+		
+		LectureBean lb = etcService.getReviewDetail_t(lecture_id,session, model);
 		model.addAttribute("lb", lb);//LectureBean 객체
 		
 

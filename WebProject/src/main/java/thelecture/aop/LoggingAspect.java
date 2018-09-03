@@ -43,6 +43,7 @@ public class LoggingAspect {
 
 	public static Object mainAdvice(ProceedingJoinPoint joinpoint) throws Throwable {
 		CodeSignature codeSignature = (CodeSignature) joinpoint.getSignature();
+		
 		long st = System.currentTimeMillis();
 
 		try {
@@ -55,12 +56,12 @@ public class LoggingAspect {
 			//argument 불러오기
 			
 			Object[] arguments = joinpoint.getArgs();
-
+			
 			// 메소드 argument출력
 			for (int i = 0; i < arguments.length; i++) {
 				
 				// parameter 이름 출력
-				System.out.print(codeSignature.getParameterNames()[i] + ":");
+				System.out.print("-----"+codeSignature.getParameterNames()[i] + ":");
 
 				// argument출력
 				// session일 경우
@@ -111,9 +112,21 @@ public class LoggingAspect {
 							}
 						}
 					}
-				} */else if (arguments[i] instanceof String[]) {
+				} */else if (arguments[i] instanceof int[]) {
+					
+					int[] slist = (int[])arguments[i];
+					for (int j = 0; j < slist.length; j++) {
+						System.out.print(slist[j] + ",");
+					}
+					System.out.println();
+					
+				}else if (arguments[i] instanceof String[]) {
+					
 					String[] slist = (String[]) arguments[i];
-					for (int j = 0; i < slist.length; j++) {
+					int slength = slist.length;
+					
+					for (int j = 0; j < slength; j++) {
+						
 						System.out.print(slist[j] + ",");
 					}
 					System.out.println();

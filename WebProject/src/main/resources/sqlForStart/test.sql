@@ -21,7 +21,8 @@ SELECT * from question
 		
 		SELECT * from MY_RATING;
 
-
+alter table my_rating
+drop constraint "THELECTURE.PK_MY_RATING";
 select * from member;
 select * from lecture_reply;
 delete from lecture_reply;

@@ -207,19 +207,17 @@ public class LectureDaoImpl {
 	}
 
 
-	public boolean checkIsAlreadyAnsweredByThisEmail(int lecture_id, String email) {
-		HashMap <String, Object> answerInfo = new HashMap<>();
-		int affectedRows;
+	public String getQuestionVersionById(int lecture_id) {
 		try {
-			answerInfo.put("lecture_id", lecture_id);
-			answerInfo.put("email", email);
-			affectedRows = sqlSession.selectOne("lectureRatings.checkIsAlreadyAnsweredByThisEmail",answerInfo);
+			
+			return sqlSession.selectOne("lectureMap.getQuestionVersionById",lecture_id);
+			
 		}catch(Exception e){
 			e.printStackTrace();
-			affectedRows=0;
+			return null;
 		}
-		return affectedRows==1? true:false;
 	}
-	
+
+
 	
 }

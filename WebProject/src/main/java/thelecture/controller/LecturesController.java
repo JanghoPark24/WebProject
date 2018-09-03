@@ -203,23 +203,19 @@ public class LecturesController {
 		
 	} 
 	@RequestMapping(value = "answerQuestion.do")
-	public String answerQuestion(int lecture_id, String univ_name ,String question_version, String []question_content, int [] question_value ,HttpSession session,Model model) {
+	public String answerQuestion(int lecture_id, String univ_name ,String question_version, int []question_id, 
+								@RequestParam("question_value")int [] question_value ,HttpSession session,Model model) {
 		
-		for(int question_value_i: question_value) {
-			System.out.println("질문 점수:"+question_value_i);
-		}
-		for(String question_content_i:question_content) {
-			System.out.println("질문항목:"+question_content_i);
-		}
 		//현재 세션에 있는 대학과 입력된 대학 비교
-		if(session.getAttribute("univ_name").equals(univ_name)) {
+		if(!session.getAttribute("univ_name").equals(univ_name)) {
 			
-			return "isNotMaster//e";
+			return "isNotRightUniv//e";
 		}else {
 			String email = session.getAttribute("email")+"";
-			boolean answerSuccess = boardService.answerQuesetion(lecture_id,email, question_content,question_value);
+			boolean answerSuccess = boardService.answerQuestion(lecture_id,question_version, email, question_id,question_value);
 //			
-			return answerSuccess==true?"redirect:lectureList.do?lecture_id="+lecture_id:"updateFail//e";
+			model.addAttribute("isAlreadyAnswered",answerSuccess);
+			return answerSuccess==true?"redirect:review.do?lecture_id="+lecture_id:"updateFail//e";
 			
 		}
 		

@@ -143,3 +143,15 @@ WHERE mb.email is not null -- email이 없는 곳 제외
 ;
 
 
+-- 강의 질문 정보
+create or replace view questionInfoOfLecture
+as
+SELECT * 
+from question
+NATURAL JOIN
+(SELECT
+question_id, avg(score) as avg_score,lecture_id
+FROM my_rating
+GROUP BY question_id,question_version,lecture_id) r
+order by question_id;
+
