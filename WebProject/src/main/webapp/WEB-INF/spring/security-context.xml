@@ -6,7 +6,6 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd
       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd">
 
-
 	<http pattern="/**/*.js" security="none" />
 	<http pattern="/**/*.css" security="none" />
 	<http pattern="/img/*" security="none" />
@@ -19,6 +18,11 @@
 			invalidate-session="true"
 			delete-cookies="SPRING_SECURITY_REMEMBER_ME_COOKIE" />
 		<csrf disabled="true" />
+		 <!-- 시큐리티설정시 스마트에디터 xFrame 설정해줘야함 -->
+		 <headers> 
+		     <frame-options policy="SAMEORIGIN" />
+		     <hsts disabled="true"/> 
+		 </headers>
 	</http>
 
 	<authentication-manager>

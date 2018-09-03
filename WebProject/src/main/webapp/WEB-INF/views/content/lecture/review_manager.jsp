@@ -14,8 +14,8 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"  >
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
     <!--별점-->
-    <link rel="stylesheet" href="../css/rating/rateit.css">
-    <link rel="stylesheet" href="../css/review.css">
+    <!-- <link rel="stylesheet" href="../css/rating/rateit.css">
+     --><link rel="stylesheet" href="../css/review.css">
     <link rel="stylesheet" media="screen and (min-device-width: 320px) and (max-device-width: 1100px)" href="css/review_responsive.css">
     
     <!-- vue.js cdn
@@ -32,7 +32,7 @@
     <!-- Latest compiled JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <!--별점-->
-    <script src="../js/rating/jquery.rateit.js"></script>
+    <!-- <script src="../js/rating/jquery.rateit.js"></script> -->
     <script src="../js/review.js"></script>
    
 

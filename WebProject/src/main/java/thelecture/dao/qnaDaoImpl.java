@@ -32,4 +32,8 @@ public class qnaDaoImpl {
 	public qnaBean qna_read(int qna_num) {
 		return session.selectOne("qna_read", qna_num);
 	}
+	
+	public int qna_delete(int board_num) {
+		return session.delete("qna_delete", board_num);
+	}
 }

@@ -33,9 +33,29 @@ public class WriteDaoImpl{
 	}
 
 
-	public int delete(int num) {
+/*	public int delete(int num) {
 		return session.delete("delete", num);
 	}
-	
+*/
+
+	public int wdelete(int board_num) {
+		try {
+			session.update("wdelete",board_num);
+			return 0;
+			
+		}catch(Exception e){
+			e.printStackTrace();
+			return 1;
+		}
+	}
+
+
+	public int wupdate(WriteBean writebean) {
+		System.out.println("3");
+		return session.update("writens.wupdate", writebean);
+	}
+
+
+
 }
 

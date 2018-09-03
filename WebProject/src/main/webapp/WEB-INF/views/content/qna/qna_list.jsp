@@ -39,9 +39,9 @@ table, th, td {
 				<td style="font-family: Tahoma; font-size: 11pt;" width="47%">
 					<div align="center">제목</div>
 				</td>
-				<!-- <td style="font-family: Tahoma; font-size: 11pt;" width="14%">
+			    <td style="font-family: Tahoma; font-size: 11pt;" width="14%">
 					<div align="center">작성자</div>
-				</td> -->
+				</td> 
 				<td style="font-family: Tahoma; font-size: 11pt;" width="17%">
 					<div align="center">날짜</div>
 				</td>
@@ -62,7 +62,7 @@ table, th, td {
 				
 		<td><a href="qna_read.do?qna_num=${b.board_num }&page=${page}&state=read">
 		 ${b.subject } </a></td>
-			<%-- <td>${b.nickname }</td> --%>
+			<td>${b.nickname }</td> 
 			<td>${b.reg_date }</td>
 			<td>${b.view_count }</td>
 			
@@ -70,8 +70,8 @@ table, th, td {
 		</c:forEach>
 </table>
 
-
-<div id="bbslist_paging">			
+<br><br><br><br>
+<div id="bbslist_paging" align="center">			
 			<c:if test="${page <=1 }">
 				[이전]&nbsp;
 			</c:if>

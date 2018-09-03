@@ -14,6 +14,7 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -38,6 +39,7 @@ import thelecture.model.MemberBean;
 import thelecture.model.PageBean;
 import thelecture.model.QuestionBean;
 import thelecture.service.BoardService;
+import thelecture.service.ReplyService;
 import thelecture.util.S3Util;
 
 /**
@@ -52,24 +54,18 @@ public class LecturesController {
 	@Autowired
 	BoardService boardService;
 
+	@Autowired
+	ReplyService replyService;
 	private static final Logger logger = LoggerFactory.getLogger(LecturesController.class);
 
 	/**
 	 * Simply selects the home view to render by returning its name.
 	 */
-	@RequestMapping(value = "home2.do", method = RequestMethod.GET)
-	public String home2(Locale locale, Model model) {
-		logger.info("Welcome home! The client locale is {}.", locale);
-
-		Date date = new Date();
-		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
-
-		String formattedDate = dateFormat.format(date);
-
-		model.addAttribute("serverTime", formattedDate);
-		return "home2";
+	
+	public boolean isMaster(HttpSession session) {
+		return (session.getAttribute("grade").equals("master"))? true:false;
 	}
-
+	
 	/**
 	 * 
 	 * 하는 일 : 1.lectureList정보 불러오기 (1) 페이징 기능, 리스트 정보 2.detail로 들어가는 기능 3.검색기능
@@ -98,16 +94,12 @@ public class LecturesController {
 		model.addAllAttributes(boardInfo); // page_index, lectureList 전달
 
 		return "content/lecture/lectureList";
-
+		
 	}
 
 	
 
-	@RequestMapping(value = "write_review.do")
-	public String write_review(String id) {
 
-		return "";
-	}
 
 	@RequestMapping(value = "insertLectureView.do")
 	public String insertLectureview(HttpSession session, Model model) {
@@ -120,7 +112,7 @@ public class LecturesController {
 		System.out.println("questionVersions:" + questionVersions);
 		model.addAttribute("questionVersions", questionVersions);
 
-		return "content/lecture/insert_lecture_view";
+		return "content/lecture/insert_update_lecture_view";
 	}
 
 	@RequestMapping(value = "insertLecture.do")
@@ -164,11 +156,72 @@ public class LecturesController {
 	@RequestMapping(value = "getAllCommentsByLectureId.do")
 	public List<ReplyBean> getAllCommentsByLectureId(int l_id, Model model) {
 
-		List<ReplyBean> comments = boardService.getAllCommentsByLectureId(l_id);
-
+		List<ReplyBean> comments = replyService.getAllCommentsByLectureId(l_id);
+		
 		return comments;
 
 	}
+	@RequestMapping(value = "updateLectureView.do")
+	public String updateLectureView(int lecture_id, HttpSession session,Model model) {
+		if(isMaster(session)==false) {
+			System.out.println(isMaster(session));
+			return "isNotMaster//e";
+		}else {
+			LectureBean lecture= boardService.getLectureById(lecture_id);
+			List<String> questionVersions = boardService.getQuestionVersions();
+
+			model.addAttribute("questionVersions", questionVersions);
+			model.addAttribute("lecture",lecture);
+			model.addAttribute("state","update");
+			return "content/lecture/insert_update_lecture_view";
+		}
+		
+	} 
 	
-	
+	@RequestMapping(value = "updateLecture.do")
+	public String updateLecture(LectureBean lecture, HttpSession session,Model model) {
+		if(isMaster(session)==false) {
+			System.out.println(isMaster(session));
+			return "isNotMaster//e";
+		}else {
+			boolean updateSuccess = boardService.updateLecture(lecture);
+			
+			return updateSuccess==true?"redirect:lectureList.do":"updateFail//e";
+		}
+		
+	} 
+	@RequestMapping(value = "deleteLecture.do")
+	public String deleteLecture(int lecture_id, HttpSession session,Model model) {
+		if(isMaster(session)==false) {
+			System.out.println(isMaster(session));
+			return "isNotMaster//e";
+		}else {
+			boolean deleteSuccess = boardService.deleteLecture(lecture_id);
+			
+			return deleteSuccess==true?"redirect:lectureList.do":"updateFail//e";
+		}
+		
+	} 
+	@RequestMapping(value = "answerQuestion.do")
+	public String answerQuestion(int lecture_id, String univ_name ,String question_version, String []question_content, int [] question_value ,HttpSession session,Model model) {
+		
+		for(int question_value_i: question_value) {
+			System.out.println("질문 점수:"+question_value_i);
+		}
+		for(String question_content_i:question_content) {
+			System.out.println("질문항목:"+question_content_i);
+		}
+		//현재 세션에 있는 대학과 입력된 대학 비교
+		if(session.getAttribute("univ_name").equals(univ_name)) {
+			
+			return "isNotMaster//e";
+		}else {
+			String email = session.getAttribute("email")+"";
+			boolean answerSuccess = boardService.answerQuesetion(lecture_id,email, question_content,question_value);
+//			
+			return answerSuccess==true?"redirect:lectureList.do?lecture_id="+lecture_id:"updateFail//e";
+			
+		}
+		
+	} 
 }

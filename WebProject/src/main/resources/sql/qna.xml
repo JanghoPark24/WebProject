@@ -18,10 +18,10 @@
 <select id="qna_list" resultType="qna">
  <![CDATA[
  SELECT * from
- (select rownum rnum, board_num,univ_name, subject,
-        REG_DATE, VIEW_COUNT
-         FROM qna_board ) 
-        where rnum >= ((#{page}-1) * 10+1)  and rnum <= (#{page} * 10)
+ (select rownum rnum, c.board_num,c.univ_name, c.subject,
+        c.REG_DATE, c.VIEW_COUNT , nickname
+         FROM qna_board c, member r where c.email = r.email) 
+        where rnum >= ((#{page}-1) * 10+1)  and rnum <= (#{page} * 10) 
 	]]>
 <!--          WHERE   c.email = r.email
  -->
@@ -30,5 +30,10 @@
 <select id="qna_read" resultType="qna"> <!-- resultType필요 -->
     select * from qna_board where board_num = #{board_num} 
 </select>
+
+<delete id="qna_delete" parameterType="qna">
+	delete from qna_board where
+		board_num=#{board_num}
+	</delete>
 
 </mapper>

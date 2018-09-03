@@ -21,6 +21,7 @@
     
    	
     <title>강의 평가</title>
+    
     <style>
     	#content_middle div{
     		padding:10px;
@@ -53,6 +54,40 @@
 		
 		    	
     </style>
+    <!-- 수정시 -->
+    <c:if test="${state=='update'}">
+    <script>
+    	function addValuesWhenUpdate(){
+	    	$("#o_univ_name").val("${lecture.univ_name}");
+	    	$("#major").val("${lecture.major}");
+	    	$("#professor").val("${lecture.professor}");
+	    	$("#grade").val("${lecture.grade}");
+	    	$("#semester").val("${lecture.semester}");
+	    	$("#credit").val("${lecture.credit}");
+	    	$("#lecture_code").val("${lecture.lecture_code}");
+	    	$("#lecture_name").val("${lecture.lecture_name}");
+	    	$("#qSelect option[value='${lecture.question_version}']")
+	    		.attr("selected", true)
+	    	    	
+	    	
+    	}
+    </script>
+    </c:if>
+	<!-- 로드 시 실행할 것 -->
+    <script>
+    	
+ 		function executeWhenOnLoadLecture(){
+ 			<c:if test="${state=='update'}">
+ 				addValuesWhenUpdate();
+ 			</c:if>
+ 			
+ 		}
+ 			
+ 		   
+ 		
+		window.onload = executeWhenOnLoadLecture;
+    </script>
+    
     <!-- 자동 완성 기능, 유효성 검사 -->
     <script>
     /**
@@ -89,7 +124,7 @@
     	
     }
     
- // form id에 대한 유효성 검사 확인하기
+/*  // form id에 대한 유효성 검사 확인하기
     function validateEmptinessWithLabel(frm){
        
         var form_id = frm.id;
@@ -120,7 +155,7 @@
         return true;
         
         
-    }
+    } */
     function validateSelectWithLabel(frm){
     	 var sel = frm.getElementsByClassName('select_class');
     	 
@@ -266,9 +301,18 @@
     </script>
 
 	
-	<!-- 클릭 시 -->
+	<!-- 이벤트 발생 시 -->
 	<script>
 		$(function(){
+			//업데이트
+			<c:if test="${state=='update'}">
+			$("#lectureInfo_update").on("click",function(){
+				let frm =this.form;
+				frm.action ="updateLecture.do?lecture_id=${lecture.lecture_id}"
+				frm.submit();
+			})
+			
+			</c:if>
 			
 			//질문 선택지 선택시 변경
 			$("#qSelect").on("change",function(){
@@ -309,7 +353,7 @@
 			$("#updateUnivButton").on('click',function(){
 				let insertFrm  = document.getElementById('updateUniv');
 				
-				validateEmptinessWithLabel(insertFrm);
+				validateEmptinessWithLabel(insertFrm,'default');
 				validateGeneralRules(insertFrm);
 			})
 			//대학교 삭제
@@ -323,7 +367,7 @@
 			
 			$("#insertUnivButton").on('click',function(){
 				let insertFrm = document.getElementById('insertUniv');
-				validateEmptinessWithLabel(insertFrm);
+				validateEmptinessWithLabel(insertFrm,'default');
 				validateGeneralRules(insertFrm);
 			})
 			
@@ -347,7 +391,7 @@
 				if(selectEditing==true) searchFunction();
 				
 				//빈것이 있는지 체크
-				var success1 = validateEmptinessWithLabel(insertFrm);
+				var success1 = validateEmptinessWithLabel(insertFrm,'default');
 				if(success1==false) return;
 				
 				var success2 = validateSelectWithLabel(insertFrm);
@@ -512,7 +556,13 @@
 					  </tr> 
 					</table>
 					<div>
-						<button type="button" id="lectureInfo_submit">제출</button>
+						<c:if test="${empty state}">
+						  <button type="button" id="lectureInfo_submit">제출</button>
+						</c:if>
+						<c:if test="${state =='update'}">
+						  <button type="button" id="lectureInfo_update">수정</button>
+						</c:if>
+						
 						<button type="reset">취소</button>
 					</div>               
 				</form>

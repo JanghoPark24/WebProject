@@ -13,6 +13,8 @@ public class WriteBean {
 	private Date reg_date;		//날짜
 	private String is_deleted;	//삭제여부
 	private String nickname;
+	private String uploadedFile;
+	
 	
 	public int getBoard_num() {
 		return board_num;

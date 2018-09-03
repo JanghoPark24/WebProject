@@ -1,5 +1,26 @@
 
 SELECT * FROM file_storage;
+UPDATE lecture
+        SET
+        grade=1
+        where lecture_id = 41
+select * from question;
+select * from lecture;
+select question_verson from
+			lecture 
+			where lecture_id=6
+select * from question
+SELECT * from question;
+
+SELECT * from question
+		WHERE QUESTION_VERSION=
+			(select question_version from
+			lecture 
+			where lecture_id=21)
+		ORDER BY question_id
+		
+		SELECT * from MY_RATING;
+
 
 select * from member;
 select * from lecture_reply;
@@ -18,6 +39,8 @@ select * from
 lecture_reply lr, 
 (select email, nickname from member) m 
 where lr.email = m.email;
+
+select * from lecture;
 
 right outer join lecture_reply_like lrl
 on lr.

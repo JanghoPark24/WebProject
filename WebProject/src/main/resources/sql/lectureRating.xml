@@ -1,18 +1,45 @@
 <?xml version="1.0" encoding="UTF-8" ?>
  <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="lectureRatingns">
+<mapper namespace="lectureRatings">
 	<!--  get List<강의 평가> -->
 	<select id="getLRBList" parameterType="String"
 		resultType="thelecture.model.Lecture_ratingBean">
-		select * from lecture_rating where lecture_id=
-		#{lecture_id} and question_id=(select question_id from question where question_id=(select max(question_id) from question))
+		select * from lecture_rating 
+		where lecture_id= #{lecture_id} 
+		 and question_id=(select question_id from question where question_id=(select max(question_id) from question))
 	</select>
 	
 	<!--  get List<질문> -->
 	<select id="getQBList" parameterType="String"
 		resultType="thelecture.model.QuestionBean">
-		select * from question where QUESTION_VERSION=(select question_version from question where question_id=(select max(question_id) from question))
+		select * from question
+		WHERE QUESTION_VERSION=
+			(select question_version 
+			from question 
+			where question_id=
+				(select max(question_id) from question))
 	</select>
+
+	<!--question List 출력-->
+	<select id="getQBList_t" parameterType="String"
+		resultType="thelecture.model.QuestionBean">
+		SELECT * from question
+		WHERE QUESTION_VERSION=
+			(select question_version from
+			lecture 
+			where lecture_id=#{lecture_id})
+		ORDER BY question_id
+	</select>
+	
+	<!--question Count 출력-->
+	 <select id="checkIsAlreadyAnsweredByThisEmail" parameterType="hashMap"
+		resultType="int">
+		SELECT count(*) from my_rating
+		WHERE 
+		lecture_id=#{lecture_id} and
+		email = #{email}
+	</select>
+	 
 
 </mapper>

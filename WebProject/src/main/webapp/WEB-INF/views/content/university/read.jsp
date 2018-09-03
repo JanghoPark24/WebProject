@@ -29,7 +29,7 @@
     <input type=button value="수정" 
 			 	  onClick="location.href='writeUpdateForm.do?num=${board.board_num}'">
 			<input type=button value="삭제" 
-			 	  onClick="location.href='delete.do?num=${board.board_num }&email=${board.email}'">
+			 	  onClick="location.href='delete.do?num=${board.board_num }'">
 			<input type=button value="목록" 
 			 	  onClick="location.href='wlist.do"> 	  
 			 	  
@@ -39,31 +39,7 @@
 			 	  
 			</td>
 		</tr> 
-		
-		<div class="container">
-  <h2>Large Modal</h2>
-  <!-- Trigger the modal with a button -->
-  <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Large Modal</button>
 
-  <!-- Modal -->
-  <div class="modal fade" id="myModal" role="dialog">
-    <div class="modal-dialog modal-lg">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">오류 메세지</h4>
-        </div>
-        <div class="modal-body">
-          <p>기능을 이용하려면 로그인 해주세요.</p>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-		
 		
 		
 	</table>

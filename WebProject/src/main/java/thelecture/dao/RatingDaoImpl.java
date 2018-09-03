@@ -20,7 +20,8 @@ public class RatingDaoImpl {
 	}
 	
 	public List<QuestionBean> getQBList(int lecture_id)  {
-		List<QuestionBean> result = sqlSession.selectList("getQBList", lecture_id);
+//		List<QuestionBean> result = sqlSession.selectList("getQBList", lecture_id);
+		List<QuestionBean> result = sqlSession.selectList("getQBList_t", lecture_id);
 		return result;
 	}
 

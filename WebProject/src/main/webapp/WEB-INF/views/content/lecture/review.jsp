@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
+<c:set var="path" value="<%=request.getContextPath() %>"/>
 
 <head>
 <meta charset="UTF-8">
@@ -47,10 +47,32 @@
 <!--별점-->
 <script src="./js/rating/jquery.rateit.js"></script>
 <script src="./js/review.js" charset="utf-8"></script>
+<!-- validating -->
+<script src="./js/validate_functions.js" charset="utf-8"></script>
 <%-- <link rel="stylesheet" type="text/css"
 	href="<%=request.getContextPath()%>/css/lecture/review.css" /> --%>
-
 <title>My Chart.js Chart</title>
+
+
+<script>
+function answerQuestion(){
+	var frm = $("#question_form");
+	frm.submit();
+}	
+
+</script>
+<script>
+
+$(function(){
+	$("#answerQuestion").on("click",function(){
+		var frm = document.getElementById("question_form");
+		var rateSuccess=validateEmptinessWithLabel(frm,'rate');
+		if(rateSuccess==true) frm.submit();
+	})
+
+})
+
+</script>
 
 </head>
 <body onload="starting_function()">
@@ -59,10 +81,11 @@
 		<div id="title">
 			<h3>[${lb.lecture_id}] ${lb.lecture_name}</h3>
 		</div>
-
+		
 		<div class="container" id="content_middle">
 			<%-- lb.total_avg_score+ --%>
 			<h1>${Math.round((1.6373464612*100))/100}</h1>
+			
 			<div data-productid="313" class="rateit text-center"
 				data-rateit-mode="font"
 				data-rateit-value="${Math.round((1.6373464612*100))/100}"
@@ -78,7 +101,7 @@
 				<div class="col-xs-12 col-sm-6 col-md-4 ">전공 : ${lb.major}</div>
 			</div>
 			<%-- rb=강의평가빈 --%>
-			<%-- 	<c:forEach var="rb" items="${rb_list}">
+				<%-- <c:forEach var="rb" items="${rb_list}">
 					<p>${rb.question_id }</p>
 					<p>${rb.avg_score }</p>				
 			</c:forEach> --%>
@@ -86,7 +109,11 @@
 	</div>
 	<div class="container">
 		<div class="row">
+			<div>
+				강의 평가
+			</div>
 			<div class="container">
+				
 				<c:forEach var="qb" items="${qb_list}">
 					<div class="col-sm-6 col-md-4 pade">
 						<div>${qb.question_content}</div>
@@ -95,10 +122,20 @@
 						</div>
 					</div>
 				</c:forEach>
+				
+				<!-- 평가창 -->
+				
 			</div>
 		</div>
 	</div>
-
+	<c:if test="${lb.univ_name==sessionScope.univ_name}">
+		<c:import url="/WEB-INF/views/content/lecture/rating_sheet.jsp"></c:import>
+	</c:if>
+	<c:if test="${lb.univ_name!=sessionScope.univ_name}">
+		<div>
+			해당 학교 학생만 평가가 가능합니다.
+		</div>
+	</c:if>
 	<!-- 로그인된 아이디가 이 학교 아이디이면  나타남.-->
 	<%-- <c:if test="${checked== true}">
 		<div class="container">

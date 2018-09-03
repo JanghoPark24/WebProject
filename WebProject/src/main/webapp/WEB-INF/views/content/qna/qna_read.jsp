@@ -9,8 +9,12 @@
 </head>
 <body>
 <div id="boardcont_wrap">
-		<h2 class="boardcont_title">게시물 내용보기</h2>
-		<table id="boardcont_t">
+		<h2 class="boardcont_title" align="center">문의내용</h2>
+		<br><br>
+		<form method="post" action="qna_delete.do">
+		<input type="hidden" name="board_num" value="${qboard.board_num}" />
+        <%-- <input type="hidden" name="page" value="${page}" />		
+	--%><table id="boardcont_t" align="center">
 			<tr>
 				<th>제목</th>
 				<td>${qboard.subject}</td>
@@ -27,8 +31,14 @@
 			<tr>
 				<th>조회수</th>
 				<td>${qboard.view_count}</td>
-			</tr>
+			</tr>			
 		</table>
+
+		<br><br><br>
+		<div align="center">
+			<input type="submit" class="btn btn-primary" value="삭제">
+			</div>
+	</form>
 </div>
 </body>
 </html>

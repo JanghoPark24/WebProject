@@ -1,5 +1,6 @@
 package thelecture.controller;
 
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -44,10 +45,11 @@ public class LecturesController2 {
 
 		// password가 맞으면
 		System.out.println("L_id: " + lecture_id);
-		LectureBean lb = etcService.getReviewDetail(lecture_id, model);
-		model.addAttribute("checked", true);
+//		LectureBean lb = etcService.getReviewDetail(lecture_id, model);
+		LectureBean lb = etcService.getReviewDetail_t(lecture_id, model);
 		model.addAttribute("lb", lb);//LectureBean 객체
 		
+
 		return "review";
 
 	}

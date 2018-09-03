@@ -68,6 +68,9 @@ public class qnaService {
 		return dao.qna_read(qna_num);
 	}
 	
+	public int qna_delete(int board_num) {
+		return dao.qna_delete(board_num);
+	}
 }
 
 

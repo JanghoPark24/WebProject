@@ -12,6 +12,8 @@ public class WriteServiceImple {
 	@Autowired
 	private WriteDaoImpl dao;
 
+	
+
 	public int insert(WriteBean writeBean) {
 		return dao.insert(writeBean);
 	}
@@ -28,10 +30,20 @@ public class WriteServiceImple {
 		return dao.read(num);
 	}
 
-	public int delete(int num) {
+/*	public int delete(int num) {
 		return dao.delete(num);
+	}*/
+
+public int wdelete(int board_num) {
+		
+		return dao.wdelete(board_num);
+		
 	}
 
+public int wupdate(WriteBean writebean) {
+	System.out.println("2");
+	return dao.wupdate(writebean);
+}
 
 	
 	
