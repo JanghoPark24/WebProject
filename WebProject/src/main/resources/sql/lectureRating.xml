@@ -10,8 +10,21 @@
 		 and question_id=(select question_id from question where question_id=(select max(question_id) from question))
 	</select> -->
 	<!---->
-	
-	<select id="getRatedUsersPerLecture_byQuestionVersion" parameterType="hashMap"
+	<select id="getRatedUsersByLectureId" parameterType="int"
+		resultType="int">
+		select count(*) from
+		(select email from 
+		my_rating
+		where lecture_id =#{lecture_id} and
+		question_version = 
+		(select question_version 
+		from lecture
+		where lecture_id = #{lecture_id})
+		group by email)
+	</select>
+
+
+	<select id="getRatedUsersByLecture" parameterType="lecture"
 		resultType="int">
 		select count(*) from
 		(select email from 
@@ -21,8 +34,20 @@
 		group by email)
 	</select>
 	
+	<!--5점 만점 기준 점수 리-->
+	<select id="getAvgScoreById" parameterType="int"
+	resultType="double">
+		SELECT nvl(trunc(avg(avg_score)*5/6, 2),0)
+		FROM questionInfoOfLecture
+		WHERE lecture_id=#{lecture_id} and
+		question_version = 
+		(select question_version
+		from lecture
+		where lecture_id=#{lecture_id}) 
+	</select>
+	
 	<!-- 문항마다 평균 점수 불러옴-->
-	<select id="getLRBList" parameterType="String"
+	<select id="getLRBList" parameterType="hashMap"
 		resultType="thelecture.model.Lecture_ratingBean">
 		SELECT * 
 		from questionInfoOfLecture

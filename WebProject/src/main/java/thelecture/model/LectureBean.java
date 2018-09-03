@@ -15,7 +15,7 @@ public class LectureBean{
 	private int view_count;
 	private int rating_count;
 	private String is_deleted; // y: 삭제됨 n:삭제되지않음(default)
- 	private int total_avg_score;
+ 	private Double total_avg_score;
  	private int rnum; // 검색된 총량
 	private String question_version; // 종속된 질문
  	
@@ -61,10 +61,10 @@ public class LectureBean{
 	public void setIs_deleted(String is_deleted) {
 		this.is_deleted = is_deleted;
 	}
-	public int getTotal_avg_score() {
+	public Double getTotal_avg_score() {
 		return total_avg_score;
 	}
-	public void setTotal_avg_score(int total_avg_score) {
+	public void setTotal_avg_score(Double total_avg_score) {
 		this.total_avg_score = total_avg_score;
 	}
 	public int getLecture_id() {

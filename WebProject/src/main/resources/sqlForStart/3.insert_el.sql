@@ -155,3 +155,17 @@ FROM my_rating
 GROUP BY question_id,question_version,lecture_id) r
 order by question_id;
 
+
+create or replace view questionInfoOfLecture
+as
+SELECT * 
+from 
+(select lecture_id, avg_score 
+from lecture)
+NATURAL JOIN
+(SELECT
+question_id, avg(score) as avg_score,lecture_id
+FROM my_rating
+GROUP BY question_id,question_version,lecture_id) r
+order by question_id;
+

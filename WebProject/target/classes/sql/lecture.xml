@@ -102,8 +102,8 @@
 		#{lecture_code},
 		#{lecture_name},
 		#{professor},
-		0,   
 		#{credit},
+		0,   
 		0,
 		'n',0,#{question_version}) 
 	</insert>

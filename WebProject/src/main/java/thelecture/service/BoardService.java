@@ -42,7 +42,7 @@ public class BoardService {
 		int countOfRow = lecturedao.getRowCount(pagebean);
 
 		System.out.println("countOfRow:" + countOfRow);
-
+		
 		// 행이 0이 아니면 list를 찾음 .
 		if (countOfRow != 0) {
 			// 페이지 정보 정하기
@@ -50,6 +50,12 @@ public class BoardService {
 
 			// list구하기
 			List<LectureBean> lectureList = lecturedao.getLectureList(pagebean);
+			
+			// 평균 구하기
+			lecturedao.getAvgScoreByList(lectureList);
+			//user
+			lecturedao.getRatedUsersByList(lectureList);
+			
 			
 			// 찾은 lectureList 추가
 			boardInfo.put("lectureList", lectureList);

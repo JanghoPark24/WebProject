@@ -7,16 +7,10 @@
 
 <c:set var="lecture_total_score" value="${0}"/>
 <c:set var="question_size" value="${fn:length(rb_list)}"/>
-<c:forEach var="rb" items="${rb_list}">
-	<c:set var="lecture_total_score" value="${lecture_total_score + rb.avg_score}"/>
-</c:forEach>
-<fmt:formatNumber var="lecture_avg_score"
-			  value="${(lecture_total_score/question_size)*(5/6)}"
-			  maxFractionDigits="2" />
+
+
 		
-<c:if test="${lecture_total_score==0}">
-	<c:set var="lecture_avg_score" value="0"/>
-</c:if>
+
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -120,13 +114,15 @@
 			<%-- lb.total_avg_score+ --%>
 			<%-- <h1>${Math.round((1.6373464612*100))/100}</h1> --%>
 			
-			<h1>${lecture_avg_score}</h1> 
+			<h1>${total_avg_score}</h1> 
+			<div>총 ${rating_count}명이 평가했습니다.</div>
 			<div data-productid="313" class="rateit text-center"
 				data-rateit-mode="font"
 <%-- 				data-rateit-value="${Math.round((1.6373464612*100))/100}"
- --%>				data-rateit-value="${lecture_avg_score}"
+ --%>				data-rateit-value="${total_avg_score}"
 				data-rateit-readonly="true" style="width: 100%; font-size: 4em"></div>
 			<br>
+			
 			<div class="row text-left" style="width: 100%">
 				<div class="col-xs-12 col-sm-6 col-md-4 ">대학 : ${lb.univ_name}</div>
 				<div class="col-xs-12 col-sm-6 col-md-4 ">전공 : ${lb.major}</div>
@@ -161,7 +157,7 @@
 						
 						<fmt:formatNumber var="avg_score_byQ"
 							  value="${(qb.avg_score)*(5/6)}"
-							  maxFractionDigits="2" />
+							  maxFractionDigits="1" />
 							  
 						<c:if test="${empty qb.avg_score}">
 							<div>${qb.question_content} : 평균 0/5점</div>

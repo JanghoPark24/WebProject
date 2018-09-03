@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <c:set var="contextPath" value="<%=request.getContextPath()%>"></c:set>
 <%-- <c:set var="lec_List" value="${sessionScope.lectureList}"></c:set> --%>
@@ -67,28 +68,13 @@
 					<td>교수</td>
 
 					<td>평점</td>
-
+					<c:if test="${sessionScope.grade=='master' }">
+					<td>수정/삭제</td>
+					</c:if>
 				</tr>
 
 
-				<tr class="lectureList_content">
-					<td>대학</td>
-					<td><a href="review.do"> 강의명 </a></td>
-					<td>수강학기</td>
-
-
-					<td>강의코드</td>
-
-					<td class="star_rating">
-						<div data-productid="313" class="rateit" data-rateit-mode="font"
-							data-rateit-value="2.5" data-rateit-readonly="true"
-							style="font-size: 100%;"></div>
-						<div style="clear: both;">2.5</div>
-
-
-					</td>
-
-				</tr>
+				
 				<c:if test="${empty lectureList  }">
 					<tr class="lectureList_content">
 						<td colspan="100%">올라온 강의가 없습니다.</td>
@@ -113,7 +99,10 @@
 								<div data-productid="313" class="rateit" data-rateit-mode="font"
 									data-rateit-value="${lecture.total_avg_score}"
 									data-rateit-readonly="true" style="font-size: 100%;">
-									${lecture.total_avg_score}</div>
+									<fmt:formatNumber var="total_avg_score"
+									  value="${lecture.total_avg_score}"
+									  maxFractionDigits="1" />
+									${total_avg_score}</div>
 
 								<div style="clear: both"></div>
 

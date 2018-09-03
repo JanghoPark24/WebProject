@@ -70,10 +70,14 @@ public class EtcService {
 		
 		//rating 항목, 점수 등 가져오기
 		List<Lecture_ratingBean> rb_list = 
-				getRBList(lecture_id, 
+				ratingdao.getRBList(lecture_id, 
 						  lecturedao.getQuestionVersionById(lecture_id));
 		
-		//댓글 속성
+		Double avg_score = lecturedao.getAvgScoreById(lecture_id);
+		//user
+		int ratedUsers= lecturedao.getRatedUsersById(lecture_id);
+		
+		//댓글 속성 
 		int countOfComment = replydao.getReplyCountByLectureId(lecture_id);
 		if(countOfComment!=0) {
 			List<ReplyBean> comment_list = replydao.getAllCommentsByLectureId(lecture_id); 
@@ -95,8 +99,11 @@ public class EtcService {
 			}
 		}
 		
+		
 		model.addAttribute("rb_list", rb_list);// List<Lecture_ratingBean>
 		model.addAttribute("countOfComment",countOfComment);
+		model.addAttribute("total_avg_score",avg_score);
+		model.addAttribute("rating_count",ratedUsers);
 		
 		
 		return lb;
