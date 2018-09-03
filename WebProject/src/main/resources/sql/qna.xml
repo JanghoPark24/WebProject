@@ -3,6 +3,7 @@
 
 <mapper namespace="qna_board">
 
+<!-- 게시물추가 -->
 <insert id="qna_insert"  parameterType="qna">
 	insert into qna_board values
 	(qna_board_seq.nextval,#{univ_name,jdbcType=VARCHAR},
@@ -10,31 +11,40 @@
 	#{content},0,sysdate,'n')
 </insert>
 
+<!-- 총글갯수 -->
 <select id="qna_count" resultType="int"> <!-- resultType=int여야함 -->
   select count(board_num) from qna_board
 </select>
 
-
+<!-- 게시물리스트 -->
 <select id="qna_list" resultType="qna">
  <![CDATA[
  SELECT * from
- (select rownum rnum, board_num,univ_name, subject,
-        REG_DATE, VIEW_COUNT
-         FROM qna_board where IS_DELETED = 'n') 
-        where rnum >= ((#{page}-1) * 10+1)  and rnum <= (#{page} * 10) 
+ (select rownum rnum, c.board_num,c.univ_name, c.subject,
+        c.REG_DATE, c.VIEW_COUNT , nickname
+         FROM qna_board c , member r where c.email = r.email order by c.reg_date desc,c.board_num desc)  
+        where rnum >= ((#{page}-1) * 10+1)  and rnum <= (#{page} * 10)          
 	]]>
 <!--          WHERE   c.email = r.email
  -->
 </select>
 
+<!-- 게시물상세보기 -->
 <select id="qna_read" resultType="qna"> <!-- resultType필요 -->
     select * from qna_board where board_num = #{board_num} 
 </select>
 
-<update id="qna_delete" parameterType="qna">
-	update qna_board
-		set is_deleted ='y'
-		where board_num = #{board_num}
-	</update>
+<!-- 게시물삭제 -->
+<delete id="qna_delete" parameterType="qna">
+	delete from qna_board where
+		board_num=#{board_num}
+	</delete>
+
+<!-- 조회수증가 -->
+ <update id="qna_upcount" parameterType="int">
+		update qna_board set
+		view_count=view_count+1
+		where board_num=#{board_num}
+	</update> 
 
 </mapper>

@@ -29,6 +29,10 @@ public class qnaDaoImpl {
 		return session.selectList("qna_list", page);
 	}
 	
+	public void qna_upcount(int qna_num) {
+		 session.update("qna_upcount", qna_num);
+	}
+	
 	public qnaBean qna_read(int qna_num) {
 		return session.selectOne("qna_read", qna_num);
 	}

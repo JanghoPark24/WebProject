@@ -61,6 +61,7 @@ public class qnaboard {
 	
 	@RequestMapping(value = "qna_read.do")
 	public String qna_read(@RequestParam("qna_num") int qna_num,Model model) {
+		qnaService.qna_upcount(qna_num);
 		qnaBean qna_board = qnaService.qna_read(qna_num); 
 		model.addAttribute("qboard", qna_board);
 		return "content/qna/qna_read";

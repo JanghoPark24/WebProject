@@ -62,7 +62,9 @@ public class qnaService {
     return resultMap;
 }	
 	
-	
+	public void qna_upcount(int qna_num) {
+		 dao.qna_upcount(qna_num);
+	}
 
 	public qnaBean qna_read(int qna_num) {
 		return dao.qna_read(qna_num);
