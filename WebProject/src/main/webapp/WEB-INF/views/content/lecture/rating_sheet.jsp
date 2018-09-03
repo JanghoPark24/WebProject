@@ -47,7 +47,7 @@
 			</div>
 		</div>
 	</form>
-</div>
+</div> 
 <script type="text/javascript">
 		$(function() {
 			<c:forEach var="qb" items="${qb_list}" varStatus="loop">
