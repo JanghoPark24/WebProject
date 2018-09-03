@@ -102,7 +102,7 @@ function updateOptions(formID,urlDestination){
 
 /* selection에 대한 Questionnaire 불러오기 */
 function selectQuestions(questionVersion,forWhat){
-	
+	console.log(questionVersion + ": "+forWhat)
 	$.post("selectQuetionnaire.do",{"questionVersion":questionVersion},function(questions){
 		
 		var questionId="";
@@ -148,11 +148,12 @@ function selectQuestions(questionVersion,forWhat){
 // 질문지 선택
 function searchFunction(){
 	var selectedVersion = $('#qSelect > option:selected').val();
+	
 	if(selectedVersion=='질문지를 선택하세요'){
 		selectedVersion='';
 		return;
 	}
-	
+	console.log(selectedVersion)
 	
 	selectQuestions(selectedVersion,'default');
 }

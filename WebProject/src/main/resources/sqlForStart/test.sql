@@ -142,3 +142,6 @@ ON r.question_version = l.question_version
 order by question_id;
 
 
+select * from question ;
+        where question_version= #{question_version,jdbcType=VARCHAR} AND is_deleted='n'
+        order by question_id

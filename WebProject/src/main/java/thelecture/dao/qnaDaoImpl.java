@@ -37,7 +37,7 @@ public class qnaDaoImpl {
 		return session.selectOne("qna_read", qna_num);
 	}
 	
-	public int qna_delete(String qna_delete) {
-		return session.update("qna_delete", qna_delete);
+	public int qna_delete(int board_num) {
+		return session.delete("qna_delete", board_num);
 	}
 }

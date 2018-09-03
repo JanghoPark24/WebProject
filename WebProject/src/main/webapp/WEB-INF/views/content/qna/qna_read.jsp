@@ -18,8 +18,10 @@
 <div id="boardcont_wrap">
 		<h2 class="boardcont_title" align="center">문의내용</h2>
 		<br><br>
-		<form method="post" action="qna_delete.do" id="qna_delete" name="qna_delete">
-		<table id="boardcont_t" align="center">
+		<form method="post" action="qna_delete.do">
+		<input type="hidden" name="board_num" value="${qboard.board_num}" />
+        <%-- <input type="hidden" name="page" value="${page}" />		
+	--%><table id="boardcont_t" align="center">
 			<tr>
 				<th>제목</th>
 				<td>${qboard.subject}</td>

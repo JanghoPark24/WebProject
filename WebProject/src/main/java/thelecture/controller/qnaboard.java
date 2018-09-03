@@ -68,9 +68,9 @@ public class qnaboard {
 	}
 	
 	@RequestMapping(value = "qna_delete.do" )
-	public String qna_delete(@RequestParam("qna_delete") String qna_delete, Model model,String email,HttpSession session) {		
-		System.out.println("qna_delete");  
-		qnaService.qna_delete(qna_delete);
+	public String qna_delete(@RequestParam("board_num") int board_num, Model model,String email,HttpSession session) {		
+		System.out.println("board_num");  
+		qnaService.qna_delete(board_num);
 		  
 		return "redirect:qna_list.do";
 	}
