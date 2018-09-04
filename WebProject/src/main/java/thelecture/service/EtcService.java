@@ -89,6 +89,7 @@ public class EtcService {
 		
 		//로그인 된 이메일에 대해 answer 했는지 여부 찾기
 		String email= session.getAttribute("email")+"";
+		
 		if(!email.equals(null)) {
 			
 			boolean isAlreadyAnswered = ratingdao.checkIsAlreadyAnsweredByThisEmail(lecture_id, session.getAttribute("email")+"", lb.getQuestion_version());

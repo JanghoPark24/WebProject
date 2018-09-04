@@ -180,10 +180,12 @@
 									</c:choose>
 								</div>
 								</li>
-								<li class="list-group-item"><a
-									class="glyphicon glyphicon-thumbs-up" href="#">${num}</a> <a
-									class="glyphicon glyphicon-thumbs-down" href="#"></a> &nbsp; <a
-									class="re-reply" href="javascript:;"> 답글달기 </a>
+								<li class="list-group-item">
+								<!-- 좋아요 기능 -->
+									<a id="${comment.reply_num}" class="glyphicon glyphicon-thumbs-up thumbs_up" href="javascript:;">${num}</a>
+									<a id="${comment.reply_num}" class="glyphicon glyphicon-thumbs-down thumbs_down" href="javascript:;"></a>&nbsp; 
+									<a id="like_of_${comment.reply_num}"></a>
+									<a class="re-reply" href="javascript:;"> 답글달기 </a>
 
 
 									<form class="re-reply-form">
@@ -287,11 +289,12 @@
 															</li>
 																
 																
-															<li class="list-group-item"><a
-																class="glyphicon glyphicon-thumbs-up" href="#">${num}</a>
-																<a class="glyphicon glyphicon-thumbs-down" href="#"></a>
-																&nbsp; <a class="re-reply" href="javascript:;"> 답글달기
-															</a>
+															<li class="list-group-item">
+																<!-- 좋아요 기능 -->
+																<a id="${re_reply.reply_num}" class="glyphicon glyphicon-thumbs-up thumbs_up" href="javascript:;">${num}</a>
+																<a id="${re_reply.reply_num}" class="glyphicon glyphicon-thumbs-down thumbs_down" href="javascript:;"></a>&nbsp; 
+																<a id="like_of_${comment.reply_num}"></a>
+																<a class="re-reply" href="javascript:;"> 답글달기</a>
 
 																<form class="re-reply-form">
 																	<input type="hidden" name="lecture_id"

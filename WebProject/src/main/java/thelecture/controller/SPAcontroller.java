@@ -65,6 +65,20 @@ public class SPAcontroller {
 		
 		return comment;
 	}
+	@RequestMapping(value="thumbsUpAndDown.do")
+	public int thumbsUpAndDown(String thumbs, int reply_num,HttpSession session) throws Exception {
+		
+		int like = thumbs=="up"? 1:-1;
+		
+		String email = session.getAttribute("email")+"";
+		if(email.equals(null)) {
+			return -1; 
+		}
+		
+//		replyService.thumbs
+		
+		return 0;
+	}
 
 	
 	

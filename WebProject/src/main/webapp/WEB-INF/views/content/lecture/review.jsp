@@ -102,12 +102,37 @@
 	})
 </script>
 
+<!-- 댓글 작성 -->
+<script>
+function thumbs_up_down(thumbs, reply_num){
+	alert(thumbs)
+	$.ajax({
+		url:"thumbsUpAndDown.do?thumbs="+thumbs+"&reply_num="+reply_num,
+		dataType:"json",
+		success:
+			function(total){
+			alert(total)
+		}
+	}) 
+}
+
+$(function(){
+	$(".thumbs_up").on("click",function(){
+		thumbs_up_down('up',this.id);
+	})
+	$(".thumbs_down").on("click",function(){
+		thumbs_up_down('down',this.id);
+	})
+})
+
+</script>
+
 </head>
 <body onload="starting_function()">
 	<div class="container text-center">
 		<!-- 평균 점수 ${average}로 불러옴-->
 		<div id="title">
-			<h3>[${lb.lecture_id}] ${lb.lecture_name}</h3>
+			<h3>[${lb.lecture_code}] ${lb.lecture_name}</h3>
 		</div>
 
 		<div class="container" id="content_middle">

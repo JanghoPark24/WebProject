@@ -136,9 +136,10 @@ public class UploadController {
 				uCon = (HttpURLConnection) url.openConnection();
 				in = uCon.getInputStream(); // 이미지를 불러옴
 			} catch (Exception e) {
-				url = new URL(s3.getFileURL(bucketName, "default.jpg"));
+				url = new URL(s3.getFileURL(bucketName, inputDirectory+"default.png"));
 				uCon = (HttpURLConnection) url.openConnection();
 				in = uCon.getInputStream();
+				
 			}
 
 			entity = new ResponseEntity<byte[]>(IOUtils.toByteArray(in), headers, HttpStatus.CREATED);
