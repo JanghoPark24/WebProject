@@ -45,7 +45,7 @@
 			success : function(data, response) {
 
 				txt1 = JSON.stringify(data)
-				alert(txt1)
+				//alert(txt1)
 				if (data.email == "null") {
 					alert('댓글을 작성하려면 로그인이 필요합니다.')
 					return;
@@ -54,7 +54,7 @@
 									    				
 									    			}
 				 */
-
+				location.reload();
 			}
 		})
 	}

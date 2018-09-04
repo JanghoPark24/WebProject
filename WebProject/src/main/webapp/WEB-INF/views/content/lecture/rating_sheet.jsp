@@ -5,19 +5,27 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
-
+<style>
+	#already_answered{
+		display:block;
+	}
+	#insert_answer_container{
+		display:block;
+	}
+	
+</style>
 	
 	<c:if test="${not empty isAlreadyAnswered 
 					and isAlreadyAnswered==true}">
-		<div>
+		<div id="already_answered">
 			이미 대답에 응답했습니다
 			<button type="button" id="update_answer">수정 하기</button>
 		</div>
 		
 		
 	</c:if>
-<div id="insert_answer_container" style="display:block">
-	<div>당신은 ${lb.univ_name}의 학생입니다</div>
+<div id="insert_answer_container">
+	<div style="display:block">당신은 ${lb.univ_name}의 학생입니다</div>
 
 	<form id="question_form" action="answerQuestion.do">
 		<input type="hidden" name="univ_name" value="${lb.univ_name}" /> <input

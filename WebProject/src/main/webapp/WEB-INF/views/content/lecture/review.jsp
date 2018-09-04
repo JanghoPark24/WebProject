@@ -16,26 +16,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
-<style>
-.bar-container {
-	width: 100%;
-	background-color: #f1f1f1;
-	text-align: center;
-	color: white;
-	border: 1px solid #48f;
-}
 
-/* Individual bars */
-.bar {
-	height: 14px;
-	background-color: #48f;
-}
-
-.pade {
-	padding-bottom: 10px;
-	padding-top: 10px;
-}
-</style>
 
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet"
@@ -59,7 +40,7 @@
 <script src="./js/validate_functions.js" charset="utf-8"></script>
 <%-- <link rel="stylesheet" type="text/css"
 	href="<%=request.getContextPath()%>/css/lecture/review.css" /> --%>
-<title>My Chart.js Chart</title>
+
 
 
 <script>
@@ -126,10 +107,32 @@ $(function(){
 })
 
 </script>
+<style>
+.bar-container {
+	width: 100%;
+	background-color: #f1f1f1;
+	text-align: center;
+	color: white;
+	border: 1px solid #48f;
+}
 
+/* Individual bars */
+.bar {
+	height: 14px;
+	background-color: #48f;
+}
+
+.pade {
+	padding-bottom: 10px;
+	padding-top: 10px;
+}
+
+</style>
+
+<title>My Chart.js Chart</title>
 </head>
 <body onload="starting_function()">
-	<div class="container text-center">
+	<div class="container text-center" width=100%>
 		<!-- 평균 점수 ${average}로 불러옴-->
 		<div id="title">
 			<h3>[${lb.lecture_code}] ${lb.lecture_name}</h3>
@@ -208,7 +211,7 @@ $(function(){
 		<c:import url="/WEB-INF/views/content/lecture/rating_sheet.jsp"></c:import>
 	</c:if>
 	<c:if test="${lb.univ_name!=sessionScope.univ_name}">
-		<div>해당 학교 학생만 평가가 가능합니다.</div>
+		<div style="display:block">해당 학교 학생만 평가가 가능합니다.</div>
 	</c:if>
 	<!-- 로그인된 아이디가 이 학교 아이디이면  나타남.-->
 	<%-- <c:if test="${checked== true}">
