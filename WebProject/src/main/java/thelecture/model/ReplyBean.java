@@ -14,6 +14,7 @@ public class ReplyBean{
 	private int semester;
 	private int lecture_id; //lecture_reply 
 	private String email;
+	private int likes;
 	private int ref;
 	private int depth;
 	private String content;
@@ -94,6 +95,18 @@ public class ReplyBean{
 	}
 	public void setReply_order(String reply_order) {
 		this.reply_order = reply_order;
+	}
+	/**
+	 * @return the likes
+	 */
+	public int getLikes() {
+		return likes;
+	}
+	/**
+	 * @param likes the likes to set
+	 */
+	public void setLikes(int likes) {
+		this.likes = likes;
 	}
 	
 }

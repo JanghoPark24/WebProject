@@ -236,8 +236,8 @@ public class LectureDaoImpl {
 			LectureBean lecture = null;
 			for (int i = 0; i < lectureList.size(); i++) {
 				lecture = lectureList.get(i);
-
-				int rated_users = sqlSession.selectOne("getRatedUsersByLecture", lecture);
+				
+				int rated_users = sqlSession.selectOne("getRatedUsersByLectureId", lecture.getLecture_id());
 				lecture.setRating_count(rated_users);
 			}
 
@@ -250,7 +250,7 @@ public class LectureDaoImpl {
 
 	public Double getAvgScoreById(int lecture_id) {
 		try {
-			return sqlSession.selectOne("getAvgScoreById", lecture_id);
+			return sqlSession.selectOne("lectureRatings.getAvgScoreById", lecture_id);
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -261,12 +261,44 @@ public class LectureDaoImpl {
 	public int getRatedUsersById(int lecture_id) {
 		try {
 
-			return sqlSession.selectOne("getRatedUsersByLectureId", lecture_id);
+			return sqlSession.selectOne("lectureRatings.getRatedUsersByLectureId", lecture_id);
 
 		} catch (Exception e) {
 			e.printStackTrace();
 			return -1;
 		}
+	}
+
+	public boolean insertAvgScoreToLectureByLectureId(Double avg_score, int lecture_id) {
+		int insertedRow;
+		HashMap <String, Object>score_map = new HashMap<>();
+		score_map.put("avg_score", avg_score);
+		score_map.put("lecture_id", lecture_id);
+		
+		try {
+			
+			insertedRow =sqlSession.insert("lectureMap.insertAvgScoreById",score_map);
+		}catch(Exception e) {
+			insertedRow=0;
+			e.printStackTrace();
+		}
+		return (insertedRow==0)? false:true;
+	}
+
+	public boolean insertRatingCountToLectureByLectureId(int ratedUsers, int lecture_id) {
+		int insertedRow;
+		HashMap <String, Object>score_map = new HashMap<>();
+		score_map.put("rating_count", ratedUsers);
+		score_map.put("lecture_id", lecture_id);
+		
+		try {
+			
+			insertedRow =sqlSession.insert("lectureMap.insertRatingCountById",score_map);
+		}catch(Exception e) {
+			insertedRow=0;
+			e.printStackTrace();
+		}
+		return (insertedRow==0)? false:true;
 	}
 
 }

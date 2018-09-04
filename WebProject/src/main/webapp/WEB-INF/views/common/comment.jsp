@@ -10,6 +10,29 @@
 
 <link rel="stylesheet" href="${path}/css/comment.css">
 <script>
+
+$(function(){
+	
+})
+
+</script>
+<script>
+
+	/*
+		좋아요 기능	
+	*/
+	function thumbs_up_down(thumbs, reply_num) {
+		alert(thumbs)
+		$.ajax({
+			url : "thumbsUpAndDown.do?thumbs=" + thumbs + "&reply_num="
+					+ reply_num,
+			dataType : "json",
+			success : function(total) {
+				alert(total)
+			}
+		})
+	}
+
 	/*
 		lecture id에 따라 커멘트 불러옴		
 	 */
@@ -51,8 +74,8 @@
 					return;
 
 				}/* else if(data.){
-									    				
-									    			}
+													    				
+													    			}
 				 */
 				location.reload();
 			}
@@ -69,6 +92,12 @@
 				/* var commentButton = $("#"+selectedId).closest('button[type=button]');	
 				commentButton. */
 			}
+		});
+		$(".thumbs_up").on("click",function(){
+			thumbs_up_down('up',this.id);
+		});
+		$(".thumbs_down").on("click",function(){
+			thumbs_up_down('down',this.id);
 		});
 	})
 </script>

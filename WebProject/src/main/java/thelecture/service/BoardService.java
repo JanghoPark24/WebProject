@@ -52,9 +52,9 @@ public class BoardService {
 			List<LectureBean> lectureList = lecturedao.getLectureList(pagebean);
 			
 			// 평균 구하기
-			lecturedao.getAvgScoreByList(lectureList);
+//			lecturedao.getAvgScoreByList(lectureList);
 			//user
-			lecturedao.getRatedUsersByList(lectureList);
+//			lecturedao.getRatedUsersByList(lectureList);
 			
 			
 			// 찾은 lectureList 추가
@@ -126,11 +126,20 @@ public class BoardService {
 		boolean answerSucceed;
 		//아직 이 이메일로 평가 x
 		if(alreadyAnswered==false) {
+			//답글 넣기
 			answerSucceed=ratingdao.insertAnswer(lecture_id, email, question_version, question_id, question_value);
+			
 		}else {
 			answerSucceed=ratingdao.updateAnswer(lecture_id, email, question_version,question_id, question_value);
 		}
-		return answerSucceed;
+		//평균 점수 입력하기
+		Double avg_score = lecturedao.getAvgScoreById(lecture_id);
+		boolean insertAvgSuccess=lecturedao.insertAvgScoreToLectureByLectureId(avg_score,lecture_id);
+		
+		int ratedUsers= lecturedao.getRatedUsersById(lecture_id);
+		boolean insertRatingSuccess=lecturedao.insertRatingCountToLectureByLectureId(ratedUsers,lecture_id);
+		
+		return (answerSucceed && insertAvgSuccess && insertRatingSuccess);
 	}
 
 }

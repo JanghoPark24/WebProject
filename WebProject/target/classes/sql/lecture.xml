@@ -88,7 +88,7 @@
 	 -->	
 	<select id="getQuestionnaire" parameterType="String" resultType="question">
 		select * from question 
-        where question_version= #{question_version,jdbcType=VARCHAR} AND is_deleted='n'
+        where question_version= #{question_version,jdbcType=VARCHAR2} AND is_deleted='n'
         order by question_id 
 	</select>
 	
@@ -115,6 +115,16 @@
 	</insert>
 	<insert id="insertLectureQuestion" parameterType="hashMap">
 		insert into question values(seq_question_id.nextval,#{question_version},#{question_content},'n')
+	</insert>
+	<insert id="insertAvgScoreById" parameterType="hashMap">
+		update lecture
+		set total_avg_score= #{avg_score}
+		where lecture_id = #{lecture_id}
+	</insert>
+	<insert id="insertRatingCountById" parameterType="hashMap">
+		update lecture
+		set rating_count= #{rating_count}
+		where lecture_id = #{lecture_id}
 	</insert>
 	
 	<!--새로운 댓글 입력

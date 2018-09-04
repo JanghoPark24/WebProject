@@ -84,29 +84,7 @@
 </script>
 
 <!-- 댓글 작성 -->
-<script>
-function thumbs_up_down(thumbs, reply_num){
-	alert(thumbs)
-	$.ajax({
-		url:"thumbsUpAndDown.do?thumbs="+thumbs+"&reply_num="+reply_num,
-		dataType:"json",
-		success:
-			function(total){
-			alert(total)
-		}
-	}) 
-}
 
-$(function(){
-	$(".thumbs_up").on("click",function(){
-		thumbs_up_down('up',this.id);
-	})
-	$(".thumbs_down").on("click",function(){
-		thumbs_up_down('down',this.id);
-	})
-})
-
-</script>
 <style>
 .bar-container {
 	width: 100%;
@@ -142,12 +120,12 @@ $(function(){
 			<%-- lb.total_avg_score+ --%>
 			<%-- <h1>${Math.round((1.6373464612*100))/100}</h1> --%>
 			
-			<h1>${total_avg_score}</h1> 
-			<div>총 ${rating_count}명이 평가했습니다.</div>
+			<h1>${lb.total_avg_score}</h1> 
+			<div>총 ${lb.rating_count}명이 평가했습니다.</div>
 			<div data-productid="313" class="rateit text-center"
 				data-rateit-mode="font"
 <%-- 				data-rateit-value="${Math.round((1.6373464612*100))/100}"
- --%>				data-rateit-value="${total_avg_score}"
+ --%>				data-rateit-value="${lb.total_avg_score}"
 				data-rateit-readonly="true" style="width: 100%; font-size: 4em"></div>
 			<br>
 			

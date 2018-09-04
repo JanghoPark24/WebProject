@@ -75,8 +75,8 @@ public class SPAcontroller {
 			return -1; 
 		}
 		
-//		replyService.thumbs
-		
+		boolean likeSuccess= replyService.likeOrDislikeReply(like,reply_num,email);
+		int likes = (likeSuccess==true)? replyService.getLikeByReplyNumAndEmail(reply_num,email):-1;
 		return 0;
 	}
 

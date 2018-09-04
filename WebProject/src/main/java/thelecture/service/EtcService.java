@@ -73,9 +73,8 @@ public class EtcService {
 				ratingdao.getRBList(lecture_id, 
 						  lecturedao.getQuestionVersionById(lecture_id));
 		
-		Double avg_score = lecturedao.getAvgScoreById(lecture_id);
+	
 		//user
-		int ratedUsers= lecturedao.getRatedUsersById(lecture_id);
 		
 		//댓글 속성 
 		int countOfComment = replydao.getReplyCountByLectureId(lecture_id);
@@ -104,8 +103,7 @@ public class EtcService {
 		model.addAttribute("rb_list", rb_list);// List<Lecture_ratingBean>
 		model.addAttribute("qb_list", qb_list);// List<Lecture_ratingBean>
 		model.addAttribute("countOfComment",countOfComment);
-		model.addAttribute("total_avg_score",avg_score);
-		model.addAttribute("rating_count",ratedUsers);
+
 		
 		
 		return lb;

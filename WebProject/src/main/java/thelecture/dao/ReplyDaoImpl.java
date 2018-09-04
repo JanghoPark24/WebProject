@@ -1,5 +1,6 @@
 package thelecture.dao;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
@@ -99,6 +100,65 @@ public class ReplyDaoImpl implements ReplyDao {
 	public int getReplyNumOfLastComment(ReplyBean reply) {
 		
 		return  sqlSession.selectOne("reply.getReplyNumOfLastComment",reply);
+	}
+
+	
+
+	public int cancelLikeInReply(ReplyBean likeInfo) {
+		try {
+			int canceledRow;
+			
+			canceledRow = sqlSession.selectOne("reply.cancelLikeInReply",likeInfo);
+			return canceledRow;
+		}catch(Exception e) {
+			e.printStackTrace();
+			return 0;			
+		}
+	}
+
+	public int getLikeByEmailAndReplyNum(ReplyBean likeInfo) {
+		try {
+			int emailRow;
+			
+			emailRow = sqlSession.selectOne("reply.checkLikeByEmailAndReplyNum",likeInfo);
+			return emailRow;
+		}catch(Exception e) {
+			e.printStackTrace();
+			return 0;
+		}
+	}
+
+	public int getEmailByReplyNum(ReplyBean likeInfo) {
+		
+		try {
+			int emailRow;
+			
+			emailRow = sqlSession.selectOne("reply.checkEmailByReplyNum",likeInfo);
+			return emailRow;
+		}catch(Exception e) {
+			e.printStackTrace();
+			return 0;
+		}
+	}
+
+	public int add_new_likeToReply(ReplyBean likeInfo) {
+		try {
+			
+			return sqlSession.insert("insertLikeToReply",likeInfo);
+		}catch(Exception e) {
+			e.printStackTrace();
+			return 0;
+		}
+	}
+
+	public int updateLikeInReply(ReplyBean likeInfo) {
+		try {
+			
+			return sqlSession.insert("updateLikeInReply",likeInfo);
+		}catch(Exception e) {
+			e.printStackTrace();
+			return 0;
+		}
 	}
 
 }

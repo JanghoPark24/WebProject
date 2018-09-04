@@ -17,6 +17,20 @@
 		order by reply_order desc  
 		
 	</select>
+	<select id="checkEmailByReplyNum" parameterType="reply" resultType="int" >
+		select count(*)
+		FROM LECTURE_REPLY_LIKE
+		WHERE reply_num = #{reply_num} and
+		email = #{email}
+		
+	</select>
+	<select id="checkLikeByEmailAndReplyNum" parameterType="reply" resultType="int" >
+		select count(*)
+		FROM LECTURE_REPLY_LIKE
+		WHERE reply_num = #{reply_num} and
+		email = #{email} and
+		like in(1,-1)
+	</select>
 	<select id="getRepliesOfCommentsByLectureId" parameterType="int" resultType="reply">
 		SELECT *
   		FROM
@@ -79,6 +93,13 @@
 		)
 	      
 	</insert>
+	<insert id="insertLikeToReply" parameterType="reply">
+		
+	    INSERT into 
+	    LECTURE_REPLY_LIKE
+	    VALUES(#{reply_num},#{email},#{likes})
+	      
+	</insert>
 	<!--order가 넘어온 order보다 높을 때 수정-->
 	<update id="updateBeforeAddReply" parameterType="reply">
         update lecture_reply
@@ -86,6 +107,20 @@
         where lecture_id = #{lecture_id}
         and reply_order &gt; #{reply_order}
            
+	</update>
+	<update id="updateLikeInReply" parameterType="reply">
+        UPDATE LECTURE_REPLY_LIKE
+	    SET
+	    likes = #{likes}
+	    reply_num =#{reply_num} and
+	    email =#{email}
+	</update>
+	<update id="cancelLikeInReply" parameterType="reply">
+        UPDATE LECTURE_REPLY_LIKE
+	    SET
+	    likes = 0
+	    reply_num =#{reply_num} and
+	    email =#{email}
 	</update>
 
 </mapper>

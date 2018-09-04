@@ -103,7 +103,8 @@ function updateOptions(formID,urlDestination){
 /* selection에 대한 Questionnaire 불러오기 */
 function selectQuestions(questionVersion,forWhat){
 	console.log(questionVersion + ": "+forWhat)
-	$.post("selectQuetionnaire.do",{"questionVersion":questionVersion},function(questions){
+	$.post("selectQuetionnaire.do",{"questionVersion":questionVersion},
+	function(questions){
 		
 		var questionId="";
 		var output="";
