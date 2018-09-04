@@ -1,4 +1,39 @@
-
+SELECT * from
+ (select rownum rnum, c.board_num,c.univ_name, c.subject,
+        c.REG_DATE, c.VIEW_COUNT , nickname
+         FROM qna_board c , member r where c.email = r.email order by c.reg_date desc,c.board_num desc)  
+        where rnum >= ((1-1) * 10+1)  and rnum <= (1 * 10)          
+select * from user_sequences;
+        select * from member;
+     
+        
+        where rnum >= ((1-1) * 10+1)  and rnum <= (1 * 10)  
+        
+        select * from member;
+        select * from qna_board;
+        
+        select qna_board_seq.currval from dual;
+        select rownum rnum, c.board_num,c.univ_name, c.subject,
+        c.REG_DATE, c.VIEW_COUNT , nickname
+         FROM qna_board c , member r 
+         where c.email = r.email 
+         order by c.board_num desc,c.reg_date desc
+        select
+         
+        SELECT *
+        FROM(
+	        SELECT rownum rnum, board_num, univ_name, subject,
+	        REG_DATE, VIEW_COUNT , nickname 
+	        FROM
+		        (SELECT *
+		        FROM QNA_BOARD q, member m
+		        WHERE q.email = m.email
+		        order by board_num desc))
+        WHERE rnum>= ((1-1) * 10+1)
+        and rnum <= (1* 10) 
+        
+select * from qna_board;
+select rownum,board_num,subject,reg_date from qna_board ;
 SELECT * FROM file_storage;
 UPDATE lecture
         SET

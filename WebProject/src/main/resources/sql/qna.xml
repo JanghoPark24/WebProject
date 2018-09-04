@@ -19,11 +19,17 @@
 <!-- 게시물리스트 -->
 <select id="qna_list" resultType="qna">
  <![CDATA[
- SELECT * from
- (select rownum rnum, c.board_num,c.univ_name, c.subject,
-        c.REG_DATE, c.VIEW_COUNT , nickname
-         FROM qna_board c , member r where c.email = r.email order by c.reg_date desc,c.board_num desc)  
-        where rnum >= ((#{page}-1) * 10+1)  and rnum <= (#{page} * 10)          
+	SELECT * 
+	FROM
+	    (SELECT rownum rnum, q.* 
+	    FROM
+	        (SELECT c.board_num,c.univ_name, c.subject,
+	         c.REG_DATE, c.VIEW_COUNT , nickname
+	         FROM qna_board c , member r 
+	         WHERE c.email = r.email 
+	         ORDER BY c.board_num desc,c.reg_date desc) q)
+	WHERE rnum >= ((#{page}-1) * 10+1)
+	and rnum <= (#{page} * 10)          
 	]]>
 <!--          WHERE   c.email = r.email
  -->
