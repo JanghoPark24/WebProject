@@ -37,7 +37,7 @@
 	<!--5점 만점 기준 점수 리-->
 	<select id="getAvgScoreById" parameterType="int"
 	resultType="double">
-		SELECT nvl(trunc(avg(avg_score)*5/6, 2),0)
+		SELECT trunc(avg(nvl(avg_score,0))*5/6, 2)
 		FROM questionInfoOfLecture
 		WHERE lecture_id=#{lecture_id} and
 		question_version = 

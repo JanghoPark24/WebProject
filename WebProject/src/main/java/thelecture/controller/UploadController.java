@@ -137,7 +137,7 @@ public class UploadController {
 				in = uCon.getInputStream(); // 이미지를 불러옴
 			} catch (Exception e) {
 				e.printStackTrace();
-				url = new URL(s3.getFileURL(bucketName, inputDirectory+"default.png")); // 이미지
+				url = new URL(s3.getFileURL(bucketName, inputDirectory+"/default.png")); // 이미지
 				uCon = (HttpURLConnection) url.openConnection();
 			}
 

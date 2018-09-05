@@ -25,11 +25,10 @@
 		
 	</select>
 	<select id="checkLikeByEmailAndReplyNum" parameterType="reply" resultType="int" >
-		select count(*)
+		select likes
 		FROM LECTURE_REPLY_LIKE
 		WHERE reply_num = #{reply_num} and
-		email = #{email} and
-		like in(1,-1)
+		email = #{email}
 	</select>
 	<select id="getRepliesOfCommentsByLectureId" parameterType="int" resultType="reply">
 		SELECT *
@@ -62,7 +61,22 @@
 		lecture_id =#{lecture_id}
 		
 	</select>
-
+	
+<!-- 	<select id="getLikesByReplyNum" parameterType="int" resultType="int">
+		SELECT sum(likes) from lecture_reply_like
+		WHERE
+		reply_num=#{reply_num}
+	</select> -->
+	<select id="getLikesByReplyNum" parameterType="int" resultType="int">
+		SELECT likes from lecture_reply
+		WHERE
+		reply_num=#{reply_num}
+	</select>
+	<select id="getEmailByReplyNum" parameterType="int" resultType="String">
+		SELECT email from lecture_reply
+		WHERE
+		reply_num=#{reply_num}
+	</select>
 	
 	<!--새로운 댓글 입력
 		
@@ -76,7 +90,8 @@
 				#{content},sysdate,'n',
 				nvl((select max(reply_order)
 					from lecture_reply
-					where lecture_id=#{lecture_id})+1,0) 
+					where lecture_id=#{lecture_id})+1,0)
+				,0 
 				
 		) 
 	</insert>
@@ -88,18 +103,27 @@
 				#{email},
 				#{ref},
 				1,
-				#{content},sysdate,'n', #{reply_order}+1
+				#{content},sysdate,'n', #{reply_order}+1,
+				0 
 				
 		)
 	      
 	</insert>
-	<insert id="insertLikeToReply" parameterType="reply">
+	<insert id="insertLikeToReplyCheck" parameterType="reply">
 		
 	    INSERT into 
 	    LECTURE_REPLY_LIKE
 	    VALUES(#{reply_num},#{email},#{likes})
 	      
 	</insert>
+	<update id="update_likeToReply" parameterType="reply">
+		
+	    UPDATE 
+	    LECTURE_REPLY
+	    SET likes = likes + #{likes}
+	    WHERE
+	    reply_num =#{reply_num}
+	</update>
 	<!--order가 넘어온 order보다 높을 때 수정-->
 	<update id="updateBeforeAddReply" parameterType="reply">
         update lecture_reply
@@ -108,19 +132,28 @@
         and reply_order &gt; #{reply_order}
            
 	</update>
-	<update id="updateLikeInReply" parameterType="reply">
+	<update id="updateLikeReplyCheck" parameterType="reply">
         UPDATE LECTURE_REPLY_LIKE
 	    SET
 	    likes = #{likes}
+	    WHERE
 	    reply_num =#{reply_num} and
 	    email =#{email}
 	</update>
-	<update id="cancelLikeInReply" parameterType="reply">
+	<update id="cancelLikeInReplyCheck" parameterType="reply" >
         UPDATE LECTURE_REPLY_LIKE
 	    SET
 	    likes = 0
+	    WHERE
 	    reply_num =#{reply_num} and
 	    email =#{email}
+	</update>
+	<update id="cancelLikeInReply" parameterType="reply" >
+        UPDATE LECTURE_REPLY
+	    SET
+	    likes = likes -#{likes}
+	    WHERE
+	    reply_num =#{reply_num} 
 	</update>
 
 </mapper>

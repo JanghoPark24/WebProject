@@ -9,12 +9,13 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import thelecture.model.ReplyBean;
+import thelecture.service.ReplyService;
 
 @Repository
 public class ReplyDaoImpl implements ReplyDao {
 	@Autowired
 	private SqlSession sqlSession;
-
+	
 	public List<ReplyBean> getAllCommentsByLectureId(int lecture_id) {
 
 		return sqlSession.selectList("reply.getAllCommentsByLectureId", lecture_id);
@@ -61,18 +62,16 @@ public class ReplyDaoImpl implements ReplyDao {
 		}
 		return (affectedRow != 0) ? true : false;
 	}
-	
+
 	public List<ReplyBean> getRepliesOfCommentsByLectureId(int lecture_id) {
-		
-		return sqlSession.selectList("reply.getRepliesOfCommentsByLectureId",lecture_id);
+
+		return sqlSession.selectList("reply.getRepliesOfCommentsByLectureId", lecture_id);
 	}
 
 	public ReplyBean getLectureCommentByReplyNum(int reply_num) {
 
 		return sqlSession.selectOne("reply.getLectureCommentByReplyNum", reply_num);
 	}
-
-
 
 	@Override
 	public boolean addComment(ReplyBean reply) {
@@ -95,69 +94,95 @@ public class ReplyDaoImpl implements ReplyDao {
 		return 0;
 	}
 
-	
 	@Override
 	public int getReplyNumOfLastComment(ReplyBean reply) {
-		
-		return  sqlSession.selectOne("reply.getReplyNumOfLastComment",reply);
+
+		return sqlSession.selectOne("reply.getReplyNumOfLastComment", reply);
 	}
 
-	
-
-	public int cancelLikeInReply(ReplyBean likeInfo) {
+	public int cancelLikeInReply(ReplyBean likeInfo, int like) {
 		try {
-			int canceledRow;
-			
-			canceledRow = sqlSession.selectOne("reply.cancelLikeInReply",likeInfo);
-			return canceledRow;
-		}catch(Exception e) {
+			Integer canceledRow = 0;
+
+			canceledRow += sqlSession.update("reply.cancelLikeInReplyCheck", likeInfo);
+			canceledRow += sqlSession.update("reply.cancelLikeInReply", likeInfo);
+			return (canceledRow==2)?1:0;
+		} catch (Exception e) {
 			e.printStackTrace();
-			return 0;			
+			return 0;
 		}
 	}
 
 	public int getLikeByEmailAndReplyNum(ReplyBean likeInfo) {
 		try {
-			int emailRow;
-			
-			emailRow = sqlSession.selectOne("reply.checkLikeByEmailAndReplyNum",likeInfo);
-			return emailRow;
-		}catch(Exception e) {
+			Integer emailRow;
+
+			emailRow = sqlSession.selectOne("reply.checkLikeByEmailAndReplyNum", likeInfo);
+			return (emailRow==null)? 0:emailRow;
+		} catch (Exception e) {
 			e.printStackTrace();
 			return 0;
 		}
 	}
 
 	public int getEmailByReplyNum(ReplyBean likeInfo) {
-		
+
 		try {
-			int emailRow;
-			
-			emailRow = sqlSession.selectOne("reply.checkEmailByReplyNum",likeInfo);
+			int emailRow=0;
+
+			emailRow = sqlSession.selectOne("reply.checkEmailByReplyNum", likeInfo);
 			return emailRow;
-		}catch(Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 			return 0;
 		}
 	}
 
 	public int add_new_likeToReply(ReplyBean likeInfo) {
+		int affectedRow = 0;
 		try {
-			
-			return sqlSession.insert("insertLikeToReply",likeInfo);
-		}catch(Exception e) {
+			affectedRow += sqlSession.insert("insertLikeToReplyCheck", likeInfo);
+			affectedRow += sqlSession.update("update_likeToReply", likeInfo);
+
+			return affectedRow==2? 1:0;
+		} catch (Exception e) {
 			e.printStackTrace();
 			return 0;
 		}
 	}
 
-	public int updateLikeInReply(ReplyBean likeInfo) {
+	public int updateLikeInReply(ReplyBean likeInfo, int like, int type) {
+		int affectedRow = 0;
 		try {
+			affectedRow += sqlSession.insert("updateLikeReplyCheck", likeInfo);
 			
-			return sqlSession.insert("updateLikeInReply",likeInfo);
-		}catch(Exception e) {
+			//현재와 같으면 like에서 -1, 현재와 다르면 
+			likeInfo.setLikes(type==ReplyService.DIFFERENT? 2*like : like );
+			affectedRow += sqlSession.update("update_likeToReply", likeInfo);
+			return (affectedRow == 2) ? 1 : 0;
+		} catch (Exception e) {
 			e.printStackTrace();
 			return 0;
+		}
+	}
+
+	public int getLikesByReplyNum(int reply_num) {
+		try {
+			Integer likes = sqlSession.selectOne("getLikesByReplyNum", reply_num);
+			return (likes == null) ? 0 : likes;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return 0;
+		}
+	}
+
+	public String getEmailByReplyNum(int reply_num) {
+		try {
+
+			return sqlSession.selectOne("getEmailByReplyNum", reply_num);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "";
 		}
 	}
 

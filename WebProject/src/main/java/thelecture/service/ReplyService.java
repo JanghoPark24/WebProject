@@ -16,7 +16,10 @@ import thelecture.model.ReplyBean;
 public class ReplyService {
 	@Autowired
 	ReplyDaoImpl replydao;
-
+	public final static int NOT_EXIST=0;
+	public final static int ADD=1;
+	public final static int DIFFERENT = 2;
+	
 	public ReplyBean addAndGetLectureComment(ReplyBean comment_info) {
 		boolean commentSuccess = replydao.addLectureComment(comment_info);
 		if (commentSuccess == true) {
@@ -38,37 +41,55 @@ public class ReplyService {
 	public boolean likeOrDislikeReply(int like, int reply_num,String email) {
 		
 		//추가될 like 정보
-		ReplyBean likeInfo = new ReplyBean();
-		likeInfo.setLikes(like);
-		likeInfo.setReply_num(reply_num);
+		ReplyBean newLikeInfo = new ReplyBean();
+		
+		
+		newLikeInfo.setLikes(like);
+		newLikeInfo.setReply_num(reply_num);
+		newLikeInfo.setEmail(email);
 		
 		int affectedRow=0;
 		//이메일로 이미 like or dislike 있는지 대조 (
 		
 		//reply num에 이메일 존재하는지 구해오기
-		int existingEmailByReplyNum = replydao.getEmailByReplyNum(likeInfo);
+		int email_in_replyNum = replydao.getEmailByReplyNum(newLikeInfo);
 		//reply num에 점수가 1또는 -1인지 구해오기
-		int existingLikeRowByReplyNum = replydao.getLikeByEmailAndReplyNum(likeInfo);
+		int existingLikeType= replydao.getLikeByEmailAndReplyNum(newLikeInfo);
 		
+		System.out.println("existingEmailCount:"+email_in_replyNum);
+		System.out.println("existingLikeByEmail:"+existingLikeType);
 		
-		
-		//적용 한게 없으면 적용 
-		if(existingEmailByReplyNum==0) {
-			affectedRow = replydao.add_new_likeToReply(likeInfo);
-		}else if(existingLikeRowByReplyNum==0) {
-			affectedRow = replydao.updateLikeInReply(likeInfo);
+		//댓글에 생성된 현재 이메일 없음
+		if(email_in_replyNum==NOT_EXIST ) {
+			affectedRow = replydao.add_new_likeToReply(newLikeInfo);
+			
+		//댓글에 현재 이메일 생성됐고 like check는 되지 않음
+		}else if(existingLikeType ==NOT_EXIST){ 
+			affectedRow = replydao.updateLikeInReply(newLikeInfo,like,NOT_EXIST);
+			
+		//댓글에 현재 이메일 생성됐고 like check와 지금 like가 서로 다름
+		}else if(existingLikeType == -like){
+			affectedRow = replydao.updateLikeInReply(newLikeInfo,like,DIFFERENT);
+			
+		//댓글에 현재 이메일 생성됐고 like check와 지금 like가 서로 같음
+		}else if(existingLikeType == like) {
+			affectedRow = replydao.cancelLikeInReply(newLikeInfo,like);
 			
 		}
-		else {
-		//적용 한게 있으면 취소
-			affectedRow = replydao.cancelLikeInReply(likeInfo);
-		}
+		
+		//체크 안됐고 새로운 like
+		
+		
+		
+		System.out.println("affectedRow:"+affectedRow);
 		return (affectedRow==1)? true:false;
 	}
 
-	public int getLikeByReplyNumAndEmail(int reply_num, String email) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int getLikesByReplyNum(int reply_num) {
+		int likes = replydao.getLikesByReplyNum(reply_num);
+		
+		//like가 0보다 크거나 같으면 그대로 아니면 0으로 
+		return  (likes>=0)? likes: 0;
 	}
 
 }

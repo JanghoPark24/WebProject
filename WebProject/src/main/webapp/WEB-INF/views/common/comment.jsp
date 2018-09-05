@@ -27,8 +27,21 @@ $(function(){
 			url : "thumbsUpAndDown.do?thumbs=" + thumbs + "&reply_num="
 					+ reply_num,
 			dataType : "json",
-			success : function(total) {
-				alert(total)
+			success : function(likes) {
+				
+				if(likes==-3){
+					/* 자기 자신을 추천 했을 때*/	
+				}else if(likes==-2){
+					alert("로그인을 해주십시오")
+				}else if(likes==-1){
+					alert('좋아요 실패')
+				}else if(likes==0){
+					document.getElementById('like_of_'+reply_num)
+					.innerText = "";
+				}else{
+					document.getElementById('like_of_'+reply_num)
+					.innerText = likes+"명이 좋아합니다.";
+				}
 			}
 		})
 	}
@@ -213,7 +226,13 @@ $(function(){
 								<!-- 좋아요 기능 -->
 									<a id="${comment.reply_num}" class="glyphicon glyphicon-thumbs-up thumbs_up" href="javascript:;">${num}</a>
 									<a id="${comment.reply_num}" class="glyphicon glyphicon-thumbs-down thumbs_down" href="javascript:;"></a>&nbsp; 
-									<a id="like_of_${comment.reply_num}"></a>
+									<a id="like_of_${comment.reply_num}">
+									
+									<c:if test="${comment.likes != 0}">
+										${comment.likes}명이 좋아합니다.
+									</c:if>
+									
+									</a>
 									<a class="re-reply" href="javascript:;"> 답글달기 </a>
 
 
@@ -320,9 +339,17 @@ $(function(){
 																
 															<li class="list-group-item">
 																<!-- 좋아요 기능 -->
+																
+																
 																<a id="${re_reply.reply_num}" class="glyphicon glyphicon-thumbs-up thumbs_up" href="javascript:;">${num}</a>
 																<a id="${re_reply.reply_num}" class="glyphicon glyphicon-thumbs-down thumbs_down" href="javascript:;"></a>&nbsp; 
-																<a id="like_of_${comment.reply_num}"></a>
+																<a id="like_of_${re_reply.reply_num}">
+																	
+																	<c:if test="${re_reply.likes!=0}">
+																		${re_reply.likes}명이 좋아합니다.
+																	</c:if>
+																	
+																</a>
 																<a class="re-reply" href="javascript:;"> 답글달기</a>
 
 																<form class="re-reply-form">
