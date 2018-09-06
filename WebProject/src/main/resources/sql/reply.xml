@@ -132,6 +132,18 @@
         and reply_order &gt; #{reply_order}
            
 	</update>
+	<update id="updateComment" parameterType="reply">
+		UPDATE lecture_reply
+		SET content = #{content}
+		WHERE reply_num = #{reply_num}
+	</update>
+	
+	<update id="deleteComment" parameterType="reply">
+		UPDATE lecture_reply
+		SET is_deleted= 'y'
+		WHERE reply_num = #{reply_num}
+	</update>
+	
 	<update id="updateLikeReplyCheck" parameterType="reply">
         UPDATE LECTURE_REPLY_LIKE
 	    SET

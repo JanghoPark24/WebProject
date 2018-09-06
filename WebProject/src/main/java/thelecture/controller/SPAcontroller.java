@@ -66,6 +66,20 @@ public class SPAcontroller {
 
 		return comment;
 	}
+	@RequestMapping(value = "updateComment.do")
+	public ReplyBean updateComment(ReplyBean comment, HttpSession session) {
+		
+		String email = session.getAttribute("email") + "";
+		System.out.println("email:" + email);
+		if (email.equals(null)) {
+			
+			return null;
+		}
+		
+		comment = replyService.updateAndGetLectureComment(comment);
+		
+		return comment;
+	}
 
 	//-2: 로그인 필요, -1 추천 실패
 	@RequestMapping(value = "thumbsUpAndDown.do")
@@ -86,6 +100,18 @@ public class SPAcontroller {
 			int likes = (likeSuccess == true) ? replyService.getLikesByReplyNum(reply_num) : -1;
 			
 			return likes;
+		}
+	}
+	//-3 올바르지 않은 이메일, 0: 삭제 실패, 1 삭제 성공
+	@RequestMapping(value = "delete_comment.do")
+	public int delete_comment(ReplyBean reply, HttpSession session, Model model) throws Exception {
+		if(!reply.getNickname().equals(session.getAttribute("nickname"))) {
+			
+			return -3; 
+			
+		}else {
+			int result = replyDao.delete_comment(reply);
+			return result; 
 		}
 	}
 

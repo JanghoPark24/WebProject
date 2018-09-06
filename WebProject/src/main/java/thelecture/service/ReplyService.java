@@ -92,4 +92,13 @@ public class ReplyService {
 		return  (likes>=0)? likes: 0;
 	}
 
+	public ReplyBean updateAndGetLectureComment(ReplyBean comment) {
+		boolean commentSuccess = replydao.updateLectureComment(comment);
+		if (commentSuccess == true) {
+			// 마지막 Reply Num을 가져옴
+			comment = replydao.getLectureCommentByReplyNum(comment.getReply_num());
+		}
+		return comment;
+	}
+
 }

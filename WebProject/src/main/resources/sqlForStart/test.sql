@@ -6,6 +6,9 @@ select * from question
         
         select * from lecture;
         
+select * from lecture_reply;
+
+        
 insert into lecture(total_avg_score) values(0)
 where lecture_id = 61;
 

@@ -15,7 +15,7 @@ import thelecture.service.ReplyService;
 public class ReplyDaoImpl implements ReplyDao {
 	@Autowired
 	private SqlSession sqlSession;
-	
+
 	public List<ReplyBean> getAllCommentsByLectureId(int lecture_id) {
 
 		return sqlSession.selectList("reply.getAllCommentsByLectureId", lecture_id);
@@ -106,7 +106,7 @@ public class ReplyDaoImpl implements ReplyDao {
 
 			canceledRow += sqlSession.update("reply.cancelLikeInReplyCheck", likeInfo);
 			canceledRow += sqlSession.update("reply.cancelLikeInReply", likeInfo);
-			return (canceledRow==2)?1:0;
+			return (canceledRow == 2) ? 1 : 0;
 		} catch (Exception e) {
 			e.printStackTrace();
 			return 0;
@@ -118,7 +118,7 @@ public class ReplyDaoImpl implements ReplyDao {
 			Integer emailRow;
 
 			emailRow = sqlSession.selectOne("reply.checkLikeByEmailAndReplyNum", likeInfo);
-			return (emailRow==null)? 0:emailRow;
+			return (emailRow == null) ? 0 : emailRow;
 		} catch (Exception e) {
 			e.printStackTrace();
 			return 0;
@@ -128,7 +128,7 @@ public class ReplyDaoImpl implements ReplyDao {
 	public int getEmailByReplyNum(ReplyBean likeInfo) {
 
 		try {
-			int emailRow=0;
+			int emailRow = 0;
 
 			emailRow = sqlSession.selectOne("reply.checkEmailByReplyNum", likeInfo);
 			return emailRow;
@@ -144,7 +144,7 @@ public class ReplyDaoImpl implements ReplyDao {
 			affectedRow += sqlSession.insert("insertLikeToReplyCheck", likeInfo);
 			affectedRow += sqlSession.update("update_likeToReply", likeInfo);
 
-			return affectedRow==2? 1:0;
+			return affectedRow == 2 ? 1 : 0;
 		} catch (Exception e) {
 			e.printStackTrace();
 			return 0;
@@ -155,9 +155,9 @@ public class ReplyDaoImpl implements ReplyDao {
 		int affectedRow = 0;
 		try {
 			affectedRow += sqlSession.insert("updateLikeReplyCheck", likeInfo);
-			
-			//현재와 같으면 like에서 -1, 현재와 다르면 
-			likeInfo.setLikes(type==ReplyService.DIFFERENT? 2*like : like );
+
+			// 현재와 같으면 like에서 -1, 현재와 다르면
+			likeInfo.setLikes(type == ReplyService.DIFFERENT ? 2 * like : like);
 			affectedRow += sqlSession.update("update_likeToReply", likeInfo);
 			return (affectedRow == 2) ? 1 : 0;
 		} catch (Exception e) {
@@ -184,6 +184,35 @@ public class ReplyDaoImpl implements ReplyDao {
 			e.printStackTrace();
 			return "";
 		}
+	}
+
+	public boolean updateLectureComment(ReplyBean comment) {
+		Integer affectedRow;
+
+		try {
+
+			affectedRow = sqlSession.update("reply.updateComment", comment);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			affectedRow = null;
+
+		}
+		return (affectedRow == null) ? false : true;
+	}
+
+	public int delete_comment(ReplyBean comment) {
+		Integer affectedRow;
+		try {
+
+			affectedRow = sqlSession.update("reply.deleteComment", comment);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			affectedRow = null;
+
+		}
+		return (affectedRow == null) ? 0 : affectedRow;
 	}
 
 }

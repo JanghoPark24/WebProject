@@ -4,11 +4,25 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 
+
 <c:set var="path" value="<%=request.getContextPath()%>"></c:set>
 <c:set var = "now" value = "<%= new java.util.Date() %>" />
 <fmt:formatDate value="${now}" pattern="yyyy-MM-dd" var="today_date" />
 
 <link rel="stylesheet" href="${path}/css/comment.css">
+
+<!-- 댓글 엘리먼트 정보가 일시적으로 담길 var-->
+<script>
+	<c:forEach var="comment" items="${comment_list}">
+		var temp_el_of_<c:out value="${comment.reply_num}"/>;	
+		var el_<c:out value="${comment.reply_num}"/>_checked=false;
+	</c:forEach>
+	<c:forEach var="re_reply" items="${re_reply_list}">
+		var temp_el_of_<c:out value="${re_reply.reply_num}"/>;	
+		var el_<c:out value="${re_reply.reply_num}"/>_checked=false;
+	</c:forEach>
+</script>
+
 <script>
 
 $(function(){
@@ -31,6 +45,7 @@ $(function(){
 				
 				if(likes==-3){
 					/* 자기 자신을 추천 했을 때*/	
+					alert('자기 자신은 평가할 수 없습니다.')
 				}else if(likes==-2){
 					alert("로그인을 해주십시오")
 				}else if(likes==-1){
@@ -93,9 +108,50 @@ $(function(){
 				location.reload();
 			}
 		})
+		
+	}
+	function comment_update(reply_num){
+		
+		var updating_name = 'el_'+reply_num+'_checked';
+		var comment_updating = window[updating_name];
+		var updating_text= $("#content_"+reply_num).text();
+		
+		//수정 누를 경우 수정 중으로 전환
+		if(comment_updating===false){
+			
+			window[updating_name]= true;
+			//대입
+			window['temp_el_of_'+reply_num] = $("#comment_"+reply_num).html();
+			
+			var id_checked = 'el_'+reply_num+'_checked';
+			var editForm = "<form id=update_comment_"+reply_num+" class="+reply_num+">"+
+								"<input type='hidden' name='reply_num' value='"+reply_num+"'/>"+
+								"<textarea name='content' id='reply_comment_area"+reply_num+ 
+								"' class='comment_area form-control' rows='5' width='100%' placeholder='공개 댓글 추가' autocomplete='off'></textarea>"+
+								"<div class='reply-button-container'>"+
+									"<button type='reset' class='button_block cancel_update' onclick='comment_update("+reply_num+")'>취소</button>"+
+									"<button type='button' id=update_reply_comment"+reply_num+" class='update_comment button_block'>댓글 수정</button>"+
+								"</div>"+
+							"</form>";
+			
+			$("#comment_"+reply_num).html(editForm);
+							
+			
+			$("#reply_comment_area"+reply_num).text(updating_text);
+				
+		}else if(comment_updating ===true){
+			window[updating_name]=false;
+			$("#comment_"+reply_num).html(window['temp_el_of_'+reply_num])
+		}
+		
+	}
+	// 삭제
+	function delete_comment(event){
+		alert(event.id)
 	}
 	$(function() {
 		//댓글 달기
+		
 		$("* .submit_comment").on("click", function() {
 			addComment(this.id);
 		});
@@ -112,6 +168,50 @@ $(function(){
 		$(".thumbs_down").on("click",function(){
 			thumbs_up_down('down',this.id);
 		});
+		$(document).on("click",".update_comment",function(){
+			var frm = $("#"+this.id).closest("form");
+			serializedVal = frm.serialize(); 
+			alert(serializedVal)
+			
+			//수정
+			$.ajax({
+				url: "updateComment.do?"+serializedVal,
+				success: function(comment){
+					comment_update(comment.reply_num);	
+					$("#content_"+comment.reply_num).
+						text(comment.content);
+				}
+			
+			})
+		})
+		
+		//삭제
+		$(document).on("click",".delete_comment_anchor",function(){
+			
+			
+			var del_frm = $("#"+this.id).closest("form");
+			var serializedVal = del_frm.serialize();
+			
+			
+			$.ajax({
+				url:"delete_comment.do?"+serializedVal,
+				//result -3: 다른 닉네임, 0:실패, 1:성공
+				success:function(result){
+					var message;
+					message = 
+						(result === -3)? '다른 닉네임을 입력하셨습니다.':
+						(result === 0) ? '삭제에 실패하였습니다.':
+						(result === 1) ? '삭제에 성공하였습니다':'';
+					alert(message)
+					
+					if(result===1){
+						// 삭제되었습니다로 입력
+					}
+					
+				}
+				
+			})
+		})
 	})
 </script>
 <script>
@@ -169,13 +269,23 @@ $(function(){
 						</div>
 
 					</div>
-					<div class="reply-body">
-						<div class="reply">
+					<div class="reply-body" >
+						<c:if test="${comment.is_deleted=='y'}">
+						<div class="reply" id="reply_${comment.reply_num}">
 							<ul class="list-group">
-								<li class="list-group-item">
-								<div class="comment_content">
+								<li class="list-group-item" id="comment_${comment.reply_num}">
+									댓글이 삭제되었습니다.
+								</li>
+							</ul>
+						</div>
+						</c:if>
+						<c:if test="${comment.is_deleted=='n'}">
+						<div class="reply" id="reply_${comment.reply_num}">
+							<ul class="list-group">
+								<li class="list-group-item" id="comment_${comment.reply_num}">
+								<div class="comment_content" >
 									<a href="">${comment.nickname}</a> 
-									${comment.content}
+									<p id="content_${comment.reply_num}"><c:out value="${comment.content}"/></p>
 								</div>
 								<div class="comment_date">
 								
@@ -221,8 +331,19 @@ $(function(){
 										</c:otherwise>
 									</c:choose>
 								</div>
+								<c:if test="${sessionScope.nickname== comment.nickname}">
+								<!-- 삭제기능 -->
+								<div class="update_delete_container">
+									<a onclick="comment_update(${comment.reply_num})">댓글 수정</a> &nbsp;
+									<form id="delete_comment_${comment.reply_num}">
+										<input type="hidden" name="reply_num" value="${comment.reply_num}">
+										<input type="hidden" name="nickname" value="${comment.nickname}">
+										<a id="delete_comment_anchor_${comment.reply_num}" class="delete_comment_anchor">댓글 삭제</a>
+									</form>
+								</div>
+								</c:if>
 								</li>
-								<li class="list-group-item">
+								<li class="list-group-item" id="comment_${comment.reply_num}">
 								<!-- 좋아요 기능 -->
 									<a id="${comment.reply_num}" class="glyphicon glyphicon-thumbs-up thumbs_up" href="javascript:;">${num}</a>
 									<a id="${comment.reply_num}" class="glyphicon glyphicon-thumbs-down thumbs_down" href="javascript:;"></a>&nbsp; 
@@ -236,45 +357,49 @@ $(function(){
 									<a class="re-reply" href="javascript:;"> 답글달기 </a>
 
 
-									<form class="re-reply-form">
+									<form class="re-reply-form" id="re-reply-${comment.reply_num}">
 										<!--collapse뒤의 아이디는 jsp에서 불러옴-->
 										<div class="form-group collapse" id="collapse1">
 											<hr />
-											<input type="hidden" name="lecture_id"
-												value='${lb.lecture_id}'> <input type="hidden"
-												name="depth" value='${comment.depth+1}'> <input
-												type="hidden" name="ref" value='${comment.reply_num}'>
-											<input type="hidden" name="reply_order"
-												value='${comment.reply_order}'>
+											<input type="hidden" name="lecture_id" value='${lb.lecture_id}'> 
+											<input type="hidden" name="depth" value='${comment.depth+1}'> 
+											<input type="hidden" name="ref" value='${comment.reply_num}'>
+											<input type="hidden" name="reply_order" value='${comment.reply_order}'>
+												
 											<textarea name="content" id="reply_comment_area${comment.reply_num}"
 												class="comment_area form-control" rows="5" class="comment"
 												width="100%" placeholder="공개 댓글 추가"></textarea>
+												
 											<div class="reply-button-container">
 												<c:if test="${sessionScope.email == null}">
 													<button id="login_for_comment" type="button"
 														class="button_block"
 														onclick="location.href='${path}/loginForm.do'">로그인</button>
+														
 												</c:if>
 												<button type="reset" class="button_block">취소</button>
 												<button type="button" id="submit_reply_comment${comment.reply_num}"
 													class="submit_comment button_block">댓글 작성</button>
 											</div>
 										</div>
-									</form></li>
+									</form>
+								</li>
 
 
 							</ul>
+							
 						</div>
+						</c:if>
 						<!--답글 : 답글이 있으면 개수 fetch해서 불러옴-->
 
 						<c:if test="${not empty re_reply_list}">
-							<div class="re-reply">
+							<div class="re-reply" id="reply_of_${comment.reply_num}">
 								<!--답글 보기, 숨기기: 답글이 있으면 답글 보기 있음. 답글 보기 누르면 답글 보여짐-->
 
-
+								
 								&nbsp;<a class="show-hide-replies" href="javascript:;">답글 보기</a>
 								<br /> <br />
-
+								
 								<div class="re-reply-container">
 
 									<!--reply container하나에 댓글에 대한 대댓글이 모두 들어감. -->
@@ -300,11 +425,12 @@ $(function(){
 													<div class="reply">
 
 														<ul class="list-group">
-															<li class="list-group-item">
-																
+															<li class="list-group-item" id="comment_${re_reply.reply_num}">
+																<!-- 내용 -->
 																<div class="comment_content">
 																	<a href="">${re_reply.nickname}</a>
-																	${re_reply.content}
+																	<p id="content_${re_reply.reply_num}"><c:out value="${re_reply.content}"/></p>
+																	
 																</div>
 																<div class="comment_date">
 																
@@ -332,7 +458,12 @@ $(function(){
 																		</c:otherwise>
 																	</c:choose>
 																</div>
-								
+																<c:if test="${sessionScope.nickname== comment.nickname}">
+																<div class="update_delete_container">
+																	<a onclick="comment_update(${re_reply.reply_num})">댓글 수정</a> &nbsp;
+																	<a href="/delete_comment.do?reply_num=${re_reply.reply_num}&nickname=${comment.nickname}">댓글 삭제</a>
+																</div>
+																</c:if>
 																
 															</li>
 																
@@ -357,6 +488,7 @@ $(function(){
 																		value='${lb.lecture_id}'> <input type="hidden"
 																		name="depth" value='${comment.depth+1}'> <input
 																		type="hidden" name="ref" value='${comment.reply_num}'>
+																		
 																	<input type="hidden" name="reply_order"
 																		value='${re_reply.reply_order}'>
 																	<div class="form-group1">
@@ -390,6 +522,7 @@ $(function(){
 
 							</div>
 						</c:if>
+						
 					</div>
 
 				</div>
