@@ -91,7 +91,8 @@
 								onclick="location.href='review.do?lecture_id=${lecture.lecture_id }'">
 									<div>${lecture.lecture_name}</div>
 									<p>[${lecture.lecture_code }]</p>
-							</a></td>
+								</a>
+							</td>
 
 							<td>${lecture.professor}</td>
 
