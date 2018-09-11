@@ -2,9 +2,47 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:set var="path" value="<%=request.getContextPath()%>"></c:set>
+
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+<script>
+	function answerQuestion() {
+		var frm = $("#question_form");
+		frm.submit();
+	}
+	
+</script>
+<script>
+	<c:if test="${not empty isAlreadyAnswered}">
+	$(function() {
+		$(document).on(
+				"click","#update_answer",
+				function() {
+					var ia_container = document
+							.getElementById("insert_answer_container");
+					var container_display = ia_container.style.display;
+					if (container_display == "none") {
+						ia_container.style.display = "block"
+						
+						this.innerHTML='수정취소'
+					} else {
+						ia_container.style.display = "none"
+						this.innerHTML='수정 하기'
+					}
+				})
+	})
+	</c:if>
+	$(function() {
+		$("#answerQuestion").on("click", function() {
+			var frm = document.getElementById("question_form");
+			var rateSuccess = validateEmptinessWithLabel(frm, 'rate');
+			if (rateSuccess == true)
+				frm.submit();
+		})
+	})
+</script>
 <style>
 	#already_answered{
 		display:block;
@@ -13,15 +51,18 @@
 		display:block;
 	}
 	
-</style>
 	
+</style>
+
+
+
+
 	<c:if test="${not empty isAlreadyAnswered 
 					and isAlreadyAnswered==true}">
 		<div id="already_answered">
 			이미 대답에 응답했습니다
 			<button type="button" id="update_answer">수정 하기</button>
 		</div>
-		
 		
 	</c:if>
 <div id="insert_answer_container">

@@ -1,3 +1,16 @@
+SELECT * from lecture_reply
+WHERE   reply_num =91
+order by reply_order;
+
+select * from 
+questionInfoOfLecture;
+alter session set time_zone='Asia/Seoul';
+select sysdate from dual;
+select localtimestamp from dual;
+
+
+select current_date from dual;
+
 select * from tabs;
 select * from lecture_reply_like;
 select * from question 
@@ -8,6 +21,8 @@ select * from question
         
 select * from lecture_reply;
 
+select * from lecture_reply
+order by reply_order;
         
 insert into lecture(total_avg_score) values(0)
 where lecture_id = 61;

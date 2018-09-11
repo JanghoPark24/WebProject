@@ -78,17 +78,12 @@ public class LecturesController {
 	@RequestMapping(value = "/lectureList.do")
 	public String lectureList(HttpSession session, Model model, PageBean pagebean) {
 
-		// 현재 페이지 불러오기
-		Integer currentPage = pagebean.getCurrentPage();
-
-		if (currentPage == 0)
-			currentPage = 1;
-
+	
 		HashMap<String, Object> boardInfo = null;
 
 		// get List Info -search가 있으면
 
-		boardInfo = boardService.getLectureBoard(currentPage, pagebean);
+		boardInfo = boardService.getLectureBoard(/*currentPage,*/ pagebean);
 
 		// 보드 정보 다음으로 전하기
 		model.addAllAttributes(boardInfo); // page_index, lectureList 전달

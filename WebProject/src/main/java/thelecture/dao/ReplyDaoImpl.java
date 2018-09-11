@@ -69,7 +69,7 @@ public class ReplyDaoImpl implements ReplyDao {
 	}
 
 	public ReplyBean getLectureCommentByReplyNum(int reply_num) {
-
+		System.out.println("reply_num:"+reply_num);
 		return sqlSession.selectOne("reply.getLectureCommentByReplyNum", reply_num);
 	}
 

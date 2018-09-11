@@ -53,8 +53,10 @@
 		SELECT * from lecture_reply
 		WHERE
 		reply_num =#{reply_num}
+		order by reply_order
 		
 	</select>
+	
 	<select id="getReplyCountByLectureId" parameterType="int" resultType="int">
 		SELECT count(reply_num) from lecture_reply
 		WHERE
@@ -87,7 +89,7 @@
 				#{lecture_id},
 				#{email},
 				seq_lecture_re_no.currval,0,
-				#{content},sysdate,'n',
+				#{content},localtimestamp,'n',
 				nvl((select max(reply_order)
 					from lecture_reply
 					where lecture_id=#{lecture_id})+1,0)
@@ -103,7 +105,7 @@
 				#{email},
 				#{ref},
 				1,
-				#{content},sysdate,'n', #{reply_order}+1,
+				#{content},localtimestamp,'n', #{reply_order}+1,
 				0 
 				
 		)

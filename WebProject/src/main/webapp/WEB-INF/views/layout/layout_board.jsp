@@ -10,7 +10,14 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
     <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport'/>
     <meta name="viewport" content="width=device-width"/>
-    
+    <style>
+    .container_x{
+		width:80%;
+		margin-right:auto;
+		margin-left:auto;	
+		display:block;
+	}
+    </style>
    
 	<title>타이틀 넣기</title>
 </head>
@@ -22,10 +29,10 @@
 	
 		<div id ="content">
 		  <tiles:insertAttribute name="body"/>
-		  <div id="content_bottom">
+		  
 			<tiles:insertAttribute name="comment"/>
-		  </div>
 		</div>
+		
 	</div>
 	<tiles:insertAttribute name="footer"/>
 	

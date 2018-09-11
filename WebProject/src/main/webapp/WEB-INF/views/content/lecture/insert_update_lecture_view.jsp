@@ -18,7 +18,7 @@
 	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script src="${path}/js/lecture/question.js"></script>
     <script src="${path}/js/validate_functions.js"></script>
-    
+    <%@ include file="/WEB-INF/views/common/components/question_js.jsp" %>
    	
     <title>강의 평가</title>
     
@@ -54,7 +54,7 @@
 		
 		    	
     </style>
-    <!-- 수정시 -->
+    <!-- 강의 수정시 -->
     <c:if test="${state=='update'}">
     <script>
     	function addValuesWhenUpdate(){

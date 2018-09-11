@@ -3,7 +3,7 @@
 
 <mapper namespace="lectureMap">
 	
-		<select id="getRowCount" parameterType="page_index" resultType="int">
+	<select id="getRowCount" parameterType="page_index" resultType="int">
 		select count(*) from lecture
 		<where>
 			<!--keyword null아니지만 , search는 null-->
@@ -13,7 +13,7 @@
 			<!-- keyword가 대학 -->
 			<if test="keyword == 'univ' and search !=null">
 				lecture_id in
-				(select lecture_id from lecture where univ_name like '%연세%')
+				(select lecture_id from lecture where univ_name like '%${search}%')
 			</if>
 			<!-- keyword가 all일 경우 -->
 			<if test="keyword == 'all' and search !=null">
@@ -88,7 +88,7 @@
 	 -->	
 	<select id="getQuestionnaire" parameterType="String" resultType="question">
 		select * from question 
-        where question_version= #{question_version,jdbcType=VARCHAR2} AND is_deleted='n'
+        where question_version= #{question_version,jdbcType=VARCHAR} AND is_deleted='n'
         order by question_id 
 	</select>
 	

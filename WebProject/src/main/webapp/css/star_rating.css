@@ -1,7 +1,7 @@
 .stars-outer {
     position: relative;
-    display: inline-block;
-  }
+ /*    display: inline-block;
+     */  }
   
   .stars-inner {
     position: absolute;

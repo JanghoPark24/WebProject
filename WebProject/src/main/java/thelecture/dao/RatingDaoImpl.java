@@ -28,9 +28,9 @@ public class RatingDaoImpl {
 		return result;
 	}
 	
-	public List<QuestionBean> getQBList(int lecture_id)  {
+	public List<QuestionBean> getQuestionsByVersion(String question_version)  {
 //		List<QuestionBean> result = sqlSession.selectList("getQBList", lecture_id);
-		List<QuestionBean> result = sqlSession.selectList("getQBList_t", lecture_id);
+		List<QuestionBean> result = sqlSession.selectList("getQBList_t", question_version);
 		return result;
 	}
 	

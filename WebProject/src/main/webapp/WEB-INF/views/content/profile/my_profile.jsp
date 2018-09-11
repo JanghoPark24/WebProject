@@ -86,7 +86,7 @@ table, th, td {
 			<form method="post" name="form1" action="profileUpload.do"
 				enctype="multipart/form-data">
 				<h2 align="center">내 프로필</h2>
-				<tr class="info">
+				<tr>
 					<td rowspan="5">
 						<article align="center">
 							<p id="status"></p>
@@ -123,23 +123,23 @@ table, th, td {
 						</article>
 					</td>
 				</tr>
-				<tr class="info">
+				<tr >
 					<td>${dto.email} <input type=text
 						value="${dto.univ_name}" readonly="readonly"></td>
 				</tr>
-				<tr class="success">
+				<tr >
 					<td><input type=checkbox id="email">메일 공개</td>
 				</tr>
-				<tr class="danger">
+				<tr >
 					<td><input type=text value="${dto.nickname}" size=20
 						name="nickname"> <input type=text value="${dto.major }"
 						size=20 name="major"></td>
 				</tr>
-				<tr class="warning">
+				<tr >
 					<td><textarea cols=90 rows=10 name="profile">${dto.profile }</textarea></td>
 				</tr>
 
-				<tr class="info">
+				<tr >
 					<td colspan=2 align=center><input type="button"
 						value="회원정보 수정" id="btnUpdate" class="btn btn-primary"> <input
 						type="button" value="회원 탈퇴" id="btnUpdate2"

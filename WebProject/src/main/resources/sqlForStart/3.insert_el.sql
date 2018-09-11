@@ -169,3 +169,8 @@ FROM my_rating
 GROUP BY question_id,question_version,lecture_id) r
 order by question_id;
 
+select * from tabs;
+SELECT
+question_id, avg(score) as avg_score,lecture_id
+FROM my_rating
+GROUP BY question_id,question_version,lecture_id;

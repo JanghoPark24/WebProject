@@ -42,7 +42,7 @@ public class EtcService {
 		
 		
 		LectureBean lb = lecturedao.getLectureById(lecture_id);
-		List<QuestionBean> qb_list = ratingdao.getQBList(lecture_id);
+		List<QuestionBean> qb_list = ratingdao.getQuestionsByVersion(lb.getQuestion_version());
 //		List<Lecture_ratingBean> rb_list = ratingdao.getRBList(lecture_id);
 		
 		//댓글 속성
@@ -67,7 +67,7 @@ public class EtcService {
 		
 		
 		LectureBean lb = lecturedao.getLectureById(lecture_id);
-		List<QuestionBean> qb_list = ratingdao.getQBList(lecture_id);
+		List<QuestionBean> qb_list = ratingdao.getQuestionsByVersion(lb.getQuestion_version());
 		//rating 항목, 점수 등 가져오기
 		List<Lecture_ratingBean> rb_list = 
 				ratingdao.getRBList(lecture_id, 
@@ -81,6 +81,8 @@ public class EtcService {
 		if(countOfComment!=0) {
 			List<ReplyBean> comment_list = replydao.getAllCommentsByLectureId(lecture_id); 
 			List<ReplyBean> re_reply_list = replydao.getRepliesOfCommentsByLectureId(lecture_id);
+			
+			
 			model.addAttribute("comment_list", comment_list);// List<QuestionBean>
 			model.addAttribute("re_reply_list",re_reply_list);
 			
@@ -118,8 +120,8 @@ public class EtcService {
 	}
 
 	@Transactional
-	public List<QuestionBean> getQBList(int lecture_id) {
-		List<QuestionBean> result = ratingdao.getQBList(lecture_id);
+	public List<QuestionBean> getQBList(String question_version) {
+		List<QuestionBean> result = ratingdao.getQuestionsByVersion(question_version);
 		return result;
 	}
 	

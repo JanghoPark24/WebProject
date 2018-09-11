@@ -13,10 +13,7 @@ textarea {
 	border: 1px;
 }
 
-#content>div {
-	display: inline-block;
-	overflow: auto;
-}
+
 
 #content_header {
 	width: 100%;
@@ -173,4 +170,10 @@ div.average>div {
 
 #content_bottom>form>div {
 	width: 100%;
+}
+
+
+.deleted_comment_content{
+	float:right;
+	line-height: 5vw;	
 }

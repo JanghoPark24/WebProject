@@ -70,10 +70,8 @@
 	<select id="getQBList_t" parameterType="String"
 		resultType="thelecture.model.QuestionBean">
 		SELECT * from question
-		WHERE QUESTION_VERSION=
-			(select question_version from
-			lecture 
-			where lecture_id=#{lecture_id})
+		WHERE QUESTION_VERSION= #{question_version}
+			
 		ORDER BY question_id
 	</select>
 	

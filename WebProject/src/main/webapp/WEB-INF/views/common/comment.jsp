@@ -7,7 +7,11 @@
 
 <c:set var="path" value="<%=request.getContextPath()%>"></c:set>
 <c:set var = "now" value = "<%= new java.util.Date() %>" />
+
 <fmt:formatDate value="${now}" pattern="yyyy-MM-dd" var="today_date" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
 
 <link rel="stylesheet" href="${path}/css/comment.css">
 
@@ -101,11 +105,10 @@ $(function(){
 					alert('댓글을 작성하려면 로그인이 필요합니다.')
 					return;
 
-				}/* else if(data.){
-													    				
-													    			}
-				 */
-				location.reload();
+				} else {
+						alert(data.content);			    				
+				}
+				 
 			}
 		})
 		
@@ -168,6 +171,7 @@ $(function(){
 		$(".thumbs_down").on("click",function(){
 			thumbs_up_down('down',this.id);
 		});
+		
 		$(document).on("click",".update_comment",function(){
 			var frm = $("#"+this.id).closest("form");
 			serializedVal = frm.serialize(); 
@@ -215,10 +219,23 @@ $(function(){
 	})
 </script>
 <script>
+
+	function starting_function(){
+	    $(".re-reply-form").hide();
 	
+	    //답글이 존재하면 답글 보이지 않게 
+	    if($(".show-hide-replies").siblings(".re-reply-container").children("").length){
+	        $(".re-reply-container").hide();
+	        
+	    //답글이 없으면 
+	    }
+	}
+	
+	window.onload= starting_function;
 </script>
 
 
+<div class="container_x">
 <input type="hidden" id="comment_level">
 
 <c:if test="${not empty countOfComment}">
@@ -259,21 +276,27 @@ $(function(){
 			<!--container 하나에 하나의 댓글 대댓글이 모두 들어감. -->
 			<c:forEach var="comment" items="${comment_list}">
 				<div class="reply-container-content">
+				
 					<div class="author-thumbnail">
+						
 						<div class="author-picture">
 							<!--후에 백엔드에서 뽑아서 들어갈 예정-->
+							<c:if test="${comment.is_deleted=='n'}">
 							<a href="#"> <img
 								src="<%=request.getContextPath()%>/displayFile.do?fileName=${comment.uploadedFile}&directory=profile"
 								width='100%' height="auto">
 							</a>
+							</c:if>
 						</div>
+						
 
 					</div>
 					<div class="reply-body" >
 						<c:if test="${comment.is_deleted=='y'}">
-						<div class="reply" id="reply_${comment.reply_num}">
+						<div class="reply" id="reply_${comment.reply_num}"  >
 							<ul class="list-group">
-								<li class="list-group-item" id="comment_${comment.reply_num}">
+								<li class="list-group-item deleted_comment_content" id="comment_${comment.reply_num}" 
+								style="line-height:4.5vw">
 									댓글이 삭제되었습니다.
 								</li>
 							</ul>
@@ -282,7 +305,7 @@ $(function(){
 						<c:if test="${comment.is_deleted=='n'}">
 						<div class="reply" id="reply_${comment.reply_num}">
 							<ul class="list-group">
-								<li class="list-group-item" id="comment_${comment.reply_num}">
+								<li class="list-group-item" id="comment_${comment.reply_num}" >
 								<div class="comment_content" >
 									<a href="">${comment.nickname}</a> 
 									<p id="content_${comment.reply_num}"><c:out value="${comment.content}"/></p>
@@ -306,10 +329,15 @@ $(function(){
 											 
 											 <c:choose>
 											 	<c:when test="${(passed_seconds/60) <60 }">
-											 		${(passed_seconds/60)}분 전
+											 		<%-- <fmt:parseNumber value="${(passed_seconds/60)}"
+												 	integerOnly="true" var="passed_minutes"/>
+											 		 --%>
+											 		 ${passed_minutes}분 전
 											 	</c:when>
 											 	<c:when test="${(passed_seconds/(60*24)) <12 }">
-											 		${(passed_seconds/60/24)}시간 전
+												 	<%-- <fmt:parseNumber value="${(passed_seconds/60/24)}"
+												 	integerOnly="true" var="passed_hours"/> --%>
+											 		${passed_hours}시간 전
 											 	</c:when>
 											 	<c:otherwise>
 													<fmt:formatDate value="${comment.reg_date}" pattern="오늘 aa HH:mm"  />
@@ -343,7 +371,7 @@ $(function(){
 								</div>
 								</c:if>
 								</li>
-								<li class="list-group-item" id="comment_${comment.reply_num}">
+								<li class="list-group-item" id="comment_${comment.reply_num}" >
 								<!-- 좋아요 기능 -->
 									<a id="${comment.reply_num}" class="glyphicon glyphicon-thumbs-up thumbs_up" href="javascript:;">${num}</a>
 									<a id="${comment.reply_num}" class="glyphicon glyphicon-thumbs-down thumbs_down" href="javascript:;"></a>&nbsp; 
@@ -393,134 +421,8 @@ $(function(){
 						<!--답글 : 답글이 있으면 개수 fetch해서 불러옴-->
 
 						<c:if test="${not empty re_reply_list}">
-							<div class="re-reply" id="reply_of_${comment.reply_num}">
-								<!--답글 보기, 숨기기: 답글이 있으면 답글 보기 있음. 답글 보기 누르면 답글 보여짐-->
-
-								
-								&nbsp;<a class="show-hide-replies" href="javascript:;">답글 보기</a>
-								<br /> <br />
-								
-								<div class="re-reply-container">
-
-									<!--reply container하나에 댓글에 대한 대댓글이 모두 들어감. -->
-									<c:forEach var="re_reply" items="${re_reply_list}">
-										<c:if test="${re_reply.ref == comment.reply_num}">
-											<div class="reply-container-content">
-												<div class="author-thumbnail">
-													<div class="author-picture">
-														<a href="#"> 
-															<c:if test="${not empty re_reply.uploadedFile }">
-																<img src="<%=request.getContextPath()%>/displayFile.do?fileName=${re_reply.uploadedFile}&directory=profile"
-																	width='100%' height="auto">
-															</c:if> <c:if test="${empty re_reply.uploadedFile}">
-																<img src="https://via.placeholder.com/30x30"
-																	width='100%' height="auto">
-															</c:if>
-														</a>
-													</div>
-
-												</div>
-												<div class="reply-body">
-
-													<div class="reply">
-
-														<ul class="list-group">
-															<li class="list-group-item" id="comment_${re_reply.reply_num}">
-																<!-- 내용 -->
-																<div class="comment_content">
-																	<a href="">${re_reply.nickname}</a>
-																	<p id="content_${re_reply.reply_num}"><c:out value="${re_reply.content}"/></p>
-																	
-																</div>
-																<div class="comment_date">
-																
-																	<!-- 오늘과 작성일자의 며칠 차이인지 구함 -->
-																	<fmt:parseNumber
-																    value="${(now.time - comment.reg_date.time) / (1000*60*60*24) }"
-																    integerOnly="true" var="date_difference"/>
-																    
-																    
-																	작성일자 
-																	<fmt:formatDate value="${comment.reg_date}" pattern="yyyy-MM-dd" var="commented_date" />
-																	
-																	<!-- 작성일자에 따른 -->
-																	<c:choose>
-																		<c:when test="${today_date ==commented_date }">
-																			<fmt:formatDate value="${comment.reg_date}" pattern="오늘 HH:mm"  />
-																		</c:when>
-																		
-																		<c:when test="${(0< date_difference)  and (date_difference <10)}">
-																			${date_difference}일 전
-																		</c:when>
-																		
-																		<c:otherwise>
-																			<fmt:formatDate value="${comment.reg_date}" pattern="yyyy년 MM월 dd일"  />
-																		</c:otherwise>
-																	</c:choose>
-																</div>
-																<c:if test="${sessionScope.nickname== comment.nickname}">
-																<div class="update_delete_container">
-																	<a onclick="comment_update(${re_reply.reply_num})">댓글 수정</a> &nbsp;
-																	<a href="/delete_comment.do?reply_num=${re_reply.reply_num}&nickname=${comment.nickname}">댓글 삭제</a>
-																</div>
-																</c:if>
-																
-															</li>
-																
-																
-															<li class="list-group-item">
-																<!-- 좋아요 기능 -->
-																
-																
-																<a id="${re_reply.reply_num}" class="glyphicon glyphicon-thumbs-up thumbs_up" href="javascript:;">${num}</a>
-																<a id="${re_reply.reply_num}" class="glyphicon glyphicon-thumbs-down thumbs_down" href="javascript:;"></a>&nbsp; 
-																<a id="like_of_${re_reply.reply_num}">
-																	
-																	<c:if test="${re_reply.likes!=0}">
-																		${re_reply.likes}명이 좋아합니다.
-																	</c:if>
-																	
-																</a>
-																<a class="re-reply" href="javascript:;"> 답글달기</a>
-
-																<form class="re-reply-form">
-																	<input type="hidden" name="lecture_id"
-																		value='${lb.lecture_id}'> <input type="hidden"
-																		name="depth" value='${comment.depth+1}'> <input
-																		type="hidden" name="ref" value='${comment.reply_num}'>
-																		
-																	<input type="hidden" name="reply_order"
-																		value='${re_reply.reply_order}'>
-																	<div class="form-group1">
-																		<hr />
-																		<textarea class="form-control comment" rows="5" id="reply_comment_area${comment.reply_num}"
-																			name="content" width="100%" placeholder="답글쓰기"></textarea>
-																		<div class="reply-button-container">
-																			<button type="reset" class="button_block">취소</button>
-																			<button id="submit_comment${re_reply.reply_num }" type="button"
-																				class="submit_comment button_block">댓글 작성</button>
-																		</div>
-																	</div>
-																</form></li>
-
-
-														</ul>
-													</div>
-													<!--답글 : 답글이 있으면 개수 fetch해서 불러옴-->
-													<div class="re-reply">
-														<!--답글 보기, 숨기기: 답글이 있으면 답글 보기 있음. 답글 보기 누르면 답글 보여짐-->
-
-													</div>
-												</div>
-
-											</div>
-										</c:if>
-									</c:forEach>
-									<!-- reply container end -->
-								</div>
-
-
-							</div>
+							<%@ include file="/WEB-INF/views/common/reply_to_comment.jsp" %>
+							
 						</c:if>
 						
 					</div>
@@ -534,7 +436,7 @@ $(function(){
 
 <!-- comment 없을 경우-->
 
-
+</div>
 
 
 

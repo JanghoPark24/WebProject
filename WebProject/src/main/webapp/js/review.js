@@ -7,16 +7,6 @@ $(function (req, res, next) {
 
 //처음에 답글 쓰기 모두 숨김
 
-function starting_function(){
-    $(".re-reply-form").hide();
-
-    //답글이 존재하면 답글 보이지 않게 
-    if($(".show-hide-replies").siblings(".re-reply-container").children("").length){
-        $(".re-reply-container").hide();
-        
-    //답글이 없으면 
-    }
-}
 
 $(function(){
    

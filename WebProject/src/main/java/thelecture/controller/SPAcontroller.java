@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import software.amazon.ion.SystemSymbols;
 import thelecture.dao.LectureDaoImpl;
 import thelecture.dao.MemberDaoImpl;
 import thelecture.dao.ReplyDaoImpl;
@@ -68,6 +69,7 @@ public class SPAcontroller {
 	}
 	@RequestMapping(value = "updateComment.do")
 	public ReplyBean updateComment(ReplyBean comment, HttpSession session) {
+		
 		
 		String email = session.getAttribute("email") + "";
 		System.out.println("email:" + email);

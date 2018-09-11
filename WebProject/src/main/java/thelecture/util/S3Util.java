@@ -24,8 +24,8 @@ import com.amazonaws.services.s3.model.PutObjectResult;
 
 public class S3Util {
 
-	private String accessKey = "AKIAIREG5RP6AKGJECOQ"; // 엑세스 키
-	private String secretKey = "fliUV5H12kH9ynNmRjmUYX6Vg4XYq1tbIB2+APGj"; // 보안 엑세스 키
+	private String accessKey = "AKIAINPJHP6373HZPYHQ"; // 엑세스 키
+	private String secretKey = "ykA9VfMY++07Zb3bqFEAQde1uK8Phek2y7AGSxJd"; // 보안 엑세스 키
 
 	private AmazonS3 conn;
 

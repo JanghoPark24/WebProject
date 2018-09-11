@@ -34,14 +34,17 @@ public class BoardService {
 	 *            검색어 찾기
 	 * @return 페이지정보, 검색한 값, 알맞은 리스트를 hashmap에 담아서 return
 	 */
-	public HashMap<String, Object> getLectureBoard(int currentPage, PageBean pagebean) {
-
+	public HashMap<String, Object> getLectureBoard(PageBean pagebean) {
+		
 		HashMap<String, Object> boardInfo = new HashMap<>();
 
+		Integer currentPage = pagebean.getCurrentPage();
+
+		if (currentPage == 0)
+			pagebean.setCurrentPage(1);
+		
 		// 현재 총 행
 		int countOfRow = lecturedao.getRowCount(pagebean);
-
-		System.out.println("countOfRow:" + countOfRow);
 		
 		// 행이 0이 아니면 list를 찾음 .
 		if (countOfRow != 0) {
@@ -50,12 +53,6 @@ public class BoardService {
 
 			// list구하기
 			List<LectureBean> lectureList = lecturedao.getLectureList(pagebean);
-			
-			// 평균 구하기
-//			lecturedao.getAvgScoreByList(lectureList);
-			//user
-//			lecturedao.getRatedUsersByList(lectureList);
-			
 			
 			// 찾은 lectureList 추가
 			boardInfo.put("lectureList", lectureList);
