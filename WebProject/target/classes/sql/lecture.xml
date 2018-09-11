@@ -31,7 +31,7 @@
 			select * from lecture
 		<where>
 			<!--keyword null아니지만 , search는 null-->
-			<if test="keyword != null and search ==''">
+			<if test="keyword != '' and search ==''">
 				lecture_id = -1
 			</if>
 			<!--keyword가 대학-->

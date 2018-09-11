@@ -29,6 +29,8 @@ public class PageBean extends VOBean{
 	public PageBean() {
 		
 	}
+	
+	//현재 페이지와 row에 대해 최대 인덱스 정함
 	public void setPage_andRow(int currentPage, int countOfRow) {
 		
 		this.currentPage = currentPage;

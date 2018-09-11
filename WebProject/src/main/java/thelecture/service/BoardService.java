@@ -39,9 +39,9 @@ public class BoardService {
 		HashMap<String, Object> boardInfo = new HashMap<>();
 
 		Integer currentPage = pagebean.getCurrentPage();
-
+		
 		if (currentPage == 0)
-			pagebean.setCurrentPage(1);
+			currentPage=1;
 		
 		// 현재 총 행
 		int countOfRow = lecturedao.getRowCount(pagebean);

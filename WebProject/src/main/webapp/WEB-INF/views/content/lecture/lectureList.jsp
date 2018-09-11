@@ -148,23 +148,23 @@
 			<c:if test="${not empty page_index}">
 
 				<ul class="pagination">
-
-					<c:if test="${ page_index.currentPage>1}">
-						<li><a
-							href="lectureList.do?currentPage=1<c:if test='${not empty page_index.keyword}'>&search=${page_index.search}&keyword=${page_index.keyword}</c:if>">맨처음</a></li>
-						<li><a
-							href="lectureList.do?currentPage=${page_index.firstIndex}<c:if test='${not empty page_index.keyword}'>&search=${page_index.search}&keyword=${page_index.keyword}</c:if>">이전</a></li>
+					<c:set var="search_keyword" value=""/>
+					<c:if test="${not empty page_index.keyword}">
+						<c:set var="search_keyword" value="search=${page_index.search}&keyword=${page_index.keyword}"/>
 					</c:if>
-					<c:forEach varStatus="index" begin="${page_index.firstIndex}"
-						end="${page_index.lastIndex}">
+					<c:if test="${page_index.currentPage>1}">
+						<li><a href="lectureList.do?currentPage=1&${search_keyword}">맨처음</a></li>
+						<li><a href="lectureList.do?currentPage=${page_index.firstIndex}&${search_keyword}">이전</a></li>
+					</c:if>
+					<c:forEach varStatus="index" begin="${page_index.firstIndex}" end="${page_index.lastIndex}">
 						<li><a
-							href="lectureList.do?currentPage=${index.count}<c:if test='${not empty page_index.keyword}'>&search=${page_index.search}&keyword=${page_index.keyword}</c:if>">${index.count}</a></li>
+							href="lectureList.do?currentPage=${index.count}&${search_keyword}">${index.count}</a></li>
 					</c:forEach>
 					<c:if test="${page_index.currentPage < page_index.totalPage}">
 						<li><a
-							href="lectureList.do?currentPage=${page_index.lastIndex+1}<c:if test='${not empty page_index.keyword}'>&search=${page_index.search}&keyword=${page_index.keyword}</c:if>">다음</a></li>
+							href="lectureList.do?currentPage=${page_index.lastIndex+1}&${search_keyword}">다음</a></li>
 						<li><a
-							href="lectureList.do?currentPage=${page_index.totalPage}<c:if test='${not empty page_index.keyword}'>&search=${page_index.search}&keyword=${page_index.keyword}</c:if>">맨끝</a></li>
+							href="lectureList.do?currentPage=${page_index.totalPage}&${search_keyword}">맨끝</a></li>
 					</c:if>
 
 				</ul>
