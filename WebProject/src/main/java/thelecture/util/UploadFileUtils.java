@@ -32,7 +32,6 @@ public class UploadFileUtils {
 		s3.fileUpload(bucketName, uploadPath+uploadedFileName, byteData);
 
 
-//	s3.fileUpload(bucketName, new File(fileName))
 		System.out.println("uploadedFileName:"+uploadedFileName);
 		return uploadedFileName;
 

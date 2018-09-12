@@ -90,27 +90,14 @@ table, th, td {
 					<td rowspan="5">
 						<article align="center">
 							<p id="status"></p>
-							<!-- <div class="filebox"> -->
-							<!-- <label for="profileImg">프로필 수정</label> -->
-
-							<c:if test="${not empty dto}">
-								<%-- <img
-									src="<%=request.getContextPath()%>/images/${myprofile.profile_img}"
-									width=200 height="300"> --%>
-								
+							<c:if test="${not empty dto.uploadedFile}">
 								<img
 								src="<%=request.getContextPath()%>/displayFile.do?fileName=${dto.uploadedFile}&directory=profile"
 								width=200 height="300">
-<%-- 								<img
-								src="https://s3.ap-northeast-2.amazonaws.com/thelecture/profileImage${dto.uploadedFile}"
-								width=200 height="300">
+<%-- 								
  --%>							</c:if>
-							<c:if test="${empty dto}">
-								<%-- <img
-									src="<%=request.getContextPath()%>/images/${dto.profile_img}"
-									width=200 height="300"> --%>
-								<img
-									src="https://via.placeholder.com/200x300"
+							<c:if test="${empty dto.uploadedFile}">
+								<img src="https://via.placeholder.com/200x300"
 									width=200 height="300">
 							</c:if>
 							<input type="file" id="profileImg" name="profileImg">
@@ -124,7 +111,7 @@ table, th, td {
 					</td>
 				</tr>
 				<tr >
-					<td>${dto.email} <input type=text
+					<td>${dto.email} <input type=text name="univ_name"
 						value="${dto.univ_name}" readonly="readonly"></td>
 				</tr>
 				<tr >

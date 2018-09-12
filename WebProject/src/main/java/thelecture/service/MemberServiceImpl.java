@@ -1,5 +1,6 @@
 package thelecture.service;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.StringTokenizer;
@@ -12,6 +13,7 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import thelecture.controller.MailHandler;
@@ -20,6 +22,7 @@ import thelecture.dao.UnivDaoImpl;
 import thelecture.model.MemberBean;
 import thelecture.security.SHA256;
 import thelecture.security.TempKey;
+import thelecture.util.UploadFileUtils;
 
 @Service
 @Transactional
@@ -236,7 +239,9 @@ public class MemberServiceImpl {
 
 	@Transactional
 	// 회원정보수정
-	public boolean member_update(MemberBean mb) throws Exception {
+	public boolean member_update(MemberBean mb,  MultipartFile profileImg) throws Exception {
+		if (profileImg.getOriginalFilename() != "")
+			mb = uploadAndSetProfileImg(mb, profileImg);
 		
 		boolean memberUpdateSuccess=memberDao.member_update(mb);
 		
@@ -250,7 +255,12 @@ public class MemberServiceImpl {
 	}
 	@Transactional
 	// 회원정보수정
-	public boolean member_update_profile(MemberBean mb) throws Exception {
+	public boolean member_update_profile(MemberBean mb, MultipartFile mf) throws Exception {
+		// 파일이 있을 경우만 아마존에 업로드 후 mb 가져오기
+				if (mf.getOriginalFilename() != "")
+					mb = uploadAndSetProfileImg(mb, mf);
+		
+		
 		boolean profileUpdateSuccess = memberDao.member_update_profile(mb);
 		boolean imageInsertSuccess = memberDao.insertProfile(mb);
 		
@@ -274,4 +284,25 @@ public class MemberServiceImpl {
 		return memberDao.getMemberByEmail(email);
 	}
 
+	public MemberBean uploadAndSetProfileImg(MemberBean mb, MultipartFile file) {
+		String directory = "profileImage";
+		String filename = file.getOriginalFilename();
+		
+		//파일 이름이 없으면 리턴
+		if(filename=="") return mb;
+		
+		// 아마존에 업로드
+		
+			String uploadedFile;
+			try {
+				uploadedFile = UploadFileUtils.uploadFile(directory, filename, file.getBytes());
+				mb.setProfile_img(filename);
+				mb.setUploadedFile(uploadedFile);
+				mb.setDirectory(directory);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+
+		return mb;
+	}
 }
