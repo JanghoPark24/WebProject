@@ -221,9 +221,12 @@ public class MemberServiceImpl {
 				ModelAndView loginM;
 				if (grade.equals("unknown")) {// grade가 "unknown"이면
 					loginM = new ModelAndView("member/reg_info");
-				} else {// 정상적으로 로그인
+				} else if (grade.equals("delete")){ //grade가 "delete"이면
+					loginM = new ModelAndView("member/delete_member");
+				} else {                      // 정상적으로 로그인
 					loginM = new ModelAndView("content/home");
 				}
+				
 				session.setAttribute("grade", grade);
 				return loginM;
 			}
@@ -305,4 +308,11 @@ public class MemberServiceImpl {
 
 		return mb;
 	}
+	
+	/*회원정보삭제*/
+
+public void member_delete(MemberBean mb) {
+	memberDao.member_delete(mb);
+}
+	
 }

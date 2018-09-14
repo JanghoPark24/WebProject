@@ -74,8 +74,10 @@
 					<li class="dropdown"><a class="dropdown-toggle"
 						data-toggle="dropdown" href="#">${sessionScope.nickname}</a>
 						<ul class="dropdown-menu">
+						<c:if test="${sessionScope.grade !='delete' && sessionScope.grade !='unknown'}">
 							<li><a href="my_profile.do"><span
 									class="glyphicon glyphicon-user"></span> My profile</a></li>
+						</c:if>			
 							<c:if test="${sessionScope.grade=='master'}">
 								<li><a href="user_list.do"><span
 										class="glyphicon glyphicon-user"></span> Member List</a></li>

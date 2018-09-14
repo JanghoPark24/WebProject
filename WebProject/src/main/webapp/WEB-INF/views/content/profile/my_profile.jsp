@@ -21,7 +21,8 @@
 
 	$(function() {
 		$("#btnUpdate2").click(function() {
-			document.form1.action = "";
+			alert(" 회원탈퇴가 완료되었습니다")
+			document.form1.action = "memberdelete.do";
 
 			document.form1.submit();
 
