@@ -120,12 +120,7 @@ public class UploadController {
 		String inputDirectory = null;
 		if(directory.equals("profile")) {
 			inputDirectory = "profileImage";
-		}else if(directory.equals("certificate")) {
-			inputDirectory = "almom/certificate";
-		}else {
-			inputDirectory = "almom/coverImage";
 		}
-
 
 
 		try {

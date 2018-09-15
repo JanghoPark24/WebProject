@@ -21,7 +21,7 @@
 	href="https://use.fontawesome.com/releases/v5.1.0/css/all.css">
 <link rel="stylesheet"
 	href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
-<!--별점-->
+<!--별점 https://gjunge.github.io/rateit.js/examples/-->
 <link rel="stylesheet" href="./css/rating/rateit.css">
 
 
@@ -106,7 +106,6 @@
 		</c:forEach> --%>
 	</div>
 </div>
-<c:if test="${not empty sessionScope.email && sessionScope.univ == lb.univ_name}">
 
 <div class="container_x">
 	<div class="row">
@@ -121,6 +120,7 @@
 					</div>
 				</div>
 			</c:forEach> --%>
+			
 			<c:forEach var="qb" items="${rb_list}">
 				<div class="col-sm-6 col-md-4 pade">
 					
@@ -148,7 +148,8 @@
 		</div>
 	</div>
 </div>
-</c:if>
+
+<c:if test="${not empty sessionScope.email}">
 
 <div class="container_x">
 
@@ -159,7 +160,7 @@
 		<div style="display:block">해당 학교 학생만 평가가 가능합니다.</div>
 	</c:if>
 </div>
-
+</c:if>
 <!-- 로그인된 아이디가 이 학교 아이디이면  나타남.-->
 <%-- <c:if test="${checked== true}">
 	<div class="container">

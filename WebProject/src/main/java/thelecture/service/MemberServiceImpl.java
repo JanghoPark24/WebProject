@@ -257,8 +257,8 @@ public class MemberServiceImpl {
 	// 회원정보수정
 	public boolean member_update_profile(MemberBean mb, MultipartFile mf) throws Exception {
 		// 파일이 있을 경우만 아마존에 업로드 후 mb 가져오기
-				if (mf.getOriginalFilename() != "")
-					mb = uploadAndSetProfileImg(mb, mf);
+		if (mf.getOriginalFilename() != "")
+			mb = uploadAndSetProfileImg(mb, mf);
 		
 		
 		boolean profileUpdateSuccess = memberDao.member_update_profile(mb);

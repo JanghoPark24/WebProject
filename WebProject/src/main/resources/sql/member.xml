@@ -119,8 +119,14 @@
 	</select>
 	<select id="getMemberByEmail_noImage" parameterType="String"
 		resultType="member">
-		select *
-		from member
+		select
+		email,
+		nickname,
+		univ_name,
+		major,
+		profile,
+		profile_img
+		from memberView
 		where email = #{email}
 
 	</select>

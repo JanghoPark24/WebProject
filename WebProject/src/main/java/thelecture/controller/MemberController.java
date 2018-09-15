@@ -172,7 +172,8 @@ public class MemberController {
 
 	// 회원정보 수정
 	@RequestMapping("memberUpdate.do")
-	public String memberUpdate(@ModelAttribute MemberBean mb, @RequestParam("profileImg") MultipartFile profileImg,
+	public String memberUpdate(@ModelAttribute MemberBean mb, 
+			@RequestParam("profileImg") MultipartFile profileImg,
 			Model model, HttpSession session) throws Exception {
 
 		// 이메일 저장 -- null값을 막기 위함

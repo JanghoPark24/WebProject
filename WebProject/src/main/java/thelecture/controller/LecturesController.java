@@ -209,7 +209,7 @@ public class LecturesController {
 			String email = session.getAttribute("email")+"";
 			boolean answerSuccess = boardService.answerQuestion(lecture_id,question_version, email, question_id,question_value);
 //			
-			model.addAttribute("isAlreadyAnswered",answerSuccess);
+			model.addAttribute("isAlreadyAnswered",(answerSuccess)?true:false);
 			return answerSuccess==true?"redirect:review.do?lecture_id="+lecture_id:"updateFail//e";
 			
 		}

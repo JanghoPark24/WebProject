@@ -127,7 +127,7 @@ public class MemberDaoImpl {
 
 	public MemberBean getMemberByEmail(String email) {
 		MemberBean memberInfo = sqlSession.selectOne("getMemberByEmail", email);
-		if (memberInfo==null) {
+		if (memberInfo.getProfile_img()==null) {
 			memberInfo = sqlSession.selectOne("getMemberByEmail_noImage", email);
 		}
 		return memberInfo;
