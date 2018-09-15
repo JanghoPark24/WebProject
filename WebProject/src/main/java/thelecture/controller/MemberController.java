@@ -262,5 +262,13 @@ public class MemberController {
 	}
 	*/
 	
-
+	
+	/*회원정보삭제*/
+@RequestMapping("memberdelete.do")
+	public String memberdelete(@ModelAttribute MemberBean mb , HttpSession session) {
+	mb.setEmail((String)session.getAttribute("email"));
+	memberService.member_delete(mb);
+	return "redirect:logout.do";
+ }
+	
 }

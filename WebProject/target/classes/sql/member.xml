@@ -136,5 +136,13 @@
 		values(#{email},#{directory},#{profile_img},#{uploadedFile},'n',sysdate)
 	</insert>
 	
+	<!-- 회원정보삭제 -->
+	<update id="member_delete">
+	update
+	member
+	set
+	grade = 'delete'
+	where email = #{email}
+	</update>
 
 </mapper>

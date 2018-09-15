@@ -150,4 +150,8 @@ public class MemberDaoImpl {
 //		return sqlSession.selectOne("selectProfileURL",mb);
 //	}
 
+	/*회원정보삭제*/
+	public void member_delete(MemberBean mb) {
+		sqlSession.update("member_delete", mb);
+	}
 }
